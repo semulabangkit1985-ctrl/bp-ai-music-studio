@@ -20,7 +20,7 @@
             align-items: center;
         }
         .main-box {
-            background-color: #1e293b;
+            background-color: rgba(30, 41, 59, 0.9); /* Sedikit latar belakang gelap telus supaya nampak jelas atas gambar */
             padding: 30px;
             border-radius: 15px;
             color: white;
@@ -69,125 +69,5 @@
         </form>
     </div>
 
-</body>
-</html>
-
-    }
-</style>
-  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BP AI Music Studio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="nama-kelas-anda">
-    <img src="logo.png" alt="Logo Studio" style="width: 100px; height: auto; display: block; margin: 0 auto 15px auto;">
-  
-
-
-  <div class="max-w-md w-full bg-slate-800 p-6 rounded-xl shadow-xl border border-slate-700">
-    <h1 class="text-2xl font-bold mb-2 text-center text-indigo-400">BP AI Music Studio</h1>
-    <p class="text-xs text-slate-400 text-center mb-6">Muat naik fail audio WAV/MP3 untuk proses mastering automatik.</p>
-
-    <div class="space-y-4">
-      <input type="file" id="audioInput" accept="audio/*" 
-        class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer">
-      
-      <button onclick="processAudio()" id="btnSubmit" 
-        class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
-        Mula Master Audio
-      </button>
-    </div>
-
-    <div id="status" class="mt-4 text-center text-sm font-medium text-slate-300"></div>
-
-    <div id="resultContainer" class="mt-6 hidden border-t border-slate-700 pt-4">
-      <p class="text-xs text-emerald-400 mb-2 font-semibold uppercase tracking-wider">Hasil Siap (Mastered):</p>
-      <audio id="audioPlayer" controls class="w-full mb-3"></audio>
-      
-      <a id="downloadBtn" download="mastered_audio.wav" 
-        class="block text-center text-xs bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded font-semibold transition">
-        Muat Turun Fail
-      </a>
-    </div>
-  </div>
-
-  <script>
-    const API_BASE = "https://bp-ai-music-studio-api.onrender.com";
-
-    async function processAudio() {
-      const fileInput = document.getElementById('audioInput');
-      const statusDiv = document.getElementById('status');
-      const btn = document.getElementById('btnSubmit');
-      const resultContainer = document.getElementById('resultContainer');
-
-      if (!fileInput.files[0]) {
-        alert('Sila pilih fail audio terlebih dahulu!');
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-
-      try {
-        btn.disabled = true;
-        btn.classList.add('opacity-50', 'cursor-not-allowed');
-        statusDiv.innerText = "Memuat naik fail...";
-        resultContainer.classList.add('hidden');
-
-        const res = await fetch(`${API_BASE}/api/master`, {
-          method: 'POST',
-          body: formData
-        });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Gagal muat naik fail.");
-
-        const jobId = data.job_id;
-        statusDiv.innerText = "Audio sedang diproses oleh enjin AI...";
-
-        checkStatus(jobId);
-
-      } catch (err) {
-        statusDiv.innerText = `Ralat: ${err.message}`;
-        btn.disabled = false;
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-      }
-    }
-
-    async function checkStatus(jobId) {
-      const statusDiv = document.getElementById('status');
-      const btn = document.getElementById('btnSubmit');
-      const resultContainer = document.getElementById('resultContainer');
-      const audioPlayer = document.getElementById('audioPlayer');
-      const downloadBtn = document.getElementById('downloadBtn');
-
-      const pollInterval = setInterval(async () => {
-        try {
-          const API_BASE = '';
-          
-          
-
-          if (res.ok && res.headers.get('content-type')?.includes('audio')) {
-            clearInterval(pollInterval);
-            const blob = await res.blob();
-            const audioUrl = URL.createObjectURL(blob);
-
-            audioPlayer.src = audioUrl;
-            downloadBtn.href = audioUrl;
-            statusDiv.innerText = "Pemprosesan Selesai!";
-            resultContainer.classList.remove('hidden');
-            btn.disabled = false;
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-          }
-        } catch (err) {
-          clearInterval(pollInterval);
-          statusDiv.innerText = "Ralat semasa mendapatkan hasil pemprosesan.";
-          btn.disabled = false;
-          btn.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-      }, 3000);
-    }
-  </script>
 </body>
 </html>
