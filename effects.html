@@ -3,178 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Langkah 2 - BP AI Music Studio</title>
+    <title>BP AI Music Studio - Langkah 2</title>
     <style>
         body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            background-image: url('Untitled design.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            font-family: sans-serif;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
+            min-height: 100vh;
         }
-        .main-box {
-            background-color: rgba(30, 41, 59, 0.95);
+        .studio-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+            border: 1px solid #3b82f6;
             padding: 25px;
-            border-radius: 15px;
-            color: white;
-            text-align: left;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            margin: 30px 0;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        h2 {
-            margin-top: 0;
-            color: #818cf8;
+        h1 {
+            font-size: 20px;
             text-align: center;
+            color: #60a5fa;
             margin-bottom: 5px;
         }
-        .tagline {
+        .subtitle {
             text-align: center;
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #facc15;
+            font-size: 12px;
+            color: #fbbf24;
             margin-bottom: 15px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
         .step-indicator {
             text-align: center;
             font-size: 12px;
-            color: #38bdf8;
+            color: #94a3b8;
             margin-bottom: 15px;
-            font-weight: bold;
         }
-        .section-title {
-            font-size: 14px;
-            color: #38bdf8;
-            margin: 15px 0 8px 0;
+        .section-label {
+            font-size: 13px;
             font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 8px;
+            display: block;
         }
+        /* Grid untuk 8 Kesan AI */
         .effects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .effects-grid label {
-            background: #334155;
-            padding: 8px 10px;
-            border-radius: 6px;
-            font-size: 13px;
+        .effect-btn {
+            background: #1e3a8a;
+            border: 1px solid #3b82f6;
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: all 0.2s;
         }
-        .effects-grid input {
-            accent-color: #4f46e5;
+        .effect-btn input {
+            display: none;
         }
-        .slider-group {
-            margin-bottom: 12px;
+        .effect-btn.active, .effect-btn:hover {
+            background: #2563eb;
+            border-color: #60a5fa;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
-        .slider-group label {
+        /* Slider & EQ Styling */
+        .control-group {
+            background: #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #334155;
+        }
+        .control-group label {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 4px;
-            color: #e2e8f0;
+            font-size: 12px;
+            font-weight: bold;
+            color: #cbd5e1;
+            margin-bottom: 5px;
         }
         input[type="range"] {
             width: 100%;
-            accent-color: #4f46e5;
+            accent-color: #3b82f6;
+            cursor: pointer;
         }
         .btn-container {
             display: flex;
             gap: 10px;
             margin-top: 20px;
         }
-        button, .btn-back {
-            background-color: #22c55e;
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        button {
-            flex: 2;
-        }
-        .btn-back {
-            background-color: #475569;
+        .btn {
             flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        button:hover {
-            background-color: #16a34a;
+        .btn-back {
+            background: #334155;
+            color: white;
         }
-        .btn-back:hover {
-            background-color: #334155;
+        .btn-process {
+            background: #10b981;
+            color: white;
+        }
+        .btn-process:hover {
+            background: #059669;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-box">
-        <h2>BP AI Music Studio</h2>
-        <div class="tagline">ROCK · HIP HOP · MALAYA</div>
-        <div class="step-indicator">Langkah 2 dari 2: Kesan AI & EQ</div>
+<div class="studio-card">
+    <h1>BP AI Music Studio</h1>
+    <div class="subtitle">EFFECTS & EQUALIZER RACK</div>
+    <div class="step-indicator">Langkah 2 dari 2: Tetapan Audio</div>
+
+    <form action="/result.html" method="GET">
+        <!-- 8 Kesan AI -->
+        <span class="section-label">🎛️ Pilih Kesan AI (Pilih Satu atau Lebih)</span>
+        <div class="effects-grid">
+            <label class="effect-btn"><input type="checkbox" name="effect" value="universal"> Universal</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="fire"> Fire</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="clarity"> Clarity</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="tape"> Tape</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="natural"> Natural</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="spatial"> Spatial</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="cinematic"> Cinematic</label>
+            <label class="effect-btn"><input type="checkbox" name="effect" value="punch"> Punch</label>
+        </div>
+
+        <!-- Intensity Slider (0 - 100) -->
+        <div class="control-group">
+            <label><span>⚡ Intensity (Kesan Utama)</span> <span id="intensityVal">50</span>%</label>
+            <input type="range" name="intensity" min="0" max="100" value="50" oninput="document.getElementById('intensityVal').innerText = this.value">
+        </div>
+
+        <!-- Equalizer (LOW, MID, HIGH) -->
+        <span class="section-label">🎚️ Equalizer (EQ)</span>
         
-        <form action="result.html" method="get">
-            
-            <div class="slider-group">
-                <label>Intensity Mastering: <span id="intVal">50</span>%</label>
-                <input type="range" name="intensity" min="0" max="100" value="50" oninput="document.getElementById('intVal').innerText = this.value">
-            </div>
+        <div class="control-group">
+            <label><span>Bass (LOW)</span> <span id="lowVal">0</span> dB</label>
+            <input type="range" name="eq_low" min="-12" max="12" value="0" oninput="document.getElementById('lowVal').innerText = this.value">
+        </div>
 
-            <div class="section-title">🎛️ AI Audio Processing</div>
-            <div class="effects-grid">
-                <label><input type="checkbox" name="effect" value="universal"> Universal</label>
-                <label><input type="checkbox" name="effect" value="fire"> Fire</label>
-                <label><input type="checkbox" name="effect" value="clarity"> Clarity</label>
-                <label><input type="checkbox" name="effect" value="tape"> Tape</label>
-                <label><input type="checkbox" name="effect" value="natural"> Natural</label>
-                <label><input type="checkbox" name="effect" value="spatial"> Spatial</label>
-                <label><input type="checkbox" name="effect" value="cinematic"> Cinematic</label>
-                <label><input type="checkbox" name="effect" value="punch"> Punch</label>
-            </div>
+        <div class="control-group">
+            <label><span>Midrange (MID)</span> <span id="midVal">0</span> dB</label>
+            <input type="range" name="eq_mid" min="-12" max="12" value="0" oninput="document.getElementById('midVal').innerText = this.value">
+        </div>
 
-            <div class="section-title">🎚️ Equalizer (EQ)</div>
-            
-            <div class="slider-group">
-                <label>LOW (Bass): <span id="lowVal">0</span> dB</label>
-                <input type="range" name="eq_low" min="-12" max="12" value="0" oninput="document.getElementById('lowVal').innerText = this.value">
-            </div>
+        <div class="control-group">
+            <label><span>Treble (HIGH)</span> <span id="highVal">0</span> dB</label>
+            <input type="range" name="eq_high" min="-12" max="12" value="0" oninput="document.getElementById('highVal').innerText = this.value">
+        </div>
 
-            <div class="slider-group">
-                <label>MID (Vocals): <span id="midVal">0</span> dB</label>
-                <input type="range" name="eq_mid" min="-12" max="12" value="0" oninput="document.getElementById('midVal').innerText = this.value">
-            </div>
+        <!-- Butang Tindakan -->
+        <div class="btn-container">
+            <a href="/studioai.html" class="btn btn-back">⬅️ Kembali</a>
+            <button type="submit" class="btn btn-process">Proses Mastering ✨</button>
+        </div>
+    </form>
+</div>
 
-            <div class="slider-group">
-                <label>HIGH (Treble): <span id="highVal">0</span> dB</label>
-                <input type="range" name="eq_high" min="-12" max="12" value="0" oninput="document.getElementById('highVal').innerText = this.value">
-            </div>
-
-            <div class="btn-container">
-                <a href="studio.html" class="btn-back">⬅️ Kembali</a>
-                <button type="submit">✨ Mula Proses Master</button>
-            </div>
-        </form>
-    </div>
-
+<!-- Skrip Interaktif Kotak Kesan -->
+<script>
+    document.querySelectorAll('.effect-btn').forEach(card => {
+        card.addEventListener('click', function() {
+            let checkbox = this.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            if(checkbox.checked) {
+                this.classList.add('active');
+            } else {
+                this.classList.remove('active');
+            }
+        });
+    });
+</script>
 </body>
 </html>
