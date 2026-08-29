@@ -6,15 +6,14 @@ from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
-app = FastAPI()
+@app.get('/')
+async def read_index():
+  return FileResponse('index.html')
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+4. Simpan perubahan tersebut (*Commit changes*) di GitHub.
+5. Render akan mengesan kemas kini itu secara automatik dan menyegarkan semula laman web anda.
+
+Cuba masukkan kod di atas ke dalam `main.py` di GitHub, dan 1-2 minit kemudian cuba buka semula pautan Render anda. Paparan *Not Found* tadi akan bertukar menjadi laman web anda!
 
 TEMP_DIR = "/tmp/audio_processing"
 os.makedirs(TEMP_DIR, exist_ok=True)
