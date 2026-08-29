@@ -3,105 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utama - BP AI Music Studio</title>
+    <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
         body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            background-image: url('Untitled design.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            font-family: sans-serif;
+            padding: 15px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow-y: auto;
+            align-items: flex-start;
+            min-height: 100vh;
         }
-        .main-box {
-            background-color: rgba(30, 41, 59, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            color: white;
-            text-align: left;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            margin: 30px 0;
+        .studio-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+            border: 1px solid #3b82f6;
+            padding: 18px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
-        h2 {
-            margin-top: 0;
-            color: #818cf8;
+        h1 {
+            font-size: 19px;
             text-align: center;
-            margin-bottom: 5px;
-            font-size: 20px;
+            color: #60a5fa;
+            margin-bottom: 2px;
+            margin-top: 0;
         }
-        .tagline {
+        .subtitle {
             text-align: center;
             font-size: 11px;
-            letter-spacing: 2px;
-            color: #facc15;
-            margin-bottom: 20px;
+            color: #fbbf24;
+            margin-bottom: 12px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
-        p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        .footer-quote {
+        .step-indicator {
             text-align: center;
-            font-style: italic;
-            color: #38bdf8;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+        .section-label {
+            font-size: 12px;
             font-weight: bold;
-            margin: 20px 0;
-            font-size: 14px;
+            color: #60a5fa;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="file"], input[type="text"] {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            padding: 9px;
+            border-radius: 8px;
+            width: 100%;
+            color: #cbd5e1;
+            font-size: 13px;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+        input[type="file"] {
+            border: 1px dashed #3b82f6;
+        }
+        .status-ready {
+            font-size: 11px;
+            color: #34d399;
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        /* Custom Dropdown Styling */
+        .custom-select-box {
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .select-trigger {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            padding: 9px;
+            border-radius: 8px;
+            width: 100%;
+            color: #cbd5e1;
+            font-size: 13px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 180px;
+            overflow-y: auto;
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            z-index: 99;
+            display: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            box-sizing: border-box;
+        }
+        .select-dropdown.show {
+            display: block;
+        }
+        .option-group-title {
+            font-size: 11px;
+            color: #fbbf24;
+            padding: 6px 10px;
+            background: #0f172a;
+            font-weight: bold;
+        }
+        .option-item {
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #cbd5e1;
+            cursor: pointer;
+            border-bottom: 1px solid #334155;
+        }
+        .option-item:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .grid-effects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .effect-btn {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .effect-btn.active {
+            background: #3b82f6;
+            border-color: #60a5fa;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .slider-box {
+            margin-bottom: 12px;
+            background: #1e293b;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+        .slider-box label {
+            font-size: 11px;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #3b82f6;
+        }
+        .eq-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .eq-slider {
+            flex: 1;
+            background: #1e293b;
+            padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .eq-slider span {
+            font-size: 10px;
+            color: #94a3b8;
         }
         .btn-container {
-            text-align: center;
-            margin-top: 25px;
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
         }
-        .btn-start {
-            background-color: #22c55e;
-            color: white;
-            border: none;
-            padding: 14px 25px;
+        .btn {
+            flex: 1;
+            padding: 11px;
             border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+            font-size: 13px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: #4f46e5;
+            color: white;
             transition: background 0.3s;
         }
-        .btn-start:hover {
-            background-color: #16a34a;
+        .btn:hover {
+            background: #6366f1;
+        }
+        .btn-back {
+            background: #334155;
+        }
+        .btn-back:hover {
+            background: #475569;
+        }
+        .hidden {
+            display: none;
+        }
+        audio {
+            width: 100%;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            height: 36px;
+        }
+        .info-box {
+            background: #1e293b;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            border-left: 4px solid #3b82f6;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-box">
-        <h2>MASTERING BP AI MUSIC STUDIO</h2>
-        <div class="tagline">ROCK · HIP HOP · MALAYA</div>
+<div class="studio-card">
+    <h1>BP AI Music Studio</h1>
+    <div class="subtitle">PRO MASTERING SUITE · BANDLAB STYLE</div>
+
+    <!-- ================= LANGKAH 1 ================= -->
+    <div id="step1">
+        <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
         
-        <p>Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
-        
-        <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
-        
-        <div class="footer-quote">
-            BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.
+        <span class="section-label">📁 Pilih Fail Audio Suno (MP3 / WAV)</span>
+        <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
+        <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik & bersedia!</div>
+
+        <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
+        <input type="text" id="genreSearch" placeholder="Cari genre (cth: Melayu, Phonk)..." onkeyup="filterGenres()">
+
+        <!-- Custom Dropdown Ganti Select Biasa -->
+        <div class="custom-select-box">
+            <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
+                <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
+                <span>▼</span>
+            </div>
+            <div class="select-dropdown" id="selectDropdown">
+                <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
+                <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
+                <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
+                <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
+                <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
+                <div class="option-item" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
+                <div class="option-item" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
+                <div class="option-item" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
+                <div class="option-item" onclick="selectGenre('Zapin')">Zapin</div>
+                <div class="option-item" onclick="selectGenre('Joget')">Joget</div>
+                <div class="option-item" onclick="selectGenre('Ghazal')">Ghazal</div>
+                <div class="option-item" onclick="selectGenre('Keroncong')">Keroncong</div>
+                <div class="option-item" onclick="selectGenre('Dangdut')">Dangdut</div>
+                <div class="option-item" onclick="selectGenre('Campursari')">Campursari</div>
+                <div class="option-item" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
+                <div class="option-item" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
+
+                <div class="option-group-title">🎤 Pop</div>
+                <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
+                <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
+                <div class="option-item" onclick="selectGenre('Electropop')">Electropop</div>
+                <div class="option-item" onclick="selectGenre('Synthpop')">Synthpop</div>
+                <div class="option-item" onclick="selectGenre('Dance Pop')">Dance Pop</div>
+
+                <div class="option-group-title">🎸 Rock</div>
+                <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
+                <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
+                <div class="option-item" onclick="selectGenre('Classic Rock')">Classic Rock</div>
+                <div class="option-item" onclick="selectGenre('Hard Rock')">Hard Rock</div>
+                <div class="option-item" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
+
+                <div class="option-group-title">🎧 Hip Hop / Rap</div>
+                <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
+                <div class="option-item" onclick="selectGenre('Trap')">Trap</div>
+                <div class="option-item" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
+
+                <div class="option-group-title">⚡ Elektronik & Phonk</div>
+                <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
+                <div class="option-item" onclick="selectGenre('EDM')">EDM</div>
+                <div class="option-item" onclick="selectGenre('House')">House</div>
+                <div class="option-item" onclick="selectGenre('Techno')">Techno</div>
+                <div class="option-item" onclick="selectGenre('Synthwave')">Synthwave</div>
+
+                <div class="option-group-title">☕ Akustik / Santai</div>
+                <div class="option-item" onclick="selectGenre('Acoustic')">Acoustic</div>
+                <div class="option-item" onclick="selectGenre('Folk')">Folk</div>
+                <div class="option-item" onclick="selectGenre('Lo-Fi')">Lo-Fi</div>
+                <div class="option-item" onclick="selectGenre('Chill')">Chill</div>
+
+                <div class="option-group-title">🎬 Gaya Khas</div>
+                <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
+                <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
+                <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
+                <div class="option-item" onclick="selectGenre('Raya / Aidilfitri')">Raya / Aidilfitri</div>
+            </div>
         </div>
 
         <div class="btn-container">
-            <a href="studio.html" class="btn-start">🚀 Masuk Studio Mastering</a>
+            <button type="button" class="btn" onclick="goToStep(2)">Seterusnya ➡️</button>
         </div>
     </div>
 
-</body>
-</html>
+    <!-- ================= LANGKAH 2 ================= -->
+    <div id="step2" class="hidden">
+        <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
+
+        <span class="section-label">🎧 Pratonton Audio Studio</span>
+        <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
+
+        <span class="section-label">✨ Pilih Karakter Bunyi (Preset)</span>
+        <div class="grid-effects">
+            <div class="effect-btn active" onclick="setEffect('Universal', this)">Universal</div>
+            <div class="effect-btn" onclick="setEffect('Fire', this)">Fire (Bass Boost)</div>
+            <div class="effect-btn" onclick="setEffect('Clarity', this)">Clarity (Vocal)</div>
+            <div class="effect-btn" onclick="setEffect('Tape', this)">Tape Warmth</div>
+            <div class="effect-btn" onclick="setEffect('Natural', this)">Natural</div>
+            <div class="effect-btn" onclick="setEffect('Spatial', this)">Spatial Wide</div>
+            <div class="effect-btn" onclick="setEffect('Cinematic', this)">Cinematic</div>
+            <div class="effect-btn" onclick="setEffect('Punch', this)">Punch & Loud</div>
+        </div>
+
+        <div class="slider-box">
+            <label><span>Intensity (Kuasa Kesan)</span> <span id="intensityVal">80%</span></label>
+            <input type="range" id="intensityRange" min="0" max="100" value="80" oninput="updateIntensity(this.value)">
+        </div>
+
+        <span class="section-label">🎚️ Equalizer (EQ Manual)</span>
+        <div class="eq-container">
+            <div class="eq-slider">
+                <span>LOW</span>
+                <input type="range" id="eqLow" min="-12" max="12" value="3" step="1" oninput="applyAudioSettings()">
+            </div>
+            <div class="eq-slider">
+                <span>MID</span>
+                <input type="range" id="eqMid" min="-12" max="12" value="0" step="1" oninput="applyAudioSettings()">
+            </div>
+            <div class="eq-slider">
+                <span>HIGH</span>
+                <input type="range" id="eqHigh" min="-12" max="12" value="2" step="1" oninput="applyAudioSettings()">
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="btn btn-back" onclick="goToStep(1)">⬅️ Kembali</button>
+            <button type="button" class="btn" onclick="goToStep(3)">Proses Seterusnya ➡️</button>
+        </div>
+    </div>
+
+    <!-- ================= LANGKAH 3 ================= -->
+    <div id="step3" class="hidden">
+        <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
+        
+        <div class="info-box">
+            <div><strong>Fail Suno:</strong> <span id="fileName" style="color: #60a5fa;">-</span></div>
+            <div><strong>Genre:</strong> <span id="selectedGenre" style="color: #fbbf24;">Dark Techno / Neon Noir Phonk - Malay Bounce</span></div>
+            <div><strong>Kesan Aktif:</strong> <span id="selectedEffect" style="color: #34d399;">Universal</span></div>
+        </div>
+
+        <span class="section-label">🎧 Pemain Audio Rasmi Akhir</span>
+        <audio id="finalPlayer" controls></audio>
+
+        <div class="btn-container">
+            <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Tetapan</button>
+            <button type="button" class="btn" onclick="alert('Tahniah! Master audio berjaya disimpan.')">Muat Turun</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let uploadedFile = null;
+let selectedGenreValue = "Dark Techno / Neon Noir Phonk - Malay Bounce";
+let audioCtx = null;
+let sourceNode = null;
+let compressorNode = null;
+let saturationNode = null;
+let lowFilter = null;
+let midFilter = null;
+let highFilter = null;
+let stereoWidener = null;
+let masterLimiter = null;
+let currentIntensity = 0.8;
+
+function handleFileSelected(input) {
+    if (input.files && input.files.length > 0) {
+        uploadedFile = input.files[0];
+        document.getElementById('fileStatus').style.display = 'block';
+    }
+}
+
+function toggleDropdown() {
+    let dropdown = document.getElementById('selectDropdown');
+    dropdown.classList.toggle('show');
+}
+
+function selectGenre(genreName) {
+    selectedGenreValue = genreName;
+    document.getElementById('selectedGenreText').innerText = genreName;
+    document.getElementById('selectDropdown').classList.remove('show');
+}
+
+function filterGenres() {
+    let input = document.getElementById('genreSearch').value.toLowerCase();
+    let items = document.querySelectorAll('.option-item');
+
+    items.forEach(item => {
+        let txt = item.innerText.toLowerCase();
+        if (txt.includes(input)) {
+            item.style.display = "";
+        } else {
+            item.style.display = "none";
+        }
+    });
+
+    if (input.length > 0) {
+        document.getElementById('selectDropdown').classList.add('show');
+    }
+}
+
+function makeDistortionCurve(amount) {
+    let k = typeof amount === 'number' ? amount : 50;
+    let n_samples = 44100;
+    let curve = new Float32Array(n_samples);
+    let deg = Math.PI / 180;
+    for (let i = 0; i < n_samples; ++i) {
+        let x = (i * 2) / n_samples - 1;
+        curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+    }
+    return curve;
+}
+
+function initAudioEngine() {
+    if (audioCtx) return;
+    try {
+        const audioEl = document.getElementById('previewPlayer');
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        sourceNode = audioCtx.createMediaElementSource(audioEl);
+
+        compressorNode = audioCtx.createDynamicsCompressor();
+        compressorNode.threshold.value = -24;
+        compressorNode.knee.value = 30;
+        compressorNode.ratio.value = 4;
+        compressorNode.attack.value = 0.003;
+        compressorNode.release.value = 0.25;
+
+        saturationNode = audioCtx.createWaveShaper();
+        saturationNode.curve = makeDistortionCurve(10);
+        saturationNode.oversample = '4x';
+
+        lowFilter = audioCtx.createBiquadFilter();
+        lowFilter.type = 'lowshelf';
+        lowFilter.frequency.value = 250;
+
+        midFilter = audioCtx.createBiquadFilter();
+        midFilter.type = 'peaking';
+        midFilter.frequency.value = 1500;
+        midFilter.Q.value = 1;
+
+        highFilter = audioCtx.createBiquadFilter();
+        highFilter.type = 'highshelf';
+        highFilter.frequency.value = 4000;
+
+        if (audioCtx.createStereoPanner) {
+            stereoWidener = audioCtx.createStereoPanner();
+            stereoWidener.pan.value = 0.05;
+        }
+
+        masterLimiter = audioCtx.createGain();
+        masterLimiter.gain.value = 1.2;
+
+        let lastNode = sourceNode;
+        lastNode.connect(compressorNode);
+        compressorNode.connect(saturationNode);
+        saturationNode.connect(lowFilter);
+        lowFilter.connect(midFilter);
+        midFilter.connect(highFilter);
+        
+        if (stereoWidener) {
+            highFilter.connect(stereoWidener);
+            stereoWidener.connect(masterLimiter);
+        } else {
+            highFilter.connect(masterLimiter);
+        }
+        
+        masterLimiter.connect(audioCtx.destination);
+    } catch(e) {
+        console.log("Audio Engine Notice: ", e);
+    }
+}
+
+function applyAudioSettings() {
+    if (!lowFilter) return;
+
+    let lowVal = parseFloat(document.getElementById('eqLow').value) * currentIntensity;
+    let midVal = parseFloat(document.getElementById('eqMid').value) * currentIntensity;
+    let highVal = parseFloat(document.getElementById('eqHigh').value) * currentIntensity;
+
+    lowFilter.gain.value = lowVal;
+   
