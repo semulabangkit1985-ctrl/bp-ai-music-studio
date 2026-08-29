@@ -1,10 +1,23 @@
 import os
 import uuid
 import numpy as np
-from scipy.io::wavfile # (pastikan tiada kolon pelik)
+from scipy.io import wavfile
 from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 
 app = FastAPI()
 
