@@ -18,29 +18,77 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
         .main-box {
-            background-color: rgba(30, 41, 59, 0.9); /* Sedikit latar belakang gelap telus supaya nampak jelas atas gambar */
-            padding: 30px;
+            background-color: rgba(30, 41, 59, 0.95);
+            padding: 25px;
             border-radius: 15px;
             color: white;
-            text-align: center;
+            text-align: left;
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin: 20px 0;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         h2 {
             margin-top: 0;
             color: #818cf8;
+            text-align: center;
         }
         p {
-            font-size: 14px;
+            font-size: 13px;
             color: #cbd5e1;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 14px;
+            color: #38bdf8;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
         }
         input[type="file"] {
+            width: 100%;
             margin-bottom: 15px;
             color: white;
+        }
+        /* Grid untuk kesan audio (Effects) */
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .effects-grid label {
+            background: #334155;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .effects-grid input {
+            accent-color: #4f46e5;
+        }
+        /* Slider Intensity & EQ */
+        .slider-group {
+            margin-bottom: 12px;
+        }
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #4f46e5;
         }
         button {
             background-color: #4f46e5;
@@ -51,6 +99,8 @@
             font-size: 16px;
             cursor: pointer;
             width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
         }
         button:hover {
             background-color: #4338ca;
@@ -61,10 +111,52 @@
 
     <div class="main-box">
         <h2>BP AI Music Studio</h2>
-        <p>Muat naik fail audio WAV/MP3 untuk proses mastering automatik.</p>
+        <p>Muat naik fail audio WAV/MP3 dan tetapkan parameter mastering anda.</p>
         
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" required><br>
+            
+            <!-- Muat Naik Fail -->
+            <div class="section-title">📁 Fail Audio</div>
+            <input type="file" name="file" required>
+
+            <!-- Intensity Slider (0 - 100) -->
+            <div class="slider-group">
+                <label>Intensity: <span id="intVal">50</span>%</label>
+                <input type="range" name="intensity" min="0" max="100" value="50" oninput="document.getElementById('intVal').innerText = this.value">
+            </div>
+
+            <!-- Pilihan Effects -->
+            <div class="section-title">🎛️ AI Audio Processing</div>
+            <div class="effects-grid">
+                <label><input type="checkbox" name="effect" value="universal"> Universal</label>
+                <label><input type="checkbox" name="effect" value="fire"> Fire</label>
+                <label><input type="checkbox" name="effect" value="clarity"> Clarity</label>
+                <label><input type="checkbox" name="effect" value="tape"> Tape</label>
+                <label><input type="checkbox" name="effect" value="natural"> Natural</label>
+                <label><input type="checkbox" name="effect" value="spatial"> Spatial</label>
+                <label><input type="checkbox" name="effect" value="cinematic"> Cinematic</label>
+                <label><input type="checkbox" name="effect" value="punch"> Punch</label>
+            </div>
+
+            <!-- EQ Controls (LOW, MID, HIGH) -->
+            <div class="section-title">🎚️ Equalizer (EQ)</div>
+            
+            <div class="slider-group">
+                <label>LOW (Bass): <span id="lowVal">0</span> dB</label>
+                <input type="range" name="eq_low" min="-12" max="12" value="0" oninput="document.getElementById('lowVal').innerText = this.value">
+            </div>
+
+            <div class="slider-group">
+                <label>MID (Vocals/Muzik): <span id="midVal">0</span> dB</label>
+                <input type="range" name="eq_mid" min="-12" max="12" value="0" oninput="document.getElementById('midVal').innerText = this.value">
+            </div>
+
+            <div class="slider-group">
+                <label>HIGH (Treble): <span id="highVal">0</span> dB</label>
+                <input type="range" name="eq_high" min="-12" max="12" value="0" oninput="document.getElementById('highVal').innerText = this.value">
+            </div>
+
+            <!-- Butang Proses -->
             <button type="submit">Mula Master Audio</button>
         </form>
     </div>
