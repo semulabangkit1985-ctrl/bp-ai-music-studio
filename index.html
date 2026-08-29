@@ -231,12 +231,16 @@
         }
         .info-box {
             background: #1e293b;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
             margin-bottom: 12px;
             font-size: 11px;
             border-left: 4px solid #3b82f6;
-            line-height: 1.4;
+            line-height: 1.5;
+            color: #94a3b8;
+        }
+        .info-box strong {
+            color: #60a5fa;
         }
     </style>
 </head>
@@ -250,6 +254,11 @@
     <div id="step1">
         <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
         
+        <!-- KOTAK PENERANGAN & PANDUAN -->
+        <div class="info-box">
+            <strong>💡 Panduan Studio:</strong> Muat naik fail audio ciptaan Suno anda (MP3/WAV), pilih genre muzik yang sesuai, dan tingkatkan kualiti audio anda menggunakan enjin mastering profesional ala BandLab!
+        </div>
+
         <span class="section-label">📁 Pilih Fail Audio Suno (MP3 / WAV)</span>
         <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
         <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik & bersedia!</div>
@@ -511,16 +520,4 @@ function initAudioEngine() {
         
         masterLimiter.connect(audioCtx.destination);
     } catch(e) {
-        console.log("Audio Engine Notice: ", e);
-    }
-}
-
-function applyAudioSettings() {
-    if (!lowFilter) return;
-
-    let lowVal = parseFloat(document.getElementById('eqLow').value) * currentIntensity;
-    let midVal = parseFloat(document.getElementById('eqMid').value) * currentIntensity;
-    let highVal = parseFloat(document.getElementById('eqHigh').value) * currentIntensity;
-
-    lowFilter.gain.value = lowVal;
-   
+        console.log("Au
