@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Master Rasmi</title>
+    <title>BP AI Music Studio - Full Studio</title>
     <style>
         body {
             background-color: #0b0f19;
@@ -24,6 +24,7 @@
             width: 100%;
             max-width: 440px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
         }
         h1 {
             font-size: 22px;
@@ -35,7 +36,7 @@
             text-align: center;
             font-size: 13px;
             color: #fbbf24;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: bold;
             letter-spacing: 1px;
         }
@@ -66,10 +67,67 @@
         input[type="file"] {
             border: 1px dashed #3b82f6;
         }
+        .grid-effects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .effect-btn {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .effect-btn.active {
+            background: #3b82f6;
+            border-color: #60a5fa;
+        }
+        .slider-box {
+            margin-bottom: 15px;
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+        .slider-box label {
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #3b82f6;
+        }
+        .eq-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .eq-slider {
+            flex: 1;
+            background: #1e293b;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .eq-slider span {
+            font-size: 11px;
+            color: #94a3b8;
+        }
         .btn-container {
             display: flex;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         .btn {
             flex: 1;
@@ -103,12 +161,12 @@
         }
         .info-box {
             background: #1e293b;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             margin-bottom: 15px;
-            font-size: 13px;
+            font-size: 12px;
             border-left: 4px solid #3b82f6;
-            line-height: 1.5;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -120,7 +178,7 @@
 
     <!-- ================= LANGKAH 1 ================= -->
     <div id="step1">
-        <div class="step-indicator">Langkah 1 dari 2: Muat Naik Fail Suno & Genre</div>
+        <div class="step-indicator">Langkah 1 dari 3: Muat Naik Fail Suno & Genre</div>
         
         <span class="section-label">📁 Pilih Fail Audio Suno Anda (MP3 / WAV)</span>
         <input type="file" id="audioFile" accept="audio/*">
@@ -128,20 +186,18 @@
         <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
         <input type="text" id="genreSearch" placeholder="Taip genre (cth: Phonk, Bass, Raya)..." onkeyup="filterGenres()">
 
-        <select id="genreSelect" size="6" style="cursor: pointer; font-weight: bold;">
+        <select id="genreSelect" size="5" style="cursor: pointer; font-weight: bold;">
             <optgroup label="🇲🇾 Melayu / Nusantara">
                 <option value="Malaya / Melayu">Malaya / Melayu</option>
                 <option value="Pop Melayu">Pop Melayu</option>
                 <option value="Rock Melayu">Rock Melayu</option>
-                <option value="Balada Melayu">Balada Melayu</option>
             </optgroup>
             <optgroup label="⚡ Elektronik & Phonk">
                 <option value="Techno">Techno</option>
                 <option value="Dark Techno / Neon Noir Phonk - Malay Bounce">Dark Techno / Neon Noir Phonk - Malay Bounce</option>
-                <option value="Synthwave">Synthwave</option>
             </optgroup>
             <optgroup label="🚗 Car Audio & Bass">
-                <option value="Bass Car Music">Bass Car Music</option>
+                <option value="Bass Car Music" selected>Bass Car Music</option>
             </optgroup>
             <optgroup label="🎬 Gaya Khas">
                 <option value="Cinematic">Cinematic</option>
@@ -151,31 +207,77 @@
         </select>
 
         <div class="btn-container">
-            <button type="button" class="btn" onclick="goToStep2()">Seterusnya ➡️</button>
+            <button type="button" class="btn" onclick="goToStep(2)">Seterusnya ➡️</button>
         </div>
     </div>
 
-    <!-- ================= LANGKAH 2 (STUDIO MASTERING) ================= -->
+    <!-- ================= LANGKAH 2 (KESAN AI & EQ) ================= -->
     <div id="step2" class="hidden">
-        <div class="step-indicator">Langkah 2 dari 2: Studio Mastering Audio Anda</div>
+        <div class="step-indicator">Langkah 2 dari 3: Tetapan Kesan AI & EQ</div>
+
+        <span class="section-label">✨ Pilih Kesan AI Utama</span>
+        <div class="grid-effects">
+            <div class="effect-btn active" onclick="selectEffect(this)">Universal</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Fire (Bass Boost)</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Clarity (Vocal)</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Tape Warmth</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Natural</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Spatial Wide</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Cinematic</div>
+            <div class="effect-btn" onclick="selectEffect(this)">Punch & Loud</div>
+        </div>
+
+        <div class="slider-box">
+            <label><span>Intensity (Kuasa Kesan)</span> <span id="intensityVal">80%</span></label>
+            <input type="range" id="intensityRange" min="0" max="100" value="80" oninput="document.getElementById('intensityVal').innerText = this.value + '%'">
+        </div>
+
+        <span class="section-label">🎚️ Equalizer (EQ)</span>
+        <div class="eq-container">
+            <div class="eq-slider">
+                <span>LOW (Bass)</span>
+                <input type="range" min="-12" max="12" value="3" style="margin-top:5px;">
+            </div>
+            <div class="eq-slider">
+                <span>MID</span>
+                <input type="range" min="-12" max="12" value="0" style="margin-top:5px;">
+            </div>
+            <div class="eq-slider">
+                <span>HIGH (Treble)</span>
+                <input type="range" min="-12" max="12" value="2" style="margin-top:5px;">
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="btn btn-back" onclick="goToStep(1)">⬅️ Kembali</button>
+            <button type="button" class="btn" onclick="goToStep(3)">Proses Audio ➡️</button>
+        </div>
+    </div>
+
+    <!-- ================= LANGKAH 3 (HASIL & PEMAIN) ================= -->
+    <div id="step3" class="hidden">
+        <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
         
         <div class="info-box">
             <div><strong>Fail Suno:</strong> <span id="fileName" style="color: #60a5fa;">-</span></div>
-            <div><strong>Genre Pilihan:</strong> <span id="selectedGenre" style="color: #fbbf24;">-</span></div>
+            <div><strong>Genre:</strong> <span id="selectedGenre" style="color: #fbbf24;">-</span></div>
+            <div><strong>Kesan AI:</strong> <span id="selectedEffect" style="color: #34d399;">Universal</span></div>
         </div>
 
-        <span class="section-label">🎧 Pemain Audio Rasmi (Fail Sebenar Anda)</span>
+        <span class="section-label">🎧 Pemain Audio Rasmi</span>
         <audio id="audioPlayer" controls></audio>
 
         <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToStep1()">⬅️ Kembali</button>
-            <button type="button" class="btn" onclick="alert('Tahniah! Lagu Suno anda sedia dimuat turun dengan jayanya!')">Simpan & Muat Turun</button>
+            <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Kesan</button>
+            <button type="button" class="btn" onclick="alert('Tahniah! Fail audio anda berjaya disimpan.')">Muat Turun</button>
         </div>
     </div>
 </div>
 
-<!-- Skrip Pintar -->
+<!-- Skrip Pengurusan Studio -->
 <script>
+let uploadedFile = null;
+
 function filterGenres() {
     let input = document.getElementById('genreSearch').value.toLowerCase();
     let select = document.getElementById('genreSelect');
@@ -198,40 +300,44 @@ function filterGenres() {
     }
 }
 
-function goToStep2() {
-    const fileInput = document.getElementById('audioFile');
-    const genreSelect = document.getElementById('genreSelect');
-    
-    if (fileInput.files.length === 0) {
-        alert('Sila pilih fail audio Suno anda terlebih dahulu!');
-        return;
-    }
-
-    let file = fileInput.files[0];
-    let genreValue = genreSelect.value || "Tidak dipilih";
-
-    // Paparkan maklumat fail & genre di Langkah 2
-    document.getElementById('fileName').innerText = file.name;
-    document.getElementById('selectedGenre').innerText = genreValue;
-
-    // Masukkan fail sebenar ke dalam pemain audio (Blob URL)
-    let audioURL = URL.createObjectURL(file);
-    let player = document.getElementById('audioPlayer');
-    player.src = audioURL;
-
-    // Tukar paparan skrin dari Langkah 1 ke Langkah 2
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.remove('hidden');
+function selectEffect(element) {
+    document.querySelectorAll('.effect-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    document.getElementById('selectedEffect').innerText = element.innerText;
 }
 
-function goToStep1() {
-    // Kembali ke Langkah 1 dan hentikan audio
-    let player = document.getElementById('audioPlayer');
-    player.pause();
-    player.src = "";
+function goToStep(stepNumber) {
+    const fileInput = document.getElementById('audioFile');
+    const genreSelect = document.getElementById('genreSelect');
 
+    if (stepNumber === 2) {
+        if (fileInput.files.length === 0 && !uploadedFile) {
+            alert('Sila pilih fail audio Suno anda terlebih dahulu!');
+            return;
+        }
+        if (fileInput.files.length > 0) {
+            uploadedFile = fileInput.files[0];
+        }
+    }
+
+    if (stepNumber === 3) {
+        document.getElementById('fileName').innerText = uploadedFile ? uploadedFile.name : "Fail Suno";
+        document.getElementById('selectedGenre').innerText = genreSelect.value || "Tidak dipilih";
+
+        let audioURL = URL.createObjectURL(uploadedFile);
+        let player = document.getElementById('audioPlayer');
+        if (player.src !== audioURL) {
+            player.src = audioURL;
+        }
+    }
+
+    // Kawal paparan skrin langkah
+    document.getElementById('step1').classList.add('hidden');
     document.getElementById('step2').classList.add('hidden');
-    document.getElementById('step1').classList.remove('hidden');
+    document.getElementById('step3').classList.add('hidden');
+
+    document.getElementById('step3').classList.add('hidden');
+    document.getElementById('step' + stepNumber).classList.remove('hidden');
 }
 </script>
 </body>
