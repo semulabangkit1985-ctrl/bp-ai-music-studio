@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Master - BP AI Music Studio</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('Untitled design.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .result-box {
+            background-color: rgba(30, 41, 59, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h2 {
+            margin-top: 0;
+            color: #22c55e;
+        }
+        p {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn-download {
+            background-color: #22c55e;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+        }
+        .btn-download:hover {
+            background-color: #16a34a;
+        }
+        .btn-again {
+            background-color: #475569;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+        }
+        .btn-again:hover {
+            background-color: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="result-box">
+        <h2>🎉 Mastering Selesai!</h2>
+        <p>Fail audio anda telah berjaya dimastering mengikut tetapan anda.</p>
+        
+        <audio controls>
+            <source src="#" type="audio/mpeg">
+            Pelayar anda tidak menyokong pemain audio.
+        </audio>
+
+        <div class="btn-group">
+            <a href="#" class="btn-download">📥 Muat Turun Fail Audio</a>
+            <a href="studio.html" class="btn-again">🔄 Master Audio Lain</a>
+        </div>
+    </div>
+
+</body>
+</html>
