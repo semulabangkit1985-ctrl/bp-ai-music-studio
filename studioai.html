@@ -62,10 +62,17 @@
             color: #cbd5e1;
             font-size: 13px;
             box-sizing: border-box;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         input[type="file"] {
             border: 1px dashed #3b82f6;
+        }
+        .status-ready {
+            font-size: 11px;
+            color: #34d399;
+            margin-bottom: 12px;
+            font-weight: bold;
+            display: none;
         }
         .grid-effects {
             display: grid;
@@ -184,7 +191,8 @@
         <div class="step-indicator">Langkah 1 dari 3: Muat Naik Fail Suno & Genre</div>
         
         <span class="section-label">📁 Pilih Fail Audio Suno Anda (MP3 / WAV)</span>
-        <input type="file" id="audioFile" accept="audio/*">
+        <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
+        <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik & bersedia!</div>
 
         <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
         <input type="text" id="genreSearch" placeholder="Taip genre (cth: Melayu, Phonk, Rock)..." onkeyup="filterGenres()">
@@ -430,12 +438,4 @@
         </select>
 
         <div class="btn-container">
-            <button type="button" class="btn" onclick="goToStep(2)">Seterusnya ➡️</button>
-        </div>
-    </div>
-
-    <!-- ================= LANGKAH 2 ================= -->
-    <div id="step2" class="hidden">
-        <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
-
-        <span class="section-label">🎧 Pratont
+            <button type="button" c
