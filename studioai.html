@@ -1,151 +1,184 @@
-<div class="section-title">🎵 Pilih Genre Muzik</div>
-<select name="genre" style="width: 100%; padding: 12px; background: #1e3a8a; color: white; border: 1px solid #3b82f6; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;">
+<div class="genre-container" style="background: #0f172a; padding: 15px; border-radius: 12px; border: 1px solid #1e3a8a; margin-bottom: 20px;">
+    <div style="font-size: 14px; font-weight: bold; color: #60a5fa; margin-bottom: 8px;">🎵 Pilih Atau Cari Genre Muzik</div>
     
-    <!-- Melayu / Nusantara -->
-    <optgroup label="🇲🇾 Melayu / Nusantara">
-        <option value="malaya">Malaya / Melayu</option>
-        <option value="pop-melayu">Pop Melayu</option>
-        <option value="rock-melayu">Rock Melayu</option>
-        <option value="balada-melayu">Balada Melayu</option>
-        <option value="melayu-klasik">Melayu Klasik</option>
-        <option value="irama-malaysia">Irama Malaysia</option>
-        <option value="lagu-asli">Lagu Asli</option>
-        <option value="zapin">Zapin</option>
-        <option value="joget">Joget</option>
-        <option value="ghazal">Ghazal</option>
-        <option value="keroncong">Keroncong</option>
-        <option value="dangdut">Dangdut</option>
-        <option value="campursari">Campursari</option>
-        <option value="pop-nusantara">Pop Nusantara</option>
-        <option value="etnik-nusantara">Etnik Nusantara</option>
-        <option value="tradisional-sabah">Tradisional Sabah</option>
-        <option value="tradisional-sarawak">Tradisional Sarawak</option>
-        <option value="minang">Minang</option>
-        <option value="jawa">Jawa</option>
-        <option value="sunda">Sunda</option>
-        <option value="bugis">Bugis</option>
-        <option value="batak">Batak</option>
-    </optgroup>
+    <!-- Kotak Carian Pantas -->
+    <input type="text" id="genreSearch" placeholder="Cari genre (cth: Raya, Hip Hop, Dangdut)..." onkeyup="filterGenres()" style="width: 100%; padding: 10px; margin-bottom: 10px; background: #1e293b; color: white; border: 1px solid #3b82f6; border-radius: 6px; font-size: 13px;">
 
-    <!-- Pop -->
-    <optgroup label="🎤 Pop">
-        <option value="pop">Pop</option>
-        <option value="pop-ballad">Pop Ballad</option>
-        <option value="electropop">Electropop</option>
-        <option value="synthpop">Synthpop</option>
-        <option value="indie-pop">Indie Pop</option>
-        <option value="dance-pop">Dance Pop</option>
-        <option value="soft-pop">Soft Pop</option>
-        <option value="city-pop">City Pop</option>
-    </optgroup>
+    <!-- Senarai Kategori Berkelompok -->
+    <select name="genre" id="genreSelect" size="6" style="width: 100%; padding: 8px; background: #1e3a8a; color: white; border: 1px solid #3b82f6; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;">
+        
+        <!-- Melayu / Nusantara -->
+        <optgroup label="🇲🇾 Melayu / Nusantara">
+            <option value="malaya">Malaya / Melayu</option>
+            <option value="pop-melayu">Pop Melayu</option>
+            <option value="rock-melayu">Rock Melayu</option>
+            <option value="balada-melayu">Balada Melayu</option>
+            <option value="melayu-klasik">Melayu Klasik</option>
+            <option value="irama-malaysia">Irama Malaysia</option>
+            <option value="lagu-asli">Lagu Asli</option>
+            <option value="zapin">Zapin</option>
+            <option value="joget">Joget</option>
+            <option value="ghazal">Ghazal</option>
+            <option value="keroncong">Keroncong</option>
+            <option value="dangdut">Dangdut</option>
+            <option value="campursari">Campursari</option>
+            <option value="pop-nusantara">Pop Nusantara</option>
+            <option value="etnik-nusantara">Etnik Nusantara</option>
+            <option value="tradisional-sabah">Tradisional Sabah</option>
+            <option value="tradisional-sarawak">Tradisional Sarawak</option>
+            <option value="minang">Minang</option>
+            <option value="jawa">Jawa</option>
+            <option value="sunda">Sunda</option>
+            <option value="bugis">Bugis</option>
+            <option value="batak">Batak</option>
+        </optgroup>
 
-    <!-- Rock -->
-    <optgroup label="🎸 Rock">
-        <option value="rock">Rock</option>
-        <option value="soft-rock">Soft Rock</option>
-        <option value="classic-rock">Classic Rock</option>
-        <option value="hard-rock">Hard Rock</option>
-        <option value="alternative-rock">Alternative Rock</option>
-        <option value="indie-rock">Indie Rock</option>
-        <option value="pop-rock">Pop Rock</option>
-        <option value="blues-rock">Blues Rock</option>
-        <option value="metal-rock">Metal Rock</option>
-    </optgroup>
+        <!-- Pop -->
+        <optgroup label="🎤 Pop">
+            <option value="pop">Pop</option>
+            <option value="pop-ballad">Pop Ballad</option>
+            <option value="electropop">Electropop</option>
+            <option value="synthpop">Synthpop</option>
+            <option value="indie-pop">Indie Pop</option>
+            <option value="dance-pop">Dance Pop</option>
+            <option value="soft-pop">Soft Pop</option>
+            <option value="city-pop">City Pop</option>
+        </optgroup>
 
-    <!-- Hip Hop / Rap -->
-    <optgroup label="🎧 Hip Hop / Rap">
-        <option value="hiphop">Hip Hop</option>
-        <option value="rap">Rap</option>
-        <option value="trap">Trap</option>
-        <option value="boom-bap">Boom Bap</option>
-        <option value="lofi-hiphop">Lo-Fi Hip Hop</option>
-        <option value="melodic-rap">Melodic Rap</option>
-    </optgroup>
+        <!-- Rock -->
+        <optgroup label="🎸 Rock">
+            <option value="rock">Rock</option>
+            <option value="soft-rock">Soft Rock</option>
+            <option value="classic-rock">Classic Rock</option>
+            <option value="hard-rock">Hard Rock</option>
+            <option value="alternative-rock">Alternative Rock</option>
+            <option value="indie-rock">Indie Rock</option>
+            <option value="pop-rock">Pop Rock</option>
+            <option value="blues-rock">Blues Rock</option>
+            <option value="metal-rock">Metal Rock</option>
+        </optgroup>
 
-    <!-- R&B / Soul -->
-    <optgroup label="🎷 R&B / Soul">
-        <option value="rnb">R&B</option>
-        <option value="contemporary-rnb">Contemporary R&B</option>
-        <option value="soul">Soul</option>
-        <option value="neo-soul">Neo Soul</option>
-        <option value="funk">Funk</option>
-    </optgroup>
+        <!-- Hip Hop / Rap -->
+        <optgroup label="🎧 Hip Hop / Rap">
+            <option value="hiphop">Hip Hop</option>
+            <option value="rap">Rap</option>
+            <option value="trap">Trap</option>
+            <option value="boom-bap">Boom Bap</option>
+            <option value="lofi-hiphop">Lo-Fi Hip Hop</option>
+            <option value="melodic-rap">Melodic Rap</option>
+        </optgroup>
 
-    <!-- Elektronik -->
-    <optgroup label="⚡ Elektronik">
-        <option value="edm">EDM</option>
-        <option value="house">House</option>
-        <option value="techno">Techno</option>
-        <option value="trance">Trance</option>
-        <option value="synthwave">Synthwave</option>
-        <option value="ambient">Ambient</option>
-    </optgroup>
+        <!-- R&B / Soul -->
+        <optgroup label="🎷 R&B / Soul">
+            <option value="rnb">R&B</option>
+            <option value="contemporary-rnb">Contemporary R&B</option>
+            <option value="soul">Soul</option>
+            <option value="neo-soul">Neo Soul</option>
+            <option value="funk">Funk</option>
+        </optgroup>
 
-    <!-- Akustik / Santai -->
-    <optgroup label="☕ Akustik / Santai">
-        <option value="acoustic">Acoustic</option>
-        <option value="acoustic-pop">Acoustic Pop</option>
-        <option value="folk">Folk</option>
-        <option value="singer-songwriter">Singer-Songwriter</option>
-        <option value="lofi">Lo-Fi</option>
-        <option value="lounge">Lounge</option>
-    </optgroup>
+        <!-- Elektronik -->
+        <optgroup label="⚡ Elektronik">
+            <option value="edm">EDM</option>
+            <option value="house">House</option>
+            <option value="techno">Techno</option>
+            <option value="trance">Trance</option>
+            <option value="synthwave">Synthwave</option>
+            <option value="ambient">Ambient</option>
+        </optgroup>
 
-    <!-- Orkestra / Klasik -->
-    <optgroup label="🎻 Orkestra / Klasik">
-        <option value="classical">Classical</option>
-        <option value="piano-solo">Piano Solo</option>
-        <option value="string-orchestra">String Orchestra</option>
-        <option value="symphony">Symphony</option>
-        <option value="cinematic">Cinematic</option>
-        <option value="epic-orchestra">Epic Orchestra</option>
-        <option value="film-score">Film Score</option>
-    </optgroup>
+        <!-- Akustik / Santai -->
+        <optgroup label="☕ Akustik / Santai">
+            <option value="acoustic">Acoustic</option>
+            <option value="acoustic-pop">Acoustic Pop</option>
+            <option value="folk">Folk</option>
+            <option value="singer-songwriter">Singer-Songwriter</option>
+            <option value="lofi">Lo-Fi</option>
+            <option value="lounge">Lounge</option>
+        </optgroup>
 
-    <!-- Sedih / Emosi -->
-    <optgroup label="💧 Sedih / Emosi">
-        <option value="sad-song">Sad Song</option>
-        <option value="emotional">Emotional</option>
-        <option value="heartbreak">Heartbreak</option>
-        <option value="melancholic">Melancholic</option>
-        <option value="nostalgic">Nostalgic</option>
-        <option value="romantic">Romantic</option>
-    </optgroup>
+        <!-- Orkestra / Klasik -->
+        <optgroup label="🎻 Orkestra / Klasik">
+            <option value="classical">Classical</option>
+            <option value="piano-solo">Piano Solo</option>
+            <option value="string-orchestra">String Orchestra</option>
+            <option value="symphony">Symphony</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="epic-orchestra">Epic Orchestra</option>
+            <option value="film-score">Film Score</option>
+        </optgroup>
 
-    <!-- Antarabangsa -->
-    <optgroup label="🌍 Antarabangsa">
-        <option value="kpop">K-Pop</option>
-        <option value="jpop">J-Pop</option>
-        <option value="cpop">C-Pop</option>
-        <option value="bollywood">Bollywood</option>
-        <option value="reggaeton">Reggaeton</option>
-        <option value="reggae">Reggae</option>
-        <option value="country">Country</option>
-        <option value="arabic">Arabic</option>
-    </optgroup>
+        <!-- Sedih / Emosi -->
+        <optgroup label="💧 Sedih / Emosi">
+            <option value="sad-song">Sad Song</option>
+            <option value="emotional">Emotional</option>
+            <option value="heartbreak">Heartbreak</option>
+            <option value="melancholic">Melancholic</option>
+            <option value="nostalgic">Nostalgic</option>
+            <option value="romantic">Romantic</option>
+        </optgroup>
 
-    <!-- Metal -->
-    <optgroup label="m️ Metal">
-        <option value="heavy-metal">Heavy Metal</option>
-        <option value="metalcore">Metalcore</option>
-        <option value="death-metal">Death Metal</option>
-        <option value="symphonic-metal">Symphonic Metal</option>
-        <option value="nu-metal">Nu Metal</option>
-    </optgroup>
+        <!-- Antarabangsa -->
+        <optgroup label="🌍 Antarabangsa">
+            <option value="kpop">K-Pop</option>
+            <option value="jpop">J-Pop</option>
+            <option value="cpop">C-Pop</option>
+            <option value="bollywood">Bollywood</option>
+            <option value="reggaeton">Reggaeton</option>
+            <option value="reggae">Reggae</option>
+            <option value="country">Country</option>
+            <option value="arabic">Arabic</option>
+        </optgroup>
 
-    <!-- Gaya Khas -->
-    <optgroup label="🎬 Gaya Khas">
-        <option value="epic">Epic</option>
-        <option value="dark">Dark</option>
-        <option value="mysterious">Mysterious</option>
-        <option value="horror">Horror</option>
-        <option value="adventure">Adventure</option>
-        <option value="inspirational">Inspirational</option>
-        <option value="meditation">Meditation</option>
-        <option value="wedding">Wedding</option>
-        <option value="festival">Festival</option>
-        <option value="party">Party</option>
-        <option value="christmas">Christmas</option>
-        <option value="raya">Raya / Aidilfitri</option>
-    </optgroup>
-</select>
+        <!-- Metal -->
+        <optgroup label="m️ Metal">
+            <option value="heavy-metal">Heavy Metal</option>
+            <option value="metalcore">Metalcore</option>
+            <option value="death-metal">Death Metal</option>
+            <option value="symphonic-metal">Symphonic Metal</option>
+            <option value="nu-metal">Nu Metal</option>
+        </optgroup>
+
+        <!-- Gaya Khas -->
+        <optgroup label="🎬 Gaya Khas">
+            <option value="epic">Epic</option>
+            <option value="dark">Dark</option>
+            <option value="mysterious">Mysterious</option>
+            <option value="horror">Horror</option>
+            <option value="adventure">Adventure</option>
+            <option value="inspirational">Inspirational</option>
+            <option value="meditation">Meditation</option>
+            <option value="wedding">Wedding</option>
+            <option value="festival">Festival</option>
+            <option value="party">Party</option>
+            <option value="christmas">Christmas</option>
+            <option value="raya">Raya / Aidilfitri</option>
+        </optgroup>
+    </select>
+</div>
+
+<!-- Skrip JavaScript Ringkas untuk Carian Pantas -->
+<script>
+function filterGenres() {
+    let input = document.getElementById('genreSearch').value.toLowerCase();
+    let select = document.getElementById('genreSelect');
+    let optgroups = select.getElementsByTagName('optgroup');
+
+    for (let i = 0; i < optgroups.length; i++) {
+        let options = optgroups[i].getElementsByTagName('option');
+        let groupHasMatch = false;
+
+        for (let j = 0; j < options.length; j++) {
+            let txt = options[j].text.toLowerCase();
+            if (txt.includes(input)) {
+                options[j].style.display = "";
+                groupHasMatch = true;
+            } else {
+                options[j].style.display = "none";
+            }
+        }
+        // Sembunyikan kumpulan jika tiada padanan
+        optgroups[i].style.display = groupHasMatch ? "" : "none";
+    }
+}
+</script>
