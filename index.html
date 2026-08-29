@@ -257,19 +257,18 @@
 <body>
 
 <div class="studio-card">
-    <!-- PAPARAN LOGO (Kekal terpapar di semua langkah) -->
+    <!-- PAPARAN LOGO -->
     <img src="logo.png" alt="Logo Studio" class="studio-logo" onerror="this.style.display='none'">
 
     <h1>BP AI Music Studio</h1>
-    <div class="subtitle">PRO MASTERING SUITE · BANDLAB STYLE</div>
+    <div class="subtitle">PRO MASTERING SUITE</div>
 
     <!-- ================= LANGKAH 1 ================= -->
     <div id="step1">
         <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
         
-        <!-- KOTAK PENERANGAN & PANDUAN -->
         <div class="info-box">
-            <strong>💡 Panduan Studio:</strong> Muat naik fail audio ciptaan Suno anda (MP3/WAV), pilih genre muzik yang sesuai, dan tingkatkan kualiti audio anda menggunakan enjin mastering profesional ala BandLab!
+            <strong>💡 Panduan Studio:</strong> Muat naik fail audio ciptaan Suno anda (MP3/WAV), pilih genre muzik yang sesuai, dan tingkatkan kualiti audio anda menggunakan enjin mastering profesional!
         </div>
 
         <span class="section-label">📁 Pilih Fail Audio Suno (MP3 / WAV)</span>
@@ -518,4 +517,7 @@ function initAudioEngine() {
 
         let lastNode = sourceNode;
         lastNode.connect(compressorNode);
-        compressorNode.c
+        compressorNode.connect(saturationNode);
+        saturationNode.connect(lowFilter);
+        lowFilter.connect(midFilter);
+ 
