@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Langkah 1</title>
+    <title>BP AI Music Studio - Master Rasmi</title>
     <style>
         body {
             background-color: #0b0f19;
@@ -22,7 +22,7 @@
             padding: 25px;
             border-radius: 16px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         h1 {
@@ -52,18 +52,19 @@
             margin-bottom: 8px;
             display: block;
         }
-        .file-box, .genre-container {
-            margin-bottom: 20px;
-        }
-        input[type="file"] {
+        input[type="file"], select, input[type="text"] {
             background: #1e293b;
-            border: 1px dashed #3b82f6;
+            border: 1px solid #3b82f6;
             padding: 10px;
             border-radius: 8px;
             width: 100%;
             color: #cbd5e1;
-            font-size: 12px;
+            font-size: 13px;
             box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        input[type="file"] {
+            border: 1px dashed #3b82f6;
         }
         .btn-container {
             display: flex;
@@ -79,21 +80,35 @@
             text-align: center;
             cursor: pointer;
             border: none;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #4f46e5;
+            color: white;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #6366f1;
         }
         .btn-back {
             background: #334155;
-            color: white;
         }
-        .btn-next {
-            background: #4f46e5;
-            color: white;
+        .btn-back:hover {
+            background: #475569;
         }
-        .btn-next:hover {
-            background: #6366f1;
+        .hidden {
+            display: none;
+        }
+        audio {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+        .info-box {
+            background: #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            border-left: 4px solid #3b82f6;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -102,175 +117,64 @@
 <div class="studio-card">
     <h1>BP AI Music Studio</h1>
     <div class="subtitle">ROCK · HIP HOP · MALAYA & MORE</div>
-    <div class="step-indicator">Langkah 1 dari 2: Muat Naik Fail & Genre</div>
 
-    <form action="/effects.html" method="GET">
-        <!-- Pilihan Fail Audio -->
-        <div class="file-box">
-            <span class="section-label">📁 Pilih Fail Audio (MP3 / WAV)</span>
-            <input type="file" name="audioFile" accept="audio/*" required>
-        </div>
+    <!-- ================= LANGKAH 1 ================= -->
+    <div id="step1">
+        <div class="step-indicator">Langkah 1 dari 2: Muat Naik Fail Suno & Genre</div>
+        
+        <span class="section-label">📁 Pilih Fail Audio Suno Anda (MP3 / WAV)</span>
+        <input type="file" id="audioFile" accept="audio/*">
 
-        <!-- Carian & Pilihan Genre -->
-        <div class="genre-container">
-            <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
-            <input type="text" id="genreSearch" placeholder="Taip genre (cth: Phonk, Raya, Bass)..." onkeyup="filterGenres()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: #1e293b; color: white; border: 1px solid #3b82f6; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+        <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
+        <input type="text" id="genreSearch" placeholder="Taip genre (cth: Phonk, Bass, Raya)..." onkeyup="filterGenres()">
 
-            <select name="genre" id="genreSelect" size="6" style="width: 100%; padding: 8px; background: #1e3a8a; color: white; border: 1px solid #3b82f6; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;">
-                
-                <optgroup label="🇲🇾 Melayu / Nusantara">
-                    <option value="malaya">Malaya / Melayu</option>
-                    <option value="pop-melayu">Pop Melayu</option>
-                    <option value="rock-melayu">Rock Melayu</option>
-                    <option value="balada-melayu">Balada Melayu</option>
-                    <option value="melayu-klasik">Melayu Klasik</option>
-                    <option value="irama-malaysia">Irama Malaysia</option>
-                    <option value="lagu-asli">Lagu Asli</option>
-                    <option value="zapin">Zapin</option>
-                    <option value="joget">Joget</option>
-                    <option value="ghazal">Ghazal</option>
-                    <option value="keroncong">Keroncong</option>
-                    <option value="dangdut">Dangdut</option>
-                    <option value="campursari">Campursari</option>
-                    <option value="pop-nusantara">Pop Nusantara</option>
-                    <option value="etnik-nusantara">Etnik Nusantara</option>
-                    <option value="tradisional-sabah">Tradisional Sabah</option>
-                    <option value="tradisional-sarawak">Tradisional Sarawak</option>
-                    <option value="minang">Minang</option>
-                    <option value="jawa">Jawa</option>
-                    <option value="sunda">Sunda</option>
-                    <option value="bugis">Bugis</option>
-                    <option value="batak">Batak</option>
-                </optgroup>
+        <select id="genreSelect" size="6" style="cursor: pointer; font-weight: bold;">
+            <optgroup label="🇲🇾 Melayu / Nusantara">
+                <option value="Malaya / Melayu">Malaya / Melayu</option>
+                <option value="Pop Melayu">Pop Melayu</option>
+                <option value="Rock Melayu">Rock Melayu</option>
+                <option value="Balada Melayu">Balada Melayu</option>
+            </optgroup>
+            <optgroup label="⚡ Elektronik & Phonk">
+                <option value="Techno">Techno</option>
+                <option value="Dark Techno / Neon Noir Phonk - Malay Bounce">Dark Techno / Neon Noir Phonk - Malay Bounce</option>
+                <option value="Synthwave">Synthwave</option>
+            </optgroup>
+            <optgroup label="🚗 Car Audio & Bass">
+                <option value="Bass Car Music">Bass Car Music</option>
+            </optgroup>
+            <optgroup label="🎬 Gaya Khas">
+                <option value="Cinematic">Cinematic</option>
+                <option value="Epic">Epic</option>
+                <option value="Raya / Aidilfitri">Raya / Aidilfitri</option>
+            </optgroup>
+        </select>
 
-                <optgroup label="🎤 Pop">
-                    <option value="pop">Pop</option>
-                    <option value="pop-ballad">Pop Ballad</option>
-                    <option value="electropop">Electropop</option>
-                    <option value="synthpop">Synthpop</option>
-                    <option value="indie-pop">Indie Pop</option>
-                    <option value="dance-pop">Dance Pop</option>
-                    <option value="soft-pop">Soft Pop</option>
-                    <option value="city-pop">City Pop</option>
-                </optgroup>
-
-                <optgroup label="🎸 Rock">
-                    <option value="rock" selected>Rock</option>
-                    <option value="soft-rock">Soft Rock</option>
-                    <option value="classic-rock">Classic Rock</option>
-                    <option value="hard-rock">Hard Rock</option>
-                    <option value="alternative-rock">Alternative Rock</option>
-                    <option value="indie-rock">Indie Rock</option>
-                    <option value="pop-rock">Pop Rock</option>
-                    <option value="blues-rock">Blues Rock</option>
-                    <option value="metal-rock">Metal Rock</option>
-                </optgroup>
-
-                <optgroup label="🎧 Hip Hop / Rap">
-                    <option value="hiphop">Hip Hop</option>
-                    <option value="rap">Rap</option>
-                    <option value="trap">Trap</option>
-                    <option value="boom-bap">Boom Bap</option>
-                    <option value="lofi-hiphop">Lo-Fi Hip Hop</option>
-                    <option value="melodic-rap">Melodic Rap</option>
-                </optgroup>
-
-                <optgroup label="🎷 R&B / Soul">
-                    <option value="rnb">R&B</option>
-                    <option value="contemporary-rnb">Contemporary R&B</option>
-                    <option value="soul">Soul</option>
-                    <option value="neo-soul">Neo Soul</option>
-                    <option value="funk">Funk</option>
-                </optgroup>
-
-                <optgroup label="⚡ Elektronik">
-                    <option value="edm">EDM</option>
-                    <option value="house">House</option>
-                    <option value="techno">Techno</option>
-                    <option value="dark-techno-phonk">Dark Techno / Neon Noir Phonk - Malay Bounce</option>
-                    <option value="trance">Trance</option>
-                    <option value="dubstep">Dubstep</option>
-                    <option value="synthwave">Synthwave</option>
-                    <option value="ambient">Ambient</option>
-                </optgroup>
-
-                <optgroup label="🚗 Car Audio & Bass">
-                    <option value="bass-car-music">Bass Car Music</option>
-                </optgroup>
-
-                <optgroup label="☕ Akustik / Santai">
-                    <option value="acoustic">Acoustic</option>
-                    <option value="acoustic-pop">Acoustic Pop</option>
-                    <option value="folk">Folk</option>
-                    <option value="singer-songwriter">Singer-Songwriter</option>
-                    <option value="lofi">Lo-Fi</option>
-                    <option value="lounge">Lounge</option>
-                </optgroup>
-
-                <optgroup label="🎻 Orkestra / Klasik">
-                    <option value="classical">Classical</option>
-                    <option value="piano-solo">Piano Solo</option>
-                    <option value="string-orchestra">String Orchestra</option>
-                    <option value="symphony">Symphony</option>
-                    <option value="cinematic">Cinematic</option>
-                    <option value="epic-orchestra">Epic Orchestra</option>
-                    <option value="film-score">Film Score</option>
-                </optgroup>
-
-                <optgroup label="💧 Sedih / Emosi">
-                    <option value="sad-song">Sad Song</option>
-                    <option value="emotional">Emotional</option>
-                    <option value="heartbreak">Heartbreak</option>
-                    <option value="melancholic">Melancholic</option>
-                    <option value="nostalgic">Nostalgic</option>
-                    <option value="romantic">Romantic</option>
-                </optgroup>
-
-                <optgroup label="🌍 Antarabangsa">
-                    <option value="kpop">K-Pop</option>
-                    <option value="jpop">J-Pop</option>
-                    <option value="cpop">C-Pop</option>
-                    <option value="bollywood">Bollywood</option>
-                    <option value="reggaeton">Reggaeton</option>
-                    <option value="reggae">Reggae</option>
-                    <option value="country">Country</option>
-                    <option value="arabic">Arabic</option>
-                </optgroup>
-
-                <optgroup label="⚙️ Metal">
-                    <option value="heavy-metal">Heavy Metal</option>
-                    <option value="metalcore">Metalcore</option>
-                    <option value="death-metal">Death Metal</option>
-                    <option value="symphonic-metal">Symphonic Metal</option>
-                    <option value="nu-metal">Nu Metal</option>
-                </optgroup>
-
-                <optgroup label="🎬 Gaya Khas">
-                    <option value="epic">Epic</option>
-                    <option value="dark">Dark</option>
-                    <option value="mysterious">Mysterious</option>
-                    <option value="horror">Horror</option>
-                    <option value="adventure">Adventure</option>
-                    <option value="inspirational">Inspirational</option>
-                    <option value="meditation">Meditation</option>
-                    <option value="wedding">Wedding</option>
-                    <option value="festival">Festival</option>
-                    <option value="party">Party</option>
-                    <option value="christmas">Christmas</option>
-                    <option value="raya">Raya / Aidilfitri</option>
-                </optgroup>
-            </select>
-        </div>
-
-        <!-- Butang Tindakan -->
         <div class="btn-container">
-            <a href="/" class="btn btn-back">Utama</a>
-            <button type="submit" class="btn btn-next">Seterusnya ➡️</button>
+            <button type="button" class="btn" onclick="goToStep2()">Seterusnya ➡️</button>
         </div>
-    </form>
+    </div>
+
+    <!-- ================= LANGKAH 2 (STUDIO MASTERING) ================= -->
+    <div id="step2" class="hidden">
+        <div class="step-indicator">Langkah 2 dari 2: Studio Mastering Audio Anda</div>
+        
+        <div class="info-box">
+            <div><strong>Fail Suno:</strong> <span id="fileName" style="color: #60a5fa;">-</span></div>
+            <div><strong>Genre Pilihan:</strong> <span id="selectedGenre" style="color: #fbbf24;">-</span></div>
+        </div>
+
+        <span class="section-label">🎧 Pemain Audio Rasmi (Fail Sebenar Anda)</span>
+        <audio id="audioPlayer" controls></audio>
+
+        <div class="btn-container">
+            <button type="button" class="btn btn-back" onclick="goToStep1()">⬅️ Kembali</button>
+            <button type="button" class="btn" onclick="alert('Tahniah! Lagu Suno anda sedia dimuat turun dengan jayanya!')">Simpan & Muat Turun</button>
+        </div>
+    </div>
 </div>
 
-<!-- Skrip Carian Pintar -->
+<!-- Skrip Pintar -->
 <script>
 function filterGenres() {
     let input = document.getElementById('genreSearch').value.toLowerCase();
@@ -292,6 +196,42 @@ function filterGenres() {
         }
         optgroups[i].style.display = groupHasMatch ? "" : "none";
     }
+}
+
+function goToStep2() {
+    const fileInput = document.getElementById('audioFile');
+    const genreSelect = document.getElementById('genreSelect');
+    
+    if (fileInput.files.length === 0) {
+        alert('Sila pilih fail audio Suno anda terlebih dahulu!');
+        return;
+    }
+
+    let file = fileInput.files[0];
+    let genreValue = genreSelect.value || "Tidak dipilih";
+
+    // Paparkan maklumat fail & genre di Langkah 2
+    document.getElementById('fileName').innerText = file.name;
+    document.getElementById('selectedGenre').innerText = genreValue;
+
+    // Masukkan fail sebenar ke dalam pemain audio (Blob URL)
+    let audioURL = URL.createObjectURL(file);
+    let player = document.getElementById('audioPlayer');
+    player.src = audioURL;
+
+    // Tukar paparan skrin dari Langkah 1 ke Langkah 2
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+}
+
+function goToStep1() {
+    // Kembali ke Langkah 1 dan hentikan audio
+    let player = document.getElementById('audioPlayer');
+    player.pause();
+    player.src = "";
+
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step1').classList.remove('hidden');
 }
 </script>
 </body>
