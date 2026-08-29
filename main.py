@@ -1,25 +1,36 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+import os
 
 app = FastAPI()
 
 @app.get("/")
 def serve_index():
-    return FileResponse("index.html")
+    if os.path.exists("index.html"):
+        return FileResponse("index.html")
+    return {"detail": "index.html not found"}
 
 @app.get("/studioai.html")
 def serve_studio():
-    return FileResponse("studioai.html")
+    if os.path.exists("studioai.html"):
+        return FileResponse("studioai.html")
+    raise HTTPException(status_code=404, detail="studioai.html not found")
 
 @app.get("/effects.html")
 def serve_effects():
-    return FileResponse("effects.html")
+    if os.path.exists("effects.html"):
+        return FileResponse("effects.html")
+    raise HTTPException(status_code=404, detail="effects.html not found")
 
 @app.get("/result.html")
 def serve_result():
-    return FileResponse("result.html")
+    if os.path.exists("result.html"):
+        return FileResponse("result.html")
+    raise HTTPException(status_code=404, detail="result.html not found")
 
 @app.get("/Untitled design.png")
 def serve_image():
-    return FileResponse("Untitled design.png")
+    if os.path.exists("Untitled design.png"):
+        return FileResponse("Untitled design.png")
+    raise HTTPException(status_code=404, detail="Image not found")
     
