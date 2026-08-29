@@ -90,7 +90,9 @@
 
       const pollInterval = setInterval(async () => {
         try {
-          const res = await fetch(`${API_BASE}/api/download/${jobId}`);
+          const API_BASE = '';
+          
+          
 
           if (res.ok && res.headers.get('content-type')?.includes('audio')) {
             clearInterval(pollInterval);
