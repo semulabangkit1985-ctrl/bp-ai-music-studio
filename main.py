@@ -1,39 +1,23 @@
 import os
 import uuid
 import numpy as np
-from scipy.io import wavfile
+from scipy.io::wavfile # (pastikan tiada kolon pelik)
 from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
-@app.get('/')
-async def read_index():
-  return FileResponse('index.html')
+app = FastAPI()
 
-4. Simpan perubahan tersebut (*Commit changes*) di GitHub.
-5. Render akan mengesan kemas kini itu secara automatik dan menyegarkan semula laman web anda.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-Cuba masukkan kod di atas ke dalam `main.py` di GitHub, dan 1-2 minit kemudian cuba buka semula pautan Render anda. Paparan *Not Found* tadi akan bertukar menjadi laman web anda!
-
-TEMP_DIR = "/tmp/audio_processing"
-os.makedirs(TEMP_DIR, exist_ok=True)
-
-def process_mastering(input_path: str, output_path: str):
-    sr, data = wavfile.read(input_path)
-    
-    if data.dtype == np.int16:
-        float_data = data.astype(np.float32) / 32768.0
-    else:
-        float_data = data.astype(np.float32)
-
-    gain = 1.4
-    mastered = np.tanh(float_data * gain)
-    
-    output_data = (mastered * 32767).astype(np.int16)
-    wavfile.write(output_path, sr, output_data)
-
-    if os.path.exists(input_path):
-        os.remove(input_path)
+# Laluan untuk paparan web dan fail statik (index.html, imej, dll)
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
 @app.post("/api/master")
 async def master_audio(file: UploadFile = File(...), background_tasks: BackgroundTasks = None):
