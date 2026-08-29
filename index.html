@@ -28,6 +28,17 @@
             margin-top: 10px;
             margin-bottom: 30px;
         }
+        .studio-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 10px auto;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
         h1 {
             font-size: 19px;
             text-align: center;
@@ -39,7 +50,7 @@
             text-align: center;
             font-size: 11px;
             color: #fbbf24;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: bold;
             letter-spacing: 1px;
         }
@@ -133,7 +144,6 @@
             background: #3b82f6;
             color: white;
         }
-
         .grid-effects {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -247,6 +257,9 @@
 <body>
 
 <div class="studio-card">
+    <!-- PAPARAN LOGO (Kekal terpapar di semua langkah) -->
+    <img src="logo.png" alt="Logo Studio" class="studio-logo" onerror="this.style.display='none'">
+
     <h1>BP AI Music Studio</h1>
     <div class="subtitle">PRO MASTERING SUITE · BANDLAB STYLE</div>
 
@@ -266,7 +279,6 @@
         <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
         <input type="text" id="genreSearch" placeholder="Cari genre (cth: Melayu, Phonk)..." onkeyup="filterGenres()">
 
-        <!-- Custom Dropdown Ganti Select Biasa -->
         <div class="custom-select-box">
             <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
                 <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
@@ -506,18 +518,4 @@ function initAudioEngine() {
 
         let lastNode = sourceNode;
         lastNode.connect(compressorNode);
-        compressorNode.connect(saturationNode);
-        saturationNode.connect(lowFilter);
-        lowFilter.connect(midFilter);
-        midFilter.connect(highFilter);
-        
-        if (stereoWidener) {
-            highFilter.connect(stereoWidener);
-            stereoWidener.connect(masterLimiter);
-        } else {
-            highFilter.connect(masterLimiter);
-        }
-        
-        masterLimiter.connect(audioCtx.destination);
-    } catch(e) {
-        console.log("Au
+        compressorNode.c
