@@ -3,95 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Master - BP AI Music Studio</title>
+    <title>BP AI Music Studio - Hasil Mastering</title>
     <style>
         body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            background-image: url('Untitled design.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            font-family: sans-serif;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
-        .result-box {
-            background-color: rgba(30, 41, 59, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            color: white;
+        .studio-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+            border: 1px solid #3b82f6;
+            padding: 25px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             text-align: center;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-sizing: border-box;
         }
-        h2 {
-            margin-top: 0;
-            color: #22c55e;
+        h1 {
+            font-size: 20px;
+            color: #34d399;
+            margin-bottom: 5px;
         }
-        p {
-            font-size: 14px;
-            color: #cbd5e1;
+        .subtitle {
+            font-size: 12px;
+            color: #94a3b8;
             margin-bottom: 20px;
         }
         audio {
             width: 100%;
-            margin-bottom: 20px;
+            margin: 20px 0;
             border-radius: 8px;
         }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            margin-bottom: 10px;
+            box-sizing: border-box;
         }
         .btn-download {
-            background-color: #22c55e;
+            background: #10b981;
             color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            display: block;
-            text-align: center;
         }
         .btn-download:hover {
-            background-color: #16a34a;
+            background: #059669;
         }
-        .btn-again {
-            background-color: #475569;
+        .btn-reset {
+            background: #334155;
             color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            display: block;
-            text-align: center;
         }
-        .btn-again:hover {
-            background-color: #334155;
+        .btn-reset:hover {
+            background: #475569;
         }
     </style>
 </head>
 <body>
 
-    <div class="result-box">
-        <h2>🎉 Mastering Selesai!</h2>
-        <p>Fail audio anda telah berjaya dimastering mengikut tetapan anda.</p>
-        
-        <audio controls>
-            <source src="#" type="audio/mpeg">
-            Pelayar anda tidak menyokong pemain audio.
-        </audio>
+<div class="studio-card">
+    <h1>🎉 Mastering Selesai!</h1>
+    <div class="subtitle">Fail audio anda telah berjaya dimastering mengikut tetapan anda.</div>
 
-        <div class="btn-group">
-            <a href="#" class="btn-download">📥 Muat Turun Fail Audio</a>
-            <a href="studio.html" class="btn-again">🔄 Master Audio Lain</a>
-        </div>
-    </div>
+    <!-- Pemain Audio dengan trek demo berfungsi -->
+    <audio controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Pelayar anda tidak menyokong elemen audio.
+    </audio>
+
+    <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download="Mastered_Song.mp3" class="btn btn-download">📥 Muat Turun Fail Audio</a>
+    <a href="/studioai.html" class="btn btn-reset">🔄 Master Audio Lain</a>
+</div>
 
 </body>
 </html>
