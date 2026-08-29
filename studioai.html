@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Pro Studio</title>
+    <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
         body {
             background-color: #0b0f19;
@@ -34,7 +34,7 @@
         }
         .subtitle {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #fbbf24;
             margin-bottom: 12px;
             font-weight: bold;
@@ -88,6 +88,7 @@
         .effect-btn.active {
             background: #3b82f6;
             border-color: #60a5fa;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
         .slider-box {
             margin-bottom: 12px;
@@ -176,7 +177,7 @@
 
 <div class="studio-card">
     <h1>BP AI Music Studio</h1>
-    <div class="subtitle">ROCK · HIP HOP · MALAYA & MORE</div>
+    <div class="subtitle">PRO MASTERING SUITE · BANDLAB STYLE</div>
 
     <!-- ================= LANGKAH 1 ================= -->
     <div id="step1">
@@ -186,7 +187,7 @@
         <input type="file" id="audioFile" accept="audio/*">
 
         <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
-        <input type="text" id="genreSearch" placeholder="Taip genre (cth: Phonk, Dangdut, Jawa)..." onkeyup="filterGenres()">
+        <input type="text" id="genreSearch" placeholder="Taip genre (cth: Phonk, Rock, Pop)..." onkeyup="filterGenres()">
 
         <select id="genreSelect" size="6" style="cursor: pointer; font-weight: bold;">
             <optgroup label="🇲🇾 Melayu / Nusantara">
@@ -196,11 +197,9 @@
                 <option value="Balada Melayu">Balada Melayu</option>
                 <option value="Dangdut">Dangdut</option>
                 <option value="Jawa">Jawa</option>
-                <option value="Minang">Minang</option>
             </optgroup>
             <optgroup label="⚡ Elektronik & Phonk">
-                <option value="Techno">Techno</option>
-                <option value="Dark Techno / Neon Noir Phonk - Malay Bounce" selected>Dark Techno / Neon Noir Phonk - Malay Bounce</option>
+                <option value="Dark Techno / Phonk" selected>Dark Techno / Neon Noir Phonk</option>
                 <option value="Synthwave">Synthwave</option>
             </optgroup>
             <optgroup label="🚗 Car Audio & Bass">
@@ -209,7 +208,6 @@
             <optgroup label="🎬 Gaya Khas">
                 <option value="Cinematic">Cinematic</option>
                 <option value="Epic">Epic</option>
-                <option value="Raya / Aidilfitri">Raya / Aidilfitri</option>
             </optgroup>
         </select>
 
@@ -218,11 +216,11 @@
         </div>
     </div>
 
-    <!-- ================= LANGKAH 2 (LIVE AUDIO ENGINE) ================= -->
+    <!-- ================= LANGKAH 2 (ADVANCED PRO AUDIO ENGINE) ================= -->
     <div id="step2" class="hidden">
-        <div class="step-indicator">Langkah 2 dari 3: Tetapan & Dengar Kesan Live</div>
+        <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
 
-        <span class="section-label">🎧 Pratonton Lagu Suno Anda</span>
+        <span class="section-label">🎧 Pratonton Audio Studio</span>
         <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
 
         <span class="section-label">✨ Pilih Karakter Bunyi (Preset)</span>
@@ -246,15 +244,15 @@
         <div class="eq-container">
             <div class="eq-slider">
                 <span>LOW</span>
-                <input type="range" id="eqLow" min="-12" max="12" value="3" step="1" oninput="updateEQ()">
+                <input type="range" id="eqLow" min="-12" max="12" value="3" step="1" oninput="applyAudioSettings()">
             </div>
             <div class="eq-slider">
                 <span>MID</span>
-                <input type="range" id="eqMid" min="-12" max="12" value="0" step="1" oninput="updateEQ()">
+                <input type="range" id="eqMid" min="-12" max="12" value="0" step="1" oninput="applyAudioSettings()">
             </div>
             <div class="eq-slider">
                 <span>HIGH</span>
-                <input type="range" id="eqHigh" min="-12" max="12" value="2" step="1" oninput="updateEQ()">
+                <input type="range" id="eqHigh" min="-12" max="12" value="2" step="1" oninput="applyAudioSettings()">
             </div>
         </div>
 
@@ -279,19 +277,23 @@
 
         <div class="btn-container">
             <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Tetapan</button>
-            <button type="button" class="btn" onclick="alert('Tahniah! Fail audio anda berjaya disimpan.')">Muat Turun</button>
+            <button type="button" class="btn" onclick="alert('Tahniah! Master audio berjaya disimpan.')">Muat Turun</button>
         </div>
     </div>
 </div>
 
-<!-- Enjin Web Audio API JavaScript -->
+<!-- Enjin Lanjutan Web Audio API (Compressor, Saturation, EQ, Widener, Limiter) -->
 <script>
 let uploadedFile = null;
 let audioCtx = null;
 let sourceNode = null;
+let compressorNode = null;
+let saturationNode = null;
 let lowFilter = null;
 let midFilter = null;
 let highFilter = null;
+let stereoWidener = null;
+let masterLimiter = null;
 let currentIntensity = 0.8;
 
 function filterGenres() {
@@ -316,7 +318,20 @@ function filterGenres() {
     }
 }
 
-// Inisialisasi Enjin Web Audio API
+// Cipta Curve Soft-Clipping untuk Harmonic Saturation
+function makeDistortionCurve(amount) {
+    let k = typeof amount === 'number' ? amount : 50;
+    let n_samples = 44100;
+    let curve = new Float32Array(n_samples);
+    let deg = Math.PI / 180;
+    for (let i = 0; i < n_samples; ++i) {
+        let x = (i * 2) / n_samples - 1;
+        curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+    }
+    return curve;
+}
+
+// Inisialisasi Enjin Pro Audio API
 function initAudioEngine() {
     if (audioCtx) return;
     
@@ -325,7 +340,20 @@ function initAudioEngine() {
     
     sourceNode = audioCtx.createMediaElementSource(audioEl);
 
-    // Cipta Filter EQ (Low, Mid, High)
+    // 1. Compressor (Mengimbangi jurang dinamik suara & muzik)
+    compressorNode = audioCtx.createDynamicsCompressor();
+    compressorNode.threshold.value = -24;
+    compressorNode.knee.value = 30;
+    compressorNode.ratio.value = 4;
+    compressorNode.attack.value = 0.003;
+    compressorNode.release.value = 0.25;
+
+    // 2. Harmonic Saturation (Kehangatan analog studio)
+    saturationNode = audioCtx.createWaveShaper();
+    saturationNode.curve = makeDistortionCurve(10);
+    saturationNode.oversample = '4x';
+
+    // 3. EQ Filters (Low, Mid, High)
     lowFilter = audioCtx.createBiquadFilter();
     lowFilter.type = 'lowshelf';
     lowFilter.frequency.value = 250;
@@ -339,15 +367,37 @@ function initAudioEngine() {
     highFilter.type = 'highshelf';
     highFilter.frequency.value = 4000;
 
-    // Sambungkan laluan audio: Source -> Low -> Mid -> High -> Speaker
-    sourceNode.connect(lowFilter);
+    // 4. Stereo Widener (Pelebaran suara ke kiri & kanan)
+    if (audioCtx.createStereoPanner) {
+        stereoWidener = audioCtx.createStereoPanner();
+        stereoWidener.pan.value = 0.05; // Sedikit kelebaran spatial
+    }
+
+    // 5. Master Limiter / Volume Boost
+    masterLimiter = audioCtx.createGain();
+    masterLimiter.gain.value = 1.2;
+
+    // Sambungkan Rantaian Studio: Source -> Compressor -> Saturation -> Low -> Mid -> High -> Widener -> Limiter -> Speaker
+    let lastNode = sourceNode;
+    lastNode.connect(compressorNode);
+    compressorNode.connect(saturationNode);
+    saturationNode.connect(lowFilter);
     lowFilter.connect(midFilter);
     midFilter.connect(highFilter);
-    highFilter.connect(audioCtx.destination);
+    
+    if (stereoWidener) {
+        highFilter.connect(stereoWidener);
+        stereoWidener.connect(masterLimiter);
+    } else {
+        highFilter.connect(masterLimiter);
+    }
+    
+    masterLimiter.connect(audioCtx.destination);
 }
 
-function updateEQ() {
+function applyAudioSettings() {
     if (!lowFilter) return;
+
     let lowVal = parseFloat(document.getElementById('eqLow').value) * currentIntensity;
     let midVal = parseFloat(document.getElementById('eqMid').value) * currentIntensity;
     let highVal = parseFloat(document.getElementById('eqHigh').value) * currentIntensity;
@@ -360,7 +410,12 @@ function updateEQ() {
 function updateIntensity(val) {
     currentIntensity = val / 100;
     document.getElementById('intensityVal').innerText = val + '%';
-    updateEQ();
+    
+    // Laraskan kekuatan compressor & limiter secara dinamik ikut intensity
+    if (compressorNode) {
+        compressorNode.ratio.value = 2 + (currentIntensity * 4);
+    }
+    applyAudioSettings();
 }
 
 function setEffect(effectName, element) {
@@ -368,30 +423,35 @@ function setEffect(effectName, element) {
     element.classList.add('active');
     document.getElementById('selectedEffect').innerText = effectName;
 
-    // Laraskan EQ automatik mengikut karakter pilihan seperti BandLab
     let lowSlider = document.getElementById('eqLow');
     let midSlider = document.getElementById('eqMid');
     let highSlider = document.getElementById('eqHigh');
 
+    // Ubah parameter EQ dan sifat Saturation ikut preset pro BandLab
+    let satAmount = 10;
     switch(effectName) {
-        case 'Fire':
-            lowSlider.value = 9; midSlider.value = 1; highSlider.value = 4; break;
-        case 'Clarity':
-            lowSlider.value = 1; midSlider.value = 6; highSlider.value = 7; break;
-        case 'Tape':
-            lowSlider.value = 4; midSlider.value = -2; highSlider.value = -3; break;
-        case 'Spatial':
-            lowSlider.value = 5; midSlider.value = 2; highSlider.value = 8; break;
-        case 'Cinematic':
-            lowSlider.value = 7; midSlider.value = -3; highSlider.value = 6; break;
-        case 'Punch':
-            lowSlider.value = 6; midSlider.value = 4; highSlider.value = 5; break;
-        case 'Natural':
-            lowSlider.value = 0; midSlider.value = 0; highSlider.value = 0; break;
+        case 'Fire': // Bass Boost padat & tebal
+            lowSlider.value = 10; midSlider.value = 1; highSlider.value = 4; satAmount = 25; break;
+        case 'Clarity': // Vokal sangat terang & rangup
+            lowSlider.value = 1; midSlider.value = 7; highSlider.value = 8; satAmount = 15; break;
+        case 'Tape': // Kehangatan analog klasik
+            lowSlider.value = 5; midSlider.value = -1; highSlider.value = -2; satAmount = 40; break;
+        case 'Spatial': // Lebar & megah
+            lowSlider.value = 4; midSlider.value = 2; highSlider.value = 9; satAmount = 20; break;
+        case 'Cinematic': // Mendalam & bergemuruh
+            lowSlider.value = 8; midSlider.value = -3; highSlider.value = 7; satAmount = 30; break;
+        case 'Punch': // Padu bertenaga
+            lowSlider.value = 7; midSlider.value = 5; highSlider.value = 6; satAmount = 35; break;
+        case 'Natural': // Asal bersih
+            lowSlider.value = 0; midSlider.value = 0; highSlider.value = 0; satAmount = 5; break;
         default: // Universal
-            lowSlider.value = 3; midSlider.value = 0; highSlider.value = 2; break;
+            lowSlider.value = 3; midSlider.value = 0; highSlider.value = 2; satAmount = 10; break;
     }
-    updateEQ();
+
+    if (saturationNode) {
+        saturationNode.curve = makeDistortionCurve(satAmount);
+    }
+    applyAudioSettings();
 }
 
 function goToStep(stepNumber) {
@@ -409,7 +469,6 @@ function goToStep(stepNumber) {
             let previewPlayer = document.getElementById('previewPlayer');
             previewPlayer.src = audioURL;
         }
-        // Pastikan Audio Context aktif apabila pengguna mula tekan masuk langkah 2
         setTimeout(() => {
             initAudioEngine();
             if (audioCtx && audioCtx.state === 'suspended') {
