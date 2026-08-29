@@ -19,7 +19,7 @@
         .studio-card {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
             border: 1px solid #3b82f6;
-            padding: 25px;
+            padding: 20px;
             border-radius: 16px;
             width: 100%;
             max-width: 440px;
@@ -27,42 +27,42 @@
             box-sizing: border-box;
         }
         h1 {
-            font-size: 22px;
+            font-size: 20px;
             text-align: center;
             color: #60a5fa;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
         .subtitle {
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #fbbf24;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: bold;
             letter-spacing: 1px;
         }
         .step-indicator {
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #94a3b8;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .section-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #60a5fa;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: block;
         }
         input[type="file"], select, input[type="text"] {
             background: #1e293b;
             border: 1px solid #3b82f6;
-            padding: 10px;
+            padding: 9px;
             border-radius: 8px;
             width: 100%;
             color: #cbd5e1;
             font-size: 13px;
             box-sizing: border-box;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         input[type="file"] {
             border: 1px dashed #3b82f6;
@@ -70,16 +70,16 @@
         .grid-effects {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
         .effect-btn {
             background: #1e293b;
             border: 1px solid #3b82f6;
             color: white;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
@@ -90,18 +90,18 @@
             border-color: #60a5fa;
         }
         .slider-box {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: #1e293b;
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             border: 1px solid #334155;
         }
         .slider-box label {
-            font-size: 12px;
+            font-size: 11px;
             color: #94a3b8;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         input[type="range"] {
             width: 100%;
@@ -109,32 +109,32 @@
         }
         .eq-container {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
         .eq-slider {
             flex: 1;
             background: #1e293b;
-            padding: 8px;
+            padding: 6px;
             border-radius: 8px;
             text-align: center;
             border: 1px solid #334155;
         }
         .eq-slider span {
-            font-size: 11px;
+            font-size: 10px;
             color: #94a3b8;
         }
         .btn-container {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 12px;
         }
         .btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             cursor: pointer;
             border: none;
@@ -156,15 +156,17 @@
         }
         audio {
             width: 100%;
-            margin-top: 15px;
-            border-radius: 8px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            height: 36px;
         }
         .info-box {
             background: #1e293b;
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 12px;
+            margin-bottom: 12px;
+            font-size: 11px;
             border-left: 4px solid #3b82f6;
             line-height: 1.4;
         }
@@ -211,9 +213,12 @@
         </div>
     </div>
 
-    <!-- ================= LANGKAH 2 (KESAN AI & EQ) ================= -->
+    <!-- ================= LANGKAH 2 (KESAN AI, EQ & PREVIEW PLAYER) ================= -->
     <div id="step2" class="hidden">
-        <div class="step-indicator">Langkah 2 dari 3: Tetapan Kesan AI & EQ</div>
+        <div class="step-indicator">Langkah 2 dari 3: Tetapan & Dengar Pratonton</div>
+
+        <span class="section-label">🎧 Pratonton Lagu Suno Anda</span>
+        <audio id="previewPlayer" controls></audio>
 
         <span class="section-label">✨ Pilih Kesan AI Utama</span>
         <div class="grid-effects">
@@ -236,25 +241,25 @@
         <div class="eq-container">
             <div class="eq-slider">
                 <span>LOW (Bass)</span>
-                <input type="range" min="-12" max="12" value="3" style="margin-top:5px;">
+                <input type="range" min="-12" max="12" value="3" style="margin-top:4px;">
             </div>
             <div class="eq-slider">
                 <span>MID</span>
-                <input type="range" min="-12" max="12" value="0" style="margin-top:5px;">
+                <input type="range" min="-12" max="12" value="0" style="margin-top:4px;">
             </div>
             <div class="eq-slider">
                 <span>HIGH (Treble)</span>
-                <input type="range" min="-12" max="12" value="2" style="margin-top:5px;">
+                <input type="range" min="-12" max="12" value="2" style="margin-top:4px;">
             </div>
         </div>
 
         <div class="btn-container">
             <button type="button" class="btn btn-back" onclick="goToStep(1)">⬅️ Kembali</button>
-            <button type="button" class="btn" onclick="goToStep(3)">Proses Audio ➡️</button>
+            <button type="button" class="btn" onclick="goToStep(3)">Proses Seterusnya ➡️</button>
         </div>
     </div>
 
-    <!-- ================= LANGKAH 3 (HASIL & PEMAIN) ================= -->
+    <!-- ================= LANGKAH 3 (HASIL & MUAT TURUN) ================= -->
     <div id="step3" class="hidden">
         <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
         
@@ -264,11 +269,11 @@
             <div><strong>Kesan AI:</strong> <span id="selectedEffect" style="color: #34d399;">Universal</span></div>
         </div>
 
-        <span class="section-label">🎧 Pemain Audio Rasmi</span>
-        <audio id="audioPlayer" controls></audio>
+        <span class="section-label">🎧 Pemain Audio Rasmi Akhir</span>
+        <audio id="finalPlayer" controls></audio>
 
         <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Kesan</button>
+            <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Tetapan</button>
             <button type="button" class="btn" onclick="alert('Tahniah! Fail audio anda berjaya disimpan.')">Muat Turun</button>
         </div>
     </div>
@@ -277,6 +282,7 @@
 <!-- Skrip Pengurusan Studio -->
 <script>
 let uploadedFile = null;
+let audioURL = "";
 
 function filterGenres() {
     let input = document.getElementById('genreSearch').value.toLowerCase();
@@ -317,6 +323,12 @@ function goToStep(stepNumber) {
         }
         if (fileInput.files.length > 0) {
             uploadedFile = fileInput.files[0];
+            audioURL = URL.createObjectURL(uploadedFile);
+        }
+        // Masukkan audio ke pemain preview di langkah 2
+        let previewPlayer = document.getElementById('previewPlayer');
+        if (previewPlayer.src !== audioURL) {
+            previewPlayer.src = audioURL;
         }
     }
 
@@ -324,10 +336,11 @@ function goToStep(stepNumber) {
         document.getElementById('fileName').innerText = uploadedFile ? uploadedFile.name : "Fail Suno";
         document.getElementById('selectedGenre').innerText = genreSelect.value || "Tidak dipilih";
 
-        let audioURL = URL.createObjectURL(uploadedFile);
-        let player = document.getElementById('audioPlayer');
-        if (player.src !== audioURL) {
-            player.src = audioURL;
+        // Hentikan preview & masukkan ke pemain akhir
+        document.getElementById('previewPlayer').pause();
+        let finalPlayer = document.getElementById('finalPlayer');
+        if (finalPlayer.src !== audioURL) {
+            finalPlayer.src = audioURL;
         }
     }
 
@@ -336,7 +349,6 @@ function goToStep(stepNumber) {
     document.getElementById('step2').classList.add('hidden');
     document.getElementById('step3').classList.add('hidden');
 
-    document.getElementById('step3').classList.add('hidden');
     document.getElementById('step' + stepNumber).classList.remove('hidden');
 }
 </script>
