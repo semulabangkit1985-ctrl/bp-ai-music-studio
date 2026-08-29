@@ -10,6 +10,8 @@ def serve_index():
         return FileResponse("index.html")
     return {"detail": "index.html not found"}
 
+# Menyokong kedua-dua nama supaya tiada lagi ralat 'Not Found'
+@app.get("/studio.html")
 @app.get("/studioai.html")
 def serve_studio():
     if os.path.exists("studioai.html"):
