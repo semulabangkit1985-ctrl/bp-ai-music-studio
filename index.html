@@ -6,7 +6,6 @@
     <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
         body {
-            /* Latar belakang keseluruhan laman menggunakan poster penuh */
             background: url('486331.png') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -14,8 +13,8 @@
             margin: 0;
             padding: 15px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
         .overlay {
@@ -27,7 +26,7 @@
             background: rgba(11, 15, 25, 0.78);
             z-index: -1;
         }
-        /* Kad Utama Studio */
+        /* Susunan Kad: Lebar seragam dan kemas */
         .studio-card {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
             border: 1px solid #3b82f6;
@@ -36,21 +35,20 @@
             max-width: 440px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
             box-sizing: border-box;
-            margin-top: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 16px;
             overflow: hidden;
             backdrop-filter: blur(10px);
         }
-        /* Banner Grafik Di Atas Kad (Seperti Gambar Asal Tuan) */
+        /* KAD 1: Banner Grafik & Penerangan */
         .header-banner {
             width: 100%;
-            height: 170px;
+            height: 160px;
             object-fit: cover;
             object-position: center top;
             display: block;
             border-bottom: 2px solid #3b82f6;
         }
-        .card-content {
+        .header-content {
             padding: 18px;
         }
         h1 {
@@ -59,6 +57,7 @@
             color: #60a5fa;
             margin-bottom: 2px;
             margin-top: 0;
+            text-transform: uppercase;
         }
         .subtitle {
             text-align: center;
@@ -66,15 +65,13 @@
             color: #fbbf24;
             margin-bottom: 15px;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
-        /* Kotak Penerangan Studio Yang Kemas */
         .description-box {
             background: rgba(30, 41, 59, 0.85);
             border: 1px solid #3b82f6;
             border-radius: 10px;
             padding: 14px;
-            margin-bottom: 18px;
             font-size: 12px;
             line-height: 1.6;
             color: #cbd5e1;
@@ -98,14 +95,17 @@
             margin-top: 10px;
             margin-bottom: 0;
         }
+
+        /* KAD 2: Borang Langkah-Langkah (Diasingkan di Bawah) */
+        .form-content {
+            padding: 18px;
+        }
         .step-indicator {
             text-align: center;
             font-size: 12px;
             color: #94a3b8;
             margin-bottom: 12px;
             font-weight: bold;
-            border-top: 1px solid #334155;
-            padding-top: 12px;
         }
         .section-label {
             font-size: 12px;
@@ -305,22 +305,25 @@
 
 <div class="overlay"></div>
 
+<!-- KAD 1: BANNER GRAFIK & PENERANGAN (DI ATAS) -->
 <div class="studio-card">
-    <!-- BANNER GRAFIK DI ATAS KAD (MENGGUNAKAN POSTER TUAN) -->
     <img src="486331.png" alt="BP AI Music Studio Banner" class="header-banner" onerror="this.style.display='none'">
-
-    <div class="card-content">
+    <div class="header-content">
         <h1>BP AI Music Studio</h1>
         <div class="subtitle">ROCK · HIP HOP · MALAYA</div>
 
-        <!-- TEKS PENERANGAN RASMI -->
         <div class="description-box">
             <h3>MASTERING BP AI MUSIC STUDIO</h3>
             <p><strong>Mastering BP AI MUSIC STUDIO</strong> adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
             <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
             <p class="studio-quote">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
         </div>
+    </div>
+</div>
 
+<!-- KAD 2: BORANG LANGKAH-LANGKAH STUDIO (DI BAWAH) -->
+<div class="studio-card">
+    <div class="form-content">
         <!-- ================= LANGKAH 1 ================= -->
         <div id="step1">
             <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
@@ -496,4 +499,4 @@ function toggleDropdown() {
 
 function selectGenre(genreName) {
     selectedGenreValue = genreName;
-    document.getElementById('sele
+    document.getElementById('selectedGenreText
