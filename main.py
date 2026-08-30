@@ -7,16 +7,16 @@ app = FastAPI()
 def home():
     return """
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="ms">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BP AI Music Production</title>
+        <title>BP AI Music Studio</title>
         <style>
             body {
-                background-color: #0f172a;
-                color: #f8fafc;
-                font-family: Arial, sans-serif;
+                background-color: #0b0f19;
+                color: #ffffff;
+                font-family: 'Montserrat', sans-serif;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -27,12 +27,10 @@ def home():
     </head>
     <body>
         <div style="text-align: center;">
-            <h1>BP AI Music Production</h1>
-            <p>Sistem backend berjalan dengan lancar!</p>
+            <h2>BP AI Music Studio</h2>
+            <p>Pelayan sedang aktif dan berjalan dengan lancar!</p>
         </div>
     </body>
     </html>
     """
-```eof
-
-Fail `main.py` di atas menggunakan kerangka FastAPI yang bersih dan memastikan sebarang kod CSS diletakkan di dalam *string* Python yang betul agar tidak mencetuskan ralat sintaks. Sila kemas kini fail `main.py` anda di GitHub dengan kod ini.
+    
