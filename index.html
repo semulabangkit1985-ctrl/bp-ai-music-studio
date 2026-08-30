@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
-        /* TETAPAN SKRIN PENUH TANPA JARAK Tepi */
+        /* TETAPAN SKRIN PENUH MENEGAK (EDGE-TO-EDGE) */
         body {
             background: #0b0f19;
             color: #ffffff;
@@ -47,7 +47,7 @@
             margin: 0;
         }
         
-        /* POSTER MENGEK TINGGI & LEBAR PENUH (EDGE-TO-EDGE) */
+        /* POSTER MENEGAK PENUH (EDGE-TO-EDGE) */
         .vertical-poster {
             width: 100%;
             height: auto;
@@ -59,37 +59,39 @@
             padding: 0;
         }
 
-        /* KHAS UNTUK BAHAGIAN TEKS & BORang DI BAWAH */
+        /* RUANG KANDUNGAN DI BAWAH POSTER */
         .content-padding {
-            padding: 20px 15px;
+            padding: 25px 20px;
             width: 100%;
             box-sizing: border-box;
+            max-width: 600px;
         }
 
-        /* BAHAGIAN PENGENALAN - BACKGROUND TELUS */
+        /* AYAT PENGENALAN TANPA BACKGROUND (TELUS 100%) */
         .description-box {
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
             padding: 0 !important;
-            font-size: 13.5px;
-            line-height: 1.7;
+            font-size: 14px;
+            line-height: 1.8;
             color: #cbd5e1;
             margin-bottom: 25px;
             text-align: left;
         }
 
         .description-box h3 {
-            font-size: 15px;
+            font-size: 16px;
             color: #60a5fa;
             text-align: center;
             margin-top: 0;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .description-box p {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .studio-quote {
@@ -97,9 +99,9 @@
             color: #fbbf24;
             font-weight: bold;
             font-style: italic;
-            margin-top: 15px;
+            margin-top: 20px;
             margin-bottom: 0;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
 
         .step-indicator {
@@ -301,7 +303,7 @@
 
 <div class="studio-container">
     <div class="studio-card">
-        <!-- HALAMAN 1: POSTER MENEGAK PENUH (EDGE-TO-EDGE) -->
+        <!-- HALAMAN 1: POSTER MENEGAK PENUH & AYAT PENGENALAN TANPA BACKGROUND -->
         <div id="page1">
             <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
             
