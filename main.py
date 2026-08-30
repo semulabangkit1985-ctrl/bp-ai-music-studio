@@ -185,7 +185,7 @@ def home():
                 top: 100%;
                 left: 0;
                 width: 100%;
-                max-height: 260px;
+                max-height: 280px;
                 overflow-y: auto;
                 background: #0f172a;
                 border: 1px solid rgba(59, 130, 246, 0.6);
@@ -194,6 +194,28 @@ def home():
                 z-index: 100;
                 box-shadow: 0 8px 25px rgba(0,0,0,0.8);
                 box-sizing: border-box;
+            }
+
+            .dropdown-search-box {
+                position: sticky;
+                top: 0;
+                background: #1e293b;
+                padding: 10px;
+                border-bottom: 1px solid rgba(59, 130, 246, 0.4);
+                z-index: 10;
+            }
+
+            .dropdown-search-input {
+                width: 100%;
+                background: #0f172a;
+                border: 1px solid rgba(59, 130, 246, 0.6);
+                padding: 8px 12px;
+                border-radius: 6px;
+                color: #ffffff;
+                font-size: 12.5px;
+                font-family: 'Montserrat', sans-serif;
+                box-sizing: border-box;
+                outline: none;
             }
 
             .dropdown-group-header {
@@ -206,10 +228,6 @@ def home():
                 letter-spacing: 0.5px;
                 border-top: 1px solid rgba(59, 130, 246, 0.2);
                 border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            }
-
-            .dropdown-group-header:first-child {
-                border-top: none;
             }
 
             .dropdown-option {
@@ -302,15 +320,19 @@ def home():
 
                 <span class="section-label">🎵 Pilih Genre Lagu</span>
                 
-                <!-- Custom Dropdown Menu -->
+                <!-- Custom Dropdown Menu dengan Carian -->
                 <div class="custom-dropdown-container">
                     <div class="custom-dropdown-trigger" onclick="toggleDropdown()">
                         <span id="selectedGenreText">-- Sila Pilih Genre Lagu --</span> <span>▼</span>
                     </div>
                     
                     <div id="customDropdownList" class="custom-dropdown-list hidden">
+                        <div class="dropdown-search-box">
+                            <input type="text" id="genreSearchInput" class="dropdown-search-input" placeholder="🔍 Cari genre lagu..." onkeyup="filterGenres()">
+                        </div>
+
                         <!-- Melayu / Nusantara -->
-                        <div class="dropdown-group-header">🇲🇾 Melayu / Nusantara</div>
+                        <div class="dropdown-group-header category-header">🇲🇾 Melayu / Nusantara</div>
                         <div class="dropdown-option" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
@@ -341,7 +363,7 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Nusantara Electronic')">Nusantara Electronic</div>
 
                         <!-- Pop -->
-                        <div class="dropdown-group-header">🎤 Pop</div>
+                        <div class="dropdown-group-header category-header">🎤 Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop')">Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
                         <div class="dropdown-option" onclick="selectGenre('Electropop')">Electropop</div>
@@ -362,7 +384,7 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Experimental Pop')">Experimental Pop</div>
 
                         <!-- Rock -->
-                        <div class="dropdown-group-header">🎸 Rock</div>
+                        <div class="dropdown-group-header category-header">🎸 Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Rock')">Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Soft Rock')">Soft Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Classic Rock')">Classic Rock</div>
@@ -384,7 +406,7 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Metal Rock')">Metal Rock</div>
 
                         <!-- Hip Hop / Rap -->
-                        <div class="dropdown-group-header">🎤 Hip Hop / Rap</div>
+                        <div class="dropdown-group-header category-header">🎤 Hip Hop / Rap</div>
                         <div class="dropdown-option" onclick="selectGenre('Hip Hop')">Hip Hop</div>
                         <div class="dropdown-option" onclick="selectGenre('Rap')">Rap</div>
                         <div class="dropdown-option" onclick="selectGenre('Old School Hip Hop')">Old School Hip Hop</div>
@@ -392,13 +414,4 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Boom Bap')">Boom Bap</div>
                         <div class="dropdown-option" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
                         <div class="dropdown-option" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Conscious Rap')">Conscious Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Melodic Rap')">Melodic Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Pop Rap')">Pop Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Alternative Hip Hop')">Alternative Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('R&B Rap')">R&B Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Drill')">Drill</div>
-                        <div class="dropdown-option" onclick="selectGenre('West Coast Hip Hop')">West Coast Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('East Coast Hip Hop')">East Coast Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('UK Drill')">UK Drill</div>
-             
+                        <div class="dropdown-option" onc
