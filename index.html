@@ -64,10 +64,13 @@
             font-weight: bold;
             letter-spacing: 1.5px;
         }
-        /* BAHAGIAN PENGENALAN - KOTAK DAN BORDER DIBUANG SEPENUHNYA */
-        .description-box {
+        
+        /* KOTAK BIRU DIBUANG SECARA PAKSA (FORCE REMOVE) */
+        #page1 .description-box {
             background: transparent !important;
+            background-color: transparent !important;
             border: none !important;
+            border-color: transparent !important;
             box-shadow: none !important;
             padding: 0 !important;
             font-size: 12px;
@@ -75,6 +78,7 @@
             color: #cbd5e1;
             margin-bottom: 15px;
         }
+        
         .description-box h3 {
             font-size: 13px;
             color: #60a5fa;
@@ -207,41 +211,6 @@
             background: #3b82f6;
             border-color: #60a5fa;
             box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-        .slider-box {
-            margin-bottom: 12px;
-            background: #1e293b;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-        }
-        .slider-box label {
-            font-size: 11px;
-            color: #94a3b8;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-        input[type="range"] {
-            width: 100%;
-            accent-color: #3b82f6;
-        }
-        .eq-container {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .eq-slider {
-            flex: 1;
-            background: #1e293b;
-            padding: 6px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #334155;
-        }
-        .eq-slider span {
-            font-size: 10px;
-            color: #94a3b8;
         }
         .btn-container {
             display: flex;
