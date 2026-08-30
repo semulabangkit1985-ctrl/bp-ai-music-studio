@@ -6,8 +6,7 @@
     <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
         body {
-            background: url('486331.png') no-repeat center center fixed;
-            background-size: cover;
+            background: #0b0f19;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -23,7 +22,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 15, 25, 0.78);
+            background: rgba(11, 15, 25, 0.85);
             z-index: -1;
         }
         /* Susunan Kad: Lebar seragam dan kemas */
@@ -39,10 +38,10 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
         }
-        /* KAD 1: Banner Grafik & Penerangan */
+        /* KAD 1: Banner Grafik Rasmi & Penerangan */
         .header-banner {
             width: 100%;
-            height: 160px;
+            height: 180px;
             object-fit: cover;
             object-position: center top;
             display: block;
@@ -305,9 +304,8 @@
 
 <div class="overlay"></div>
 
-<!-- KAD 1: BANNER GRAFIK & PENERANGAN (DI ATAS) -->
 <div class="studio-card">
-    <img src="486331.png" alt="BP AI Music Studio Banner" class="header-banner" onerror="this.style.display='none'">
+    <img src="Untitled design.png" alt="BP AI Music Studio Banner" class="header-banner">
     <div class="header-content">
         <h1>BP AI Music Studio</h1>
         <div class="subtitle">ROCK · HIP HOP · MALAYA</div>
@@ -321,10 +319,8 @@
     </div>
 </div>
 
-<!-- KAD 2: BORANG LANGKAH-LANGKAH STUDIO (DI BAWAH) -->
 <div class="studio-card">
     <div class="form-content">
-        <!-- ================= LANGKAH 1 ================= -->
         <div id="step1">
             <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
             
@@ -404,7 +400,6 @@
             </div>
         </div>
 
-        <!-- ================= LANGKAH 2 ================= -->
         <div id="step2" class="hidden">
             <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
 
@@ -450,7 +445,6 @@
             </div>
         </div>
 
-        <!-- ================= LANGKAH 3 ================= -->
         <div id="step3" class="hidden">
             <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
             
@@ -499,4 +493,15 @@ function toggleDropdown() {
 
 function selectGenre(genreName) {
     selectedGenreValue = genreName;
-    document.getElementById('selectedGenreText
+    document.getElementById('selectedGenreText').innerText = genreName;
+    document.getElementById('selectDropdown').classList.remove('show');
+}
+
+function filterGenres() {
+    let input = document.getElementById('genreSearch').value.toLowerCase();
+    let items = document.querySelectorAll('.option-item');
+
+    items.forEach(item => {
+        let txt = item.innerText.toLowerCase();
+        if (txt.includes(input)) {
+            item.style
