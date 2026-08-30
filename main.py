@@ -36,6 +36,10 @@ def home():
                 max-width: 480px;
                 min-height: 100vh;
                 background: #0b0f19;
+                background-image: url('Untitled design.png');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -45,7 +49,8 @@ def home():
 
             .studio-overlay {
                 flex: 1;
-                background: rgba(11, 15, 25, 0.92);
+                background: rgba(11, 15, 25, 0.88);
+                backdrop-filter: blur(5px);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -63,6 +68,7 @@ def home():
                 text-transform: uppercase;
                 margin-bottom: 12px;
                 text-align: center;
+                text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
             }
 
             .content-readable-box {
