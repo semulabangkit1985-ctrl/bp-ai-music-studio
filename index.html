@@ -25,35 +25,37 @@
             background: rgba(11, 15, 25, 0.95);
             z-index: -1;
         }
+        
+        /* KOTAK KAD UTAMA DIBUANG LATAR BELAKANG & BORDER */
         .studio-card {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98));
-            border: 1px solid rgba(59, 130, 246, 0.25);
-            border-radius: 16px;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
             width: 100%;
             max-width: 440px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-            box-sizing: border-box;
             margin-bottom: 16px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
+        
         .full-logo-banner {
             width: 100%;
             height: 190px;
             object-fit: cover;
             object-position: center;
             display: block;
-            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .page-padding {
-            padding: 18px;
+            padding: 18px 0;
         }
         h1 {
             font-size: 20px;
             text-align: center;
             color: #60a5fa;
             margin-bottom: 2px;
-            margin-top: 10px;
+            margin-top: 15px;
             text-transform: uppercase;
         }
         .subtitle {
@@ -64,13 +66,9 @@
             font-weight: bold;
             letter-spacing: 1.5px;
         }
-        
-        /* KOTAK BIRU DIBUANG SECARA PAKSA (FORCE REMOVE) */
-        #page1 .description-box {
+        .description-box {
             background: transparent !important;
-            background-color: transparent !important;
             border: none !important;
-            border-color: transparent !important;
             box-shadow: none !important;
             padding: 0 !important;
             font-size: 12px;
@@ -78,7 +76,6 @@
             color: #cbd5e1;
             margin-bottom: 15px;
         }
-        
         .description-box h3 {
             font-size: 13px;
             color: #60a5fa;
