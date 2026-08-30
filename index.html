@@ -152,16 +152,6 @@
             box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
         }
 
-        .step-indicator {
-            text-align: center;
-            font-family: 'Syne', sans-serif;
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
         .section-label {
             font-family: 'Syne', sans-serif;
             font-size: 12.5px;
@@ -386,7 +376,6 @@
 
     <!-- HALAMAN 2 -->
     <div id="page2" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 2 dari 4: Fail & Genre</div>
         <span class="section-label">📁 Choose File (Music)</span>
         <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
         <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
@@ -416,7 +405,6 @@
 
     <!-- HALAMAN 3 -->
     <div id="page3" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 3 dari 4: AI Audio Processing</div>
         <span class="section-label">🎧 Pratonton Audio</span>
         <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
 
@@ -436,7 +424,6 @@
 
     <!-- HALAMAN 4 -->
     <div id="page4" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 4 dari 4: Result MP3</div>
         <div class="info-box">
             <div><strong>Fail Audio:</strong> <span id="fileName">-</span></div>
             <div><strong>Genre:</strong> <span id="selectedGenre">-</span></div>
