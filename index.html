@@ -8,7 +8,9 @@
         body {
             background: #0b0f19;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
             margin: 0;
             padding: 0;
             display: flex;
@@ -25,6 +27,13 @@
             margin: 0 auto;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             box-sizing: border-box;
+            background: #0b0f19;
+        }
+
+        /* POSTER SEBAGAI LATAR BELAKANG UTAMA */
+        .poster-wrapper {
+            position: relative;
+            width: 100%;
         }
 
         .vertical-poster {
@@ -33,54 +42,82 @@
             display: block;
         }
 
-        /* KOTAK OVERLAY DI BAWAH POSTER (REKA BENTUK ASAL) */
+        /* LAPISAN TEKS GAYA WEBSITE MODEN DI ATAS POSTER */
+        .poster-text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            background: rgba(11, 15, 25, 0.72);
+            backdrop-filter: blur(2px);
+        }
+
+        .poster-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #60a5fa;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .poster-desc {
+            font-size: 11.5px;
+            line-height: 1.65;
+            color: #e2e8f0;
+            margin-bottom: 12px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+            max-width: 96%;
+            font-weight: 400;
+        }
+
+        .poster-quote-box {
+            margin-top: 6px;
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 3px solid #fbbf24;
+            border-radius: 4px;
+            text-align: left;
+            width: 90%;
+        }
+
+        .poster-quote-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .poster-quote {
+            font-size: 11px;
+            font-weight: 500;
+            color: #fbbf24;
+            font-style: italic;
+        }
+
+        /* KOTAK BORANG UNTUK HALAMAN SETERUSNYA */
         .overlay-card {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to top, rgba(11, 15, 25, 0.98) 75%, rgba(11, 15, 25, 0.9) 90%, transparent);
+            background: linear-gradient(to top, rgba(11, 15, 25, 0.98) 82%, rgba(11, 15, 25, 0.95) 96%, transparent);
             padding: 25px 20px 20px 20px;
             box-sizing: border-box;
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
-        }
-
-        .description-box {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-            text-align: left;
-            backdrop-filter: blur(10px);
-        }
-
-        .description-box h3 {
-            font-size: 14px;
-            color: #60a5fa;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .description-box p {
-            margin-bottom: 10px;
-        }
-
-        .studio-quote {
-            text-align: center;
-            color: #fbbf24;
-            font-weight: bold;
-            font-style: italic;
-            margin-top: 10px;
-            margin-bottom: 0;
-            font-size: 12px;
         }
 
         .step-indicator {
@@ -214,7 +251,7 @@
         .btn-container {
             display: flex;
             gap: 8px;
-            margin-top: 15px;
+            margin-top: 12px;
             width: 100%;
         }
 
@@ -274,24 +311,31 @@
 <body>
 
 <div class="studio-container">
-    <!-- HALAMAN 1 -->
-    <div id="page1">
+    <div id="page1" class="poster-wrapper">
         <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
         
-        <div class="overlay-card">
-            <div class="description-box">
-                <h3>MASTERING BP AI MUSIC STUDIO</h3>
-                <p><strong>Mastering BP AI MUSIC STUDIO</strong> adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti.</p>
-                <p class="studio-quote">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
+        <div class="poster-text-overlay">
+            <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
+            
+            <div class="poster-desc">
+                Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
+            </div>
+            
+            <div class="poster-desc">
+                Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
             </div>
 
-            <div class="btn-container">
+            <div class="poster-quote-box">
+                <div class="poster-quote-title">BP AI MUSIC STUDIO</div>
+                <div class="poster-quote">Memperkemas bunyi, menghidupkan karya.</div>
+            </div>
+
+            <div class="btn-container" style="margin-top: 4px;">
                 <button type="button" class="btn" onclick="goToPage(2)">Mula Mastering (File 2) ➡️</button>
             </div>
         </div>
     </div>
 
-    <!-- HALAMAN 2 -->
     <div id="page2" class="overlay-card hidden">
         <div class="step-indicator">Halaman 2 dari 4: File 2 (Fail & Genre)</div>
         <span class="section-label">📁 Choose File (Music)</span>
@@ -321,7 +365,6 @@
         </div>
     </div>
 
-    <!-- HALAMAN 3 -->
     <div id="page3" class="overlay-card hidden">
         <div class="step-indicator">Halaman 3 dari 4: File 3 (AI Audio)</div>
         <span class="section-label">🎧 Pratonton Audio</span>
@@ -341,7 +384,6 @@
         </div>
     </div>
 
-    <!-- HALAMAN 4 -->
     <div id="page4" class="overlay-card hidden">
         <div class="step-indicator">Halaman 4 dari 4: File 4 (Result MP3)</div>
         <div class="info-box">
