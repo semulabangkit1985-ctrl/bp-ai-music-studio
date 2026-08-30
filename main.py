@@ -4,7 +4,6 @@ import os
 
 app = FastAPI()
 
-# Laluan khas untuk membenarkan pelayan memaparkan gambar latar belakang
 @app.get("/Untitled design.png")
 def get_image():
     return FileResponse("Untitled design.png")
@@ -55,8 +54,8 @@ def home():
 
             .studio-overlay {
                 flex: 1;
-                background: rgba(11, 15, 25, 0.88);
-                backdrop-filter: blur(5px);
+                background: rgba(11, 15, 25, 0.65);
+                backdrop-filter: blur(2px);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -78,12 +77,13 @@ def home():
             }
 
             .content-readable-box {
-                background: rgba(15, 23, 42, 0.9);
+                background: rgba(15, 23, 42, 0.82);
                 padding: 16px 14px;
                 border-radius: 12px;
-                border: 1px solid rgba(59, 130, 246, 0.3);
+                border: 1px solid rgba(59, 130, 246, 0.4);
                 margin-bottom: 14px;
                 box-sizing: border-box;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.6);
             }
 
             .poster-desc {
@@ -101,10 +101,11 @@ def home():
             .poster-quote-box {
                 margin-bottom: 16px;
                 padding: 10px 14px;
-                background: rgba(15, 23, 42, 0.95);
+                background: rgba(15, 23, 42, 0.85);
                 border-left: 4px solid #fbbf24;
                 border-radius: 6px;
                 box-sizing: border-box;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             }
 
             .poster-quote-title {
@@ -132,11 +133,12 @@ def home():
                 margin-bottom: 6px;
                 display: block;
                 text-align: center;
+                text-shadow: 0 2px 8px rgba(0,0,0,0.8);
             }
 
             input[type="file"], select {
-                background: #1e293b;
-                border: 1px solid rgba(59, 130, 246, 0.5);
+                background: rgba(30, 41, 59, 0.9);
+                border: 1px solid rgba(59, 130, 246, 0.6);
                 padding: 12px 14px;
                 border-radius: 10px;
                 width: 100%;
@@ -146,6 +148,7 @@ def home():
                 box-sizing: border-box;
                 margin-bottom: 16px;
                 outline: none;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             }
 
             input[type="file"] {
@@ -216,7 +219,6 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
-            <!-- HALAMAN 1 -->
             <div id="page1">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
@@ -240,7 +242,6 @@ def home():
                 </div>
             </div>
 
-            <!-- HALAMAN 2 -->
             <div id="page2" class="hidden">
                 <div class="poster-title">TETAPAN MASTERING</div>
 
@@ -310,4 +311,3 @@ def home():
     </body>
     </html>
     """
-    
