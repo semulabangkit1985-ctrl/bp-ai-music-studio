@@ -65,12 +65,12 @@
             font-weight: bold;
             letter-spacing: 1.5px;
         }
-        /* KOTAK PENGENALAN - DIJADIKAN TELUS SEPENUHNYA TANPA KOTAK/BORDER */
+        /* BAHAGIAN PENGENALAN - KOTAK DAN BORDER DIBuang SEPENUHNYA */
         .description-box {
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            padding: 0 5px;
+            padding: 0 !important;
             font-size: 12px;
             line-height: 1.6;
             color: #cbd5e1;
@@ -305,10 +305,8 @@
 
 <div class="overlay"></div>
 
-<!-- CONTAINER UTAMA WIZARD -->
 <div class="studio-card">
 
-    <!-- ================= HALAMAN 1 (FILE 1): Full Logo & Pengenalan ================= -->
     <div id="page1">
         <img src="Untitled design.png" alt="BP AI Music Studio Full Logo" class="full-logo-banner">
         
@@ -329,7 +327,6 @@
         </div>
     </div>
 
-    <!-- ================= HALAMAN 2 (FILE 2): Choose File & Genre ================= -->
     <div id="page2" class="page-padding hidden">
         <div class="step-indicator">Halaman 2 dari 4: File 2 (Fail & Genre)</div>
         
@@ -448,4 +445,6 @@
                 <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
                 <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
                 <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
-                <div class="option-item" onclick="selectG
+                <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
+                <div class="option-item" onclick="selectGenre('Raya / Aidilfitri')">Raya / Aidilfitri</div>
+                <div class="option-item" onclick="selectGenre('Malay Trap')">Mal
