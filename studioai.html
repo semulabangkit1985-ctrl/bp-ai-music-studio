@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
-    <!-- FONT GOOGLE MODEN & STYLISH (SYNE & MONTSERRAT) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -136,7 +135,7 @@
             text-shadow: 0 1px 4px rgba(0,0,0,0.9);
         }
 
-        /* KOTAK BORANG UNTUK HALAMAN 2, 3, 4 DENGAN LATAR BELAKANG POSTER DI BELAKANGNYA */
+        /* KOTAK BORANG UNTUK HALAMAN 2, 3, 4 DENGAN LATAR BELAKANG POSTER */
         .overlay-card {
             position: absolute;
             bottom: 0;
@@ -257,32 +256,6 @@
             color: white;
         }
 
-        .grid-effects {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .effect-btn {
-            background: #1e293b;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: white;
-            padding: 9px;
-            border-radius: 8px;
-            font-size: 11.5px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            font-family: 'Syne', sans-serif;
-        }
-
-        .effect-btn.active {
-            background: #3b82f6;
-            border-color: #60a5fa;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-
         .btn-container {
             display: flex;
             gap: 8px;
@@ -312,48 +285,16 @@
             transform: translateY(-1px);
         }
 
-        .btn-back {
-            background: #334155;
-            box-shadow: none;
-        }
-
         .hidden {
             display: none !important;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 6px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            height: 36px;
-        }
-
-        .info-box {
-            background: #1e293b;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 11.5px;
-            border-left: 4px solid #3b82f6;
-            line-height: 1.5;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .info-box strong {
-            color: #60a5fa;
-            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
 <div class="studio-container">
-    <!-- LATAR BELAKANG POSTER KEKAL DI SEMUA HALAMAN -->
     <img src="Untitled design.png" alt="BP AI Music Studio Background Poster" class="global-poster-bg">
 
-    <!-- HALAMAN 1 -->
     <div id="page1" class="page-content">
         <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
         
@@ -377,7 +318,6 @@
         </div>
     </div>
 
-    <!-- HALAMAN 2 -->
     <div id="page2" class="overlay-card hidden">
         <span class="section-label">📁 Choose File (Music)</span>
         <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
@@ -388,11 +328,11 @@
 
         <div class="custom-select-box">
             <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
-                <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
+                <span id="selectedGenreText">Sila pilih atau cari genre...</span>
                 <span>▼</span>
             </div>
             <div class="select-dropdown" id="selectDropdown">
-                <!-- 🇲🇾 Melayu / Nusantara -->
+                
                 <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
                 <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
                 <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
@@ -423,7 +363,6 @@
                 <div class="option-item" onclick="selectGenre('Malay Electronic')">Malay Electronic</div>
                 <div class="option-item" onclick="selectGenre('Nusantara Electronic')">Nusantara Electronic</div>
 
-                <!-- 🎤 Pop -->
                 <div class="option-group-title">🎤 Pop</div>
                 <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
                 <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
@@ -444,7 +383,6 @@
                 <div class="option-item" onclick="selectGenre('Neon Pop')">Neon Pop</div>
                 <div class="option-item" onclick="selectGenre('Experimental Pop')">Experimental Pop</div>
 
-                <!-- 🎸 Rock -->
                 <div class="option-group-title">🎸 Rock</div>
                 <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
                 <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
@@ -466,7 +404,6 @@
                 <div class="option-item" onclick="selectGenre('Arena Rock')">Arena Rock</div>
                 <div class="option-item" onclick="selectGenre('Metal Rock')">Metal Rock</div>
 
-                <!-- 🎤 Hip Hop / Rap -->
                 <div class="option-group-title">🎤 Hip Hop / Rap</div>
                 <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
                 <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
@@ -481,4 +418,23 @@
                 <div class="option-item" onclick="selectGenre('Alternative Hip Hop')">Alternative Hip Hop</div>
                 <div class="option-item" onclick="selectGenre('R&B Rap')">R&B Rap</div>
                 <div class="option-item" onclick="selectGenre('Drill')">Drill</div>
-                <div class="option-item" onclick=
+                <div class="option-item" onclick="selectGenre('West Coast Hip Hop')">West Coast Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('East Coast Hip Hop')">East Coast Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('UK Drill')">UK Drill</div>
+                <div class="option-item" onclick="selectGenre('Afro Drill')">Afro Drill</div>
+                <div class="option-item" onclick="selectGenre('Cyberpunk Trap')">Cyberpunk Trap</div>
+                <div class="option-item" onclick="selectGenre('Cinematic Trap')">Cinematic Trap</div>
+                <div class="option-item" onclick="selectGenre('Hybrid Trap')">Hybrid Trap</div>
+
+                <div class="option-group-title">🔥 Phonk</div>
+                <div class="option-item" onclick="selectGenre('Phonk')">Phonk</div>
+                <div class="option-item" onclick="selectGenre('Dark Phonk')">Dark Phonk</div>
+                <div class="option-item" onclick="selectGenre('Drift Phonk')">Drift Phonk</div>
+                <div class="option-item" onclick="selectGenre('Brazilian Phonk')">Brazilian Phonk</div>
+                <div class="option-item" onclick="selectGenre('Memphis Phonk')">Memphis Phonk</div>
+                <div class="option-item" onclick="selectGenre('Aggressive Phonk')">Aggressive Phonk</div>
+                <div class="option-item" onclick="selectGenre('Atmospheric Phonk')">Atmospheric Phonk</div>
+                <div class="option-item" onclick="selectGenre('Electro Phonk')">Electro Phonk</div>
+                <div class="option-item" onclick="selectGenre('Trap Phonk')">Trap Phonk</div>
+                <div class="option-item" onclick="selectGenre('Future Phonk')">Future Phonk</div>
+                <div cl
