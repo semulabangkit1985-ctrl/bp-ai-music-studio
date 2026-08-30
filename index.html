@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
+    <!-- MENGGUNAKAN FONT PREMIUM GOOGLE FONTS (MONTSERRAT) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         body {
             background: #0b0f19;
             color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
             margin: 0;
@@ -31,7 +36,7 @@
             overflow: hidden;
         }
 
-        /* TEKNIK GRID BERTINDIH (STABIL & TIDAK LARI) */
+        /* POSTER DENGAN GRID BERTINDIH */
         .poster-wrapper {
             display: grid;
             grid-template-columns: 1fr;
@@ -48,8 +53,11 @@
             width: 100%;
             height: auto;
             display: block;
+            /* SEDIKIT TAMBAHAN KECERAHAN PADA IMEJ POSTER */
+            filter: brightness(1.1); 
         }
 
+        /* LATAR BELAKANG DIKURANGKAN KEPEKATAN (LEBIH TERANG & JELAS) */
         .poster-text-overlay {
             display: flex;
             flex-direction: column;
@@ -58,59 +66,59 @@
             padding: 24px 20px;
             box-sizing: border-box;
             text-align: center;
-            background: rgba(11, 15, 25, 0.45);
+            background: rgba(11, 15, 25, 0.22);
             z-index: 2;
         }
 
         .poster-title {
-            font-size: 14.5px;
-            font-weight: 800;
+            font-size: 15px;
+            font-weight: 900;
             color: #60a5fa;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.8px;
             text-transform: uppercase;
             margin-bottom: 12px;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
         }
 
         .poster-desc {
             font-size: 11.5px;
-            line-height: 1.65;
-            color: #f8fafc;
+            line-height: 1.7;
+            color: #ffffff;
             margin-bottom: 12px;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
             max-width: 98%;
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .poster-quote-box {
             margin-top: 4px;
             margin-bottom: 14px;
-            padding: 8px 12px;
+            padding: 9px 14px;
             background: rgba(15, 23, 42, 0.65);
             border-left: 4px solid #fbbf24;
-            border-radius: 4px;
+            border-radius: 6px;
             text-align: left;
             width: 90%;
-            backdrop-filter: blur(2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         .poster-quote-title {
             font-size: 11px;
             font-weight: 800;
             color: #ffffff;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 2px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.9);
         }
 
         .poster-quote {
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 11.5px;
+            font-weight: 700;
             color: #fbbf24;
             font-style: italic;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.9);
         }
 
         /* KOTAK BORANG UNTUK HALAMAN SETERUSNYA */
@@ -132,12 +140,12 @@
             font-size: 12px;
             color: #94a3b8;
             margin-bottom: 12px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .section-label {
             font-size: 12.5px;
-            font-weight: bold;
+            font-weight: 700;
             color: #60a5fa;
             margin-bottom: 5px;
             display: block;
@@ -151,6 +159,7 @@
             width: 100%;
             color: #cbd5e1;
             font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
             margin-bottom: 10px;
         }
@@ -164,7 +173,7 @@
             font-size: 11.5px;
             color: #34d399;
             margin-bottom: 10px;
-            font-weight: bold;
+            font-weight: 700;
             display: none;
         }
 
@@ -181,9 +190,10 @@
             width: 100%;
             color: #cbd5e1;
             font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -214,7 +224,7 @@
             color: #fbbf24;
             padding: 6px 12px;
             background: #0f172a;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .option-item {
@@ -223,6 +233,7 @@
             color: #cbd5e1;
             cursor: pointer;
             border-bottom: 1px solid #334155;
+            font-weight: 500;
         }
 
         .option-item:hover {
@@ -244,7 +255,7 @@
             padding: 9px;
             border-radius: 8px;
             font-size: 11.5px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             text-align: center;
         }
@@ -266,7 +277,7 @@
             flex: 1;
             padding: 13px;
             border-radius: 10px;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 13.5px;
             text-align: center;
             cursor: pointer;
@@ -308,17 +319,19 @@
             border-left: 4px solid #3b82f6;
             line-height: 1.5;
             color: #94a3b8;
+            font-weight: 500;
         }
 
         .info-box strong {
             color: #60a5fa;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
 <div class="studio-container">
-    <!-- HALAMAN 1: POSTER DENGAN CSS GRID (TIDAK AKAN LARI KE BAWAH) -->
+    <!-- HALAMAN 1: POSTER LEBIH TERANG & FONT LEBIH CANTIK -->
     <div id="page1" class="poster-wrapper">
         <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
         
