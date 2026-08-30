@@ -47,7 +47,7 @@
             margin: 0;
         }
         
-        /* POSTER MENEGAK PENUH (PENUH KIRI, KANAN, ATAS) */
+        /* POSTER MENEGAK BERSIH PENUH (TANPA HALANGAN) */
         .vertical-poster {
             width: 100%;
             height: auto;
@@ -59,7 +59,7 @@
             padding: 0;
         }
 
-        /* RUANG KANDUNGAN & TEKS PENGENALAN DI BAWAH POSTER */
+        /* KOTAK KANDUNGAN & PENGENALAN DI BAWAH POSTER */
         .content-padding {
             padding: 25px 20px;
             width: 100%;
@@ -69,15 +69,16 @@
         }
 
         .description-box {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 12px;
-            padding: 20px;
+            padding: 22px;
             font-size: 13.5px;
             line-height: 1.8;
             color: #cbd5e1;
             margin-bottom: 25px;
             text-align: left;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             box-sizing: border-box;
         }
 
@@ -305,6 +306,7 @@
 
 <div class="studio-container">
     <div class="studio-card">
+        <!-- HALAMAN 1: POSTER PENUH BERSIH DI ATAS & TEKS DI BAWAH -->
         <div id="page1">
             <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
             
@@ -322,6 +324,7 @@
             </div>
         </div>
 
+        <!-- HALAMAN 2 -->
         <div id="page2" class="content-padding hidden">
             <div class="step-indicator">Halaman 2 dari 4: File 2 (Fail & Genre)</div>
             <span class="section-label">📁 Choose File (Music)</span>
@@ -351,6 +354,7 @@
             </div>
         </div>
 
+        <!-- HALAMAN 3 -->
         <div id="page3" class="content-padding hidden">
             <div class="step-indicator">Halaman 3 dari 4: File 3 (AI Audio)</div>
             <span class="section-label">🎧 Pratonton Audio</span>
@@ -370,6 +374,7 @@
             </div>
         </div>
 
+        <!-- HALAMAN 4 -->
         <div id="page4" class="content-padding hidden">
             <div class="step-indicator">Halaman 4 dari 4: File 4 (Result MP3)</div>
             <div class="info-box">
