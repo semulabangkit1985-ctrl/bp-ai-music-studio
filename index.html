@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
     <style>
-        /* TETAPAN UTAMA - MENEGAK (VERTICAL / PORTRAIT) */
         body {
             background: #0b0f19;
             color: #ffffff;
@@ -29,10 +28,9 @@
             z-index: -1;
         }
         
-        /* KONTENA UTAMA MENEGAK (VERTICAL LAYOUT) */
         .studio-container {
             width: 100%;
-            max-width: 600px; /* Dioptimumkan untuk rujukan paparan menegak yang selesa */
+            max-width: 480px; /* Saiz optimum untuk paparan menegak telefon */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,21 +41,18 @@
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            backdrop-filter: none !important;
             width: 100%;
             margin-bottom: 20px;
         }
         
-        .full-logo-banner {
+        /* POSTER MENEGAK PENUH (PORTRAIT) */
+        .vertical-poster {
             width: 100%;
             height: auto;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            object-position: center;
             display: block;
             border-radius: 12px;
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            border: none !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             margin-bottom: 20px;
         }
 
@@ -66,26 +61,7 @@
             width: 100%;
         }
 
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            color: #60a5fa;
-            margin-bottom: 6px;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 12px;
-            color: #fbbf24;
-            margin-bottom: 20px;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        /* BAHAGIAN PENGENALAN - BACKGROUND TELUS (TRANSPARENT) */
+        /* BAHAGIAN PENGENALAN - BACKGROUND TELUS */
         .description-box {
             background: transparent !important;
             border: none !important;
@@ -320,14 +296,12 @@
 
 <div class="studio-container">
     <div class="studio-card">
-        <!-- HALAMAN 1 -->
+        <!-- HALAMAN 1: POSTER MENEGAK & PENGENALAN -->
         <div id="page1">
-            <img src="Untitled design.png" alt="BP AI Music Studio Full Logo" class="full-logo-banner">
+            <!-- PENTING: Pastikan nama fail imej menegak Tuan sama dengan di bawah (contoh: poster-menegak.png atau Untitled design.png) -->
+            <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
             
             <div class="page-padding">
-                <h1>BP AI Music Studio</h1>
-                <div class="subtitle">ROCK · HIP HOP · MALAYA</div>
-
                 <div class="description-box">
                     <h3>MASTERING BP AI MUSIC STUDIO</h3>
                     <p><strong>Mastering BP AI MUSIC STUDIO</strong> adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
