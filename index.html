@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
@@ -38,16 +37,16 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
         }
-        /* FILE 1: Logo & Penerangan */
-        .header-banner {
+        /* FULL LOGO BANNER STYLING */
+        .full-logo-banner {
             width: 100%;
-            height: 180px;
+            height: 190px;
             object-fit: cover;
-            object-position: center top;
+            object-position: center;
             display: block;
-            border-bottom: none;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
         }
-        .header-content {
+        .page-padding {
             padding: 18px;
         }
         h1 {
@@ -55,7 +54,7 @@
             text-align: center;
             color: #60a5fa;
             margin-bottom: 2px;
-            margin-top: 0;
+            margin-top: 10px;
             text-transform: uppercase;
         }
         .subtitle {
@@ -74,6 +73,7 @@
             font-size: 12px;
             line-height: 1.6;
             color: #cbd5e1;
+            margin-bottom: 15px;
         }
         .description-box h3 {
             font-size: 13px;
@@ -95,10 +95,7 @@
             margin-bottom: 0;
         }
 
-        /* Umum Borang (FILE 2, 3, 4) */
-        .form-content {
-            padding: 18px;
-        }
+        /* Umum Borang */
         .step-indicator {
             text-align: center;
             font-size: 12px;
@@ -307,141 +304,148 @@
 
 <div class="overlay"></div>
 
+<!-- CONTAINER UTAMA WIZARD -->
 <div class="studio-card">
-    <img src="Untitled design.png" alt="BP AI Music Studio Logo" class="header-banner">
-    <div class="header-content">
-        <h1>BP AI Music Studio</h1>
-        <div class="subtitle">ROCK · HIP HOP · MALAYA</div>
 
-        <div class="description-box">
-            <h3>MASTERING BP AI MUSIC STUDIO</h3>
-            <p><strong>Mastering BP AI MUSIC STUDIO</strong> adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
-            <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
-            <p class="studio-quote">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
+    <!-- ================= HALAMAN 1 (FILE 1): Full Logo & Pengenalan ================= -->
+    <div id="page1">
+        <img src="Untitled design.png" alt="BP AI Music Studio Full Logo" class="full-logo-banner">
+        
+        <div class="page-padding">
+            <h1>BP AI Music Studio</h1>
+            <div class="subtitle">ROCK · HIP HOP · MALAYA</div>
+
+            <div class="description-box">
+                <h3>MASTERING BP AI MUSIC STUDIO</h3>
+                <p><strong>Mastering BP AI MUSIC STUDIO</strong> adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
+                <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
+                <p class="studio-quote">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn" onclick="goToPage(2)">Mula Mastering (File 2) ➡️</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="studio-card">
-    <div class="form-content">
+    <!-- ================= HALAMAN 2 (FILE 2): Choose File & Genre ================= -->
+    <div id="page2" class="page-padding hidden">
+        <div class="step-indicator">Halaman 2 dari 4: File 2 (Fail & Genre)</div>
         
-        <div id="step1">
-            <div class="step-indicator">Langkah 1 daripada 3 (File 2)</div>
-            
-            <span class="section-label">📁 Choose File (Music)</span>
-            <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
-            <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik! Sedang ke tetapan audio...</div>
+        <span class="section-label">📁 Choose File (Music)</span>
+        <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
+        <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih! Terus ke tetapan audio...</div>
 
-            <span class="section-label">🎵 Pilih Genre Lagu</span>
-            <input type="text" id="genreSearch" placeholder="Cari genre..." onkeyup="filterGenres()">
+        <span class="section-label">🎵 Pilih Genre Lagu</span>
+        <input type="text" id="genreSearch" placeholder="Cari genre..." onkeyup="filterGenres()">
 
-            <div class="custom-select-box">
-                <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
-                    <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
-                    <span>▼</span>
-                </div>
-                <div class="select-dropdown" id="selectDropdown">
-                    <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
-                    <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
-                    <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
-                    <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
-                    <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
-                    <div class="option-item" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
-                    <div class="option-item" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
-                    <div class="option-item" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
-                    <div class="option-item" onclick="selectGenre('Zapin')">Zapin</div>
-                    <div class="option-item" onclick="selectGenre('Joget')">Joget</div>
-                    <div class="option-item" onclick="selectGenre('Ghazal')">Ghazal</div>
-                    <div class="option-item" onclick="selectGenre('Keroncong')">Keroncong</div>
-                    <div class="option-item" onclick="selectGenre('Dangdut')">Dangdut</div>
-                    <div class="option-item" onclick="selectGenre('Campursari')">Campursari</div>
-                    <div class="option-item" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
-                    <div class="option-item" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
-                    <div class="option-item" onclick="selectGenre('Tradisional Melayu')">Tradisional Melayu</div>
-                    <div class="option-item" onclick="selectGenre('Tradisional Sabah')">Tradisional Sabah</div>
-                    <div class="option-item" onclick="selectGenre('Tradisional Sarawak')">Tradisional Sarawak</div>
-                    <div class="option-item" onclick="selectGenre('Minang')">Minang</div>
-                    <div class="option-item" onclick="selectGenre('Jawa')">Jawa</div>
-                    <div class="option-item" onclick="selectGenre('Sunda')">Sunda</div>
-                    <div class="option-item" onclick="selectGenre('Bugis')">Bugis</div>
-                    <div class="option-item" onclick="selectGenre('Batak')">Batak</div>
+        <div class="custom-select-box">
+            <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
+                <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
+                <span>▼</span>
+            </div>
+            <div class="select-dropdown" id="selectDropdown">
+                <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
+                <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
+                <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
+                <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
+                <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
+                <div class="option-item" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
+                <div class="option-item" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
+                <div class="option-item" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
+                <div class="option-item" onclick="selectGenre('Zapin')">Zapin</div>
+                <div class="option-item" onclick="selectGenre('Joget')">Joget</div>
+                <div class="option-item" onclick="selectGenre('Ghazal')">Ghazal</div>
+                <div class="option-item" onclick="selectGenre('Keroncong')">Keroncong</div>
+                <div class="option-item" onclick="selectGenre('Dangdut')">Dangdut</div>
+                <div class="option-item" onclick="selectGenre('Campursari')">Campursari</div>
+                <div class="option-item" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
+                <div class="option-item" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
+                <div class="option-item" onclick="selectGenre('Tradisional Melayu')">Tradisional Melayu</div>
+                <div class="option-item" onclick="selectGenre('Tradisional Sabah')">Tradisional Sabah</div>
+                <div class="option-item" onclick="selectGenre('Tradisional Sarawak')">Tradisional Sarawak</div>
+                <div class="option-item" onclick="selectGenre('Minang')">Minang</div>
+                <div class="option-item" onclick="selectGenre('Jawa')">Jawa</div>
+                <div class="option-item" onclick="selectGenre('Sunda')">Sunda</div>
+                <div class="option-item" onclick="selectGenre('Bugis')">Bugis</div>
+                <div class="option-item" onclick="selectGenre('Batak')">Batak</div>
 
-                    <div class="option-group-title">🎤 Pop</div>
-                    <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
-                    <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
-                    <div class="option-item" onclick="selectGenre('Electropop')">Electropop</div>
-                    <div class="option-item" onclick="selectGenre('Synthpop')">Synthpop</div>
-                    <div class="option-item" onclick="selectGenre('Dream Pop')">Dream Pop</div>
-                    <div class="option-item" onclick="selectGenre('Indie Pop')">Indie Pop</div>
-                    <div class="option-item" onclick="selectGenre('Teen Pop')">Teen Pop</div>
-                    <div class="option-item" onclick="selectGenre('Adult Contemporary')">Adult Contemporary</div>
-                    <div class="option-item" onclick="selectGenre('Dance Pop')">Dance Pop</div>
-                    <div class="option-item" onclick="selectGenre('Power Pop')">Power Pop</div>
-                    <div class="option-item" onclick="selectGenre('Soft Pop')">Soft Pop</div>
-                    <div class="option-item" onclick="selectGenre('Retro Pop')">Retro Pop</div>
-                    <div class="option-item" onclick="selectGenre('City Pop')">City Pop</div>
+                <div class="option-group-title">🎤 Pop</div>
+                <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
+                <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
+                <div class="option-item" onclick="selectGenre('Electropop')">Electropop</div>
+                <div class="option-item" onclick="selectGenre('Synthpop')">Synthpop</div>
+                <div class="option-item" onclick="selectGenre('Dream Pop')">Dream Pop</div>
+                <div class="option-item" onclick="selectGenre('Indie Pop')">Indie Pop</div>
+                <div class="option-item" onclick="selectGenre('Teen Pop')">Teen Pop</div>
+                <div class="option-item" onclick="selectGenre('Adult Contemporary')">Adult Contemporary</div>
+                <div class="option-item" onclick="selectGenre('Dance Pop')">Dance Pop</div>
+                <div class="option-item" onclick="selectGenre('Power Pop')">Power Pop</div>
+                <div class="option-item" onclick="selectGenre('Soft Pop')">Soft Pop</div>
+                <div class="option-item" onclick="selectGenre('Retro Pop')">Retro Pop</div>
+                <div class="option-item" onclick="selectGenre('City Pop')">City Pop</div>
 
-                    <div class="option-group-title">🎸 Rock</div>
-                    <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
-                    <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
-                    <div class="option-item" onclick="selectGenre('Classic Rock')">Classic Rock</div>
-                    <div class="option-item" onclick="selectGenre('Hard Rock')">Hard Rock</div>
-                    <div class="option-item" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
-                    <div class="option-item" onclick="selectGenre('Indie Rock')">Indie Rock</div>
-                    <div class="option-item" onclick="selectGenre('Pop Rock')">Pop Rock</div>
-                    <div class="option-item" onclick="selectGenre('Blues Rock')">Blues Rock</div>
-                    <div class="option-item" onclick="selectGenre('Progressive Rock')">Progressive Rock</div>
-                    <div class="option-item" onclick="selectGenre('Psychedelic Rock')">Psychedelic Rock</div>
-                    <div class="option-item" onclick="selectGenre('Punk Rock')">Punk Rock</div>
-                    <div class="option-item" onclick="selectGenre('Garage Rock')">Garage Rock</div>
-                    <div class="option-item" onclick="selectGenre('Grunge')">Grunge</div>
-                    <div class="option-item" onclick="selectGenre('Post-Rock')">Post-Rock</div>
-                    <div class="option-item" onclick="selectGenre('Folk Rock')">Folk Rock</div>
-                    <div class="option-item" onclick="selectGenre('Southern Rock')">Southern Rock</div>
-                    <div class="option-item" onclick="selectGenre('Glam Rock')">Glam Rock</div>
-                    <div class="option-item" onclick="selectGenre('Arena Rock')">Arena Rock</div>
-                    <div class="option-item" onclick="selectGenre('Metal Rock')">Metal Rock</div>
+                <div class="option-group-title">🎸 Rock</div>
+                <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
+                <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
+                <div class="option-item" onclick="selectGenre('Classic Rock')">Classic Rock</div>
+                <div class="option-item" onclick="selectGenre('Hard Rock')">Hard Rock</div>
+                <div class="option-item" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
+                <div class="option-item" onclick="selectGenre('Indie Rock')">Indie Rock</div>
+                <div class="option-item" onclick="selectGenre('Pop Rock')">Pop Rock</div>
+                <div class="option-item" onclick="selectGenre('Blues Rock')">Blues Rock</div>
+                <div class="option-item" onclick="selectGenre('Progressive Rock')">Progressive Rock</div>
+                <div class="option-item" onclick="selectGenre('Psychedelic Rock')">Psychedelic Rock</div>
+                <div class="option-item" onclick="selectGenre('Punk Rock')">Punk Rock</div>
+                <div class="option-item" onclick="selectGenre('Garage Rock')">Garage Rock</div>
+                <div class="option-item" onclick="selectGenre('Grunge')">Grunge</div>
+                <div class="option-item" onclick="selectGenre('Post-Rock')">Post-Rock</div>
+                <div class="option-item" onclick="selectGenre('Folk Rock')">Folk Rock</div>
+                <div class="option-item" onclick="selectGenre('Southern Rock')">Southern Rock</div>
+                <div class="option-item" onclick="selectGenre('Glam Rock')">Glam Rock</div>
+                <div class="option-item" onclick="selectGenre('Arena Rock')">Arena Rock</div>
+                <div class="option-item" onclick="selectGenre('Metal Rock')">Metal Rock</div>
 
-                    <div class="option-group-title">🎧 Hip Hop / Rap</div>
-                    <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
-                    <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
-                    <div class="option-item" onclick="selectGenre('Old School Hip Hop')">Old School Hip Hop</div>
-                    <div class="option-item" onclick="selectGenre('Trap')">Trap</div>
-                    <div class="option-item" onclick="selectGenre('Boom Bap')">Boom Bap</div>
-                    <div class="option-item" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
-                    <div class="option-item" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                    <div class="option-item" onclick="selectGenre('Conscious Rap')">Conscious Rap</div>
-                    <div class="option-item" onclick="selectGenre('Melodic Rap')">Melodic Rap</div>
-                    <div class="option-item" onclick="selectGenre('Pop Rap')">Pop Rap</div>
-                    <div class="option-item" onclick="selectGenre('Alternative Hip Hop')">Alternative Hip Hop</div>
-                    <div class="option-item" onclick="selectGenre('R&B Rap')">R&B Rap</div>
-                    <div class="option-item" onclick="selectGenre('Drill')">Drill</div>
-                    <div class="option-item" onclick="selectGenre('West Coast Hip Hop')">West Coast Hip Hop</div>
-                    <div class="option-item" onclick="selectGenre('East Coast Hip Hop')">East Coast Hip Hop</div>
+                <div class="option-group-title">🎧 Hip Hop / Rap</div>
+                <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
+                <div class="option-item" onclick="selectGenre('Old School Hip Hop')">Old School Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('Trap')">Trap</div>
+                <div class="option-item" onclick="selectGenre('Boom Bap')">Boom Bap</div>
+                <div class="option-item" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
+                <div class="option-item" onclick="selectGenre('Conscious Rap')">Conscious Rap</div>
+                <div class="option-item" onclick="selectGenre('Melodic Rap')">Melodic Rap</div>
+                <div class="option-item" onclick="selectGenre('Pop Rap')">Pop Rap</div>
+                <div class="option-item" onclick="selectGenre('Alternative Hip Hop')">Alternative Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('R&B Rap')">R&B Rap</div>
+                <div class="option-item" onclick="selectGenre('Drill')">Drill</div>
+                <div class="option-item" onclick="selectGenre('West Coast Hip Hop')">West Coast Hip Hop</div>
+                <div class="option-item" onclick="selectGenre('East Coast Hip Hop')">East Coast Hip Hop</div>
 
-                    <div class="option-group-title">⚡ Elektronik</div>
-                    <div class="option-item" onclick="selectGenre('EDM')">EDM</div>
-                    <div class="option-item" onclick="selectGenre('House')">House</div>
-                    <div class="option-item" onclick="selectGenre('Deep House')">Deep House</div>
-                    <div class="option-item" onclick="selectGenre('Tropical House')">Tropical House</div>
-                    <div class="option-item" onclick="selectGenre('Future House')">Future House</div>
-                    <div class="option-item" onclick="selectGenre('Progressive House')">Progressive House</div>
-                    <div class="option-item" onclick="selectGenre('Tech House')">Tech House</div>
-                    <div class="option-item" onclick="selectGenre('Electro House')">Electro House</div>
-                    <div class="option-item" onclick="selectGenre('Techno')">Techno</div>
-                    <div class="option-item" onclick="selectGenre('Trance')">Trance</div>
-                    <div class="option-item" onclick="selectGenre('Dubstep')">Dubstep</div>
-                    <div class="option-item" onclick="selectGenre('Drum & Bass')">Drum & Bass</div>
-                    <div class="option-item" onclick="selectGenre('Future Bass')">Future Bass</div>
-                    <div class="option-item" onclick="selectGenre('Ambient')">Ambient</div>
-                    <div class="option-item" onclick="selectGenre('Chillout')">Chillout</div>
-                    <div class="option-item" onclick="selectGenre('Downtempo')">Downtempo</div>
-                    <div class="option-item" onclick="selectGenre('Synthwave')">Synthwave</div>
-                    <div class="option-item" onclick="selectGenre('Vaporwave')">Vaporwave</div>
+                <div class="option-group-title">⚡ Elektronik</div>
+                <div class="option-item" onclick="selectGenre('EDM')">EDM</div>
+                <div class="option-item" onclick="selectGenre('House')">House</div>
+                <div class="option-item" onclick="selectGenre('Deep House')">Deep House</div>
+                <div class="option-item" onclick="selectGenre('Tropical House')">Tropical House</div>
+                <div class="option-item" onclick="selectGenre('Future House')">Future House</div>
+                <div class="option-item" onclick="selectGenre('Progressive House')">Progressive House</div>
+                <div class="option-item" onclick="selectGenre('Tech House')">Tech House</div>
+                <div class="option-item" onclick="selectGenre('Electro House')">Electro House</div>
+                <div class="option-item" onclick="selectGenre('Techno')">Techno</div>
+                <div class="option-item" onclick="selectGenre('Trance')">Trance</div>
+                <div class="option-item" onclick="selectGenre('Dubstep')">Dubstep</div>
+                <div class="option-item" onclick="selectGenre('Drum & Bass')">Drum & Bass</div>
+                <div class="option-item" onclick="selectGenre('Future Bass')">Future Bass</div>
+                <div class="option-item" onclick="selectGenre('Ambient')">Ambient</div>
+                <div class="option-item" onclick="selectGenre('Chillout')">Chillout</div>
+                <div class="option-item" onclick="selectGenre('Downtempo')">Downtempo</div>
+                <div class="option-item" onclick="selectGenre('Synthwave')">Synthwave</div>
+                <div class="option-item" onclick="selectGenre('Vaporwave')">Vaporwave</div>
 
-                    <div class="option-group-title">🎬 Gaya Khas & Phonk</div>
-                    <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
-                    <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
-                    <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
-                    <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
-                
+                <div class="option-group-title">🎬 Gaya Khas & Phonk</div>
+                <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
+                <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
+                <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
+                <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
+                <div class="option-item" oncli
