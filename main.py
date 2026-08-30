@@ -1,7 +1,13 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
+import os
 
 app = FastAPI()
+
+# Laluan khas untuk membenarkan pelayan memaparkan gambar latar belakang
+@app.get("/Untitled design.png")
+def get_image():
+    return FileResponse("Untitled design.png")
 
 @app.get("/", response_class=HTMLResponse)
 def home():
