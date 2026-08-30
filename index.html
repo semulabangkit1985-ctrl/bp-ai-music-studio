@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
-    <!-- MENGGUNAKAN FONT PREMIUM GOOGLE FONTS (MONTSERRAT) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -53,11 +52,11 @@
             width: 100%;
             height: auto;
             display: block;
-            /* SEDIKIT TAMBAHAN KECERAHAN PADA IMEJ POSTER */
-            filter: brightness(1.1); 
+            /* IMEJ POSTER DITERANGKAN LAGI */
+            filter: brightness(1.18) contrast(1.05); 
         }
 
-        /* LATAR BELAKANG DIKURANGKAN KEPEKATAN (LEBIH TERANG & JELAS) */
+        /* LATAR BELAKANG LEBIH TERANG & JELAS */
         .poster-text-overlay {
             display: flex;
             flex-direction: column;
@@ -66,18 +65,19 @@
             padding: 24px 20px;
             box-sizing: border-box;
             text-align: center;
-            background: rgba(11, 15, 25, 0.22);
+            background: rgba(11, 15, 25, 0.15);
             z-index: 2;
         }
 
         .poster-title {
-            font-size: 15px;
-            font-weight: 900;
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
             color: #60a5fa;
-            letter-spacing: 1.8px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 12px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.98);
         }
 
         .poster-desc {
@@ -94,20 +94,21 @@
             margin-top: 4px;
             margin-bottom: 14px;
             padding: 9px 14px;
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.7);
             border-left: 4px solid #fbbf24;
             border-radius: 6px;
             text-align: left;
             width: 90%;
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(4px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         .poster-quote-title {
-            font-size: 11px;
+            font-family: 'Syne', sans-serif;
+            font-size: 11.5px;
             font-weight: 800;
             color: #ffffff;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             margin-bottom: 2px;
             text-shadow: 0 1px 4px rgba(0,0,0,0.9);
@@ -137,18 +138,22 @@
 
         .step-indicator {
             text-align: center;
+            font-family: 'Syne', sans-serif;
             font-size: 12px;
             color: #94a3b8;
             margin-bottom: 12px;
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .section-label {
+            font-family: 'Syne', sans-serif;
             font-size: 12.5px;
             font-weight: 700;
             color: #60a5fa;
             margin-bottom: 5px;
             display: block;
+            letter-spacing: 0.5px;
         }
 
         input[type="file"], input[type="text"] {
@@ -193,7 +198,7 @@
             font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -220,11 +225,13 @@
         }
 
         .option-group-title {
+            font-family: 'Syne', sans-serif;
             font-size: 11px;
             color: #fbbf24;
             padding: 6px 12px;
             background: #0f172a;
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .option-item {
@@ -258,6 +265,7 @@
             font-weight: 700;
             cursor: pointer;
             text-align: center;
+            font-family: 'Syne', sans-serif;
         }
 
         .effect-btn.active {
@@ -277,6 +285,7 @@
             flex: 1;
             padding: 13px;
             border-radius: 10px;
+            font-family: 'Syne', sans-serif;
             font-weight: 700;
             font-size: 13.5px;
             text-align: center;
@@ -286,6 +295,7 @@
             color: white;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
             transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
 
         .btn:hover {
@@ -305,145 +315,4 @@
         audio {
             width: 100%;
             margin-top: 6px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            height: 36px;
-        }
-
-        .info-box {
-            background: #1e293b;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 11.5px;
-            border-left: 4px solid #3b82f6;
-            line-height: 1.5;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .info-box strong {
-            color: #60a5fa;
-            font-weight: 700;
-        }
-    </style>
-</head>
-<body>
-
-<div class="studio-container">
-    <!-- HALAMAN 1: POSTER LEBIH TERANG & FONT LEBIH CANTIK -->
-    <div id="page1" class="poster-wrapper">
-        <img src="Untitled design.png" alt="BP AI Music Studio Vertical Poster" class="vertical-poster">
-        
-        <div class="poster-text-overlay">
-            <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
             
-            <div class="poster-desc">
-                Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
-            </div>
-            
-            <div class="poster-desc">
-                Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
-            </div>
-
-            <div class="poster-quote-box">
-                <div class="poster-quote-title">BP AI MUSIC STUDIO</div>
-                <div class="poster-quote">Memperkemas bunyi, menghidupkan karya.</div>
-            </div>
-
-            <div class="btn-container" style="margin-top: 4px;">
-                <button type="button" class="btn" onclick="goToPage(2)">Mula Mastering (File 2) ➡️</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- HALAMAN 2 -->
-    <div id="page2" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 2 dari 4: File 2 (Fail & Genre)</div>
-        <span class="section-label">📁 Choose File (Music)</span>
-        <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
-        <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
-
-        <span class="section-label">🎵 Pilih Genre Lagu</span>
-        <input type="text" id="genreSearch" placeholder="Cari genre..." onkeyup="filterGenres()">
-
-        <div class="custom-select-box">
-            <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
-                <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
-                <span>▼</span>
-            </div>
-            <div class="select-dropdown" id="selectDropdown">
-                <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
-                <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
-                <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
-                <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
-                <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
-            </div>
-        </div>
-
-        <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToPage(1)">⬅️ Kembali</button>
-            <button type="button" class="btn" onclick="goToPage(3)">Seterusnya (File 3) ➡️</button>
-        </div>
-    </div>
-
-    <!-- HALAMAN 3 -->
-    <div id="page3" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 3 dari 4: File 3 (AI Audio)</div>
-        <span class="section-label">🎧 Pratonton Audio</span>
-        <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
-
-        <span class="section-label">✨ AI Audio Processing Presets</span>
-        <div class="grid-effects">
-            <div class="effect-btn active" onclick="setEffect('Universal', this)">Universal</div>
-            <div class="effect-btn" onclick="setEffect('Fire', this)">• Fire</div>
-            <div class="effect-btn" onclick="setEffect('Clarity', this)">• Clarity</div>
-            <div class="effect-btn" onclick="setEffect('Tape', this)">• Tape</div>
-        </div>
-
-        <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToPage(2)">⬅️ Kembali</button>
-            <button type="button" class="btn" onclick="goToPage(4)">Seterusnya (File 4) ➡️</button>
-        </div>
-    </div>
-
-    <!-- HALAMAN 4 -->
-    <div id="page4" class="overlay-card hidden">
-        <div class="step-indicator">Halaman 4 dari 4: File 4 (Result MP3)</div>
-        <div class="info-box">
-            <div><strong>Fail Audio:</strong> <span id="fileName">-</span></div>
-            <div><strong>Genre:</strong> <span id="selectedGenre">-</span></div>
-        </div>
-        <span class="section-label">🎧 RESULT MP3</span>
-        <audio id="finalPlayer" controls></audio>
-        <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToPage(3)">⬅️ Ubah</button>
-            <button type="button" class="btn" onclick="alert('Berjaya dimuat turun!')">Muat Turun MP3</button>
-        </div>
-    </div>
-</div>
-
-<script>
-function goToPage(p) {
-    document.getElementById('page1').classList.add('hidden');
-    document.getElementById('page2').classList.add('hidden');
-    document.getElementById('page3').classList.add('hidden');
-    document.getElementById('page4').classList.add('hidden');
-    document.getElementById('page' + p).classList.remove('hidden');
-}
-function handleFileSelected(input) {
-    if (input.files && input.files.length > 0) {
-        document.getElementById('fileStatus').style.display = 'block';
-        setTimeout(() => goToPage(3), 500);
-    }
-}
-function toggleDropdown() {
-    document.getElementById('selectDropdown').classList.toggle('show');
-}
-function selectGenre(g) {
-    document.getElementById('selectedGenreText').innerText = g;
-    document.getElementById('selectDropdown').classList.remove('show');
-}
-</script>
-</body>
-</html>
