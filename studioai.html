@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BP AI Music Studio - Pro Mastering Suite</title>
+    <!-- FONT GOOGLE MODEN & STYLISH -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -13,6 +14,7 @@
             background: #0b0f19;
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,7 +28,11 @@
             width: 100%;
             max-width: 480px;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0b0f19 0%, #1e1b4b 100%);
+            background: #0b0f19;
+            background-image: url('Untitled design.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -36,6 +42,8 @@
 
         .studio-overlay {
             flex: 1;
+            background: rgba(11, 15, 25, 0.88);
+            backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -53,6 +61,7 @@
             text-transform: uppercase;
             margin-bottom: 12px;
             text-align: center;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
         }
 
         .content-readable-box {
@@ -61,6 +70,7 @@
             border-radius: 12px;
             border: 1px solid rgba(59, 130, 246, 0.3);
             margin-bottom: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
             box-sizing: border-box;
         }
 
@@ -70,6 +80,10 @@
             color: #f1f5f9;
             margin-bottom: 12px;
             font-weight: 500;
+        }
+
+        .poster-desc:last-child {
+            margin-bottom: 0;
         }
 
         .poster-quote-box {
@@ -105,6 +119,8 @@
             color: #60a5fa;
             margin-bottom: 6px;
             display: block;
+            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         input[type="file"], select {
@@ -123,23 +139,29 @@
 
         input[type="file"] {
             border: 1px dashed #3b82f6;
+            cursor: pointer;
         }
 
+        /* TETAPAN SUPAYA PILIHAN GENRE BERADA DI TENGAH-TENGAH */
         select {
             cursor: pointer;
             font-weight: 600;
+            text-align: center;
+            text-align-last: center;
         }
 
         select option {
             background: #1e293b;
             color: #ffffff;
             padding: 12px;
+            text-align: center;
         }
 
         select optgroup {
             background: #0f172a;
             color: #fbbf24;
             font-weight: 700;
+            text-align: center;
         }
 
         .status-ready {
@@ -149,6 +171,7 @@
             margin-bottom: 14px;
             font-weight: 700;
             display: none;
+            text-align: center;
         }
 
         .btn-container {
@@ -171,6 +194,7 @@
             background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+            letter-spacing: 0.5px;
         }
 
         .hidden {
@@ -183,6 +207,7 @@
 <div class="studio-container">
     <div class="studio-overlay">
         
+        <!-- HALAMAN 1 -->
         <div id="page1">
             <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
             
@@ -192,7 +217,7 @@
                 </div>
                 
                 <div class="poster-desc">
-                    Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap.
+                    Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
                 </div>
             </div>
 
@@ -206,6 +231,7 @@
             </div>
         </div>
 
+        <!-- HALAMAN 2 -->
         <div id="page2" class="hidden">
             <div class="poster-title">TETAPAN MASTERING</div>
 
@@ -217,60 +243,196 @@
             <select id="genreSelect">
                 <option value="" disabled selected>-- Sila Pilih Genre Lagu --</option>
                 
+                <!-- 🇲🇾 Melayu / Nusantara -->
                 <optgroup label="🇲🇾 Melayu / Nusantara">
+                    <option value="Malaya / Melayu">Malaya / Melayu</option>
                     <option value="Pop Melayu">Pop Melayu</option>
                     <option value="Rock Melayu">Rock Melayu</option>
                     <option value="Balada Melayu">Balada Melayu</option>
+                    <option value="Melayu Klasik">Melayu Klasik</option>
+                    <option value="Irama Malaysia">Irama Malaysia</option>
+                    <option value="Lagu Asli">Lagu Asli</option>
+                    <option value="Zapin">Zapin</option>
+                    <option value="Joget">Joget</option>
+                    <option value="Ghazal">Ghazal</option>
+                    <option value="Keroncong">Keroncong</option>
                     <option value="Dangdut">Dangdut</option>
+                    <option value="Campursari">Campursari</option>
+                    <option value="Pop Nusantara">Pop Nusantara</option>
+                    <option value="Etnik Nusantara">Etnik Nusantara</option>
+                    <option value="Tradisional Melayu">Tradisional Melayu</option>
+                    <option value="Tradisional Sabah">Tradisional Sabah</option>
+                    <option value="Tradisional Sarawak">Tradisional Sarawak</option>
+                    <option value="Minang">Minang</option>
+                    <option value="Jawa">Jawa</option>
+                    <option value="Sunda">Sunda</option>
+                    <option value="Bugis">Bugis</option>
+                    <option value="Batak">Batak</option>
+                    <option value="Malay Bounce">Malay Bounce</option>
+                    <option value="Malay Trap">Malay Trap</option>
                     <option value="Malay Phonk">Malay Phonk</option>
+                    <option value="Malay Electronic">Malay Electronic</option>
+                    <option value="Nusantara Electronic">Nusantara Electronic</option>
                 </optgroup>
+
+                <!-- 🎤 Pop -->
                 <optgroup label="🎤 Pop">
                     <option value="Pop">Pop</option>
                     <option value="Pop Ballad">Pop Ballad</option>
+                    <option value="Electropop">Electropop</option>
+                    <option value="Synthpop">Synthpop</option>
+                    <option value="Dream Pop">Dream Pop</option>
                     <option value="Indie Pop">Indie Pop</option>
+                    <option value="Teen Pop">Teen Pop</option>
+                    <option value="Adult Contemporary">Adult Contemporary</option>
+                    <option value="Dance Pop">Dance Pop</option>
+                    <option value="Power Pop">Power Pop</option>
+                    <option value="Soft Pop">Soft Pop</option>
+                    <option value="Retro Pop">Retro Pop</option>
+                    <option value="City Pop">City Pop</option>
+                    <option value="Dark Pop">Dark Pop</option>
+                    <option value="Noir Pop">Noir Pop</option>
+                    <option value="Future Pop">Future Pop</option>
+                    <option value="Neon Pop">Neon Pop</option>
+                    <option value="Experimental Pop">Experimental Pop</option>
                 </optgroup>
+
+                <!-- 🎸 Rock -->
                 <optgroup label="🎸 Rock">
                     <option value="Rock">Rock</option>
-                    <option value="Alternative Rock">Alternative Rock</option>
+                    <option value="Soft Rock">Soft Rock</option>
                     <option value="Classic Rock">Classic Rock</option>
+                    <option value="Hard Rock">Hard Rock</option>
+                    <option value="Alternative Rock">Alternative Rock</option>
+                    <option value="Indie Rock">Indie Rock</option>
+                    <option value="Pop Rock">Pop Rock</option>
+                    <option value="Blues Rock">Blues Rock</option>
+                    <option value="Progressive Rock">Progressive Rock</option>
+                    <option value="Psychedelic Rock">Psychedelic Rock</option>
+                    <option value="Punk Rock">Punk Rock</option>
+                    <option value="Garage Rock">Garage Rock</option>
+                    <option value="Grunge">Grunge</option>
+                    <option value="Post-Rock">Post-Rock</option>
+                    <option value="Folk Rock">Folk Rock</option>
+                    <option value="Southern Rock">Southern Rock</option>
+                    <option value="Glam Rock">Glam Rock</option>
+                    <option value="Arena Rock">Arena Rock</option>
+                    <option value="Metal Rock">Metal Rock</option>
                 </optgroup>
+
+                <!-- 🎤 Hip Hop / Rap -->
+                <optgroup label="🎤 Hip Hop / Rap">
+                    <option value="Hip Hop">Hip Hop</option>
+                    <option value="Rap">Rap</option>
+                    <option value="Old School Hip Hop">Old School Hip Hop</option>
+                    <option value="Trap">Trap</option>
+                    <option value="Boom Bap">Boom Bap</option>
+                    <option value="Lo-Fi Hip Hop">Lo-Fi Hip Hop</option>
+                    <option value="Gangsta Rap">Gangsta Rap</option>
+                    <option value="Conscious Rap">Conscious Rap</option>
+                    <option value="Melodic Rap">Melodic Rap</option>
+                    <option value="Pop Rap">Pop Rap</option>
+                    <option value="Alternative Hip Hop">Alternative Hip Hop</option>
+                    <option value="R&B Rap">R&B Rap</option>
+                    <option value="Drill">Drill</option>
+                    <option value="West Coast Hip Hop">West Coast Hip Hop</option>
+                    <option value="East Coast Hip Hop">East Coast Hip Hop</option>
+                    <option value="UK Drill">UK Drill</option>
+                    <option value="Afro Drill">Afro Drill</option>
+                    <option value="Cyberpunk Trap">Cyberpunk Trap</option>
+                    <option value="Cinematic Trap">Cinematic Trap</option>
+                    <option value="Hybrid Trap">Hybrid Trap</option>
+                </optgroup>
+
+                <!-- 🔥 Phonk -->
                 <optgroup label="🔥 Phonk">
                     <option value="Phonk">Phonk</option>
+                    <option value="Dark Phonk">Dark Phonk</option>
                     <option value="Drift Phonk">Drift Phonk</option>
                     <option value="Brazilian Phonk">Brazilian Phonk</option>
+                    <option value="Memphis Phonk">Memphis Phonk</option>
+                    <option value="Aggressive Phonk">Aggressive Phonk</option>
+                    <option value="Atmospheric Phonk">Atmospheric Phonk</option>
+                    <option value="Electro Phonk">Electro Phonk</option>
+                    <option value="Trap Phonk">Trap Phonk</option>
+                    <option value="Future Phonk">Future Phonk</option>
+                    <option value="Malay Phonk">Malay Phonk</option>
+                    <option value="Neon Noir Phonk">Neon Noir Phonk</option>
+                    <option value="Neon Noir Phonk - Malay Bounce">Neon Noir Phonk - Malay Bounce</option>
+                    <option value="Dark Techno / Neon Noir Phonk - Malay Bounce">Dark Techno / Neon Noir Phonk - Malay Bounce</option>
                 </optgroup>
-            </select>
 
-            <div class="btn-container">
-                <button type="button" class="btn" onclick="goToPage(1)">⬅️ Kembali</button>
-                <button type="button" class="btn" onclick="goToPage(3)">Seterusnya ➡️</button>
-            </div>
-        </div>
+                <!-- ⚡ Techno / Electronic -->
+                <optgroup label="⚡ Techno / Electronic">
+                    <option value="EDM">EDM</option>
+                    <option value="Techno">Techno</option>
+                    <option value="Dark Techno">Dark Techno</option>
+                    <option value="Hard Techno">Hard Techno</option>
+                    <option value="Industrial Techno">Industrial Techno</option>
+                    <option value="Acid Techno">Acid Techno</option>
+                    <option value="Minimal Techno">Minimal Techno</option>
+                    <option value="Melodic Techno">Melodic Techno</option>
+                    <option value="Progressive Techno">Progressive Techno</option>
+                    <option value="Techno Noir">Techno Noir</option>
+                    <option value="Cyber Techno">Cyber Techno</option>
+                    <option value="House">House</option>
+                    <option value="Deep House">Deep House</option>
+                    <option value="Tropical House">Tropical House</option>
+                    <option value="Future House">Future House</option>
+                    <option value="Progressive House">Progressive House</option>
+                    <option value="Tech House">Tech House</option>
+                    <option value="Electro House">Electro House</option>
+                    <option value="Bass House">Bass House</option>
+                    <option value="G-House">G-House</option>
+                    <option value="Slap House">Slap House</option>
+                    <option value="Afro House">Afro House</option>
+                    <option value="Trance">Trance</option>
+                    <option value="Dubstep">Dubstep</option>
+                    <option value="Drum & Bass">Drum & Bass</option>
+                    <option value="Future Bass">Future Bass</option>
+                    <option value="Breakbeat">Breakbeat</option>
+                    <option value="UK Garage">UK Garage</option>
+                    <option value="Jersey Club">Jersey Club</option>
+                    <option value="Amapiano">Amapiano</option>
+                    <option value="Industrial Bass">Industrial Bass</option>
+                    <option value="Dark Electro">Dark Electro</option>
+                    <option value="Alternative Electronic">Alternative Electronic</option>
+                    <option value="Cinematic Electronic">Cinematic Electronic</option>
+                </optgroup>
 
-    </div>
-</div>
+                <!-- 🌑 Dark / Cyber / Experimental -->
+                <optgroup label="🌑 Dark / Cyber / Experimental">
+                    <option value="Darkwave">Darkwave</option>
+                    <option value="Witch House">Witch House</option>
+                    <option value="Dark Synthwave">Dark Synthwave</option>
+                    <option value="Neon Synthwave">Neon Synthwave</option>
+                    <option value="Synthwave">Synthwave</option>
+                    <option value="Vaporwave">Vaporwave</option>
+                    <option value="Cyberpunk">Cyberpunk</option>
+                    <option value="Cyber Pop">Cyber Pop</option>
+                    <option value="Cyberpunk Trap">Cyberpunk Trap</option>
+                    <option value="Noir Electronic">Noir Electronic</option>
+                    <option value="Dark Ambient">Dark Ambient</option>
+                    <option value="Ambient Dark">Ambient Dark</option>
+                    <option value="Horror Electronic">Horror Electronic</option>
+                    <option value="Atmospheric">Atmospheric</option>
+                    <option value="Experimental Electronic">Experimental Electronic</option>
+                    <option value="Experimental Pop">Experimental Pop</option>
+                    <option value="Future Bass">Future Bass</option>
+                    <option value="Future Garage">Future Garage</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Noise">Noise</option>
+                    <option value="Glitch">Glitch</option>
+                    <option value="Glitch Hop">Glitch Hop</option>
+                </optgroup>
 
-<script>
-    function goToPage(pageNumber) {
-        document.getElementById('page1').classList.add('hidden');
-        document.getElementById('page2').classList.add('hidden');
-        
-        if (pageNumber === 1) {
-            document.getElementById('page1').classList.remove('hidden');
-        } else if (pageNumber === 2) {
-            document.getElementById('page2').classList.remove('hidden');
-        } else if (pageNumber === 3) {
-            alert('Sila teruskan ke tetapan seterusnya.');
-        }
-        window.scrollTo(0, 0);
-    }
-
-    function handleFileSelected(input) {
-        if (input.files && input.files[0]) {
-            document.getElementById('fileStatus').style.display = 'block';
-        }
-    }
-</script>
-
-</body>
-</html>
+                <!-- 🎷 R&B / Soul / Funk -->
+                <optgroup label="🎷 R&B / Soul / Funk">
+                    <option value="R&B">R&B</option>
+                    <option value="Contemporary R&B">Contemporary R&B</option>
+                    <option value="Soul">Soul</option>
+                    <option value="Neo Soul">Neo Soul</option>
+                    <option value="Motown">Motown</option>
+                    <option value="Funk">Funk</option>
+                    <option value="Smooth Soul">Smooth Soul</option>
+                    <option value="Gospel Soul">Gospel Soul</op
