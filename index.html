@@ -19,7 +19,6 @@
         .studio-card {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
             border: 1px solid #3b82f6;
-            padding: 18px;
             border-radius: 16px;
             width: 100%;
             max-width: 440px;
@@ -27,17 +26,17 @@
             box-sizing: border-box;
             margin-top: 10px;
             margin-bottom: 30px;
+            overflow: hidden; /* Memastikan banner ikut bentuk bucu kad */
         }
-        .studio-logo {
-            width: 75px;
-            height: 75px;
-            object-fit: contain;
+        .header-banner {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
             display: block;
-            margin: 0 auto 10px auto;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-bottom: 2px solid #3b82f6;
+        }
+        .card-content {
+            padding: 18px;
         }
         h1 {
             font-size: 19px;
@@ -257,159 +256,160 @@
 <body>
 
 <div class="studio-card">
-    <!-- PAPARAN LOGO -->
-    <img src="Untitled design.png" alt="Logo Studio" class="studio-logo" onerror="this.style.display='none'">
-    
+    <!-- BANNER GRAFIK UTAMA DI ATAS -->
+    <img src="Untitled design.png" alt="Header Banner" class="header-banner" onerror="this.style.display='none'">
 
-    <h1>BP AI Music Studio</h1>
-    <div class="subtitle">PRO MASTERING SUITE</div>
+    <div class="card-content">
+        <h1>BP AI Music Studio</h1>
+        <div class="subtitle">PRO MASTERING SUITE</div>
 
-    <!-- ================= LANGKAH 1 ================= -->
-    <div id="step1">
-        <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
-        
-        <div class="info-box">
-            <strong>💡 Panduan Studio:</strong> Muat naik fail audio ciptaan Suno anda (MP3/WAV), pilih genre muzik yang sesuai, dan tingkatkan kualiti audio anda menggunakan enjin mastering profesional!
-        </div>
-
-        <span class="section-label">📁 Pilih Fail Audio Suno (MP3 / WAV)</span>
-        <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
-        <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik & bersedia!</div>
-
-        <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
-        <input type="text" id="genreSearch" placeholder="Cari genre (cth: Melayu, Phonk)..." onkeyup="filterGenres()">
-
-        <div class="custom-select-box">
-            <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
-                <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
-                <span>▼</span>
+        <!-- ================= LANGKAH 1 ================= -->
+        <div id="step1">
+            <div class="step-indicator">Langkah 1 dari 3: Fail & Genre</div>
+            
+            <div class="info-box">
+                <strong>💡 Panduan Studio:</strong> Muat naik fail audio ciptaan Suno anda (MP3/WAV), pilih genre muzik yang sesuai, dan tingkatkan kualiti audio anda menggunakan enjin mastering profesional!
             </div>
-            <div class="select-dropdown" id="selectDropdown">
-                <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
-                <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
-                <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
-                <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
-                <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
-                <div class="option-item" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
-                <div class="option-item" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
-                <div class="option-item" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
-                <div class="option-item" onclick="selectGenre('Zapin')">Zapin</div>
-                <div class="option-item" onclick="selectGenre('Joget')">Joget</div>
-                <div class="option-item" onclick="selectGenre('Ghazal')">Ghazal</div>
-                <div class="option-item" onclick="selectGenre('Keroncong')">Keroncong</div>
-                <div class="option-item" onclick="selectGenre('Dangdut')">Dangdut</div>
-                <div class="option-item" onclick="selectGenre('Campursari')">Campursari</div>
-                <div class="option-item" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
-                <div class="option-item" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
 
-                <div class="option-group-title">🎤 Pop</div>
-                <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
-                <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
-                <div class="option-item" onclick="selectGenre('Electropop')">Electropop</div>
-                <div class="option-item" onclick="selectGenre('Synthpop')">Synthpop</div>
-                <div class="option-item" onclick="selectGenre('Dance Pop')">Dance Pop</div>
+            <span class="section-label">📁 Pilih Fail Audio Suno (MP3 / WAV)</span>
+            <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
+            <div id="fileStatus" class="status-ready">✅ Fail berjaya dimuat naik & bersedia!</div>
 
-                <div class="option-group-title">🎸 Rock</div>
-                <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
-                <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
-                <div class="option-item" onclick="selectGenre('Classic Rock')">Classic Rock</div>
-                <div class="option-item" onclick="selectGenre('Hard Rock')">Hard Rock</div>
-                <div class="option-item" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
+            <span class="section-label">🎵 Cari & Pilih Genre Muzik</span>
+            <input type="text" id="genreSearch" placeholder="Cari genre (cth: Melayu, Phonk)..." onkeyup="filterGenres()">
 
-                <div class="option-group-title">🎧 Hip Hop / Rap</div>
-                <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
-                <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
-                <div class="option-item" onclick="selectGenre('Trap')">Trap</div>
-                <div class="option-item" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
+            <div class="custom-select-box">
+                <div class="select-trigger" id="selectTrigger" onclick="toggleDropdown()">
+                    <span id="selectedGenreText">Dark Techno / Neon Noir Phonk - Malay Bounce</span>
+                    <span>▼</span>
+                </div>
+                <div class="select-dropdown" id="selectDropdown">
+                    <div class="option-group-title">🇲🇾 Melayu / Nusantara</div>
+                    <div class="option-item" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
+                    <div class="option-item" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
+                    <div class="option-item" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
+                    <div class="option-item" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
+                    <div class="option-item" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
+                    <div class="option-item" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
+                    <div class="option-item" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
+                    <div class="option-item" onclick="selectGenre('Zapin')">Zapin</div>
+                    <div class="option-item" onclick="selectGenre('Joget')">Joget</div>
+                    <div class="option-item" onclick="selectGenre('Ghazal')">Ghazal</div>
+                    <div class="option-item" onclick="selectGenre('Keroncong')">Keroncong</div>
+                    <div class="option-item" onclick="selectGenre('Dangdut')">Dangdut</div>
+                    <div class="option-item" onclick="selectGenre('Campursari')">Campursari</div>
+                    <div class="option-item" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
+                    <div class="option-item" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
 
-                <div class="option-group-title">⚡ Elektronik & Phonk</div>
-                <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
-                <div class="option-item" onclick="selectGenre('EDM')">EDM</div>
-                <div class="option-item" onclick="selectGenre('House')">House</div>
-                <div class="option-item" onclick="selectGenre('Techno')">Techno</div>
-                <div class="option-item" onclick="selectGenre('Synthwave')">Synthwave</div>
+                    <div class="option-group-title">🎤 Pop</div>
+                    <div class="option-item" onclick="selectGenre('Pop')">Pop</div>
+                    <div class="option-item" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
+                    <div class="option-item" onclick="selectGenre('Electropop')">Electropop</div>
+                    <div class="option-item" onclick="selectGenre('Synthpop')">Synthpop</div>
+                    <div class="option-item" onclick="selectGenre('Dance Pop')">Dance Pop</div>
 
-                <div class="option-group-title">☕ Akustik / Santai</div>
-                <div class="option-item" onclick="selectGenre('Acoustic')">Acoustic</div>
-                <div class="option-item" onclick="selectGenre('Folk')">Folk</div>
-                <div class="option-item" onclick="selectGenre('Lo-Fi')">Lo-Fi</div>
-                <div class="option-item" onclick="selectGenre('Chill')">Chill</div>
+                    <div class="option-group-title">🎸 Rock</div>
+                    <div class="option-item" onclick="selectGenre('Rock')">Rock</div>
+                    <div class="option-item" onclick="selectGenre('Soft Rock')">Soft Rock</div>
+                    <div class="option-item" onclick="selectGenre('Classic Rock')">Classic Rock</div>
+                    <div class="option-item" onclick="selectGenre('Hard Rock')">Hard Rock</div>
+                    <div class="option-item" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
 
-                <div class="option-group-title">🎬 Gaya Khas</div>
-                <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
-                <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
-                <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
-                <div class="option-item" onclick="selectGenre('Raya / Aidilfitri')">Raya / Aidilfitri</div>
+                    <div class="option-group-title">🎧 Hip Hop / Rap</div>
+                    <div class="option-item" onclick="selectGenre('Hip Hop')">Hip Hop</div>
+                    <div class="option-item" onclick="selectGenre('Rap')">Rap</div>
+                    <div class="option-item" onclick="selectGenre('Trap')">Trap</div>
+                    <div class="option-item" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
+
+                    <div class="option-group-title">⚡ Elektronik & Phonk</div>
+                    <div class="option-item" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
+                    <div class="option-item" onclick="selectGenre('EDM')">EDM</div>
+                    <div class="option-item" onclick="selectGenre('House')">House</div>
+                    <div class="option-item" onclick="selectGenre('Techno')">Techno</div>
+                    <div class="option-item" onclick="selectGenre('Synthwave')">Synthwave</div>
+
+                    <div class="option-group-title">☕ Akustik / Santai</div>
+                    <div class="option-item" onclick="selectGenre('Acoustic')">Acoustic</div>
+                    <div class="option-item" onclick="selectGenre('Folk')">Folk</div>
+                    <div class="option-item" onclick="selectGenre('Lo-Fi')">Lo-Fi</div>
+                    <div class="option-item" onclick="selectGenre('Chill')">Chill</div>
+
+                    <div class="option-group-title">🎬 Gaya Khas</div>
+                    <div class="option-item" onclick="selectGenre('Cinematic')">Cinematic</div>
+                    <div class="option-item" onclick="selectGenre('Epic')">Epic</div>
+                    <div class="option-item" onclick="selectGenre('Dark')">Dark</div>
+                    <div class="option-item" onclick="selectGenre('Raya / Aidilfitri')">Raya / Aidilfitri</div>
+                </div>
             </div>
-        </div>
 
-        <div class="btn-container">
-            <button type="button" class="btn" onclick="goToStep(2)">Seterusnya ➡️</button>
-        </div>
-    </div>
-
-    <!-- ================= LANGKAH 2 ================= -->
-    <div id="step2" class="hidden">
-        <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
-
-        <span class="section-label">🎧 Pratonton Audio Studio</span>
-        <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
-
-        <span class="section-label">✨ Pilih Karakter Bunyi (Preset)</span>
-        <div class="grid-effects">
-            <div class="effect-btn active" onclick="setEffect('Universal', this)">Universal</div>
-            <div class="effect-btn" onclick="setEffect('Fire', this)">Fire (Bass Boost)</div>
-            <div class="effect-btn" onclick="setEffect('Clarity', this)">Clarity (Vocal)</div>
-            <div class="effect-btn" onclick="setEffect('Tape', this)">Tape Warmth</div>
-            <div class="effect-btn" onclick="setEffect('Natural', this)">Natural</div>
-            <div class="effect-btn" onclick="setEffect('Spatial', this)">Spatial Wide</div>
-            <div class="effect-btn" onclick="setEffect('Cinematic', this)">Cinematic</div>
-            <div class="effect-btn" onclick="setEffect('Punch', this)">Punch & Loud</div>
-        </div>
-
-        <div class="slider-box">
-            <label><span>Intensity (Kuasa Kesan)</span> <span id="intensityVal">80%</span></label>
-            <input type="range" id="intensityRange" min="0" max="100" value="80" oninput="updateIntensity(this.value)">
-        </div>
-
-        <span class="section-label">🎚️ Equalizer (EQ Manual)</span>
-        <div class="eq-container">
-            <div class="eq-slider">
-                <span>LOW</span>
-                <input type="range" id="eqLow" min="-12" max="12" value="3" step="1" oninput="applyAudioSettings()">
-            </div>
-            <div class="eq-slider">
-                <span>MID</span>
-                <input type="range" id="eqMid" min="-12" max="12" value="0" step="1" oninput="applyAudioSettings()">
-            </div>
-            <div class="eq-slider">
-                <span>HIGH</span>
-                <input type="range" id="eqHigh" min="-12" max="12" value="2" step="1" oninput="applyAudioSettings()">
+            <div class="btn-container">
+                <button type="button" class="btn" onclick="goToStep(2)">Seterusnya ➡️</button>
             </div>
         </div>
 
-        <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToStep(1)">⬅️ Kembali</button>
-            <button type="button" class="btn" onclick="goToStep(3)">Proses Seterusnya ➡️</button>
+        <!-- ================= LANGKAH 2 ================= -->
+        <div id="step2" class="hidden">
+            <div class="step-indicator">Langkah 2 dari 3: Pro Mastering & Kesan Live</div>
+
+            <span class="section-label">🎧 Pratonton Audio Studio</span>
+            <audio id="previewPlayer" controls crossorigin="anonymous"></audio>
+
+            <span class="section-label">✨ Pilih Karakter Bunyi (Preset)</span>
+            <div class="grid-effects">
+                <div class="effect-btn active" onclick="setEffect('Universal', this)">Universal</div>
+                <div class="effect-btn" onclick="setEffect('Fire', this)">Fire (Bass Boost)</div>
+                <div class="effect-btn" onclick="setEffect('Clarity', this)">Clarity (Vocal)</div>
+                <div class="effect-btn" onclick="setEffect('Tape', this)">Tape Warmth</div>
+                <div class="effect-btn" onclick="setEffect('Natural', this)">Natural</div>
+                <div class="effect-btn" onclick="setEffect('Spatial', this)">Spatial Wide</div>
+                <div class="effect-btn" onclick="setEffect('Cinematic', this)">Cinematic</div>
+                <div class="effect-btn" onclick="setEffect('Punch', this)">Punch & Loud</div>
+            </div>
+
+            <div class="slider-box">
+                <label><span>Intensity (Kuasa Kesan)</span> <span id="intensityVal">80%</span></label>
+                <input type="range" id="intensityRange" min="0" max="100" value="80" oninput="updateIntensity(this.value)">
+            </div>
+
+            <span class="section-label">🎚️ Equalizer (EQ Manual)</span>
+            <div class="eq-container">
+                <div class="eq-slider">
+                    <span>LOW</span>
+                    <input type="range" id="eqLow" min="-12" max="12" value="3" step="1" oninput="applyAudioSettings()">
+                </div>
+                <div class="eq-slider">
+                    <span>MID</span>
+                    <input type="range" id="eqMid" min="-12" max="12" value="0" step="1" oninput="applyAudioSettings()">
+                </div>
+                <div class="eq-slider">
+                    <span>HIGH</span>
+                    <input type="range" id="eqHigh" min="-12" max="12" value="2" step="1" oninput="applyAudioSettings()">
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn btn-back" onclick="goToStep(1)">⬅️ Kembali</button>
+                <button type="button" class="btn" onclick="goToStep(3)">Proses Seterusnya ➡️</button>
+            </div>
         </div>
-    </div>
 
-    <!-- ================= LANGKAH 3 ================= -->
-    <div id="step3" class="hidden">
-        <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
-        
-        <div class="info-box">
-            <div><strong>Fail Suno:</strong> <span id="fileName" style="color: #60a5fa;">-</span></div>
-            <div><strong>Genre:</strong> <span id="selectedGenre" style="color: #fbbf24;">Dark Techno / Neon Noir Phonk - Malay Bounce</span></div>
-            <div><strong>Kesan Aktif:</strong> <span id="selectedEffect" style="color: #34d399;">Universal</span></div>
-        </div>
+        <!-- ================= LANGKAH 3 ================= -->
+        <div id="step3" class="hidden">
+            <div class="step-indicator">Langkah 3 dari 3: Mastering Selesai!</div>
+            
+            <div class="info-box">
+                <div><strong>Fail Suno:</strong> <span id="fileName" style="color: #60a5fa;">-</span></div>
+                <div><strong>Genre:</strong> <span id="selectedGenre" style="color: #fbbf24;">Dark Techno / Neon Noir Phonk - Malay Bounce</span></div>
+                <div><strong>Kesan Aktif:</strong> <span id="selectedEffect" style="color: #34d399;">Universal</span></div>
+            </div>
 
-        <span class="section-label">🎧 Pemain Audio Rasmi Akhir</span>
-        <audio id="finalPlayer" controls></audio>
+            <span class="section-label">🎧 Pemain Audio Rasmi Akhir</span>
+            <audio id="finalPlayer" controls></audio>
 
-        <div class="btn-container">
-            <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Tetapan</button>
-            <button type="button" class="btn" onclick="alert('Tahniah! Master audio berjaya disimpan.')">Muat Turun</button>
+            <div class="btn-container">
+                <button type="button" class="btn btn-back" onclick="goToStep(2)">⬅️ Ubah Tetapan</button>
+                <button type="button" class="btn" onclick="alert('Tahniah! Master audio berjaya disimpan.')">Muat Turun</button>
+            </div>
         </div>
     </div>
 </div>
@@ -504,21 +504,4 @@ function initAudioEngine() {
         midFilter.frequency.value = 1500;
         midFilter.Q.value = 1;
 
-        highFilter = audioCtx.createBiquadFilter();
-        highFilter.type = 'highshelf';
-        highFilter.frequency.value = 4000;
-
-        if (audioCtx.createStereoPanner) {
-            stereoWidener = audioCtx.createStereoPanner();
-            stereoWidener.pan.value = 0.05;
-        }
-
-        masterLimiter = audioCtx.createGain();
-        masterLimiter.gain.value = 1.2;
-
-        let lastNode = sourceNode;
-        lastNode.connect(compressorNode);
-        compressorNode.connect(saturationNode);
-        saturationNode.connect(lowFilter);
-        lowFilter.connect(midFilter);
- 
+        highFilter = audioCtx.createBi
