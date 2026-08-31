@@ -74,6 +74,11 @@ def home():
             .page-center {
                 justify-content: center;
                 align-items: center;
+                text-align: center;
+            }
+
+            .page-center .btn-container {
+                margin-top: 0;
             }
 
             .poster-title {
@@ -99,6 +104,7 @@ def home():
                 width: 100%;
                 max-height: 65vh;
                 overflow-y: auto;
+                text-align: left;
             }
 
             .content-readable-box::-webkit-scrollbar {
@@ -131,6 +137,7 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.6);
                 width: 100%;
+                text-align: left;
             }
 
             .poster-quote-title {
@@ -191,12 +198,14 @@ def home():
                 font-size: 12.5px;
                 font-weight: 700;
                 color: #ffffff;
+                text-align: left;
             }
 
             .point-card-desc {
                 font-size: 10.5px;
                 color: #94a3b8;
                 margin-top: 2px;
+                text-align: left;
             }
 
             .genre-group-title {
@@ -334,6 +343,7 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
+            <!-- HALAMAN 1: INTRO (Tengah) -->
             <div id="page1" class="page-section page-center">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
@@ -352,10 +362,11 @@ def home():
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Pilih Genre ➡️</button>
+                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering ➡️</button>
                 </div>
             </div>
 
+            <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
                 <div class="content-readable-box">
@@ -473,15 +484,18 @@ def home():
                 </div>
             </div>
 
+            <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 <div class="content-readable-box" id="subGenreContentContainer">
-                    </div>
+                    <!-- Dynamic List loaded via JS -->
+                </div>
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">⬅️ Kembali ke Senarai Point</button>
                 </div>
             </div>
 
+            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -496,7 +510,7 @@ def home():
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
-                            <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
+           <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
                             <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
@@ -504,7 +518,7 @@ def home():
 
                     <div class="control-group" style="margin-top: 12px;">
                         <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
-                          <select class="studio-select" id="gainBoost">
+                        <select class="studio-select" id="gainBoost">
                             <option value="standard">Standard (Rata -14 LUFS)</option>
                             <option value="high">High Volume (-11 LUFS)</option>
                             <option value="max">Max Streaming (-9 LUFS)</option>
@@ -682,4 +696,4 @@ def home():
 
     </body>
     </html>
-    """
+    """       
