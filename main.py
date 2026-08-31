@@ -338,11 +338,12 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
+            <!-- HALAMAN 1: INTRO (Tengah) -->
             <div id="page1" class="page-section page-center">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering ➡️</button>
+                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering</button>
                 </div>
 
                 <div class="content-readable-box">
@@ -360,11 +361,12 @@ def home():
                 </div>
             </div>
 
+            <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
                 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page1')">⬅️ Kembali</button>
+                    <button type="button" class="btn" onclick="goToPage('page1')">Kembali</button>
                 </div>
 
                 <div class="content-readable-box">
@@ -478,23 +480,26 @@ def home():
                 </div>
             </div>
 
+            <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">⬅️ Kembali ke Senarai Point</button>
+                    <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
                 </div>
 
                 <div class="content-readable-box" id="subGenreContentContainer">
-                    </div>
+                    <!-- Dynamic List loaded via JS -->
+                </div>
             </div>
 
+            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses ⚡</button>
+                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">Kembali</button>
+                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses</button>
                 </div>
 
                 <div class="content-readable-box">
@@ -505,10 +510,10 @@ def home():
                     <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
                     <div class="control-group">
-                        <label class="control-label">🎚️ Profil Mastering</label>
+                          <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
-                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
+                            <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
                             <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
@@ -690,3 +695,4 @@ def home():
     </body>
     </html>
     """
+                        
