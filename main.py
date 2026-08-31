@@ -447,26 +447,39 @@ def main_page():
         }
 
         .bar {
-            width: 4px;
+            width: 5px;
             background: #3b82f6;
             border-radius: 2px;
-            animation: pulseBar 0.8s infinite ease-in-out alternate;
+            height: 5px;
+            transition: height 0.05s ease;
         }
 
-        .bar:nth-child(2) { animation-delay: 0.1s; background: #60a5fa; }
-        .bar:nth-child(3) { animation-delay: 0.2s; background: #34d399; }
-        .bar:nth-child(4) { animation-delay: 0.3s; background: #fbbf24; }
-        .bar:nth-child(5) { animation-delay: 0.4s; background: #f87171; }
-        .bar:nth-child(6) { animation-delay: 0.5s; background: #3b82f6; }
-
-        @keyframes pulseBar {
-            0% { height: 5px; }
-            100% { height: 32px; }
-        }
+        .bar:nth-child(2) { background: #60a5fa; }
+        .bar:nth-child(3) { background: #34d399; }
+        .bar:nth-child(4) { background: #fbbf24; }
+        .bar:nth-child(5) { background: #f87171; }
+        .bar:nth-child(6) { background: #3b82f6; }
 
         .success-icon {
             font-size: 32px;
             margin-bottom: 4px;
+        }
+
+        #toastNotification {
+            position: fixed;
+            bottom: 30px;
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            font-family: 'Syne', sans-serif;
         }
 
         .hidden {
@@ -475,6 +488,8 @@ def main_page():
     </style>
 </head>
 <body>
+
+<div id="toastNotification">Notifikasi Berjaya</div>
 
 <div class="studio-container">
     <div class="studio-overlay">
@@ -540,8 +555,7 @@ def main_page():
                 <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
             </div>
         </div>
-
-        <!-- HALAMAN TETAPAN MASTERING AKHIR -->
+<!-- HALAMAN TETAPAN MASTERING AKHIR -->
         <div id="pageUpload" class="page-section hidden">
             <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -561,7 +575,7 @@ def main_page():
                     <label class="control-label">🎚️ Profil Mastering</label>
                     <select class="studio-select" id="masteringProfile" onchange="changeProfilePreset()">
                         <option value="universal">Universal (Seimbang & Neutral)</option>
-                         <option value="fire">Fire (Bertenaga & Saturasi)</option>
+                        <option value="fire">Fire (Bertenaga & Saturasi)</option>
                         <option value="clarity">Clarity (Terang & Bersih)</option>
                         <option value="tape">Tape (Kehangatan Analog Vintaj)</option>
                         <option value="natural">Natural (Keaslian Asal)</option>
@@ -569,6 +583,16 @@ def main_page():
                         <option value="cinematic">Cinematic (Epik & Mendalam)</option>
                         <option value="punch">Punch (Hentakan Dramatis)</option>
                     </select>
+                </div>
+
+                <div class="control-group" style="background: rgba(30, 41, 59, 0.4); padding: 8px; border-radius: 8px; border: 1px dashed rgba(59, 130, 246, 0.3);">
+                    <label class="control-label">⭐ Preset Tersuai Anda</label>
+                    <div style="display: flex; gap: 6px; width: 100%;">
+                        <select class="studio-select" id="customPresetSelect" onchange="loadCustomPreset(this.value)">
+                            <option value="">-- Pilih Tetapan Disimpan --</option>
+                        </select>
+                        <button type="button" class="btn" style="padding: 6px 10px; font-size: 10px; flex: 0.6;" onclick="saveCustomPreset()">Simpan</button>
+                    </div>
                 </div>
 
                 <div class="control-group">
@@ -601,7 +625,6 @@ def main_page():
                 <div class="poster-quote-title" style="margin-bottom: 4px; color: #34d399;">PROSES BERJAYA!</div>
                 <div class="selected-display" id="displayResultGenre" style="margin-bottom: 12px; margin-top: 6px;">Genre: -</div>
 
-                <!-- 1) Butang A/B Test (Bandingkan) -->
                 <div class="control-group" style="margin-bottom: 12px; width: 100%;">
                     <label class="control-label">1️⃣ Ujian Perbandingan Bunyi</label>
                     <button type="button" id="abTestBtn" class="btn btn-secondary" onclick="toggleABTest()" style="font-size: 11px; padding: 10px; width: 100%;">
@@ -609,16 +632,26 @@ def main_page():
                     </button>
                 </div>
 
-                <!-- 2) Indikator Visual Gelombang Bunyi -->
+                <!-- Analisis Spektrum & Meter dB Baharu -->
                 <div class="control-group" style="margin-bottom: 12px; width: 100%;">
-                    <label class="control-label">2️⃣ Indikator Visual Gelombang Bunyi</label>
-                    <div class="visualizer-box">
+                    <label class="control-label">2️⃣ Analisis Spektrum & Aras Bunyi (dB)</label>
+                    <div class="visualizer-box" id="realVisualizer" style="height: 45px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; background: rgba(15, 23, 42, 0.6); padding: 6px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
                         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
                         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
                     </div>
+
+                    <div style="margin-top: 8px; width: 100%;">
+                        <div style="display: flex; justify-content: space-between; font-size: 10px; color: #94a3b8; margin-bottom: 3px;">
+                            <span>Aras dB</span>
+                            <span id="dbValueText">-24.0 dB</span>
+                        </div>
+                        <div style="width: 100%; background: rgba(30, 41, 59, 0.8); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.2);">
+                            <div id="dbMeterBar" style="width: 40%; height: 100%; background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b); transition: width 0.05s ease;"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 3) Butang Muat Turun berserta pilihan format -->
                 <div class="control-group" style="margin-bottom: 0; width: 100%;">
                     <label class="control-label">3️⃣ Muat Turun Fail</label>
                     <select class="studio-select" id="downloadFormat" style="margin-bottom: 8px;">
@@ -670,9 +703,20 @@ def main_page():
     let audioFileGlobal = null;
     let audioCtx = null;
     let sourceNode = null;
-    let lowFilter, midFilter, highFilter, compressorNode;
+    let lowFilter, midFilter, highFilter, compressorNode, analyserNode;
     let isWebAudioInitialized = false;
     let isBypassed = false;
+    let animationId = null;
+
+    let dbMeterBar = document.getElementById('dbMeterBar');
+    let dbValueText = document.getElementById('dbValueText');
+
+    function showToast(message) {
+        let toast = document.getElementById('toastNotification');
+        toast.innerText = message;
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+    }
 
     function goToPage(pageId) {
         document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
@@ -681,9 +725,7 @@ def main_page():
     }
 
     function selectPoint(pointNumber, element) {
-        document.querySelectorAll('.point-card').forEach(card => {
-            card.classList.remove('selected');
-        });
+        document.querySelectorAll('.point-card').forEach(card => card.classList.remove('selected'));
         element.classList.add('selected');
         selectedPointGlobal = pointNumber;
     }
@@ -739,6 +781,7 @@ def main_page():
             audioPlayer.src = URL.createObjectURL(audioFileGlobal);
             previewBox.style.display = 'block';
             isWebAudioInitialized = false;
+            showToast("Fail audio berjaya dimuat naik!");
         }
     }
 
@@ -764,8 +807,12 @@ def main_page():
                 highFilter.frequency.value = 4000;
 
                 compressorNode = audioCtx.createDynamicsCompressor();
+                analyserNode = audioCtx.createAnalyser();
+                analyserNode.fftSize = 64;
+
                 rebuildAudioChain();
                 isWebAudioInitialized = true;
+                startVisualizerAndMeterLoop();
             } catch(e) {
                 console.log("Web Audio API Error:", e);
             }
@@ -781,16 +828,59 @@ def main_page():
         if (midFilter) midFilter.disconnect();
         if (highFilter) highFilter.disconnect();
         if (compressorNode) compressorNode.disconnect();
+        if (analyserNode) analyserNode.disconnect();
 
         if (isBypassed) {
-            sourceNode.connect(audioCtx.destination);
+            sourceNode.connect(analyserNode);
+            analyserNode.connect(audioCtx.destination);
         } else {
             sourceNode.connect(lowFilter);
             lowFilter.connect(midFilter);
             midFilter.connect(highFilter);
             highFilter.connect(compressorNode);
-            compressorNode.connect(audioCtx.destination);
+            compressorNode.connect(analyserNode);
+            analyserNode.connect(audioCtx.destination);
         }
+    }
+
+    function startVisualizerAndMeterLoop() {
+        if (!analyserNode) return;
+        let bufferLength = analyserNode.frequencyBinCount;
+        let dataArray = new Uint8Array(bufferLength);
+        let bars = document.querySelectorAll('#realVisualizer .bar');
+        
+        let barMeter = document.getElementById('dbMeterBar');
+        let textDb = document.getElementById('dbValueText');
+
+        function renderFrame() {
+            animationId = requestAnimationFrame(renderFrame);
+            analyserNode.getByteFrequencyData(dataArray);
+            
+            let sum = 0;
+            bars.forEach((bar, index) => {
+                let value = dataArray[index * 2] || 0;
+                sum += value;
+                let height = (value / 255) * 35 + 5;
+                bar.style.height = height + 'px';
+            });
+
+            let average = sum / bars.length;
+            let percentage = (average / 255) * 100;
+            let estimatedDb = -48 + (percentage * 0.48);
+            if (barMeter && textDb) {
+                barMeter.style.width = Math.max(5, percentage) + '%';
+                textDb.innerText = estimatedDb.toFixed(1) + ' dB';
+                
+                if (estimatedDb > -3) {
+                    barMeter.style.background = '#ef4444'; 
+                } else if (estimatedDb > -12) {
+                    barMeter.style.background = '#f59e0b'; 
+                } else {
+                    barMeter.style.background = 'linear-gradient(90deg, #3b82f6, #10b981)'; 
+                }
+            }
+        }
+        renderFrame();
     }
 
     function toggleABTest() {
@@ -799,9 +889,11 @@ def main_page():
         if (isBypassed) {
             btn.innerText = "🔄 A/B Test: Sedang Dengar Bunyi Asal (Tanpa Mastering)";
             btn.style.background = "linear-gradient(135deg, #f59e0b, #d97706)";
+            showToast("Beralih ke Bunyi Asal (Bypass)");
         } else {
             btn.innerText = "🔄 A/B Test: Dengar Lagu Asal (Bypass)";
             btn.style.background = "";
+            showToast("Beralih ke Bunyi Dimaster");
         }
         rebuildAudioChain();
     }
@@ -841,6 +933,55 @@ def main_page():
         document.getElementById('intensityRange').value = intensity;
         document.getElementById('intensityVal').innerText = intensity;
         applyAudioSettings();
+        showToast("Profil " + profile.toUpperCase() + " dimuat turun!");
+    }
+
+    function saveCustomPreset() {
+        let presetName = prompt("Masukkan nama untuk preset tersuai anda:");
+        if (!presetName) return;
+
+        let presetData = {
+            low: document.getElementById('eqLow').value,
+            mid: document.getElementById('eqMid').value,
+            high: document.getElementById('eqHigh').value,
+            intensity: document.getElementById('intensityRange').value
+        };
+
+        let savedPresets = JSON.parse(localStorage.getItem('bp_custom_presets') || '{}');
+        savedPresets[presetName] = presetData;
+        localStorage.setItem('bp_custom_presets', JSON.stringify(savedPresets));
+
+        updateCustomPresetDropdown();
+        showToast("Preset '" + presetName + "' berjaya disimpan!");
+    }
+
+    function updateCustomPresetDropdown() {
+        let select = document.getElementById('customPresetSelect');
+        if(!select) return;
+        select.innerHTML = '<option value="">-- Pilih Tetapan Disimpan --</option>';
+        let savedPresets = JSON.parse(localStorage.getItem('bp_custom_presets') || '{}');
+        
+        for (let name in savedPresets) {
+            let opt = document.createElement('option');
+            opt.value = name;
+            opt.innerText = name;
+            select.appendChild(opt);
+        }
+    }
+
+    function loadCustomPreset(name) {
+        if (!name) return;
+        let savedPresets = JSON.parse(localStorage.getItem('bp_custom_presets') || '{}');
+        let data = savedPresets[name];
+        if (data) {
+            document.getElementById('eqLow').value = data.low;
+            document.getElementById('eqMid').value = data.mid;
+            document.getElementById('eqHigh').value = data.high;
+            document.getElementById('intensityRange').value = data.intensity;
+            document.getElementById('intensityVal').innerText = data.intensity;
+            applyAudioSettings();
+            showToast("Preset '" + name + "' dimuatkan!");
+        }
     }
 
     function startMasteringProcess() {
@@ -850,6 +991,7 @@ def main_page():
         }
         document.getElementById('displayResultGenre').innerText = "Genre: " + chosenGenreGlobal;
         goToPage('pageResult');
+        showToast("Mastering selesai sepenuhnya!");
     }
 
     function downloadMasteredFile() {
@@ -863,6 +1005,7 @@ def main_page():
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        showToast("Fail berjaya dimuat turun!");
     }
 
     function resetStudio() {
@@ -879,10 +1022,15 @@ def main_page():
         goToPage('page1');
     }
 
-    window.onload = function() { goToPage('page1'); };
+    window.onload = function() { 
+        goToPage('page1'); 
+        updateCustomPresetDropdown();
+    };
 </script>
 
 </body>
 </html>
 """
-     
+      
+
+        
