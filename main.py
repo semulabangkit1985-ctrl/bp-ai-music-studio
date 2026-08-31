@@ -59,7 +59,7 @@ def home():
                 backdrop-filter: blur(3px);
                 display: flex;
                 flex-direction: column;
-                padding: 24px 16px;
+                padding: 20px 16px;
                 box-sizing: border-box;
                 min-height: 100vh;
             }
@@ -69,12 +69,7 @@ def home():
                 flex-direction: column;
                 width: 100%;
                 flex: 1;
-            }
-
-            .page-center {
-                justify-content: center;
-                align-items: center;
-                text-align: center;
+                box-sizing: border-box;
             }
 
             .poster-title {
@@ -84,21 +79,22 @@ def home():
                 color: #60a5fa;
                 letter-spacing: 1.2px;
                 text-transform: uppercase;
-                margin-bottom: 14px;
+                margin-bottom: 12px;
                 text-align: center;
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+                flex-shrink: 0;
             }
 
             .content-readable-box {
                 background: rgba(15, 23, 42, 0.95);
-                padding: 18px 16px;
+                padding: 16px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
-                margin-bottom: 16px;
+                margin-bottom: 12px;
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.8);
                 width: 100%;
-                max-height: 62vh;
+                flex: 1;
                 overflow-y: auto;
                 text-align: left;
             }
@@ -125,7 +121,7 @@ def home():
             }
 
             .poster-quote-box {
-                margin-bottom: 20px;
+                margin-bottom: 12px;
                 padding: 12px 14px;
                 background: rgba(15, 23, 42, 0.95);
                 border-left: 4px solid #fbbf24;
@@ -134,6 +130,7 @@ def home():
                 box-shadow: 0 4px 15px rgba(0,0,0,0.6);
                 width: 100%;
                 text-align: left;
+                flex-shrink: 0;
             }
 
             .poster-quote-title {
@@ -281,7 +278,8 @@ def home():
                 display: flex;
                 gap: 10px;
                 width: 100%;
-                margin-bottom: 14px;
+                flex-shrink: 0;
+                margin-top: 4px;
             }
 
             .btn {
@@ -338,8 +336,8 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
-            <!-- HALAMAN 1: INTRO (Tengah) -->
-            <div id="page1" class="page-section page-center">
+            <!-- HALAMAN 1: INTRO -->
+            <div id="page1" class="page-section">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
 
                 <div class="content-readable-box">
@@ -484,23 +482,18 @@ def home():
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
-                </div>
-
                 <div class="content-readable-box" id="subGenreContentContainer">
                     <!-- Dynamic List loaded via JS -->
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
                 </div>
             </div>
 
             <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">Kembali</button>
-                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses</button>
-                </div>
 
                 <div class="content-readable-box">
                     <div class="selected-display" id="displayChosenGenre">Genre Dipilih: -</div>
@@ -511,11 +504,11 @@ def home():
 
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
-                         <select class="studio-select" id="masteringProfile">
+                        <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
-                            <option value="warm">Warm Analog (Lembut & Klasik)</option>
+                              <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
                     </div>
 
@@ -527,6 +520,11 @@ def home():
                             <option value="max">Max Streaming (-9 LUFS)</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">Kembali</button>
+                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses</button>
                 </div>
             </div>
 
@@ -695,5 +693,6 @@ def home():
     </body>
     </html>
     """
+               
                      
      
