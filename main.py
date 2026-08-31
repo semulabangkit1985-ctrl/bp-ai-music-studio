@@ -414,4 +414,8 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Boom Bap')">Boom Bap</div>
                         <div class="dropdown-option" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
                         <div class="dropdown-option" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                        <div class="dropdown-option" onclick="selectGe
+                            <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
+    <div class="dropdown-option" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
+</div>
+"""
+    
