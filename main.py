@@ -55,7 +55,6 @@ def home():
                 box-sizing: border-box;
             }
 
-            /* Overlay dilembutkan sedikit (opacity 0.5) supaya background nampak */
             .studio-overlay {
                 background: rgba(11, 15, 25, 0.55);
                 backdrop-filter: blur(2px);
@@ -90,9 +89,8 @@ def home():
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
             }
 
-            /* Kotak telus cahaya (semi-transparent) supaya background kelihatan di belakang teks */
             .content-readable-box {
-                background: rgba(15, 23, 42, 0.80);
+                background: rgba(15, 23, 42, 0.85);
                 padding: 16px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
@@ -100,7 +98,7 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.8);
                 width: 100%;
-                max-height: 62vh;
+                max-height: 65vh;
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
@@ -125,10 +123,6 @@ def home():
                 font-weight: 500;
                 text-align: center;
                 width: 100%;
-            }
-
-            .poster-desc:last-child {
-                margin-bottom: 0;
             }
 
             .poster-quote-box {
@@ -382,6 +376,42 @@ def home():
                 text-align-last: center;
             }
 
+            .studio-range {
+                width: 100%;
+                accent-color: #3b82f6;
+                cursor: pointer;
+                margin-top: 4px;
+            }
+
+            .eq-container {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .eq-box {
+                flex: 1;
+                background: rgba(30, 41, 59, 0.85);
+                border: 1px solid rgba(59, 130, 246, 0.3);
+                padding: 8px;
+                border-radius: 8px;
+                text-align: center;
+            }
+
+            .eq-title {
+                font-size: 10.5px;
+                color: #93c5fd;
+                font-weight: 700;
+                margin-bottom: 4px;
+                display: block;
+            }
+
+            .success-icon {
+                font-size: 40px;
+                margin-bottom: 10px;
+            }
+
             .hidden {
                 display: none !important;
             }
@@ -411,7 +441,7 @@ def home():
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering</button>
+                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Pilih Genre</button>
                 </div>
             </div>
 
@@ -493,19 +523,19 @@ def home():
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
-                <div class="content-readable-box" id="subGenreContentContainer">
-                    <!-- Dynamic List loaded via JS -->
-                </div>
+                <div class="content-readable-box" id="subGenreContentContainer"></div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
+                    <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
                 </div>
             </div>
 
-            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
+            <!-- HALAMAN TETAPAN MASTERING AKHIR -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
+                <div class="content-readable-box">
+                
                 <div class="content-readable-box">
                     <div class="selected-display" id="displayChosenGenre">Genre Dipilih: -</div>
 
@@ -513,29 +543,68 @@ def home():
                     <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                     <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
+                    <!-- PROFIL MASTERING BAHARU -->
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
-                             <option value="balanced">Balanced Pro (Seimbang)</option>
-                            <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
-                            <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
-                            <option value="warm">Warm Analog (Lembut & Klasik)</option>
+                            <option value="universal">Universal (Seimbang & Neutral)</option>
+                            <option value="fire">Fire (Bertenaga & Saturasi)</option>
+                            <option value="clarity">Clarity (Terang & Bersih)</option>
+                            <option value="tape">Tape (Kehangatan Analog Vintaj)</option>
+                            <option value="natural">Natural (Keaslian Asal)</option>
+                            <option value="spatial">Spatial (Ruang Stereo Luas)</option>
+                            <option value="cinematic">Cinematic (Epik & Mendalam)</option>
+                            <option value="punch">Punch (Hentakan Dramatis)</option>
                         </select>
                     </div>
 
-                    <div class="control-group" style="margin-top: 12px;">
-                        <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
-                        <select class="studio-select" id="gainBoost">
-                            <option value="standard">Standard (Rata -14 LUFS)</option>
-                            <option value="high">High Volume (-11 LUFS)</option>
-                            <option value="max">Max Streaming (-9 LUFS)</option>
-                        </select>
+                    <!-- INTENSITY 0 - 100 -->
+                    <div class="control-group">
+                        <label class="control-label">⚡ Intensity: <span id="intensityVal">50</span>%</label>
+                        <input type="range" min="0" max="100" value="50" class="studio-range" id="intensityRange" oninput="document.getElementById('intensityVal').innerText = this.value">
+                    </div>
+
+                    <!-- EQ (LOW, MID, HIGH) -->
+                    <div class="control-group">
+                        <label class="control-label">🎛️ Equalizer (EQ)</label>
+                        <div class="eq-container">
+                            <div class="eq-box">
+                                <span class="eq-title">LOW</span>
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow">
+                            </div>
+                            <div class="eq-box">
+                                <span class="eq-title">MID</span>
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid">
+                            </div>
+                            <div class="eq-box">
+                                <span class="eq-title">HIGH</span>
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('subGenrePage')">Kembali</button>
                     <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses</button>
+                </div>
+            </div>
+
+            <!-- HALAMAN KEPUTUSAN SELESAI -->
+            <div id="pageResult" class="page-section hidden">
+                <div class="poster-title">HASIL MASTERING SIAP</div>
+
+                <div class="content-readable-box">
+                    <div class="success-icon">🎉</div>
+                    <div class="poster-quote-title" style="margin-bottom: 8px; color: #34d399;">PROSES BERJAYA!</div>
+                    <div class="poster-desc" id="resultSummaryText">
+                        Fail audio anda telah berjaya dimastering dengan profil pilihan, intensity, dan tetapan EQ yang ditetapkan.
+                    </div>
+                    <div class="selected-display" id="displayResultGenre" style="margin-top: 10px;">Genre: -</div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="resetStudio()">Mastering Lagu Lain</button>
                 </div>
             </div>
 
@@ -693,7 +762,21 @@ def home():
         }
 
         function startMasteringProcess() {
-            alert('Proses mastering untuk genre "' + chosenGenreGlobal + '" berjaya dimulakan!');
+            let fileInput = document.getElementById('audioFile');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Sila pilih fail muzik terlebih dahulu!');
+                return;
+            }
+
+            document.getElementById('displayResultGenre').innerText = "Genre: " + chosenGenreGlobal;
+            goToPage('pageResult');
+        }
+
+        function resetStudio() {
+            document.getElementById('audioFile').value = '';
+            document.getElementById('fileStatus').style.display = 'none';
+            chosenGenreGlobal = "";
+            goToPage('page1');
         }
 
         window.onload = function() {
