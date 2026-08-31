@@ -414,8 +414,35 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Boom Bap')">Boom Bap</div>
                         <div class="dropdown-option" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
                         <div class="dropdown-option" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                            <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
+                 <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
     <div class="dropdown-option" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
+    <div class="dropdown-option" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
+    <div class="dropdown-option" onclick="selectGenre('Dangdut')">Dangdut</div>
+    <div class="dropdown-option" onclick="selectGenre('Malay Phonk')">Malay Phonk</div>
 </div>
+
+<!-- Butang Mula Mastering -->
+<div style="margin-top: 25px; text-align: center;">
+    <button onclick="nextPage()" style="background: #e74c3c; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold;">Mula Mastering</button>
+</div>
+
+<script>
+    function selectGenre(genreName) {
+        console.log("Genre dipilih:", genreName);
+    }
+
+    function nextPage() {
+        // Fungsi untuk beralih ke halaman seterusnya
+        alert("Sedia untuk ke halaman pemprosesan audio!");
+        // Tambah kod peralihan halaman di sini jika perlu
+    }
+</script>
+</body>
+</html>
 """
+
+@app.get("/")
+async def main():
+    return HTMLResponse(content=html_content)
+    
     
