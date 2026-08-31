@@ -341,10 +341,6 @@ def home():
             <!-- HALAMAN 1: INTRO (Tengah) -->
             <div id="page1" class="page-section page-center">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
-                
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering</button>
-                </div>
 
                 <div class="content-readable-box">
                     <div class="poster-desc">
@@ -358,6 +354,10 @@ def home():
                 <div class="poster-quote-box">
                     <div class="poster-quote-title">BP AI MUSIC STUDIO</div>
                     <div class="poster-quote">Memperkemas bunyi, menghidupkan karya.</div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering</button>
                 </div>
             </div>
 
@@ -511,7 +511,7 @@ def home():
 
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
-                          <select class="studio-select" id="masteringProfile">
+                         <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
@@ -695,4 +695,5 @@ def home():
     </body>
     </html>
     """
+                     
      
