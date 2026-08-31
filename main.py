@@ -364,10 +364,6 @@ def home():
             <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
-                
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page1')">Kembali</button>
-                </div>
 
                 <div class="content-readable-box">
                     <div class="points-grid">
@@ -478,6 +474,10 @@ def home():
                         </div>
                     </div>
                 </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('page1')">Kembali</button>
+                </div>
             </div>
 
             <!-- HALAMAN SUB-GENRE DINAMIK -->
@@ -510,8 +510,8 @@ def home():
                     <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
                     <div class="control-group">
-                          <label class="control-label">🎚️ Profil Mastering</label>
-                        <select class="studio-select" id="masteringProfile">
+                        <label class="control-label">🎚️ Profil Mastering</label>
+                          <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
@@ -695,4 +695,4 @@ def home():
     </body>
     </html>
     """
-                        
+     
