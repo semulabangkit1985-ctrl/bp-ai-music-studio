@@ -34,6 +34,7 @@ def home():
                 align-items: center;
                 min-height: 100vh;
                 box-sizing: border-box;
+                overflow-x: hidden;
             }
 
             .studio-container {
@@ -54,12 +55,12 @@ def home():
 
             .studio-overlay {
                 flex: 1;
-                background: rgba(11, 15, 25, 0.7);
-                backdrop-filter: blur(3px);
+                background: rgba(11, 15, 25, 0.85);
+                backdrop-filter: blur(4px);
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                padding: 24px 18px;
+                justify-content: flex-start;
+                padding: 24px 18px 40px 18px;
                 box-sizing: border-box;
                 min-height: 100vh;
             }
@@ -71,17 +72,17 @@ def home():
                 color: #60a5fa;
                 letter-spacing: 1.5px;
                 text-transform: uppercase;
-                margin-bottom: 12px;
+                margin-bottom: 16px;
                 text-align: center;
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
             }
 
             .content-readable-box {
-                background: rgba(15, 23, 42, 0.85);
+                background: rgba(15, 23, 42, 0.9);
                 padding: 16px 14px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
-                margin-bottom: 14px;
+                margin-bottom: 16px;
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.6);
             }
@@ -99,9 +100,9 @@ def home():
             }
 
             .poster-quote-box {
-                margin-bottom: 16px;
-                padding: 10px 14px;
-                background: rgba(15, 23, 42, 0.85);
+                margin-bottom: 20px;
+                padding: 12px 14px;
+                background: rgba(15, 23, 42, 0.9);
                 border-left: 4px solid #fbbf24;
                 border-radius: 6px;
                 box-sizing: border-box;
@@ -132,21 +133,21 @@ def home():
                 color: #60a5fa;
                 margin-bottom: 6px;
                 display: block;
-                text-align: center;
+                text-align: left;
                 text-shadow: 0 2px 8px rgba(0,0,0,0.8);
             }
 
             input[type="file"] {
-                background: rgba(30, 41, 59, 0.9);
+                background: rgba(30, 41, 59, 0.95);
                 border: 1px dashed #3b82f6;
                 padding: 12px 14px;
                 border-radius: 10px;
                 width: 100%;
                 color: #ffffff;
-                font-size: 13.5px;
+                font-size: 13px;
                 font-family: 'Montserrat', sans-serif;
                 box-sizing: border-box;
-                margin-bottom: 16px;
+                margin-bottom: 20px;
                 cursor: pointer;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
                 outline: none;
@@ -156,7 +157,7 @@ def home():
             .custom-dropdown-container {
                 position: relative;
                 width: 100%;
-                margin-bottom: 16px;
+                margin-bottom: 24px;
                 box-sizing: border-box;
             }
 
@@ -167,7 +168,7 @@ def home():
                 border-radius: 10px;
                 width: 100%;
                 color: #ffffff;
-                font-size: 13.5px;
+                font-size: 13px;
                 font-family: 'Montserrat', sans-serif;
                 font-weight: 600;
                 text-align: center;
@@ -175,9 +176,8 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
-                gap: 8px;
             }
 
             .custom-dropdown-list {
@@ -192,7 +192,7 @@ def home():
                 border-radius: 10px;
                 margin-top: 5px;
                 z-index: 100;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.9);
                 box-sizing: border-box;
             }
 
@@ -212,7 +212,7 @@ def home():
                 padding: 8px 12px;
                 border-radius: 6px;
                 color: #ffffff;
-                font-size: 12.5px;
+                font-size: 12px;
                 font-family: 'Montserrat', sans-serif;
                 box-sizing: border-box;
                 outline: none;
@@ -221,10 +221,10 @@ def home():
             .dropdown-group-header {
                 background: #1e293b;
                 color: #fbbf24;
-                font-size: 12px;
+                font-size: 11.5px;
                 font-weight: 700;
                 padding: 8px 12px;
-                text-align: center;
+                text-align: left;
                 letter-spacing: 0.5px;
                 border-top: 1px solid rgba(59, 130, 246, 0.2);
                 border-bottom: 1px solid rgba(59, 130, 246, 0.2);
@@ -232,9 +232,9 @@ def home():
 
             .dropdown-option {
                 padding: 10px 14px;
-                font-size: 13px;
+                font-size: 12.5px;
                 color: #f1f5f9;
-                text-align: center;
+                text-align: left;
                 cursor: pointer;
                 transition: background 0.2s;
             }
@@ -247,18 +247,19 @@ def home():
             .status-ready {
                 font-size: 12px;
                 color: #34d399;
-                margin-top: -10px;
-                margin-bottom: 14px;
+                margin-top: -12px;
+                margin-bottom: 16px;
                 font-weight: 700;
                 display: none;
-                text-align: center;
+                text-align: left;
             }
 
             .btn-container {
                 display: flex;
                 gap: 10px;
-                margin-top: 10px;
+                margin-top: auto;
                 width: 100%;
+                padding-top: 10px;
             }
 
             .btn {
@@ -267,7 +268,7 @@ def home():
                 border-radius: 10px;
                 font-family: 'Syne', sans-serif;
                 font-weight: 700;
-                font-size: 13.5px;
+                font-size: 13px;
                 text-align: center;
                 cursor: pointer;
                 border: none;
@@ -277,13 +278,13 @@ def home():
             }
 
             .control-group {
-                margin-bottom: 14px;
+                margin-bottom: 16px;
             }
 
             .control-label {
                 font-size: 12px;
                 color: #93c5fd;
-                margin-bottom: 4px;
+                margin-bottom: 6px;
                 display: block;
                 font-weight: 600;
             }
@@ -291,7 +292,7 @@ def home():
             select.studio-select {
                 background: rgba(30, 41, 59, 0.95);
                 border: 1px solid rgba(59, 130, 246, 0.6);
-                padding: 10px 12px;
+                padding: 11px 12px;
                 border-radius: 8px;
                 width: 100%;
                 color: #ffffff;
@@ -312,7 +313,7 @@ def home():
         <div class="studio-overlay">
             
             <!-- HALAMAN 1 -->
-            <div id="page1">
+            <div id="page1" style="display: flex; flex-direction: column; flex: 1;">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
                 <div class="content-readable-box">
@@ -336,14 +337,14 @@ def home():
             </div>
 
             <!-- HALAMAN 2 -->
-            <div id="page2" class="hidden">
+            <div id="page2" class="hidden" style="display: flex; flex-direction: column; flex: 1;">
                 <div class="poster-title">TETAPAN MASTERING</div>
 
                 <span class="section-label">📁 Pilih Fail Muzik</span>
                 <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                 <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
-                <span class="section-label">🎵 Pilih Genre Lagu</span>
+                <span class="section-label">🎵 Pilih Kategori & Genre Lagu</span>
                 
                 <!-- Custom Dropdown Menu -->
                 <div class="custom-dropdown-container">
@@ -356,159 +357,78 @@ def home():
                             <input type="text" id="genreSearchInput" class="dropdown-search-input" placeholder="🔍 Cari genre lagu..." onkeyup="filterGenres()">
                         </div>
 
-                        <!-- Melayu / Nusantara -->
+                        <!-- 🇲🇾 Melayu / Nusantara -->
                         <div class="dropdown-group-header category-header">🇲🇾 Melayu / Nusantara</div>
                         <div class="dropdown-option" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Rock Melayu')">Rock Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Balada Melayu')">Balada Melayu</div>
+                        <div class="dropdown-option" onclick="selectGenre('Melayu Klasik')">Melayu Klasik</div>
+                        <div class="dropdown-option" onclick="selectGenre('Irama Malaysia')">Irama Malaysia</div>
+                        <div class="dropdown-option" onclick="selectGenre('Lagu Asli')">Lagu Asli</div>
+                        <div class="dropdown-option" onclick="selectGenre('Zapin')">Zapin</div>
+                        <div class="dropdown-option" onclick="selectGenre('Joget')">Joget</div>
+                        <div class="dropdown-option" onclick="selectGenre('Ghazal')">Ghazal</div>
+                        <div class="dropdown-option" onclick="selectGenre('Keroncong')">Keroncong</div>
+                        <div class="dropdown-option" onclick="selectGenre('Dangdut')">Dangdut</div>
+                        <div class="dropdown-option" onclick="selectGenre('Campursari')">Campursari</div>
+                        <div class="dropdown-option" onclick="selectGenre('Pop Nusantara')">Pop Nusantara</div>
+                        <div class="dropdown-option" onclick="selectGenre('Etnik Nusantara')">Etnik Nusantara</div>
+                        <div class="dropdown-option" onclick="selectGenre('Tradisional Melayu')">Tradisional Melayu</div>
+                        <div class="dropdown-option" onclick="selectGenre('Tradisional Sabah')">Tradisional Sabah</div>
+                        <div class="dropdown-option" onclick="selectGenre('Tradisional Sarawak')">Tradisional Sarawak</div>
+                        <div class="dropdown-option" onclick="selectGenre('Minang')">Minang</div>
+                        <div class="dropdown-option" onclick="selectGenre('Jawa')">Jawa</div>
+                        <div class="dropdown-option" onclick="selectGenre('Sunda')">Sunda</div>
+                        <div class="dropdown-option" onclick="selectGenre('Bugis')">Bugis</div>
+                        <div class="dropdown-option" onclick="selectGenre('Batak')">Batak</div>
+                        <div class="dropdown-option" onclick="selectGenre('Malay Bounce')">Malay Bounce</div>
+                        <div class="dropdown-option" onclick="selectGenre('Malay Trap')">Malay Trap</div>
                         <div class="dropdown-option" onclick="selectGenre('Malay Phonk')">Malay Phonk</div>
+                        <div class="dropdown-option" onclick="selectGenre('Malay Electronic')">Malay Electronic</div>
+                        <div class="dropdown-option" onclick="selectGenre('Nusantara Electronic')">Nusantara Electronic</div>
 
-                        <!-- Pop -->
+                        <!-- 🎤 Pop -->
                         <div class="dropdown-group-header category-header">🎤 Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop')">Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
+                        <div class="dropdown-option" onclick="selectGenre('Electropop')">Electropop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Synthpop')">Synthpop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Dream Pop')">Dream Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Indie Pop')">Indie Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Teen Pop')">Teen Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Adult Contemporary')">Adult Contemporary</div>
+                        <div class="dropdown-option" onclick="selectGenre('Dance Pop')">Dance Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Power Pop')">Power Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Soft Pop')">Soft Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Retro Pop')">Retro Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('City Pop')">City Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Dark Pop')">Dark Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Noir Pop')">Noir Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Future Pop')">Future Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Neon Pop')">Neon Pop</div>
+                        <div class="dropdown-option" onclick="selectGenre('Experimental Pop')">Experimental Pop</div>
 
-                        <!-- Rock -->
+                        <!-- 🎸 Rock -->
                         <div class="dropdown-group-header category-header">🎸 Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Rock')">Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Soft Rock')">Soft Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Classic Rock')">Classic Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Hard Rock')">Hard Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Alternative Rock')">Alternative Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Indie Rock')">Indie Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Pop Rock')">Pop Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Blues Rock')">Blues Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Progressive Rock')">Progressive Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Psychedelic Rock')">Psychedelic Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Punk Rock')">Punk Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Garage Rock')">Garage Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Grunge')">Grunge</div>
+                        <div class="dropdown-option" onclick="selectGenre('Post-Rock')">Post-Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Folk Rock')">Folk Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Southern Rock')">Southern Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Glam Rock')">Glam Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Arena Rock')">Arena Rock</div>
+                        <div class="dropdown-option" onclick="selectGenre('Metal Rock')">Metal Rock</div>
 
-                        <!-- Phonk -->
-                        <div class="dropdown-group-header category-header">🔥 Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Phonk')">Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Drift Phonk')">Drift Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Brazilian Phonk')">Brazilian Phonk</div>
-                    </div>
-                </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage(1)">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="goToPage(3)">Seterusnya ➡️</button>
-                </div>
-            </div>
-
-            <!-- HALAMAN 3 -->
-            <div id="page3" class="hidden">
-                <div class="poster-title">TETAPAN AUDIO LANJUTAN</div>
-
-                <div class="content-readable-box">
-                    <div class="control-group">
-                        <label class="control-label">🎚️ Profil Mastering</label>
-                        <select class="studio-select" id="masteringProfile">
-                            <option value="balanced">Balanced Pro (Seimbang)</option>
-                            <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
-                            <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
-                            <option value="warm">Warm Analog (Lembut & Klasik)</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
-                        <select class="studio-select" id="gainBoost">
-                            <option value="standard">Standard (Rata -14 LUFS)</option>
-                            <option value="high">High Volume (-11 LUFS)</option>
-                            <option value="max">Max Streaming (-9 LUFS)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage(2)">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses ⚡</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        function goToPage(pageNumber) {
-            document.getElementById('page1').classList.add('hidden');
-            document.getElementById('page2').classList.add('hidden');
-            document.getElementById('page3').classList.add('hidden');
-            
-            if (pageNumber === 1) {
-                document.getElementById('page1').classList.remove('hidden');
-            } else if (pageNumber === 2) {
-                document.getElementById('page2').classList.remove('hidden');
-            } else if (pageNumber === 3) {
-                let selected = document.getElementById('selectedGenreText').innerText;
-                if(selected.includes('Sila Pilih')) {
-                    alert('Sila pilih genre lagu terlebih dahulu.');
-                    goToPage(2);
-                    return;
-                }
-                document.getElementById('page3').classList.remove('hidden');
-            }
-            window.scrollTo(0, 0);
-        }
-
-        function handleFileSelected(input) {
-            if (input.files && input.files[0]) {
-                document.getElementById('fileStatus').style.display = 'block';
-            }
-        }
-
-        function toggleDropdown() {
-            let list = document.getElementById('customDropdownList');
-            list.classList.toggle('hidden');
-            if(!list.classList.contains('hidden')) {
-                document.getElementById('genreSearchInput').focus();
-            }
-        }
-
-        function selectGenre(genreName) {
-            document.getElementById('selectedGenreText').innerText = genreName;
-            document.getElementById('customDropdownList').classList.add('hidden');
-        }
-
-        function filterGenres() {
-            let input = document.getElementById('genreSearchInput').value.toLowerCase();
-            let list = document.getElementById('customDropdownList');
-            let options = list.getElementsByClassName('dropdown-option');
-            let headers = list.getElementsByClassName('category-header');
-
-            for (let i = 0; i < options.length; i++) {
-                let txt = options[i].innerText || options[i].textContent;
-                if (txt.toLowerCase().indexOf(input) > -1) {
-                    options[i].style.display = "";
-                } else {
-                    options[i].style.display = "none";
-                }
-            }
-
-            for (let h = 0; h < headers.length; h++) {
-                let nextEl = headers[h].nextElementSibling;
-                let hasVisible = false;
-                while (nextEl && !nextEl.classList.contains('category-header')) {
-                    if (nextEl.style.display !== "none") {
-                        hasVisible = true;
-                        break;
-                    }
-                    nextEl = nextEl.nextElementSibling;
-                }
-                headers[h].style.display = hasVisible ? "" : "none";
-            }
-        }
-
-        function startMasteringProcess() {
-            alert('Proses mastering berjaya dimulakan! Sila tunggu sebentar sementara AI memproses lagu anda.');
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.custom-dropdown-container')) {
-                let list = document.getElementById('customDropdownList');
-                if (list && !list.classList.contains('hidden')) {
-                    list.classList.add('hidden');
-                }
-            }
-        }
-    </script>
-    </body>
-    </html>
-    """
-    
-    
+             
