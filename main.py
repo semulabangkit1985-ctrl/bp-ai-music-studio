@@ -430,5 +430,8 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Glam Rock')">Glam Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Arena Rock')">Arena Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Metal Rock')">Metal Rock</div>
-
+    </body>
+    </html>
+    """
+    
              
