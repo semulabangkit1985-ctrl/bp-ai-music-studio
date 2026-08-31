@@ -55,9 +55,10 @@ def home():
                 box-sizing: border-box;
             }
 
+            /* Overlay dilembutkan sedikit (opacity 0.5) supaya background nampak */
             .studio-overlay {
-                background: rgba(11, 15, 25, 0.85);
-                backdrop-filter: blur(4px);
+                background: rgba(11, 15, 25, 0.55);
+                backdrop-filter: blur(2px);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -89,8 +90,9 @@ def home():
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
             }
 
+            /* Kotak telus cahaya (semi-transparent) supaya background kelihatan di belakang teks */
             .content-readable-box {
-                background: rgba(15, 23, 42, 0.95);
+                background: rgba(15, 23, 42, 0.80);
                 padding: 16px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
@@ -132,7 +134,7 @@ def home():
             .poster-quote-box {
                 margin-bottom: 12px;
                 padding: 12px 14px;
-                background: rgba(15, 23, 42, 0.95);
+                background: rgba(15, 23, 42, 0.80);
                 border-left: 4px solid #fbbf24;
                 border-radius: 6px;
                 box-sizing: border-box;
@@ -176,7 +178,6 @@ def home():
                 width: 100%;
             }
 
-            /* Points Grid Styling */
             .points-grid {
                 display: flex;
                 flex-direction: column;
@@ -186,7 +187,7 @@ def home():
             }
 
             .point-card {
-                background: rgba(30, 41, 59, 0.9);
+                background: rgba(30, 41, 59, 0.85);
                 border: 1px solid rgba(59, 130, 246, 0.4);
                 padding: 12px 14px;
                 border-radius: 10px;
@@ -202,7 +203,7 @@ def home():
             }
 
             .point-card:hover {
-                background: rgba(37, 99, 235, 0.3);
+                background: rgba(37, 99, 235, 0.4);
                 border-color: #3b82f6;
                 transform: scale(1.02);
             }
@@ -246,8 +247,8 @@ def home():
             }
 
             .genre-chip {
-                background: rgba(30, 41, 59, 0.95);
-                border: 1px solid rgba(59, 130, 246, 0.25);
+                background: rgba(30, 41, 59, 0.85);
+                border: 1px solid rgba(59, 130, 246, 0.3);
                 padding: 9px 12px;
                 border-radius: 8px;
                 font-size: 12px;
@@ -267,7 +268,7 @@ def home():
             }
 
             input[type="file"] {
-                background: rgba(30, 41, 59, 0.95);
+                background: rgba(30, 41, 59, 0.85);
                 border: 1px dashed #3b82f6;
                 padding: 10px 12px;
                 border-radius: 10px;
@@ -306,7 +307,7 @@ def home():
             }
 
             .selected-display {
-                background: rgba(30, 41, 59, 0.95);
+                background: rgba(30, 41, 59, 0.85);
                 border: 1px solid #3b82f6;
                 padding: 10px 12px;
                 border-radius: 8px;
@@ -367,7 +368,7 @@ def home():
             }
 
             select.studio-select {
-                background: rgba(30, 41, 59, 0.95);
+                background: rgba(30, 41, 59, 0.85);
                 border: 1px solid rgba(59, 130, 246, 0.6);
                 padding: 10px 12px;
                 border-radius: 8px;
@@ -391,6 +392,7 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
+            <!-- HALAMAN 1: INTRO -->
             <div id="page1" class="page-section">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
 
@@ -413,6 +415,7 @@ def home():
                 </div>
             </div>
 
+            <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
 
@@ -486,17 +489,20 @@ def home():
                 </div>
             </div>
 
+            <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
                 <div class="content-readable-box" id="subGenreContentContainer">
-                    </div>
+                    <!-- Dynamic List loaded via JS -->
+                </div>
 
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
                 </div>
             </div>
 
+            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -510,12 +516,21 @@ def home():
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
-                            <option value="balanced">Balanced Pro (Seimbang)</option>
+                             <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
                             <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
-                           </div>
+                    </div>
+
+                    <div class="control-group" style="margin-top: 12px;">
+                        <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
+                        <select class="studio-select" id="gainBoost">
+                            <option value="standard">Standard (Rata -14 LUFS)</option>
+                            <option value="high">High Volume (-11 LUFS)</option>
+                            <option value="max">Max Streaming (-9 LUFS)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="btn-container">
@@ -689,6 +704,3 @@ def home():
     </body>
     </html>
     """
-                    
-
-         
