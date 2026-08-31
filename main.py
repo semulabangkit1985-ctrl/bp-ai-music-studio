@@ -153,7 +153,6 @@ def home():
                 outline: none;
             }
 
-            /* Custom Dropdown Styling */
             .custom-dropdown-container {
                 position: relative;
                 width: 100%;
@@ -346,7 +345,6 @@ def home():
 
                 <span class="section-label">🎵 Pilih Kategori & Genre Lagu</span>
                 
-                <!-- Custom Dropdown Menu -->
                 <div class="custom-dropdown-container">
                     <div class="custom-dropdown-trigger" onclick="toggleDropdown()">
                         <span id="selectedGenreText">-- Sila Pilih Genre Lagu --</span> <span>▼</span>
@@ -430,8 +428,6 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Glam Rock')">Glam Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Arena Rock')">Arena Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Metal Rock')">Metal Rock</div>
-    </body>
-    </html>
-    """
-    
-             
+
+                        <!-- 🎤 Hip Hop / Rap -->
+                        <div class="dropdown-group-
