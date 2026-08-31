@@ -55,7 +55,7 @@ def home():
 
             .studio-overlay {
                 flex: 1;
-                background: rgba(11, 15, 25, 0.75);
+                background: rgba(11, 15, 25, 0.78);
                 backdrop-filter: blur(3px);
                 display: flex;
                 flex-direction: column;
@@ -79,7 +79,7 @@ def home():
                 color: #60a5fa;
                 letter-spacing: 1.2px;
                 text-transform: uppercase;
-                margin-bottom: 12px;
+                margin-bottom: 14px;
                 text-align: center;
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
                 flex-shrink: 0;
@@ -90,11 +90,11 @@ def home():
                 padding: 16px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
-                margin-bottom: 12px;
+                margin-bottom: 14px;
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.8);
                 width: 100%;
-                flex: 1;
+                max-height: 58vh;
                 overflow-y: auto;
                 text-align: left;
             }
@@ -121,7 +121,7 @@ def home():
             }
 
             .poster-quote-box {
-                margin-bottom: 12px;
+                margin-bottom: 14px;
                 padding: 12px 14px;
                 background: rgba(15, 23, 42, 0.95);
                 border-left: 4px solid #fbbf24;
@@ -279,7 +279,8 @@ def home():
                 gap: 10px;
                 width: 100%;
                 flex-shrink: 0;
-                margin-top: 4px;
+                margin-top: auto;
+                padding-top: 10px;
             }
 
             .btn {
@@ -507,8 +508,8 @@ def home():
                         <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
-                            <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
-                              <option value="warm">Warm Analog (Lembut & Klasik)</option>
+                            option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
+                            <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
                     </div>
 
@@ -693,6 +694,3 @@ def home():
     </body>
     </html>
     """
-               
-                     
-     
