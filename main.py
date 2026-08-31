@@ -539,7 +539,8 @@ def home():
             <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
-                <div class="content-readable-box" id="subGenreContentContainer"></div>
+                
+                 <div class="content-readable-box" id="subGenreContentContainer"></div>
 
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
@@ -559,14 +560,14 @@ def home():
 
                     <!-- PEMAIN AUDIO UNTUK TEST DENGAR LAGU -->
                     <div class="audio-preview-box" id="audioPreviewContainer">
-                        <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Preview)</label>
-                        <audio id="audioPreviewPlayer" controls></audio>
+                        <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Real-time Mastering)</label>
+                        <audio id="audioPreviewPlayer" controls onplay="initWebAudioAndResume()"></audio>
                     </div>
 
                     <!-- PROFIL MASTERING -->
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
-                        <select class="studio-select" id="masteringProfile">
+                        <select class="studio-select" id="masteringProfile" onchange="changeProfilePreset()">
                             <option value="universal">Universal (Seimbang & Neutral)</option>
                             <option value="fire">Fire (Bertenaga & Saturasi)</option>
                             <option value="clarity">Clarity (Terang & Bersih)</option>
@@ -581,7 +582,7 @@ def home():
                     <!-- INTENSITY -->
                     <div class="control-group">
                         <label class="control-label">⚡ Intensity: <span id="intensityVal">50</span>%</label>
-                        <input type="range" min="0" max="100" value="50" class="studio-range" id="intensityRange" oninput="document.getElementById('intensityVal').innerText = this.value">
+                        <input type="range" min="0" max="100" value="50" class="studio-range" id="intensityRange" oninput="document.getElementById('intensityVal').innerText = this.value; applyAudioSettings();">
                     </div>
 
                     <!-- EQ (LOW, MID, HIGH) -->
@@ -590,15 +591,15 @@ def home():
                         <div class="eq-container">
                             <div class="eq-box">
                                 <span class="eq-title">LOW</span>
-                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow">
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow" oninput="applyAudioSettings()">
                             </div>
                             <div class="eq-box">
                                 <span class="eq-title">MID</span>
-                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid">
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid" oninput="applyAudioSettings()">
                             </div>
                             <div class="eq-box">
                                 <span class="eq-title">HIGH</span>
-                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh">
+                                <input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh" oninput="applyAudioSettings()">
                             </div>
                         </div>
                     </div>
@@ -729,6 +730,10 @@ def home():
         };
 
         let chosenGenreGlobal = "";
+        let audioCtx = null;
+        let sourceNode = null;
+        let lowFilter, midFilter, highFilter, compressorNode;
+        let isWebAudioInitialized = false;
 
         function goToPage(pageId) {
             document.querySelectorAll('.page-section').forEach(el => {
@@ -780,13 +785,112 @@ def home():
                 let file = input.files[0];
                 document.getElementById('fileStatus').style.display = 'block';
                 
-                // Paparkan dan aktifkan player audio untuk preview
                 let audioPlayer = document.getElementById('audioPreviewPlayer');
                 let previewBox = document.getElementById('audioPreviewContainer');
                 
                 audioPlayer.src = URL.createObjectURL(file);
                 previewBox.style.display = 'block';
+                isWebAudioInitialized = false; // Reset for new file
             }
+        }
+
+        function initWebAudioAndResume() {
+            let audioElement = document.getElementById('audioPreviewPlayer');
+            if (!isWebAudioInitialized) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                    sourceNode = audioCtx.createMediaElementSource(audioElement);
+
+                    // Buat EQ Filters
+                    lowFilter = audioCtx.createBiquadFilter();
+                    lowFilter.type = 'lowshelf';
+                    lowFilter.frequency.value = 250;
+
+                    midFilter = audioCtx.createBiquadFilter();
+                    midFilter.type = 'peaking';
+                    midFilter.frequency.value = 1500;
+                    midFilter.Q.value = 1;
+
+                    highFilter = audioCtx.createBiquadFilter();
+                    highFilter.type = 'highshelf';
+                    highFilter.frequency.value = 4000;
+
+                    // Buat Compressor (Intensity)
+                    compressorNode = audioCtx.createDynamicsCompressor();
+
+                    // Rangkaian Sambungan Audio (Chain)
+                    sourceNode.connect(lowFilter);
+                    lowFilter.connect(midFilter);
+                    midFilter.connect(highFilter);
+                    highFilter.connect(compressorNode);
+                    compressorNode.connect(audioCtx.destination);
+
+                    isWebAudioInitialized = true;
+                } catch(e) {
+                    console.log("Web Audio API Error:", e);
+                }
+            }
+
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            applyAudioSettings();
+        }
+
+        function applyAudioSettings() {
+            if (!isWebAudioInitialized || !audioCtx) return;
+
+            let lowVal = parseFloat(document.getElementById('eqLow').value);
+            let midVal = parseFloat(document.getElementById('eqMid').value);
+            let highVal = parseFloat(document.getElementById('eqHigh').value);
+            let intensity = parseFloat(document.getElementById('intensityRange').value);
+
+            // Set Gain EQ
+            lowFilter.gain.value = lowVal;
+            midFilter.gain.value = midVal;
+            highFilter.gain.value = highVal;
+
+            // Set Compressor mengikut Intensity
+            compressorNode.threshold.setValueAtTime(- (intensity * 0.35), audioCtx.currentTime);
+            compressorNode.ratio.setValueAtTime(1 + (intensity * 0.18), audioCtx.currentTime);
+
+            let profile = document.getElementById('masteringProfile').value;
+            if (profile === 'punch') {
+                compressorNode.attack.setValueAtTime(0.003, audioCtx.currentTime);
+                compressorNode.release.setValueAtTime(0.08, audioCtx.currentTime);
+            } else if (profile === 'fire') {
+                compressorNode.attack.setValueAtTime(0.002, audioCtx.currentTime);
+                compressorNode.release.setValueAtTime(0.15, audioCtx.currentTime);
+            } else {
+                compressorNode.attack.setValueAtTime(0.01, audioCtx.currentTime);
+                compressorNode.release.setValueAtTime(0.25, audioCtx.currentTime);
+            }
+        }
+
+        function changeProfilePreset() {
+            let profile = document.getElementById('masteringProfile').value;
+            let low = 0, mid = 0, high = 0, intensity = 50;
+
+            // Tetapan ciri bunyi unik mengikut profil pilihan
+            switch(profile) {
+                case 'universal': low = 1; mid = 0; high = 1; intensity = 50; break;
+                case 'fire': low = 4; mid = 3; high = 4; intensity = 85; break;
+                case 'clarity': low = -1; mid = 2; high = 6; intensity = 60; break;
+                case 'tape': low = 3; mid = -1; high = -3; intensity = 45; break;
+                case 'natural': low = 0; mid = 0; high = 0; intensity = 20; break;
+                case 'spatial': low = 2; mid = 1; high = 5; intensity = 55; break;
+                case 'cinematic': low = 6; mid = -3; high = 5; intensity = 80; break;
+                case 'punch': low = 5; mid = 3; high = 4; intensity = 90; break;
+            }
+
+            document.getElementById('eqLow').value = low;
+            document.getElementById('eqMid').value = mid;
+            document.getElementById('eqHigh').value = high;
+            document.getElementById('intensityRange').value = intensity;
+            document.getElementById('intensityVal').innerText = intensity;
+
+            applyAudioSettings();
         }
 
         function startMasteringProcess() {
@@ -802,19 +906,6 @@ def home():
 
         function resetStudio() {
             document.getElementById('audioFile').value = '';
-            document.getElementById('fileStatus').style.display = 'none';
-            document.getElementById('audioPreviewContainer').style.display = 'none';
-            document.getElementById('audioPreviewPlayer').src = '';
-            chosenGenreGlobal = "";
-            goToPage('page1');
-        }
+            document.
 
-        window.onload = function() {
-            goToPage('page1');
-        };
-    </script>
-
-    </body>
-    </html>
-    """
                 
