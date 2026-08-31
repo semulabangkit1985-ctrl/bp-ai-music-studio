@@ -494,7 +494,6 @@ def main_page():
 <div class="studio-container">
     <div class="studio-overlay">
         
-        <!-- HALAMAN 1: INTRO -->
         <div id="page1" class="page-section">
             <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
 
@@ -517,7 +516,6 @@ def main_page():
             </div>
         </div>
 
-        <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
         <div id="page2" class="page-section hidden">
             <div class="poster-title">🎵 GENRE LAGU</div>
 
@@ -547,7 +545,6 @@ def main_page():
             </div>
         </div>
 
-        <!-- HALAMAN SUB-GENRE DINAMIK -->
         <div id="subGenrePage" class="page-section hidden">
             <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
             <div class="content-readable-box" id="subGenreContentContainer"></div>
@@ -555,7 +552,7 @@ def main_page():
                 <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
             </div>
         </div>
-<!-- HALAMAN TETAPAN MASTERING AKHIR -->
+
         <div id="pageUpload" class="page-section hidden">
             <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -570,8 +567,7 @@ def main_page():
                     <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Real-time Mastering)</label>
                     <audio id="audioPreviewPlayer" controls onplay="initWebAudioAndResume()"></audio>
                 </div>
-
-                <div class="control-group">
+  <div class="control-group">
                     <label class="control-label">🎚️ Profil Mastering</label>
                     <select class="studio-select" id="masteringProfile" onchange="changeProfilePreset()">
                         <option value="universal">Universal (Seimbang & Neutral)</option>
@@ -603,9 +599,9 @@ def main_page():
                 <div class="control-group">
                     <label class="control-label">🎛️ Equalizer (EQ)</label>
                     <div class="eq-container">
-                        <div class="eq-box"><span class="eq-title">LOW</span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow" oninput="applyAudioSettings()"></div>
-                        <div class="eq-box"><span class="eq-title">MID</span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid" oninput="applyAudioSettings()"></div>
-                        <div class="eq-box"><span class="eq-title">HIGH</span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh" oninput="applyAudioSettings()"></div>
+                        <div class="eq-box"><span class="eq-title">LOW <span id="eqLowVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow" oninput="updateEqLabel('Low'); applyAudioSettings();"></div>
+                        <div class="eq-box"><span class="eq-title">MID <span id="eqMidVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid" oninput="updateEqLabel('Mid'); applyAudioSettings();"></div>
+                        <div class="eq-box"><span class="eq-title">HIGH <span id="eqHighVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh" oninput="updateEqLabel('High'); applyAudioSettings();"></div>
                     </div>
                 </div>
             </div>
@@ -616,7 +612,6 @@ def main_page():
             </div>
         </div>
 
-        <!-- HALAMAN KEPUTUSAN SIAP -->
         <div id="pageResult" class="page-section hidden">
             <div class="poster-title">HASIL MASTERING SIAP</div>
 
@@ -632,7 +627,6 @@ def main_page():
                     </button>
                 </div>
 
-                <!-- Analisis Spektrum & Meter dB Baharu -->
                 <div class="control-group" style="margin-bottom: 12px; width: 100%;">
                     <label class="control-label">2️⃣ Analisis Spektrum & Aras Bunyi (dB)</label>
                     <div class="visualizer-box" id="realVisualizer" style="height: 45px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; background: rgba(15, 23, 42, 0.6); padding: 6px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
@@ -707,9 +701,6 @@ def main_page():
     let isWebAudioInitialized = false;
     let isBypassed = false;
     let animationId = null;
-
-    let dbMeterBar = document.getElementById('dbMeterBar');
-    let dbValueText = document.getElementById('dbValueText');
 
     function showToast(message) {
         let toast = document.getElementById('toastNotification');
@@ -867,6 +858,7 @@ def main_page():
             let average = sum / bars.length;
             let percentage = (average / 255) * 100;
             let estimatedDb = -48 + (percentage * 0.48);
+            
             if (barMeter && textDb) {
                 barMeter.style.width = Math.max(5, percentage) + '%';
                 textDb.innerText = estimatedDb.toFixed(1) + ' dB';
@@ -896,6 +888,15 @@ def main_page():
             showToast("Beralih ke Bunyi Dimaster");
         }
         rebuildAudioChain();
+    }
+
+    function updateEqLabel(type) {
+        let slider = document.getElementById('eq' + type);
+        let valSpan = document.getElementById('eq' + type + 'Val');
+        if (slider && valSpan) {
+            let val = parseFloat(slider.value);
+            valSpan.innerText = (val > 0 ? '+' + val : val) + ' dB';
+        }
     }
 
     function applyAudioSettings() {
@@ -932,6 +933,11 @@ def main_page():
         document.getElementById('eqHigh').value = high;
         document.getElementById('intensityRange').value = intensity;
         document.getElementById('intensityVal').innerText = intensity;
+        
+        updateEqLabel('Low');
+        updateEqLabel('Mid');
+        updateEqLabel('High');
+
         applyAudioSettings();
         showToast("Profil " + profile.toUpperCase() + " dimuat turun!");
     }
@@ -979,6 +985,11 @@ def main_page():
             document.getElementById('eqHigh').value = data.high;
             document.getElementById('intensityRange').value = data.intensity;
             document.getElementById('intensityVal').innerText = data.intensity;
+            
+            updateEqLabel('Low');
+            updateEqLabel('Mid');
+            updateEqLabel('High');
+
             applyAudioSettings();
             showToast("Preset '" + name + "' dimuatkan!");
         }
@@ -1025,12 +1036,13 @@ def main_page():
     window.onload = function() { 
         goToPage('page1'); 
         updateCustomPresetDropdown();
+        updateEqLabel('Low');
+        updateEqLabel('Mid');
+        updateEqLabel('High');
     };
 </script>
 
 </body>
 </html>
 """
-      
-
-        
+                
