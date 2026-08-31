@@ -320,7 +320,7 @@ def home():
 
                 <span class="section-label">🎵 Pilih Genre Lagu</span>
                 
-                <!-- Custom Dropdown Menu dengan Carian -->
+                <!-- Custom Dropdown Menu -->
                 <div class="custom-dropdown-container">
                     <div class="custom-dropdown-trigger" onclick="toggleDropdown()">
                         <span id="selectedGenreText">-- Sila Pilih Genre Lagu --</span> <span>▼</span>
@@ -414,4 +414,4 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Boom Bap')">Boom Bap</div>
                         <div class="dropdown-option" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
                         <div class="dropdown-option" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                        <div class="dropdown-option" onc
+                        <div class="dropdown-option" onclick="selectGe
