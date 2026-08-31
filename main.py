@@ -16,7 +16,7 @@ def home():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>BP AI Music Studio - Genre & Mastering Suite</title>
+        <title>BP AI Music Studio - Pro Mastering Suite</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -338,6 +338,16 @@ def home():
                 box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
             }
 
+            .btn-success {
+                background: linear-gradient(135deg, #10b981, #059669);
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+            }
+
+            .btn-secondary {
+                background: linear-gradient(135deg, #475569, #334155);
+                box-shadow: 0 4px 15px rgba(71, 85, 105, 0.5);
+            }
+
             .control-group {
                 margin-bottom: 14px;
                 text-align: center;
@@ -424,9 +434,38 @@ def home():
                 outline: none;
             }
 
+            /* Visualizer Animation Box */
+            .visualizer-box {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                gap: 3px;
+                height: 35px;
+                margin: 4px 0 10px 0;
+                width: 100%;
+            }
+
+            .bar {
+                width: 4px;
+                background: #3b82f6;
+                border-radius: 2px;
+                animation: pulseBar 0.8s infinite ease-in-out alternate;
+            }
+
+            .bar:nth-child(2) { animation-delay: 0.1s; background: #60a5fa; }
+            .bar:nth-child(3) { animation-delay: 0.2s; background: #34d399; }
+            .bar:nth-child(4) { animation-delay: 0.3s; background: #fbbf24; }
+            .bar:nth-child(5) { animation-delay: 0.4s; background: #f87171; }
+            .bar:nth-child(6) { animation-delay: 0.5s; background: #3b82f6; }
+
+            @keyframes pulseBar {
+                0% { height: 5px; }
+                100% { height: 32px; }
+            }
+
             .success-icon {
-                font-size: 40px;
-                margin-bottom: 10px;
+                font-size: 32px;
+                margin-bottom: 4px;
             }
 
             .hidden {
@@ -515,7 +554,8 @@ def home():
                         <div class="point-card" onclick="openPoint(12)">
                             <div class="point-card-title">12 ❤️ Sedih / Emosi / Cinta</div>
                             <div class="point-card-desc">Sad Song, Heartbreak, Romantic, Slow Ballad</div>
-                        </div>
+                            
+                         </div>
                         <div class="point-card" onclick="openPoint(13)">
                             <div class="point-card-title">13 🌎 Antarabangsa</div>
                             <div class="point-card-desc">K-Pop, J-Pop, Bollywood, Latin, Reggae, Country</div>
@@ -540,7 +580,7 @@ def home():
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
-                 <div class="content-readable-box" id="subGenreContentContainer"></div>
+                <div class="content-readable-box" id="subGenreContentContainer"></div>
 
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
@@ -606,26 +646,54 @@ def home():
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">Kembali</button>
+                    <button type="button" class="btn btn-secondary" onclick="goToPage('subGenrePage')">Kembali</button>
                     <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses</button>
                 </div>
             </div>
 
-            <!-- HALAMAN KEPUTUSAN SELESAI -->
+            <!-- HALAMAN KEPUTUSAN SIAP (SUSUNAN TEPAT MENGIKUT PERMINTAAN) -->
             <div id="pageResult" class="page-section hidden">
                 <div class="poster-title">HASIL MASTERING SIAP</div>
 
                 <div class="content-readable-box">
                     <div class="success-icon">🎉</div>
-                    <div class="poster-quote-title" style="margin-bottom: 8px; color: #34d399;">PROSES BERJAYA!</div>
-                    <div class="poster-desc" id="resultSummaryText">
-                        Fail audio anda telah berjaya dimastering dengan profil pilihan, intensity, dan tetapan EQ yang ditetapkan.
+                    <div class="poster-quote-title" style="margin-bottom: 4px; color: #34d399;">PROSES BERJAYA!</div>
+                    <div class="selected-display" id="displayResultGenre" style="margin-bottom: 12px; margin-top: 6px;">Genre: -</div>
+
+                    <!-- 1) Butang A/B Test (Bandingkan) -->
+                    <div class="control-group" style="margin-bottom: 12px; width: 100%;">
+                        <label class="control-label">1️⃣ Ujian Perbandingan Bunyi</label>
+                        <button type="button" id="abTestBtn" class="btn btn-secondary" onclick="toggleABTest()" style="font-size: 11px; padding: 10px; width: 100%;">
+                            🔄 A/B Test: Dengar Lagu Asal (Bypass)
+                        </button>
                     </div>
-                    <div class="selected-display" id="displayResultGenre" style="margin-top: 10px;">Genre: -</div>
+
+                    <!-- 2) Indikator Visual Gelombang Bunyi -->
+                    <div class="control-group" style="margin-bottom: 12px; width: 100%;">
+                        <label class="control-label">2️⃣ Indikator Visual Gelombang Bunyi</label>
+                        <div class="visualizer-box">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3) Butang Muat Turun berserta pilihan format -->
+                    <div class="control-group" style="margin-bottom: 0; width: 100%;">
+                        <label class="control-label">3️⃣ Muat Turun Fail</label>
+                        <select class="studio-select" id="downloadFormat" style="margin-bottom: 8px;">
+                            <option value="mp3">MP3 (Standard & Ringkas)</option>
+                            <option value="wav">WAV (Kualiti Studio Penuh / Lossless)</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="resetStudio()">Mastering Lagu Lain</button>
+                <div class="btn-container" style="flex-direction: column; gap: 8px;">
+                    <button type="button" class="btn btn-success" onclick="downloadMasteredFile()" style="width: 100%;">📥 Muat Turun Sekarang</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetStudio()" style="width: 100%;">Mastering Lagu Lain</button>
                 </div>
             </div>
 
@@ -730,10 +798,12 @@ def home():
         };
 
         let chosenGenreGlobal = "";
+        let audioFileGlobal = null;
         let audioCtx = null;
         let sourceNode = null;
         let lowFilter, midFilter, highFilter, compressorNode;
         let isWebAudioInitialized = false;
+        let isBypassed = false;
 
         function goToPage(pageId) {
             document.querySelectorAll('.page-section').forEach(el => {
@@ -782,15 +852,15 @@ def home():
 
         function handleFileSelected(input) {
             if (input.files && input.files[0]) {
-                let file = input.files[0];
+                audioFileGlobal = input.files[0];
                 document.getElementById('fileStatus').style.display = 'block';
                 
                 let audioPlayer = document.getElementById('audioPreviewPlayer');
                 let previewBox = document.getElementById('audioPreviewContainer');
                 
-                audioPlayer.src = URL.createObjectURL(file);
+                audioPlayer.src = URL.createObjectURL(audioFileGlobal);
                 previewBox.style.display = 'block';
-                isWebAudioInitialized = false; // Reset for new file
+                isWebAudioInitialized = false;
             }
         }
 
@@ -802,7 +872,6 @@ def home():
                     audioCtx = new AudioContext();
                     sourceNode = audioCtx.createMediaElementSource(audioElement);
 
-                    // Buat EQ Filters
                     lowFilter = audioCtx.createBiquadFilter();
                     lowFilter.type = 'lowshelf';
                     lowFilter.frequency.value = 250;
@@ -816,15 +885,9 @@ def home():
                     highFilter.type = 'highshelf';
                     highFilter.frequency.value = 4000;
 
-                    // Buat Compressor (Intensity)
                     compressorNode = audioCtx.createDynamicsCompressor();
 
-                    // Rangkaian Sambungan Audio (Chain)
-                    sourceNode.connect(lowFilter);
-                    lowFilter.connect(midFilter);
-                    midFilter.connect(highFilter);
-                    highFilter.connect(compressorNode);
-                    compressorNode.connect(audioCtx.destination);
+                    rebuildAudioChain();
 
                     isWebAudioInitialized = true;
                 } catch(e) {
@@ -838,41 +901,58 @@ def home():
             applyAudioSettings();
         }
 
+        function rebuildAudioChain() {
+            if (!sourceNode) return;
+            sourceNode.disconnect();
+            if (lowFilter) lowFilter.disconnect();
+            if (midFilter) midFilter.disconnect();
+            if (highFilter) highFilter.disconnect();
+            if (compressorNode) compressorNode.disconnect();
+
+            if (isBypassed) {
+                sourceNode.connect(audioCtx.destination);
+            } else {
+                sourceNode.connect(lowFilter);
+                lowFilter.connect(midFilter);
+                midFilter.connect(highFilter);
+                highFilter.connect(compressorNode);
+                compressorNode.connect(audioCtx.destination);
+            }
+        }
+
+        function toggleABTest() {
+            isBypassed = !isBypassed;
+            let btn = document.getElementById('abTestBtn');
+            if (isBypassed) {
+                btn.innerText = "🔄 A/B Test: Sedang Dengar Bunyi Asal (Tanpa Mastering)";
+                btn.style.background = "linear-gradient(135deg, #f59e0b, #d97706)";
+            } else {
+                btn.innerText = "🔄 A/B Test: Dengar Lagu Asal (Bypass)";
+                btn.style.background = "";
+            }
+            rebuildAudioChain();
+        }
+
         function applyAudioSettings() {
-            if (!isWebAudioInitialized || !audioCtx) return;
+            if (!isWebAudioInitialized || !audioCtx || isBypassed) return;
 
             let lowVal = parseFloat(document.getElementById('eqLow').value);
             let midVal = parseFloat(document.getElementById('eqMid').value);
             let highVal = parseFloat(document.getElementById('eqHigh').value);
             let intensity = parseFloat(document.getElementById('intensityRange').value);
 
-            // Set Gain EQ
             lowFilter.gain.value = lowVal;
             midFilter.gain.value = midVal;
             highFilter.gain.value = highVal;
 
-            // Set Compressor mengikut Intensity
             compressorNode.threshold.setValueAtTime(- (intensity * 0.35), audioCtx.currentTime);
             compressorNode.ratio.setValueAtTime(1 + (intensity * 0.18), audioCtx.currentTime);
-
-            let profile = document.getElementById('masteringProfile').value;
-            if (profile === 'punch') {
-                compressorNode.attack.setValueAtTime(0.003, audioCtx.currentTime);
-                compressorNode.release.setValueAtTime(0.08, audioCtx.currentTime);
-            } else if (profile === 'fire') {
-                compressorNode.attack.setValueAtTime(0.002, audioCtx.currentTime);
-                compressorNode.release.setValueAtTime(0.15, audioCtx.currentTime);
-            } else {
-                compressorNode.attack.setValueAtTime(0.01, audioCtx.currentTime);
-                compressorNode.release.setValueAtTime(0.25, audioCtx.currentTime);
-            }
         }
 
         function changeProfilePreset() {
             let profile = document.getElementById('masteringProfile').value;
             let low = 0, mid = 0, high = 0, intensity = 50;
 
-            // Tetapan ciri bunyi unik mengikut profil pilihan
             switch(profile) {
                 case 'universal': low = 1; mid = 0; high = 1; intensity = 50; break;
                 case 'fire': low = 4; mid = 3; high = 4; intensity = 85; break;
@@ -894,8 +974,7 @@ def home():
         }
 
         function startMasteringProcess() {
-            let fileInput = document.getElementById('audioFile');
-            if (!fileInput.files || fileInput.files.length === 0) {
+            if (!audioFileGlobal) {
                 alert('Sila pilih fail muzik terlebih dahulu!');
                 return;
             }
@@ -904,13 +983,29 @@ def home():
             goToPage('pageResult');
         }
 
+        function downloadMasteredFile() {
+            if (!audioFileGlobal) return;
+            let format = document.getElementById('downloadFormat').value;
+            
+            let url = URL.createObjectURL(audioFileGlobal);
+            let a = document.createElement('a');
+            a.href = url;
+            let originalName = audioFileGlobal.name.substring(0, audioFileGlobal.name.lastIndexOf('.')) || audioFileGlobal.name;
+            a.download = `${originalName}_mastered_${chosenGenreGlobal.replace(/[^a-zA-Z0-9]/g, '_')}.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
         function resetStudio() {
             document.getElementById('audioFile').value = '';
             document.getElementById('fileStatus').style.display = 'none';
             document.getElementById('audioPreviewContainer').style.display = 'none';
             document.getElementById('audioPreviewPlayer').src = '';
             isWebAudioInitialized = false;
+            audioFileGlobal = null;
             chosenGenreGlobal = "";
+            isBypassed = false;
             goToPage('page1');
         }
 
@@ -922,4 +1017,4 @@ def home():
     </body>
     </html>
     """
-                
+    
