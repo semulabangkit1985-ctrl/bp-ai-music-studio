@@ -55,12 +55,12 @@ def home():
 
             .studio-overlay {
                 flex: 1;
-                background: rgba(11, 15, 25, 0.85);
-                backdrop-filter: blur(4px);
+                background: rgba(11, 15, 25, 0.55);
+                backdrop-filter: blur(2px);
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-start;
-                padding: 24px 18px 40px 18px;
+                justify-content: center;
+                padding: 24px 18px;
                 box-sizing: border-box;
                 min-height: 100vh;
             }
@@ -78,13 +78,14 @@ def home():
             }
 
             .content-readable-box {
-                background: rgba(15, 23, 42, 0.9);
+                background: rgba(15, 23, 42, 0.92);
                 padding: 16px 14px;
                 border-radius: 12px;
                 border: 1px solid rgba(59, 130, 246, 0.4);
                 margin-bottom: 16px;
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+                width: 100%;
             }
 
             .poster-desc {
@@ -100,13 +101,14 @@ def home():
             }
 
             .poster-quote-box {
-                margin-bottom: 20px;
+                margin-bottom: 24px;
                 padding: 12px 14px;
-                background: rgba(15, 23, 42, 0.9);
+                background: rgba(15, 23, 42, 0.92);
                 border-left: 4px solid #fbbf24;
                 border-radius: 6px;
                 box-sizing: border-box;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+                width: 100%;
             }
 
             .poster-quote-title {
@@ -256,9 +258,7 @@ def home():
             .btn-container {
                 display: flex;
                 gap: 10px;
-                margin-top: auto;
                 width: 100%;
-                padding-top: 10px;
             }
 
             .btn {
@@ -311,8 +311,7 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
-            <!-- HALAMAN 1 -->
-            <div id="page1" style="display: flex; flex-direction: column; flex: 1;">
+            <div id="page1" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
                 <div class="content-readable-box">
@@ -335,8 +334,7 @@ def home():
                 </div>
             </div>
 
-            <!-- HALAMAN 2 -->
-            <div id="page2" class="hidden" style="display: flex; flex-direction: column; flex: 1;">
+            <div id="page2" class="hidden" style="display: flex; flex-direction: column; width: 100%;">
                 <div class="poster-title">TETAPAN MASTERING</div>
 
                 <span class="section-label">📁 Pilih Fail Muzik</span>
@@ -355,7 +353,6 @@ def home():
                             <input type="text" id="genreSearchInput" class="dropdown-search-input" placeholder="🔍 Cari genre lagu..." onkeyup="filterGenres()">
                         </div>
 
-                        <!-- 🇲🇾 Melayu / Nusantara -->
                         <div class="dropdown-group-header category-header">🇲🇾 Melayu / Nusantara</div>
                         <div class="dropdown-option" onclick="selectGenre('Malaya / Melayu')">Malaya / Melayu</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Melayu')">Pop Melayu</div>
@@ -386,7 +383,6 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Malay Electronic')">Malay Electronic</div>
                         <div class="dropdown-option" onclick="selectGenre('Nusantara Electronic')">Nusantara Electronic</div>
 
-                        <!-- 🎤 Pop -->
                         <div class="dropdown-group-header category-header">🎤 Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop')">Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Pop Ballad')">Pop Ballad</div>
@@ -407,7 +403,6 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Neon Pop')">Neon Pop</div>
                         <div class="dropdown-option" onclick="selectGenre('Experimental Pop')">Experimental Pop</div>
 
-                        <!-- 🎸 Rock -->
                         <div class="dropdown-group-header category-header">🎸 Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Rock')">Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Soft Rock')">Soft Rock</div>
@@ -429,374 +424,6 @@ def home():
                         <div class="dropdown-option" onclick="selectGenre('Arena Rock')">Arena Rock</div>
                         <div class="dropdown-option" onclick="selectGenre('Metal Rock')">Metal Rock</div>
 
-                        <!-- 🎤 Hip Hop / Rap -->
                         <div class="dropdown-group-header category-header">🎤 Hip Hop / Rap</div>
                         <div class="dropdown-option" onclick="selectGenre('Hip Hop')">Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Rap')">Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Old School Hip Hop')">Old School Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Trap')">Trap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Boom Bap')">Boom Bap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Lo-Fi Hip Hop')">Lo-Fi Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Gangsta Rap')">Gangsta Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Conscious Rap')">Conscious Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Melodic Rap')">Melodic Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Pop Rap')">Pop Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Alternative Hip Hop')">Alternative Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('R&B Rap')">R&B Rap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Drill')">Drill</div>
-                        <div class="dropdown-option" onclick="selectGenre('West Coast Hip Hop')">West Coast Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('East Coast Hip Hop')">East Coast Hip Hop</div>
-                        <div class="dropdown-option" onclick="selectGenre('UK Drill')">UK Drill</div>
-                        <div class="dropdown-option" onclick="selectGenre('Afro Drill')">Afro Drill</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cyberpunk Trap')">Cyberpunk Trap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cinematic Trap')">Cinematic Trap</div>
-                        <div class="dropdown-option" onclick="selectGenre('Hybrid Trap')">Hybrid Trap</div>
-
-                        <!-- 🔥 Phonk -->
-                        <div class="dropdown-group-header category-header">🔥 Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Phonk')">Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Phonk')">Dark Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Drift Phonk')">Drift Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Brazilian Phonk')">Brazilian Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Memphis Phonk')">Memphis Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Aggressive Phonk')">Aggressive Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Atmospheric Phonk')">Atmospheric Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Electro Phonk')">Electro Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Trap Phonk')">Trap Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Future Phonk')">Future Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Malay Phonk')">Malay Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Neon Noir Phonk')">Neon Noir Phonk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Neon Noir Phonk - Malay Bounce')">Neon Noir Phonk - Malay Bounce</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Techno / Neon Noir Phonk - Malay Bounce')">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
-
-                        <!-- ⚡ Techno / Electronic -->
-                        <div class="dropdown-group-header category-header">⚡ Techno / Electronic</div>
-                        <div class="dropdown-option" onclick="selectGenre('EDM')">EDM</div>
-                        <div class="dropdown-option" onclick="selectGenre('Techno')">Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Techno')">Dark Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Hard Techno')">Hard Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Industrial Techno')">Industrial Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Acid Techno')">Acid Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Minimal Techno')">Minimal Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Melodic Techno')">Melodic Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Progressive Techno')">Progressive Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('Techno Noir')">Techno Noir</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cyber Techno')">Cyber Techno</div>
-                        <div class="dropdown-option" onclick="selectGenre('House')">House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Deep House')">Deep House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Tropical House')">Tropical House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Future House')">Future House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Progressive House')">Progressive House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Tech House')">Tech House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Electro House')">Electro House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Bass House')">Bass House</div>
-                        <div class="dropdown-option" onclick="selectGenre('G-House')">G-House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Slap House')">Slap House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Afro House')">Afro House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Trance')">Trance</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dubstep')">Dubstep</div>
-                        <div class="dropdown-option" onclick="selectGenre('Drum & Bass')">Drum & Bass</div>
-                        <div class="dropdown-option" onclick="selectGenre('Future Bass')">Future Bass</div>
-                        <div class="dropdown-option" onclick="selectGenre('Breakbeat')">Breakbeat</div>
-                        <div class="dropdown-option" onclick="selectGenre('UK Garage')">UK Garage</div>
-                        <div class="dropdown-option" onclick="selectGenre('Jersey Club')">Jersey Club</div>
-                        <div class="dropdown-option" onclick="selectGenre('Amapiano')">Amapiano</div>
-                        <div class="dropdown-option" onclick="selectGenre('Industrial Bass')">Industrial Bass</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Electro')">Dark Electro</div>
-                        <div class="dropdown-option" onclick="selectGenre('Alternative Electronic')">Alternative Electronic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cinematic Electronic')">Cinematic Electronic</div>
-
-                        <!-- 🌑 Dark / Cyber / Experimental -->
-                        <div class="dropdown-group-header category-header">🌑 Dark / Cyber / Experimental</div>
-                        <div class="dropdown-option" onclick="selectGenre('Darkwave')">Darkwave</div>
-                        <div class="dropdown-option" onclick="selectGenre('Witch House')">Witch House</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Synthwave')">Dark Synthwave</div>
-                        <div class="dropdown-option" onclick="selectGenre('Neon Synthwave')">Neon Synthwave</div>
-                        <div class="dropdown-option" onclick="selectGenre('Synthwave')">Synthwave</div>
-                        <div class="dropdown-option" onclick="selectGenre('Vaporwave')">Vaporwave</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cyberpunk')">Cyberpunk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cyber Pop')">Cyber Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Noir Electronic')">Noir Electronic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark Ambient')">Dark Ambient</div>
-                        <div class="dropdown-option" onclick="selectGenre('Ambient Dark')">Ambient Dark</div>
-                        <div class="dropdown-option" onclick="selectGenre('Horror Electronic')">Horror Electronic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Experimental Electronic')">Experimental Electronic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Future Garage')">Future Garage</div>
-                        <div class="dropdown-option" onclick="selectGenre('Industrial')">Industrial</div>
-                        <div class="dropdown-option" onclick="selectGenre('Noise')">Noise</div>
-                        <div class="dropdown-option" onclick="selectGenre('Glitch')">Glitch</div>
-                        <div class="dropdown-option" onclick="selectGenre('Glitch Hop')">Glitch Hop</div>
-
-                        <!-- 🎷 R&B / Soul / Funk -->
-                        <div class="dropdown-group-header category-header">🎷 R&B / Soul / Funk</div>
-                        <div class="dropdown-option" onclick="selectGenre('R&B')">R&B</div>
-                        <div class="dropdown-option" onclick="selectGenre('Contemporary R&B')">Contemporary R&B</div>
-                        <div class="dropdown-option" onclick="selectGenre('Soul')">Soul</div>
-                        <div class="dropdown-option" onclick="selectGenre('Neo Soul')">Neo Soul</div>
-                        <div class="dropdown-option" onclick="selectGenre('Motown')">Motown</div>
-                        <div class="dropdown-option" onclick="selectGenre('Funk')">Funk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Smooth Soul')">Smooth Soul</div>
-                        <div class="dropdown-option" onclick="selectGenre('Gospel Soul')">Gospel Soul</div>
-                        <div class="dropdown-option" onclick="selectGenre('R&B Ballad')">R&B Ballad</div>
-                        <div class="dropdown-option" onclick="selectGenre('Funk Soul')">Funk Soul</div>
-
-                        <!-- 🎷 Jazz / Blues -->
-                        <div class="dropdown-group-header category-header">🎷 Jazz / Blues</div>
-                        <div class="dropdown-option" onclick="selectGenre('Jazz')">Jazz</div>
-                        <div class="dropdown-option" onclick="selectGenre('Smooth Jazz')">Smooth Jazz</div>
-                        <div class="dropdown-option" onclick="selectGenre('Contemporary Jazz')">Contemporary Jazz</div>
-                        <div class="dropdown-option" onclick="selectGenre('Swing')">Swing</div>
-                        <div class="dropdown-option" onclick="selectGenre('Bebop')">Bebop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Fusion Jazz')">Fusion Jazz</div>
-                        <div class="dropdown-option" onclick="selectGenre('Latin Jazz')">Latin Jazz</div>
-                        <div class="dropdown-option" onclick="selectGenre('Blues')">Blues</div>
-                        <div class="dropdown-option" onclick="selectGenre('Slow Blues')">Slow Blues</div>
-                        <div class="dropdown-option" onclick="selectGenre('Soul Blues')">Soul Blues</div>
-
-                        <!-- 🎸 Akustik / Folk -->
-                        <div class="dropdown-group-header category-header">🎸 Akustik / Folk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Acoustic')">Acoustic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Acoustic Pop')">Acoustic Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Acoustic Ballad')">Acoustic Ballad</div>
-                        <div class="dropdown-option" onclick="selectGenre('Folk')">Folk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Indie Folk')">Indie Folk</div>
-                        <div class="dropdown-option" onclick="selectGenre('Folk Pop')">Folk Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Singer-Songwriter')">Singer-Songwriter</div>
-                        <div class="dropdown-option" onclick="selectGenre('Coffeehouse')">Coffeehouse</div>
-                        <div class="dropdown-option" onclick="selectGenre('Chill')">Chill</div>
-                        <div class="dropdown-option" onclick="selectGenre('Lo-Fi')">Lo-Fi</div>
-                        <div class="dropdown-option" onclick="selectGenre('Lounge')">Lounge</div>
-                        <div class="dropdown-option" onclick="selectGenre('Relaxing')">Relaxing</div>
-
-                        <!-- 🎻 Orkestra / Klasik -->
-                        <div class="dropdown-group-header category-header">🎻 Orkestra / Klasik</div>
-                        <div class="dropdown-option" onclick="selectGenre('Classical')">Classical</div>
-                        <div class="dropdown-option" onclick="selectGenre('Piano Solo')">Piano Solo</div>
-                        <div class="dropdown-option" onclick="selectGenre('Piano Ballad')">Piano Ballad</div>
-                        <div class="dropdown-option" onclick="selectGenre('String Orchestra')">String Orchestra</div>
-                        <div class="dropdown-option" onclick="selectGenre('Symphony')">Symphony</div>
-                        <div class="dropdown-option" onclick="selectGenre('Chamber Music')">Chamber Music</div>
-                        <div class="dropdown-option" onclick="selectGenre('Cinematic')">Cinematic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Epic Orchestra')">Epic Orchestra</div>
-                        <div class="dropdown-option" onclick="selectGenre('Film Score')">Film Score</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dramatic')">Dramatic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Emotional Orchestra')">Emotional Orchestra</div>
-                        <div class="dropdown-option" onclick="selectGenre('Fantasy')">Fantasy</div>
-                        <div class="dropdown-option" onclick="selectGenre('Medieval')">Medieval</div>
-                        <div class="dropdown-option" onclick="selectGenre('Baroque')">Baroque</div>
-
-                        <!-- ❤️ Sedih / Emosi / Cinta -->
-                        <div class="dropdown-group-header category-header">❤️ Sedih / Emosi / Cinta</div>
-                        <div class="dropdown-option" onclick="selectGenre('Sad Song')">Sad Song</div>
-                        <div class="dropdown-option" onclick="selectGenre('Emotional')">Emotional</div>
-                        <div class="dropdown-option" onclick="selectGenre('Heartbreak')">Heartbreak</div>
-                        <div class="dropdown-option" onclick="selectGenre('Melancholic')">Melancholic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Nostalgic')">Nostalgic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Romantic')">Romantic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Love Song')">Love Song</div>
-                        <div class="dropdown-option" onclick="selectGenre('Deep Emotional')">Deep Emotional</div>
-                        <div class="dropdown-option" onclick="selectGenre('Tearjerker')">Tearjerker</div>
-                        <div class="dropdown-option" onclick="selectGenre('Slow Ballad')">Slow Ballad</div>
-                        <div class="dropdown-option" onclick="selectGenre('Emotional Piano')">Emotional Piano</div>
-                        <div class="dropdown-option" onclick="selectGenre('Emotional Acoustic')">Emotional Acoustic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Power Ballad')">Power Ballad</div>
-
-                        <!-- 🌎 Antarabangsa -->
-                        <div class="dropdown-group-header category-header">🌎 Antarabangsa</div>
-                        <div class="dropdown-option" onclick="selectGenre('K-Pop')">K-Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('J-Pop')">J-Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('C-Pop')">C-Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Bollywood')">Bollywood</div>
-                        <div class="dropdown-option" onclick="selectGenre('Latin Pop')">Latin Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Reggaeton')">Reggaeton</div>
-                        <div class="dropdown-option" onclick="selectGenre('Salsa')">Salsa</div>
-                        <div class="dropdown-option" onclick="selectGenre('Bachata')">Bachata</div>
-                        <div class="dropdown-option" onclick="selectGenre('Flamenco')">Flamenco</div>
-                        <div class="dropdown-option" onclick="selectGenre('Afrobeat')">Afrobeat</div>
-                        <div class="dropdown-option" onclick="selectGenre('Afropop')">Afropop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Reggae')">Reggae</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dancehall')">Dancehall</div>
-                        <div class="dropdown-option" onclick="selectGenre('Ska')">Ska</div>
-                        <div class="dropdown-option" onclick="selectGenre('Country')">Country</div>
-                        <div class="dropdown-option" onclick="selectGenre('Country Pop')">Country Pop</div>
-                        <div class="dropdown-option" onclick="selectGenre('Bluegrass')">Bluegrass</div>
-                        <div class="dropdown-option" onclick="selectGenre('Gospel')">Gospel</div>
-                        <div class="dropdown-option" onclick="selectGenre('Celtic')">Celtic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Arabic')">Arabic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Middle Eastern')">Middle Eastern</div>
-
-                        <!-- 🤘 Metal -->
-                        <div class="dropdown-group-header category-header">🤘 Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Heavy Metal')">Heavy Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Metalcore')">Metalcore</div>
-                        <div class="dropdown-option" onclick="selectGenre('Death Metal')">Death Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Black Metal')">Black Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Symphonic Metal')">Symphonic Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Power Metal')">Power Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Progressive Metal')">Progressive Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Nu Metal')">Nu Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Alternative Metal')">Alternative Metal</div>
-                        <div class="dropdown-option" onclick="selectGenre('Doom Metal')">Doom Metal</div>
-
-                        <!-- 🎬 Cinematic / Mood / Khas -->
-                        <div class="dropdown-group-header category-header">🎬 Cinematic / Mood / Khas</div>
-                        <div class="dropdown-option" onclick="selectGenre('Epic')">Epic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dark')">Dark</div>
-                        <div class="dropdown-option" onclick="selectGenre('Mysterious')">Mysterious</div>
-                        <div class="dropdown-option" onclick="selectGenre('Horror')">Horror</div>
-                        <div class="dropdown-option" onclick="selectGenre('Thriller')">Thriller</div>
-                        <div class="dropdown-option" onclick="selectGenre('Adventure')">Adventure</div>
-                        <div class="dropdown-option" onclick="selectGenre('Heroic')">Heroic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Inspirational')">Inspirational</div>
-                        <div class="dropdown-option" onclick="selectGenre('Motivational')">Motivational</div>
-                        <div class="dropdown-option" onclick="selectGenre('Spiritual')">Spiritual</div>
-                        <div class="dropdown-option" onclick="selectGenre('Religious')">Religious</div>
-                        <div class="dropdown-option" onclick="selectGenre('Peaceful')">Peaceful</div>
-                        <div class="dropdown-option" onclick="selectGenre('Meditation')">Meditation</div>
-                        <div class="dropdown-option" onclick="selectGenre('Atmospheric')">Atmospheric</div>
-                        <div class="dropdown-option" onclick="selectGenre('Dreamy')">Dreamy</div>
-                        <div class="dropdown-option" onclick="selectGenre('Powerful')">Powerful</div>
-                        <div class="dropdown-option" onclick="selectGenre('Energetic')">Energetic</div>
-                        <div class="dropdown-option" onclick="selectGenre('Vintage')">Vintage</div>
-                        <div class="dropdown-option" onclick="selectGenre('Retro')">Retro</div>
-                        <div class="dropdown-option" onclick="selectGenre('80s')">80s</div>
-                        <div class="dropdown-option" onclick="selectGenre('90s')">90s</div>
-                        <div class="dropdown-option" onclick="selectGenre('Wedding')">Wedding</div>
-                        <div class="dropdown-option" onclick="selectGenre('Festival')">Festival</div>
-                        <div class="dropdown-option" onclick="selectGenre('Party')">Party</div>
-                        <div class="dropdown-option" onclick="selectGenre('Christmas')">Christmas</div>
-                        <div class="dropdown-option" onclick="selectGenre('Raya / Aidilfitri')">Raya / Aidilfitri</div>
-                    </div>
-                </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage(1)">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="goToPage(3)">Seterusnya ➡️</button>
-                </div>
-            </div>
-
-            <!-- HALAMAN 3 -->
-            <div id="page3" class="hidden" style="display: flex; flex-direction: column; flex: 1;">
-                <div class="poster-title">TETAPAN AUDIO LANJUTAN</div>
-
-                <div class="content-readable-box">
-                    <div class="control-group">
-                        <label class="control-label">🎚️ Profil Mastering</label>
-                        <select class="studio-select" id="masteringProfile">
-                            <option value="balanced">Balanced Pro (Seimbang)</option>
-                            <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
-                            <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
-                            <option value="warm">Warm Analog (Lembut & Klasik)</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group" style="margin-bottom: 0;">
-                        <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
-                        <select class="studio-select" id="gainBoost">
-                            <option value="standard">Standard (Rata -14 LUFS)</option>
-                            <option value="high">High Volume (-11 LUFS)</option>
-                            <option value="max">Max Streaming (-9 LUFS)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage(2)">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses ⚡</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        function goToPage(pageNumber) {
-            document.getElementById('page1').style.display = 'none';
-            document.getElementById('page2').style.display = 'none';
-            document.getElementById('page3').style.display = 'none';
-            
-            if (pageNumber === 1) {
-                document.getElementById('page1').style.display = 'flex';
-            } else if (pageNumber === 2) {
-                document.getElementById('page2').style.display = 'flex';
-            } else if (pageNumber === 3) {
-                let selected = document.getElementById('selectedGenreText').innerText;
-                if(selected.includes('Sila Pilih')) {
-                    alert('Sila pilih genre lagu terlebih dahulu.');
-                    goToPage(2);
-                    return;
-                }
-                document.getElementById('page3').style.display = 'flex';
-            }
-            window.scrollTo(0, 0);
-        }
-
-        function handleFileSelected(input) {
-            if (input.files && input.files[0]) {
-                document.getElementById('fileStatus').style.display = 'block';
-            }
-        }
-
-        function toggleDropdown() {
-            let list = document.getElementById('customDropdownList');
-            list.classList.toggle('hidden');
-            if(!list.classList.contains('hidden')) {
-                document.getElementById('genreSearchInput').focus();
-            }
-        }
-
-        function selectGenre(genreName) {
-            document.getElementById('selectedGenreText').innerText = genreName;
-            document.getElementById('customDropdownList').classList.add('hidden');
-        }
-
-        function filterGenres() {
-            let input = document.getElementById('genreSearchInput').value.toLowerCase();
-            let list = document.getElementById('customDropdownList');
-            let options = list.getElementsByClassName('dropdown-option');
-            let headers = list.getElementsByClassName('category-header');
-
-            for (let i = 0; i < options.length; i++) {
-                let txt = options[i].innerText || options[i].textContent;
-                if (txt.toLowerCase().indexOf(input) > -1) {
-                    options[i].style.display = "";
-                } else {
-                    options[i].style.display = "none";
-                }
-            }
-
-            for (let h = 0; h < headers.length; h++) {
-                let nextEl = headers[h].nextElementSibling;
-                let hasVisible = false;
-                while (nextEl && !nextEl.classList.contains('category-header')) {
-                    if (nextEl.style.display !== "none") {
-                        hasVisible = true;
-                        break;
-                    }
-                    nextEl = nextEl.nextElementSibling;
-                }
-                headers[h].style.display = hasVisible ? "" : "none";
-            }
-        }
-
-        function startMasteringProcess() {
-            alert('Proses mastering berjaya dimulakan! Sila tunggu sebentar sementara AI memproses lagu anda.');
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.custom-dropdown-container')) {
-                let list = document.getElementById('customDropdownList');
-                if (list && !list.classList.contains('hidden')) {
-                    list.classList.add('hidden');
-                }
-            }
-        }
-
-        window.onload = function() {
-            goToPage(1);
-        };
-    </script>
-
-    </body>
-    </html>
-    """
+                        <div class="dropdown-option" onclick="selectGenr
