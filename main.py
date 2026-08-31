@@ -98,7 +98,7 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.8);
                 width: 100%;
-                max-height: 65vh;
+                max-height: 68vh;
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
@@ -407,6 +407,23 @@ def home():
                 display: block;
             }
 
+            .audio-preview-box {
+                background: rgba(30, 41, 59, 0.85);
+                border: 1px solid rgba(59, 130, 246, 0.6);
+                padding: 10px;
+                border-radius: 10px;
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 14px;
+                display: none;
+            }
+
+            audio {
+                width: 100%;
+                height: 36px;
+                outline: none;
+            }
+
             .success-icon {
                 font-size: 40px;
                 margin-bottom: 10px;
@@ -522,7 +539,6 @@ def home():
             <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
-                
                 <div class="content-readable-box" id="subGenreContentContainer"></div>
 
                 <div class="btn-container">
@@ -535,15 +551,19 @@ def home():
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
                 <div class="content-readable-box">
-                
-                <div class="content-readable-box">
                     <div class="selected-display" id="displayChosenGenre">Genre Dipilih: -</div>
 
                     <span class="section-label">📁 Pilih Fail Muzik</span>
                     <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                     <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
-                    <!-- PROFIL MASTERING BAHARU -->
+                    <!-- PEMAIN AUDIO UNTUK TEST DENGAR LAGU -->
+                    <div class="audio-preview-box" id="audioPreviewContainer">
+                        <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Preview)</label>
+                        <audio id="audioPreviewPlayer" controls></audio>
+                    </div>
+
+                    <!-- PROFIL MASTERING -->
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
@@ -558,7 +578,7 @@ def home():
                         </select>
                     </div>
 
-                    <!-- INTENSITY 0 - 100 -->
+                    <!-- INTENSITY -->
                     <div class="control-group">
                         <label class="control-label">⚡ Intensity: <span id="intensityVal">50</span>%</label>
                         <input type="range" min="0" max="100" value="50" class="studio-range" id="intensityRange" oninput="document.getElementById('intensityVal').innerText = this.value">
@@ -757,7 +777,15 @@ def home():
 
         function handleFileSelected(input) {
             if (input.files && input.files[0]) {
+                let file = input.files[0];
                 document.getElementById('fileStatus').style.display = 'block';
+                
+                // Paparkan dan aktifkan player audio untuk preview
+                let audioPlayer = document.getElementById('audioPreviewPlayer');
+                let previewBox = document.getElementById('audioPreviewContainer');
+                
+                audioPlayer.src = URL.createObjectURL(file);
+                previewBox.style.display = 'block';
             }
         }
 
@@ -775,6 +803,8 @@ def home():
         function resetStudio() {
             document.getElementById('audioFile').value = '';
             document.getElementById('fileStatus').style.display = 'none';
+            document.getElementById('audioPreviewContainer').style.display = 'none';
+            document.getElementById('audioPreviewPlayer').src = '';
             chosenGenreGlobal = "";
             goToPage('page1');
         }
@@ -787,3 +817,4 @@ def home():
     </body>
     </html>
     """
+                
