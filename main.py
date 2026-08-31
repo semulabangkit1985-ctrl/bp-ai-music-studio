@@ -77,10 +77,6 @@ def home():
                 text-align: center;
             }
 
-            .page-center .btn-container {
-                margin-top: 0;
-            }
-
             .poster-title {
                 font-family: 'Syne', sans-serif;
                 font-size: 15px;
@@ -102,7 +98,7 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.8);
                 width: 100%;
-                max-height: 65vh;
+                max-height: 62vh;
                 overflow-y: auto;
                 text-align: left;
             }
@@ -285,8 +281,7 @@ def home():
                 display: flex;
                 gap: 10px;
                 width: 100%;
-                margin-top: auto;
-                padding-top: 10px;
+                margin-bottom: 14px;
             }
 
             .btn {
@@ -343,10 +338,13 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
-            <!-- HALAMAN 1: INTRO (Tengah) -->
             <div id="page1" class="page-section page-center">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
                 
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering ➡️</button>
+                </div>
+
                 <div class="content-readable-box">
                     <div class="poster-desc">
                         Mastering BP AI MUSIC STUDIO ialah langkah akhir untuk mendapatkan hasil audio yang kemas, seimbang, dan berkualiti tinggi. Setiap elemen lagu diproses secara teliti.
@@ -360,15 +358,15 @@ def home():
                     <div class="poster-quote-title">BP AI MUSIC STUDIO</div>
                     <div class="poster-quote">Memperkemas bunyi, menghidupkan karya.</div>
                 </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page2')">Mula Mastering ➡️</button>
-                </div>
             </div>
 
-            <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
+                
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('page1')">⬅️ Kembali</button>
+                </div>
+
                 <div class="content-readable-box">
                     <div class="points-grid">
                         <div class="point-card" onclick="openPoint(1)">
@@ -478,26 +476,26 @@ def home():
                         </div>
                     </div>
                 </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('page1')">⬅️ Kembali</button>
-                </div>
             </div>
 
-            <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
-                <div class="content-readable-box" id="subGenreContentContainer">
-                    <!-- Dynamic List loaded via JS -->
-                </div>
+                
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">⬅️ Kembali ke Senarai Point</button>
                 </div>
+
+                <div class="content-readable-box" id="subGenreContentContainer">
+                    </div>
             </div>
 
-            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">⬅️ Kembali</button>
+                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses ⚡</button>
+                </div>
 
                 <div class="content-readable-box">
                     <div class="selected-display" id="displayChosenGenre">Genre Dipilih: -</div>
@@ -510,7 +508,7 @@ def home():
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
                             <option value="balanced">Balanced Pro (Seimbang)</option>
-           <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
+                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
                             <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
@@ -524,11 +522,6 @@ def home():
                             <option value="max">Max Streaming (-9 LUFS)</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="btn-container">
-                    <button type="button" class="btn" onclick="goToPage('subGenrePage')">⬅️ Kembali</button>
-                    <button type="button" class="btn" onclick="startMasteringProcess()">Mula Proses ⚡</button>
                 </div>
             </div>
 
@@ -696,4 +689,4 @@ def home():
 
     </body>
     </html>
-    """       
+    """
