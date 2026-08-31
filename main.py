@@ -32,6 +32,7 @@ def home():
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-content: center;
                 min-height: 100vh;
                 box-sizing: border-box;
                 overflow-x: hidden;
@@ -49,23 +50,28 @@ def home():
                 position: relative;
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 box-shadow: 0 0 25px rgba(0,0,0,0.8);
                 box-sizing: border-box;
             }
 
             .studio-overlay {
-                background: rgba(11, 15, 25, 0.82);
-                backdrop-filter: blur(3px);
+                background: rgba(11, 15, 25, 0.85);
+                backdrop-filter: blur(4px);
                 display: flex;
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 padding: 20px 16px;
                 box-sizing: border-box;
                 min-height: 100vh;
+                width: 100%;
             }
 
             .page-section {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 width: 100%;
                 box-sizing: border-box;
             }
@@ -79,6 +85,7 @@ def home():
                 text-transform: uppercase;
                 margin-bottom: 14px;
                 text-align: center;
+                width: 100%;
                 text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
             }
 
@@ -93,6 +100,9 @@ def home():
                 width: 100%;
                 max-height: 62vh;
                 overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 text-align: center;
             }
 
@@ -112,6 +122,7 @@ def home():
                 margin-bottom: 12px;
                 font-weight: 500;
                 text-align: center;
+                width: 100%;
             }
 
             .poster-desc:last-child {
@@ -127,6 +138,9 @@ def home():
                 box-sizing: border-box;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.6);
                 width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 text-align: center;
             }
 
@@ -139,6 +153,7 @@ def home():
                 text-transform: uppercase;
                 margin-bottom: 2px;
                 text-align: center;
+                width: 100%;
             }
 
             .poster-quote {
@@ -147,6 +162,7 @@ def home():
                 color: #fbbf24;
                 font-style: italic;
                 text-align: center;
+                width: 100%;
             }
 
             .section-label {
@@ -157,12 +173,14 @@ def home():
                 margin-bottom: 8px;
                 display: block;
                 text-align: center;
+                width: 100%;
             }
 
             /* Points Grid Styling */
             .points-grid {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 gap: 10px;
                 width: 100%;
             }
@@ -174,15 +192,19 @@ def home():
                 border-radius: 10px;
                 cursor: pointer;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
+                text-align: center;
                 transition: all 0.2s ease;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .point-card:hover {
                 background: rgba(37, 99, 235, 0.3);
                 border-color: #3b82f6;
-                transform: translateX(3px);
+                transform: scale(1.02);
             }
 
             .point-card-title {
@@ -191,6 +213,7 @@ def home():
                 font-weight: 700;
                 color: #ffffff;
                 text-align: center;
+                width: 100%;
             }
 
             .point-card-desc {
@@ -198,6 +221,7 @@ def home():
                 color: #94a3b8;
                 margin-top: 2px;
                 text-align: center;
+                width: 100%;
             }
 
             .genre-group-title {
@@ -209,14 +233,16 @@ def home():
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 text-align: center;
+                width: 100%;
             }
 
             .genre-item-list {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 gap: 5px;
                 margin-bottom: 10px;
-                align-items: center;
+                width: 100%;
             }
 
             .genre-chip {
@@ -256,6 +282,18 @@ def home():
                 text-align: center;
             }
 
+            input[type="file"]::file-selector-button {
+                background: #3b82f6;
+                color: white;
+                border: none;
+                padding: 6px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                margin-right: 8px;
+            }
+
             .status-ready {
                 font-size: 11px;
                 color: #34d399;
@@ -264,6 +302,7 @@ def home():
                 font-weight: 700;
                 display: none;
                 text-align: center;
+                width: 100%;
             }
 
             .selected-display {
@@ -276,10 +315,14 @@ def home():
                 font-weight: 600;
                 margin-bottom: 14px;
                 text-align: center;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .btn-container {
                 display: flex;
+                justify-content: center;
+                align-items: center;
                 gap: 10px;
                 width: 100%;
                 margin-top: 4px;
@@ -303,6 +346,10 @@ def home():
             .control-group {
                 margin-bottom: 14px;
                 text-align: center;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .control-group:last-child {
@@ -316,6 +363,7 @@ def home():
                 display: block;
                 font-weight: 600;
                 text-align: center;
+                width: 100%;
             }
 
             select.studio-select {
@@ -343,7 +391,6 @@ def home():
     <div class="studio-container">
         <div class="studio-overlay">
             
-            <!-- HALAMAN 1: INTRO -->
             <div id="page1" class="page-section">
                 <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
 
@@ -366,101 +413,70 @@ def home():
                 </div>
             </div>
 
-            <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
             <div id="page2" class="page-section hidden">
                 <div class="poster-title">🎵 GENRE LAGU</div>
 
                 <div class="content-readable-box">
                     <div class="points-grid">
                         <div class="point-card" onclick="openPoint(1)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">01 🇲🇾 Melayu / Nusantara</div>
-                                <div class="point-card-desc">Malaya, Tradisional, Nusantara & Modern</div>
-                            </div>
+                            <div class="point-card-title">01 🇲🇾 Melayu / Nusantara</div>
+                            <div class="point-card-desc">Malaya, Tradisional, Nusantara & Modern</div>
                         </div>
                         <div class="point-card" onclick="openPoint(2)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">02 🎤 Pop</div>
-                                <div class="point-card-desc">Pop Ballad, Electropop, Synthpop, Indie Pop</div>
-                            </div>
+                            <div class="point-card-title">02 🎤 Pop</div>
+                            <div class="point-card-desc">Pop Ballad, Electropop, Synthpop, Indie Pop</div>
                         </div>
                         <div class="point-card" onclick="openPoint(3)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">03 🎸 Rock</div>
-                                <div class="point-card-desc">Classic Rock, Alternative, Indie, Grunge, Metal</div>
-                            </div>
+                            <div class="point-card-title">03 🎸 Rock</div>
+                            <div class="point-card-desc">Classic Rock, Alternative, Indie, Grunge, Metal</div>
                         </div>
                         <div class="point-card" onclick="openPoint(4)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">04 🎤 Hip Hop / Rap</div>
-                                <div class="point-card-desc">Trap, Boom Bap, Drill, Old School, Melodic</div>
-                            </div>
+                            <div class="point-card-title">04 🎤 Hip Hop / Rap</div>
+                            <div class="point-card-desc">Trap, Boom Bap, Drill, Old School, Melodic</div>
                         </div>
                         <div class="point-card" onclick="openPoint(5)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">05 🔥 Phonk</div>
-                                <div class="point-card-desc">Drift Phonk, Brazilian, Dark, Malay Phonk</div>
-                            </div>
+                            <div class="point-card-title">05 🔥 Phonk</div>
+                            <div class="point-card-desc">Drift Phonk, Brazilian, Dark, Malay Phonk</div>
                         </div>
                         <div class="point-card" onclick="openPoint(6)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">06 ⚡ Techno / Electronic</div>
-                                <div class="point-card-desc">EDM, House, Trance, Dubstep, Amapiano</div>
-                            </div>
+                            <div class="point-card-title">06 ⚡ Techno / Electronic</div>
+                            <div class="point-card-desc">EDM, House, Trance, Dubstep, Amapiano</div>
                         </div>
                         <div class="point-card" onclick="openPoint(7)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">07 🌑 Dark / Cyber / Experimental</div>
-                                <div class="point-card-desc">Darkwave, Synthwave, Cyberpunk, Ambient</div>
-                            </div>
+                            <div class="point-card-title">07 🌑 Dark / Cyber / Experimental</div>
+                            <div class="point-card-desc">Darkwave, Synthwave, Cyberpunk, Ambient</div>
                         </div>
                         <div class="point-card" onclick="openPoint(8)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">08 🎷 R&B / Soul / Funk</div>
-                                <div class="point-card-desc">Contemporary R&B, Neo Soul, Motown, Funk</div>
-                            </div>
+                            <div class="point-card-title">08 🎷 R&B / Soul / Funk</div>
+                            <div class="point-card-desc">Contemporary R&B, Neo Soul, Motown, Funk</div>
                         </div>
                         <div class="point-card" onclick="openPoint(9)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">09 🎷 Jazz / Blues</div>
-                                <div class="point-card-desc">Smooth Jazz, Swing, Bebop, Slow Blues</div>
-                            </div>
+                            <div class="point-card-title">09 🎷 Jazz / Blues</div>
+                            <div class="point-card-desc">Smooth Jazz, Swing, Bebop, Slow Blues</div>
                         </div>
                         <div class="point-card" onclick="openPoint(10)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">10 🎸 Akustik / Folk</div>
-                                <div class="point-card-desc">Acoustic Pop, Indie Folk, Lo-Fi, Chill, Lounge</div>
-                            </div>
+                            <div class="point-card-title">10 🎸 Akustik / Folk</div>
+                            <div class="point-card-desc">Acoustic Pop, Indie Folk, Lo-Fi, Chill, Lounge</div>
                         </div>
                         <div class="point-card" onclick="openPoint(11)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">11 🎻 Orkestra / Klasik</div>
-                                <div class="point-card-desc">Classical, Piano Solo, Symphony, Cinematic Score</div>
-                            </div>
+                            <div class="point-card-title">11 🎻 Orkestra / Klasik</div>
+                            <div class="point-card-desc">Classical, Piano Solo, Symphony, Cinematic Score</div>
                         </div>
                         <div class="point-card" onclick="openPoint(12)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">12 ❤️ Sedih / Emosi / Cinta</div>
-                                <div class="point-card-desc">Sad Song, Heartbreak, Romantic, Slow Ballad</div>
-                            </div>
+                            <div class="point-card-title">12 ❤️ Sedih / Emosi / Cinta</div>
+                            <div class="point-card-desc">Sad Song, Heartbreak, Romantic, Slow Ballad</div>
                         </div>
                         <div class="point-card" onclick="openPoint(13)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">13 🌎 Antarabangsa</div>
-                                <div class="point-card-desc">K-Pop, J-Pop, Bollywood, Latin, Reggae, Country</div>
-                            </div>
+                            <div class="point-card-title">13 🌎 Antarabangsa</div>
+                            <div class="point-card-desc">K-Pop, J-Pop, Bollywood, Latin, Reggae, Country</div>
                         </div>
                         <div class="point-card" onclick="openPoint(14)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">14 🤘 Metal</div>
-                                <div class="point-card-desc">Heavy Metal, Metalcore, Death, Black, Doom</div>
-                            </div>
+                            <div class="point-card-title">14 🤘 Metal</div>
+                            <div class="point-card-desc">Heavy Metal, Metalcore, Death, Black, Doom</div>
                         </div>
                         <div class="point-card" onclick="openPoint(15)">
-                            <div style="flex: 1; text-align: center;">
-                                <div class="point-card-title">15 🎬 Cinematic / Mood / Khas</div>
-                                <div class="point-card-desc">Epic, Horror, Motivational, Wedding, Raya</div>
-                            </div>
+                            <div class="point-card-title">15 🎬 Cinematic / Mood / Khas</div>
+                            <div class="point-card-desc">Epic, Horror, Motivational, Wedding, Raya</div>
                         </div>
                     </div>
                 </div>
@@ -470,20 +486,17 @@ def home():
                 </div>
             </div>
 
-            <!-- HALAMAN SUB-GENRE DINAMIK -->
             <div id="subGenrePage" class="page-section hidden">
                 <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
                 
                 <div class="content-readable-box" id="subGenreContentContainer">
-                    <!-- Dynamic List loaded via JS -->
-                </div>
+                    </div>
 
                 <div class="btn-container">
                     <button type="button" class="btn" onclick="goToPage('page2')">Kembali ke Senarai Point</button>
                 </div>
             </div>
 
-            <!-- HALAMAN SETERUSNYA: FAIL & MASTERING -->
             <div id="pageUpload" class="page-section hidden">
                 <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -497,21 +510,12 @@ def home():
                     <div class="control-group">
                         <label class="control-label">🎚️ Profil Mastering</label>
                         <select class="studio-select" id="masteringProfile">
-                         <option value="balanced">Balanced Pro (Seimbang)</option>
+                            <option value="balanced">Balanced Pro (Seimbang)</option>
                             <option value="punchy">Punchy & Loud (Kuat & Bas Mantap)</option>
                             <option value="vocal">Vocal Clear (Vokal Lebih Jelas)</option>
                             <option value="warm">Warm Analog (Lembut & Klasik)</option>
                         </select>
-                    </div>
-
-                    <div class="control-group" style="margin-top: 12px;">
-                        <label class="control-label">🔊 Tahap Kekuatan (Gain Boost)</label>
-                        <select class="studio-select" id="gainBoost">
-                            <option value="standard">Standard (Rata -14 LUFS)</option>
-                            <option value="high">High Volume (-11 LUFS)</option>
-                            <option value="max">Max Streaming (-9 LUFS)</option>
-                        </select>
-                    </div>
+                           </div>
                 </div>
 
                 <div class="btn-container">
@@ -685,4 +689,6 @@ def home():
     </body>
     </html>
     """
-                            
+                    
+
+         
