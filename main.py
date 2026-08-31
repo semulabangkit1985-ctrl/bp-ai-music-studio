@@ -906,6 +906,20 @@ def home():
 
         function resetStudio() {
             document.getElementById('audioFile').value = '';
-            document.
+            document.getElementById('fileStatus').style.display = 'none';
+            document.getElementById('audioPreviewContainer').style.display = 'none';
+            document.getElementById('audioPreviewPlayer').src = '';
+            isWebAudioInitialized = false;
+            chosenGenreGlobal = "";
+            goToPage('page1');
+        }
 
+        window.onload = function() {
+            goToPage('page1');
+        };
+    </script>
+
+    </body>
+    </html>
+    """
                 
