@@ -18,7 +18,7 @@ def main_page():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BP AI Music Studio - Pro Suite</title>
+    <title>BP AI Music Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -47,9 +47,9 @@ def main_page():
             flex-direction: column;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             box-sizing: border-box;
+            margin: 0 auto;
         }
 
-        /* Skrin 1: Latar Belakang Kuala Lumpur */
         #screenLogin {
             background-image: url('/kl-background.jpg');
             background-size: cover;
@@ -57,7 +57,7 @@ def main_page():
         }
 
         .screen-overlay {
-            background: rgba(11, 15, 25, 0.82);
+            background: rgba(11, 15, 25, 0.85);
             backdrop-filter: blur(8px);
             flex: 1;
             display: flex;
@@ -69,7 +69,19 @@ def main_page():
             width: 100%;
         }
 
-        /* Komponen Umum */
+        .dashboard-container {
+            background: #f8fafc;
+            color: #0f172a;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            width: 100%;
+            overflow-y: auto;
+        }
+
         .brand-logo {
             font-family: 'Syne', sans-serif;
             font-size: 22px;
@@ -98,6 +110,8 @@ def main_page():
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
+            color: #ffffff;
+            font-size: 13px;
         }
 
         .social-btn:hover {
@@ -110,7 +124,6 @@ def main_page():
             font-size: 13px;
             color: #94a3b8;
             margin: 15px 0;
-            position: relative;
         }
 
         .form-group {
@@ -126,15 +139,13 @@ def main_page():
             width: 100%;
             color: #ffffff;
             font-size: 13px;
-            font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.2s;
+            text-align: center;
         }
 
         .form-input:focus {
             border-color: #22d3ee;
-            box-shadow: 0 0 10px rgba(34, 211, 238, 0.25);
         }
 
         .btn-primary {
@@ -153,12 +164,6 @@ def main_page():
             margin-top: 10px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(34, 211, 238, 0.6);
-        }
-
-        /* Wizard Styles */
         .wizard-step-indicator {
             font-family: 'Syne', sans-serif;
             font-size: 13px;
@@ -188,11 +193,10 @@ def main_page():
             flex: 1;
             width: 100%;
             overflow-y: auto;
-            max-height: 60vh;
+            max-height: 55vh;
             padding-right: 4px;
         }
 
-        /* Pill Grid ala LANDR */
         .pill-grid {
             display: flex;
             flex-wrap: wrap;
@@ -213,11 +217,10 @@ def main_page():
             transition: all 0.2s ease;
         }
 
-        .pill-option:hover, .pill-option.active {
-            background: rgba(34, 211, 238, 0.15);
+        .pill-option.active {
+            background: rgba(34, 211, 238, 0.2);
             border-color: #22d3ee;
             color: #ffffff;
-            box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
         }
 
         .wizard-footer {
@@ -238,7 +241,90 @@ def main_page():
             font-weight: 600;
             cursor: pointer;
         }
-        .btn-text:hover { color: #ffffff; }
+
+        .dash-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .workspace-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #0f172a;
+        }
+
+        .dash-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .dash-btn-invite {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .dash-btn-new {
+            background: #0f172a;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .create-project-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #ffffff;
+            transition: border-color 0.2s;
+        }
+        
+        .create-project-box:hover {
+            border-color: #0f172a;
+            color: #0f172a;
+        }
 
         .hidden { display: none !important; }
 
@@ -253,18 +339,16 @@ def main_page():
             font-weight: 600;
             opacity: 0;
             transition: opacity 0.3s;
-            pointer-events: none;
             z-index: 1000;
         }
     </style>
 </head>
 <body>
 
-<div id="toast">Notifikasi</div>
+<div id="toast">Berjaya!</div>
 
 <div class="app-container">
 
-    <!-- SKRIN 1: LOGIN DENGAN LATAR BELAKANG KUALA LUMPUR -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -297,7 +381,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 1 (1/5): MATLAMAT UTAMA -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -310,8 +393,6 @@ def main_page():
                 <div class="pill-option" onclick="selectPill(this)">🌍 Distribution</div>
                 <div class="pill-option" onclick="selectPill(this)">🎵 Samples</div>
                 <div class="pill-option" onclick="selectPill(this)">🔌 Plugins</div>
-                <div class="pill-option" onclick="selectPill(this)">👥 Finding collaborators</div>
-                <div class="pill-option" onclick="selectPill(this)">💰 Selling my services</div>
             </div>
         </div>
         <div class="wizard-footer">
@@ -320,7 +401,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 2 (2/5): PROFIL STUDIO -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -334,8 +414,8 @@ def main_page():
             </div>
             <div class="form-group">
                 <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">URL PROFIL STUDIO</label>
-                <input type="text" class="form-input" value="network.bpstudio.com/users/boyz-15d0" readonly style="color: #60a5fa;">
-                <span style="font-size: 11px; color: #10b981; margin-top: 4px; display: block;">✓ URL tersedia</span>
+                <input type="text" class="form-input" value="network.bpstudio.com/users/boyz" readonly style="color: #60a5fa;">
+                <span style="font-size: 11px; color: #10b981; margin-top: 4px; display: block; text-align: center;">✓ URL tersedia</span>
             </div>
         </div>
         <div class="wizard-footer">
@@ -344,25 +424,18 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 3 (3/5): PERANAN PROFESIONAL -->
     <div id="wizardStep3" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">3/5</div>
             <div class="wizard-title">Apakah peranan utama anda?</div>
-            <div class="wizard-subtitle">Pamerkan kepakaran anda dan berhubung dengan komuniti pencipta muzik yang sehaluan.</div>
+            <div class="wizard-subtitle">Pamerkan kepakaran anda dan berhubung dengan komuniti pencipta muzik.</div>
         </div>
         <div class="wizard-body">
             <div class="pill-grid">
                 <div class="pill-option active" onclick="toggleMulti(this)">Producer</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Musician</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Engineer</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Label</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Podcaster</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Educator</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Beatmaker</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Composer</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Vocalist</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Other</div>
             </div>
         </div>
         <div class="wizard-footer">
@@ -371,40 +444,61 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 4 (4/5 & 5/5): PILIHAN GENRE & STYLE (RUJUKAN TANGKAPAN SKRIN ANDA) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">5/5</div>
             <div class="wizard-title">Pick your favorite genres</div>
-            <div class="wizard-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</div>
+            <div class="wizard-subtitle">Tell us what types of music you're into and we'll make sure you get custom AI presets.</div>
         </div>
         <div class="wizard-body">
             <div class="pill-grid">
                 <div class="pill-option active" onclick="toggleMulti(this)">🇲🇾 Melayu / Nusantara</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Afrobeat</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Americana</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Blues</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Chill</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Choral</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Classical</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Country</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dubstep</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Edm</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Electric pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Folk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Funk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Gospel</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Heavy metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Heavy rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Hip hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
             </div>
         </div>
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('wizardStep3')">← Kembali</button>
             <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Continue</button>
+        </div>
+    </div>
+
+    <div id="dashboardScreen" class="dashboard-container hidden">
+        <div class="dash-top-bar">
+            <div class="workspace-badge">
+                <span>🎧</span> Bangkit's workspace ▾
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; font-size: 16px;">
+                <span>🔍</span>
+                <span style="background: #e2e8f0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+            </div>
+        </div>
+
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
+
+        <div class="dash-actions">
+            <button class="dash-btn-invite" onclick="showToast('Pautan jemputan disalin!')">👤 Invite your team</button>
+            <button class="dash-btn-new" onclick="showToast('Mod projek baharu dibuka')">+ New ▾</button>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
+
+        <div class="project-card">
+            <div style="font-weight: 700; font-size: 15px;">My project</div>
+            <div class="project-status">
+                ✓ All services are up and running
+            </div>
+        </div>
+
+        <div class="create-project-box" onclick="showToast('Membina projek baharu...')">
+            + Create new project
+        </div>
+
+        <div style="margin-top: auto; text-align: center; padding-top: 20px;">
+            <button class="btn-text" style="color: #64748b;" onclick="nextScreen('screenLogin')">Log Keluar</button>
         </div>
     </div>
 
@@ -419,7 +513,7 @@ def main_page():
     }
 
     function nextScreen(screenId) {
-        document.querySelectorAll('.screen-overlay').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
         document.getElementById(screenId).classList.remove('hidden');
         window.scrollTo(0, 0);
     }
@@ -434,10 +528,10 @@ def main_page():
     }
 
     function finishWizard() {
-        showToast("Tetapan profil berjaya disimpan! Selamat datang ke Studio.");
+        showToast("Tetapan profil & genre berjaya disimpan!");
         setTimeout(() => {
-            nextScreen('screenLogin');
-        }, 1500);
+            nextScreen('dashboardScreen');
+        }, 1200);
     }
 </script>
 
