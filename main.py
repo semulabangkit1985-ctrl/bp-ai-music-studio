@@ -531,7 +531,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Noir Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Future Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
-                    <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
+                 <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
             </div>
 
             <!-- 🎸 Rock -->
@@ -802,7 +802,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Mysterious</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Horror</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Thriller</div>
-                     <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
+                   <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Heroic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Inspirational</div>
@@ -835,6 +835,39 @@ def main_page():
         </div>
     </div>
 
+    <!-- AI PROMPT STUDIO SCREEN (BARU) -->
+    <div id="screenAIPrompt" class="screen-overlay hidden">
+        <div>
+            <div class="wizard-step-indicator">AI STUDIO</div>
+            <div class="wizard-title">Jana Gubahan Muzik AI</div>
+            <div class="wizard-subtitle">Taip konsep lagu anda atau biarkan AI gubah rentak mengikut gaya pilihan anda.</div>
+        </div>
+        
+        <div class="wizard-body">
+            <div class="form-group">
+                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">KONSEP / LIRIK / DESKRIPSI LAGU</label>
+                <textarea class="form-input" id="songPromptText" style="height: 100px; text-align: left; resize: none;" placeholder="Contoh: Lagu pop melayu santai tentang perjalanan malam di Johor dengan sentuhan Malay Bounce..."></textarea>
+            </div>
+
+            <div class="genre-category-title">Pilih Vibe Utama Anda</div>
+            <div class="pill-grid">
+                <div class="pill-option active" onclick="toggleMulti(this)">Malay Bounce</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
+            </div>
+
+            <div id="generationStatus" style="margin-top: 15px; padding: 12px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 10px; font-size: 12px; color: #22d3ee; display: none; text-align: center;">
+                ⚡ AI sedang menggubah trek muzik anda... Sila tunggu sebentar.
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="generateMusicAI()">Jana Muzik 🎵</button>
+        </div>
+    </div>
+
     <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
@@ -851,19 +884,19 @@ def main_page():
 
         <div class="dash-actions">
             <button class="dash-btn-invite" onclick="showToast('Pautan jemputan disalin!')">👤 Invite your team</button>
-            <button class="dash-btn-new" onclick="showToast('Mod projek baharu dibuka')">+ New ▾</button>
+            <button class="dash-btn-new" onclick="nextScreen('screenAIPrompt')">+ New ▾</button>
         </div>
 
         <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
 
         <div class="project-card">
-            <div style="font-weight: 700; font-size: 15px;">My project</div>
+            <div style="font-weight: 700; font-size: 15px;">Projek Malay Bounce Studio</div>
             <div class="project-status">
                 ✓ All services are up and running
             </div>
         </div>
 
-        <div class="create-project-box" onclick="showToast('Membina projek baharu...')">
+        <div class="create-project-box" onclick="nextScreen('screenAIPrompt')">
             + Create new project
         </div>
 
@@ -903,11 +936,30 @@ def main_page():
             nextScreen('dashboardScreen');
         }, 1200);
     }
+
+    function generateMusicAI() {
+        let promptText = document.getElementById('songPromptText').value;
+        if (!promptText.trim()) {
+            showToast("Sila masukkan deskripsi lagu dahulu!");
+            return;
+        }
+
+        let statusBox = document.getElementById('generationStatus');
+        statusBox.style.display = 'block';
+        showToast("Proses gubahan AI bermula...");
+
+        setTimeout(() => {
+            statusBox.style.display = 'none';
+            showToast("Trek muzik berjaya dijana oleh AI!");
+            setTimeout(() => {
+                nextScreen('dashboardScreen');
+            }, 1000);
+        }, 2500);
+    }
 </script>
 
 </body>
 </html>
 """
-              
                 
                 
