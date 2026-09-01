@@ -4,10 +4,10 @@ import os
 
 app = FastAPI()
 
-@app.get("/images (42).jpeg")
+@app.get("/images (43).jpeg")
 def get_kl_bg():
-    if os.path.exists("images (42).jpeg"):
-        return FileResponse("images (42).jpeg")
+    if os.path.exists("images (43).jpeg"):
+        return FileResponse("images (43).jpeg")
     return {"error": "Background image not found"}
 
 @app.get("/", response_class=HTMLResponse)
@@ -35,6 +35,9 @@ def main_page():
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         .app-container {
@@ -51,14 +54,14 @@ def main_page():
         }
 
         #screenLogin {
-            background-image: url('/images (42).jpeg');
+            background-image: url('/images (43).jpeg');
             background-size: cover;
             background-position: center;
         }
 
         .screen-overlay {
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(11, 15, 25, 0.72);
+            backdrop-filter: blur(3px);
             flex: 1;
             display: flex;
             flex-direction: column;
