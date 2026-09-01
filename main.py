@@ -4,10 +4,10 @@ import os
 
 app = FastAPI()
 
-@app.get("/kl-background.jpg")
+@app.get("/images (42).jpeg")
 def get_kl_bg():
-    if os.path.exists("kl-background.jpg"):
-        return FileResponse("kl-background.jpg")
+    if os.path.exists("images (42).jpeg"):
+        return FileResponse("images (42).jpeg")
     return {"error": "Background image not found"}
 
 @app.get("/", response_class=HTMLResponse)
@@ -51,7 +51,7 @@ def main_page():
         }
 
         #screenLogin {
-            background-image: url('/kl-background.jpg');
+            background-image: url('/images (42).jpeg');
             background-size: cover;
             background-position: center;
         }
@@ -349,6 +349,7 @@ def main_page():
 
 <div class="app-container">
 
+    <!-- SKRIN 1: LOGIN -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -381,6 +382,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 1 (1/5) -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -401,6 +403,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 2 (2/5) -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -424,6 +427,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 3 (3/5) -->
     <div id="wizardStep3" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">3/5</div>
@@ -444,6 +448,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 4 (5/5) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">5/5</div>
@@ -466,6 +471,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
