@@ -70,6 +70,7 @@ def main_page():
             box-sizing: border-box;
             min-height: 100vh;
             width: 100%;
+            text-align: center;
         }
 
         .dashboard-container {
@@ -174,6 +175,7 @@ def main_page():
             color: #22d3ee;
             letter-spacing: 1px;
             margin-bottom: 6px;
+            text-align: center;
         }
 
         .wizard-title {
@@ -183,6 +185,7 @@ def main_page():
             color: #ffffff;
             line-height: 1.25;
             margin-bottom: 8px;
+            text-align: center;
         }
 
         .wizard-subtitle {
@@ -190,6 +193,7 @@ def main_page():
             color: #94a3b8;
             line-height: 1.5;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .wizard-body {
@@ -206,6 +210,7 @@ def main_page():
             gap: 10px;
             width: 100%;
             margin-bottom: 20px;
+            justify-content: center;
         }
 
         .pill-option {
@@ -415,11 +420,11 @@ def main_page():
         </div>
         <div class="wizard-body">
             <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">NAMA ANDA / ARTIS</label>
+                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px; text-align: center;">NAMA ANDA / ARTIS</label>
                 <input type="text" class="form-input" value="Boyz">
             </div>
             <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">URL PROFIL STUDIO</label>
+                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px; text-align: center;">URL PROFIL STUDIO</label>
                 <input type="text" class="form-input" value="network.bpstudio.com/users/boyz" readonly style="color: #60a5fa;">
                 <span style="font-size: 11px; color: #10b981; margin-top: 4px; display: block; text-align: center;">✓ URL tersedia</span>
             </div>
