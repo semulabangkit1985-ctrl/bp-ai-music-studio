@@ -526,7 +526,365 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
             </div>
-
-            <div class="genre-category-title">🎸 Rock</div>
+              <div class="genre-category-title">🎸 Rock</div>
             <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Roc
+                <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Soft Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Classic Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Hard Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Alternative Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Indie Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Blues Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Progressive Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Psychedelic Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Punk Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Garage Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Grunge</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Post-Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Folk Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Southern Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Glam Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Arena Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Metal Rock</div>
+            </div>
+
+            <div class="genre-category-title">🎤 Hip Hop / Rap</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Old School Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Trap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Boom Bap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Lo-Fi Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Gangsta Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Conscious Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Melodic Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Alternative Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">R&B Rap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Drill</div>
+                <div class="pill-option" onclick="toggleMulti(this)">West Coast Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">East Coast Hip Hop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">UK Drill</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Afro Drill</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk Trap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic Trap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Hybrid Trap</div>
+            </div>
+
+            <div class="genre-category-title">🔥 Phonk</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Drift Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Brazilian Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Memphis Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Aggressive Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Electro Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Trap Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Future Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Neon Noir Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Neon Noir Phonk - Malay Bounce</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
+            </div>
+
+            <div class="genre-category-title">⚡ Techno / Electronic</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Hard Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Industrial Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Acid Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Minimal Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Melodic Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Progressive Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Techno Noir</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cyber Techno</div>
+                <div class="pill-option" onclick="toggleMulti(this)">House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Deep House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tropical House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Future House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Progressive House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tech House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Electro House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bass House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">G-House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Slap House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Afro House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Trance</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dubstep</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Drum & Bass</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Future Bass</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Breakbeat</div>
+                <div class="pill-option" onclick="toggleMulti(this)">UK Garage</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Jersey Club</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Amapiano</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Industrial Bass</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Electro</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Alternative Electronic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic Electronic</div>
+            </div>
+
+            <div class="genre-category-title">🌑 Dark / Cyber / Experimental</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Darkwave</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Witch House</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Synthwave</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Neon Synthwave</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Synthwave</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Vaporwave</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cyber Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk Trap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Noir Electronic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Ambient</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Ambient Dark</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Horror Electronic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Experimental Electronic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Future Garage</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Industrial</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Noise</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Glitch</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Glitch Hop</div>
+            </div>
+
+            <div class="genre-category-title">🎷 R&B / Soul / Funk</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">R&B</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Contemporary R&B</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Soul</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Neo Soul</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Motown</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Funk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Smooth Soul</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Gospel Soul</div>
+                <div class="pill-option" onclick="toggleMulti(this)">R&B Ballad</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Funk Soul</div>
+            </div>
+
+            <div class="genre-category-title">🎷 Jazz / Blues</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Jazz</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Smooth Jazz</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Contemporary Jazz</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Swing</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bebop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Fusion Jazz</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Latin Jazz</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Blues</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Slow Blues</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Blues Rock</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Soul Blues</div>
+            </div>
+
+            <div class="genre-category-title">🎸 Akustik / Folk</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Acoustic Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Acoustic Ballad</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Folk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Indie Folk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Folk Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Singer-Songwriter</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Coffeehouse</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Chill</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Lo-Fi</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Lounge</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Relaxing</div>
+            </div>
+
+            <div class="genre-category-title">🎻 Orkestra / Klasik</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Classical</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Piano Solo</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Piano Ballad</div>
+                <div class="pill-option" onclick="toggleMulti(this)">String Orchestra</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Symphony</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Chamber Music</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Epic Orchestra</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Film Score</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dramatic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Emotional Orchestra</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Medieval</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Baroque</div>
+            </div>
+
+            <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Sad Song</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Emotional</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Heartbreak</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Melancholic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Nostalgic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Romantic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Love Song</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Deep Emotional</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tearjerker</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Slow Ballad</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Emotional Piano</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Emotional Acoustic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Power Ballad</div>
+            </div>
+
+            <div class="genre-category-title">🌎 Antarabangsa</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">K-Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">J-Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">C-Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bollywood</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Latin Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Reggaeton</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Salsa</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bachata</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Flamenco</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Afrobeat</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Afropop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Reggae</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dancehall</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Ska</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Country</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Country Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Gospel</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Celtic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Arabic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Middle Eastern</div>
+            </div>
+
+            <div class="genre-category-title">🤘 Metal</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Heavy Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Metalcore</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Death Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Black Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Symphonic Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Power Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Progressive Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Nu Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Alternative Metal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Doom Metal</div>
+            </div>
+
+            <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Epic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Mysterious</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Horror</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Thriller</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Heroic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Inspirational</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Motivational</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Spiritual</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Religious</div>
+                " onclick="toggleMulti(this)">Peaceful</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Meditation</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dreamy</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Powerful</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Energetic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Romantic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Vintage</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Retro</div>
+                <div class="pill-option" onclick="toggleMulti(this)">80s</div>
+                <div class="pill-option" onclick="toggleMulti(this)">90s</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Nostalgic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Wedding</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Festival</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Party</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Christmas</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Raya / Aidilfitri</div>
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('wizardStep3')">← Kembali</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Continue</button>
+        </div>
+    </div>
+
+    <div id="dashboardScreen" class="dashboard-container hidden">
+        <div class="dash-top-bar">
+            <div class="workspace-badge">
+                <span>🎧</span> Bangkit's workspace ▾
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; font-size: 16px;">
+                <span>🔍</span>
+                <span style="background: #e2e8f0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+            </div>
+        </div>
+
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
+
+        <div class="dash-actions">
+            <button class="dash-btn-invite" onclick="showToast('Pautan jemputan disalin!')">👤 Invite your team</button>
+            <button class="dash-btn-new" onclick="showToast('Mod projek baharu dibuka')">+ New ▾</button>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
+
+        <div class="project-card">
+            <div style="font-weight: 700; font-size: 15px;">My project</div>
+            <div class="project-status">
+                ✓ All services are up and running
+            </div>
+        </div>
+
+        <div class="create-project-box" onclick="showToast('Membina projek baharu...')">
+            + Create new project
+        </div>
+
+        <div style="margin-top: auto; text-align: center; padding-top: 20px;">
+            <button class="btn-text" style="color: #64748b;" onclick="nextScreen('screenLogin')">Log Keluar</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.opacity = '1';
+        setTimeout(() => { t.style.opacity = '0'; }, 2000);
+    }
+
+    function nextScreen(screenId) {
+        document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
+        document.getElementById(screenId).classList.remove('hidden');
+        window.scrollTo(0, 0);
+    }
+
+    function selectPill(el) {
+        el.parentElement.querySelectorAll('.pill-option').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function toggleMulti(el) {
+        el.classList.toggle('active');
+    }
+
+    function finishWizard() {
+        showToast("Tetapan profil & genre berjaya disimpan!");
+        setTimeout(() => {
+            nextScreen('dashboardScreen');
+        }, 1200);
+    }
+</script>
+
+</body>
+</html>
+"""
+
+            
