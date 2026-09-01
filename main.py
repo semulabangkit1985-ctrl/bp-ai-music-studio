@@ -53,16 +53,15 @@ def main_page():
             margin: 0 auto;
         }
 
-        /* Semua skrin (1 hingga 5) kini tersusun di tengah-tengah secara menegak */
         .screen-overlay {
-            background: rgba(11, 15, 25, 0.72);
-            backdrop-filter: blur(3px);
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(4px);
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 20px;
-            padding: 28px 22px;
+            gap: 16px;
+            padding: 24px 20px;
             box-sizing: border-box;
             min-height: 100vh;
             width: 100%;
@@ -94,14 +93,14 @@ def main_page():
             color: #ffffff;
             text-align: center;
             letter-spacing: 1px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .social-login-grid {
             display: flex;
             gap: 12px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .social-btn {
@@ -128,12 +127,12 @@ def main_page():
             text-align: center;
             font-size: 13px;
             color: #94a3b8;
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
         .form-group {
             width: 100%;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .form-input {
@@ -166,7 +165,7 @@ def main_page():
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
             transition: all 0.2s;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .wizard-step-indicator {
@@ -175,43 +174,62 @@ def main_page():
             font-weight: 700;
             color: #22d3ee;
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .wizard-title {
             font-family: 'Syne', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #ffffff;
-            line-height: 1.25;
-            margin-bottom: 8px;
+            line-height: 1.2;
+            margin-bottom: 6px;
         }
 
         .wizard-subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #94a3b8;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            line-height: 1.4;
+            margin-bottom: 12px;
         }
 
         .wizard-body {
             width: 100%;
-            max-height: 50vh;
+            max-height: 52vh;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .wizard-body::-webkit-scrollbar {
+            width: 4px;
+        }
+        .wizard-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .genre-category-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #22d3ee;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.5px;
         }
 
         .pill-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
+            margin-bottom: 10px;
         }
 
         .pill-option {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-size: 13px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 500;
             color: #e2e8f0;
             cursor: pointer;
@@ -219,7 +237,7 @@ def main_page():
         }
 
         .pill-option.active {
-            background: rgba(34, 211, 238, 0.2);
+            background: rgba(34, 211, 238, 0.25);
             border-color: #22d3ee;
             color: #ffffff;
         }
@@ -229,7 +247,7 @@ def main_page():
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 16px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -349,11 +367,10 @@ def main_page():
 
 <div class="app-container">
 
-    <!-- SKRIN 1: LOGIN -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
-            <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-bottom: 24px;">Log masuk ke akaun profesional anda</div>
+            <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-bottom: 20px;">Log masuk ke akaun profesional anda</div>
             
             <div class="social-login-grid">
                 <div class="social-btn" onclick="nextScreen('wizardStep1')">🌐 Google</div>
@@ -376,13 +393,12 @@ def main_page():
 
         <div>
             <button class="btn-primary" onclick="nextScreen('wizardStep1')">Log Masuk</button>
-            <div style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 15px;">
+            <div style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 12px;">
                 Belum ada akaun? <span style="color: #22d3ee; cursor: pointer;" onclick="nextScreen('wizardStep1')">Daftar sekarang</span>
             </div>
         </div>
     </div>
 
-    <!-- WIZARD STEP 1 (1/5) -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -403,7 +419,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 2 (2/5) -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -427,7 +442,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 3 (3/5) -->
     <div id="wizardStep3" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">3/5</div>
@@ -440,6 +454,9 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Musician</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Engineer</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Beatmaker</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Vocalist</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Composer</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Podcaster</div>
             </div>
         </div>
         <div class="wizard-footer">
@@ -448,100 +465,68 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 4 (5/5) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">5/5</div>
             <div class="wizard-title">Pick your favorite genres</div>
-            <div class="wizard-subtitle">Tell us what types of music you're into and we'll make sure you get custom AI presets.</div>
+            <div class="wizard-subtitle">Pilih gaya & genre kegemaran anda untuk tetapan AI tersuai.</div>
         </div>
+        
         <div class="wizard-body">
+            <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
             <div class="pill-grid">
-                <div class="pill-option active" onclick="toggleMulti(this)">🇲🇾 Melayu / Nusantara</div>
+                <div class="pill-option active" onclick="toggleMulti(this)">Malaya / Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Rock Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Balada Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Melayu Klasik</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Irama Malaysia</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Lagu Asli</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Zapin</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Joget</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Ghazal</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Keroncong</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dangdut</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Campursari</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Nusantara</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Etnik Nusantara</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Melayu</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sabah</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Minang</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Jawa</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Sunda</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bugis</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Batak</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Bounce</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Trap</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Malay Electronic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Nusantara Electronic</div>
+            </div>
+
+            <div class="genre-category-title">🎤 Pop</div>
+            <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Pop Ballad</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Electropop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Synthpop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dream Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Indie Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Teen Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Adult Contemporary</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dance Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Power Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Soft Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Retro Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">City Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Dark Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Noir Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Future Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
             </div>
-        </div>
-        <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('wizardStep3')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Continue</button>
-        </div>
-    </div>
 
-    <!-- DASHBOARD -->
-    <div id="dashboardScreen" class="dashboard-container hidden">
-        <div class="dash-top-bar">
-            <div class="workspace-badge">
-                <span>🎧</span> Bangkit's workspace ▾
-            </div>
-            <div style="display: flex; gap: 12px; align-items: center; font-size: 16px;">
-                <span>🔍</span>
-                <span style="background: #e2e8f0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
-            </div>
-        </div>
-
-        <h1 style="font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
-
-        <div class="dash-actions">
-            <button class="dash-btn-invite" onclick="showToast('Pautan jemputan disalin!')">👤 Invite your team</button>
-            <button class="dash-btn-new" onclick="showToast('Mod projek baharu dibuka')">+ New ▾</button>
-        </div>
-
-        <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
-
-        <div class="project-card">
-            <div style="font-weight: 700; font-size: 15px;">My project</div>
-            <div class="project-status">
-                ✓ All services are up and running
-            </div>
-        </div>
-
-        <div class="create-project-box" onclick="showToast('Membina projek baharu...')">
-            + Create new project
-        </div>
-
-        <div style="margin-top: auto; text-align: center; padding-top: 20px;">
-            <button class="btn-text" style="color: #64748b;" onclick="nextScreen('screenLogin')">Log Keluar</button>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    function showToast(msg) {
-        let t = document.getElementById('toast');
-        t.innerText = msg;
-        t.style.opacity = '1';
-        setTimeout(() => { t.style.opacity = '0'; }, 2000);
-    }
-
-    function nextScreen(screenId) {
-        document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
-        document.getElementById(screenId).classList.remove('hidden');
-        window.scrollTo(0, 0);
-    }
-
-    function selectPill(el) {
-        el.parentElement.querySelectorAll('.pill-option').forEach(p => p.classList.remove('active'));
-        el.classList.add('active');
-    }
-
-    function toggleMulti(el) {
-        el.classList.toggle('active');
-    }
-
-    function finishWizard() {
-        showToast("Tetapan profil & genre berjaya disimpan!");
-        setTimeout(() => {
-            nextScreen('dashboardScreen');
-        }, 1200);
-    }
-</script>
-
-</body>
-</html>
-"""
-    
+            <div class="genre-category-title">🎸 Rock</div>
+            <div class="pill-grid">
+                <div class="pill-option" onclick="toggleMulti(this)">Roc
