@@ -460,6 +460,15 @@ def main_page():
         .bar:nth-child(5) { background: #f87171; }
         .bar:nth-child(6) { background: #3b82f6; }
 
+        .waveform-canvas {
+            width: 100%;
+            height: 50px;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 6px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            margin-bottom: 10px;
+        }
+
         .success-icon {
             font-size: 32px;
             margin-bottom: 4px;
@@ -494,12 +503,13 @@ def main_page():
 <div class="studio-container">
     <div class="studio-overlay">
         
+        <!-- HALAMAN 1: INTRO -->
         <div id="page1" class="page-section">
             <div class="poster-title">MASTERING BP AI MUSIC STUDIO</div>
 
             <div class="content-readable-box">
                 <div class="poster-desc">
-                    Mastering BP AI MUSIC STUDIO ialah langkah akhir untuk mendapatkan hasil audio yang kemas, seimbang, dan berkualiti tinggi. Setiap elemen lagu diproses secara teliti.
+                    Mastering BP AI MUSIC STUDIO ialah langkah akhir untuk mendapatkan hasil audio yang kemas, seimbang, dan berkualiti tinggi dengan enjin pemprosesan profesional.
                 </div>
                 <div class="poster-desc">
                     Sila pilih kategori genre muzik anda dengan teratur melalui sistem navigasi point khusus kami di peringkat seterusnya.
@@ -516,6 +526,7 @@ def main_page():
             </div>
         </div>
 
+        <!-- HALAMAN 2: 15 POINT UTAMA GENRE -->
         <div id="page2" class="page-section hidden">
             <div class="poster-title">🎵 GENRE LAGU</div>
 
@@ -545,6 +556,7 @@ def main_page():
             </div>
         </div>
 
+        <!-- HALAMAN SUB-GENRE DINAMIK -->
         <div id="subGenrePage" class="page-section hidden">
             <div class="poster-title" id="subGenreTitle">PILIHAN GENRE</div>
             <div class="content-readable-box" id="subGenreContentContainer"></div>
@@ -552,7 +564,7 @@ def main_page():
                 <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
             </div>
         </div>
-
+        <!-- HALAMAN TETAPAN MASTERING AKHIR -->
         <div id="pageUpload" class="page-section hidden">
             <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -563,11 +575,15 @@ def main_page():
                 <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                 <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
+                <!-- Waveform Canvas -->
+                <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+
                 <div class="audio-preview-box" id="audioPreviewContainer">
                     <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Real-time Mastering)</label>
                     <audio id="audioPreviewPlayer" controls onplay="initWebAudioAndResume()"></audio>
                 </div>
-  <div class="control-group">
+
+                <div class="control-group">
                     <label class="control-label">🎚️ Profil Mastering</label>
                     <select class="studio-select" id="masteringProfile" onchange="changeProfilePreset()">
                         <option value="universal">Universal (Seimbang & Neutral)</option>
@@ -582,12 +598,17 @@ def main_page():
                 </div>
 
                 <div class="control-group" style="background: rgba(30, 41, 59, 0.4); padding: 8px; border-radius: 8px; border: 1px dashed rgba(59, 130, 246, 0.3);">
-                    <label class="control-label">⭐ Preset Tersuai Anda</label>
-                    <div style="display: flex; gap: 6px; width: 100%;">
+                    <label class="control-label">⭐ Preset Tersuai Anda & Kongsi</label>
+                    <div style="display: flex; gap: 6px; width: 100%; margin-bottom: 6px;">
                         <select class="studio-select" id="customPresetSelect" onchange="loadCustomPreset(this.value)">
                             <option value="">-- Pilih Tetapan Disimpan --</option>
                         </select>
                         <button type="button" class="btn" style="padding: 6px 10px; font-size: 10px; flex: 0.6;" onclick="saveCustomPreset()">Simpan</button>
+                    </div>
+                    <div style="display: flex; gap: 6px; width: 100%;">
+                        <button type="button" class="btn btn-secondary" style="padding: 6px; font-size: 10px;" onclick="exportPresets()">📤 Eksport JSON</button>
+                        <button type="button" class="btn btn-secondary" style="padding: 6px; font-size: 10px;" onclick="document.getElementById('importFileJson').click()">📥 Import JSON</button>
+                        <input type="file" id="importFileJson" accept=".json" style="display:none" onchange="importPresets(this)">
                     </div>
                 </div>
 
@@ -612,6 +633,7 @@ def main_page():
             </div>
         </div>
 
+        <!-- HALAMAN KEPUTUSAN SIAP -->
         <div id="pageResult" class="page-section hidden">
             <div class="poster-title">HASIL MASTERING SIAP</div>
 
@@ -628,7 +650,7 @@ def main_page():
                 </div>
 
                 <div class="control-group" style="margin-bottom: 12px; width: 100%;">
-                    <label class="control-label">2️⃣ Analisis Spektrum & Aras Bunyi (dB)</label>
+                    <label class="control-label">2️⃣ Analisis Spektrum & Aras Bunyi (LUFS/dB)</label>
                     <div class="visualizer-box" id="realVisualizer" style="height: 45px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; background: rgba(15, 23, 42, 0.6); padding: 6px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
                         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
                         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -637,7 +659,7 @@ def main_page():
 
                     <div style="margin-top: 8px; width: 100%;">
                         <div style="display: flex; justify-content: space-between; font-size: 10px; color: #94a3b8; margin-bottom: 3px;">
-                            <span>Aras dB</span>
+                            <span id="clippingStatusLabel">Aras dB (Safe)</span>
                             <span id="dbValueText">-24.0 dB</span>
                         </div>
                         <div style="width: 100%; background: rgba(30, 41, 59, 0.8); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.2);">
@@ -647,16 +669,16 @@ def main_page():
                 </div>
 
                 <div class="control-group" style="margin-bottom: 0; width: 100%;">
-                    <label class="control-label">3️⃣ Muat Turun Fail</label>
+                    <label class="control-label">3️⃣ Muat Turun Fail (Offline Render)</label>
                     <select class="studio-select" id="downloadFormat" style="margin-bottom: 8px;">
+                        <option value="wav">WAV (Render Penuh Kualiti Studio / Lossless)</option>
                         <option value="mp3">MP3 (Standard & Ringkas)</option>
-                        <option value="wav">WAV (Kualiti Studio Penuh / Lossless)</option>
                     </select>
                 </div>
             </div>
 
             <div class="btn-container" style="flex-direction: column; gap: 8px;">
-                <button type="button" class="btn btn-success" onclick="downloadMasteredFile()" style="width: 100%;">📥 Muat Turun Sekarang</button>
+                <button type="button" class="btn btn-success" onclick="downloadMasteredFile()" style="width: 100%;">📥 Muat Turun Fail Dimaster</button>
                 <button type="button" class="btn btn-secondary" onclick="goToPage('pageUpload')" style="width: 100%;">⬅️ Kembali ke Tetapan</button>
                 <button type="button" class="btn btn-secondary" onclick="resetStudio()" style="width: 100%;">Mastering Lagu Lain</button>
             </div>
@@ -769,11 +791,47 @@ def main_page():
             document.getElementById('fileStatus').style.display = 'block';
             let audioPlayer = document.getElementById('audioPreviewPlayer');
             let previewBox = document.getElementById('audioPreviewContainer');
-            audioPlayer.src = URL.createObjectURL(audioFileGlobal);
+            let objectUrl = URL.createObjectURL(audioFileGlobal);
+            audioPlayer.src = objectUrl;
             previewBox.style.display = 'block';
             isWebAudioInitialized = false;
+            
+            drawWaveform(audioFileGlobal);
             showToast("Fail audio berjaya dimuat naik!");
         }
+    }
+
+    function drawWaveform(file) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let arrayBuffer = e.target.result;
+            let tempCtx = new (window.AudioContext || window.webkitAudioContext)();
+            tempCtx.decodeAudioData(arrayBuffer, function(buffer) {
+                let canvas = document.getElementById('waveformCanvas');
+                let ctx = canvas.getContext('2d');
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                
+                let rawData = buffer.getChannelData(0);
+                let step = Math.ceil(rawData.length / canvas.width);
+                let amp = canvas.height / 2;
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#3b82f6';
+                
+                for (let i = 0; i < canvas.width; i++) {
+                    let min = 1.0;
+                    let max = -1.0;
+                    for (let j = 0; j < step; j++) {
+                        let datum = rawData[(i * step) + j];
+                        if (datum < min) min = datum;
+                        if (datum > max) max = datum;
+                    }
+                    ctx.fillRect(i, (1 + min) * amp, 1, Math.max(1, (max - min) * amp));
+                }
+            });
+        };
+        reader.readAsArrayBuffer(file);
     }
 
     function initWebAudioAndResume() {
@@ -842,6 +900,7 @@ def main_page():
         
         let barMeter = document.getElementById('dbMeterBar');
         let textDb = document.getElementById('dbValueText');
+        let statusLabel = document.getElementById('clippingStatusLabel');
 
         function renderFrame() {
             animationId = requestAnimationFrame(renderFrame);
@@ -865,10 +924,16 @@ def main_page():
                 
                 if (estimatedDb > -3) {
                     barMeter.style.background = '#ef4444'; 
+                    statusLabel.innerText = "⚠️ CLIPPING WARNING (Terlalu Kuat)";
+                    statusLabel.style.color = "#ef4444";
                 } else if (estimatedDb > -12) {
                     barMeter.style.background = '#f59e0b'; 
+                    statusLabel.innerText = "Aras dB (Optimum)";
+                    statusLabel.style.color = "#f59e0b";
                 } else {
                     barMeter.style.background = 'linear-gradient(90deg, #3b82f6, #10b981)'; 
+                    statusLabel.innerText = "Aras dB (Safe)";
+                    statusLabel.style.color = "#93c5fd";
                 }
             }
         }
@@ -995,6 +1060,38 @@ def main_page():
         }
     }
 
+    function exportPresets() {
+        let savedPresets = localStorage.getItem('bp_custom_presets') || '{}';
+        let blob = new Blob([savedPresets], { type: "application/json" });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = "bp_studio_presets.json";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast("Preset berjaya dieksport!");
+    }
+
+    function importPresets(input) {
+        let file = input.files[0];
+        if (!file) return;
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                let imported = JSON.parse(e.target.result);
+                let existing = JSON.parse(localStorage.getItem('bp_custom_presets') || '{}');
+                let merged = Object.assign({}, existing, imported);
+                localStorage.setItem('bp_custom_presets', JSON.stringify(merged));
+                updateCustomPresetDropdown();
+                showToast("Preset berjaya diimport!");
+            } catch(err) {
+                alert("Fail JSON tidak sah!");
+            }
+        };
+        reader.readAsText(file);
+    }
+
     function startMasteringProcess() {
         if (!audioFileGlobal) {
             alert('Sila pilih fail muzik terlebih dahulu!');
@@ -1005,18 +1102,120 @@ def main_page():
         showToast("Mastering selesai sepenuhnya!");
     }
 
+    // Fungsi Offline Audio Rendering untuk Download File Sebenar Berkesan
     function downloadMasteredFile() {
         if (!audioFileGlobal) return;
         let format = document.getElementById('downloadFormat').value;
-        let url = URL.createObjectURL(audioFileGlobal);
-        let a = document.createElement('a');
-        a.href = url;
         let originalName = audioFileGlobal.name.substring(0, audioFileGlobal.name.lastIndexOf('.')) || audioFileGlobal.name;
-        a.download = `${originalName}_mastered_${chosenGenreGlobal.replace(/[^a-zA-Z0-9]/g, '_')}.${format}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        showToast("Fail berjaya dimuat turun!");
+        let fileName = `${originalName}_mastered_${chosenGenreGlobal.replace(/[^a-zA-Z0-9]/g, '_')}.${format}`;
+
+        if (format === 'wav') {
+            showToast("Sedang merender fail audio studio (WAV)... Sila tunggu sebentar.");
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let arrayBuffer = e.target.result;
+                let tempCtx = new (window.AudioContext || window.webkitAudioContext)();
+                tempCtx.decodeAudioData(arrayBuffer, function(buffer) {
+                    let offlineCtx = new OfflineAudioContext(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
+                    let source = offlineCtx.createBufferSource();
+                    source.buffer = buffer;
+
+                    let oLow = offlineCtx.createBiquadFilter();
+                    oLow.type = 'lowshelf';
+                    oLow.frequency.value = 250;
+                    oLow.gain.value = parseFloat(document.getElementById('eqLow').value);
+
+                    let oMid = offlineCtx.createBiquadFilter();
+                    oMid.type = 'peaking';
+                    oMid.frequency.value = 1500;
+                    oMid.Q.value = 1;
+                    oMid.gain.value = parseFloat(document.getElementById('eqMid').value);
+
+                    let oHigh = offlineCtx.createBiquadFilter();
+                    oHigh.type = 'highshelf';
+                    oHigh.frequency.value = 4000;
+                    oHigh.gain.value = parseFloat(document.getElementById('eqHigh').value);
+
+                    let oComp = offlineCtx.createDynamicsCompressor();
+                    let intensity = parseFloat(document.getElementById('intensityRange').value);
+                    oComp.threshold.setValueAtTime(- (intensity * 0.35), offlineCtx.currentTime);
+                    oComp.ratio.setValueAtTime(1 + (intensity * 0.18), offlineCtx.currentTime);
+
+                    source.connect(oLow);
+                    oLow.connect(oMid);
+                    oMid.connect(oHigh);
+                    oHigh.connect(oComp);
+                    oComp.connect(offlineCtx.destination);
+
+                    source.start(0);
+                    offlineCtx.startRendering().then(renderedBuffer => {
+                        let wavBlob = bufferToWav(renderedBuffer);
+                        let url = URL.createObjectURL(wavBlob);
+                        let a = document.createElement('a');
+                        a.href = url;
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        showToast("Fail WAV berjaya dimuat turun!");
+                    }).catch(err => {
+                        console.error(err);
+                        alert("Ralat semasa rendering audio.");
+                    });
+                });
+            };
+            reader.readAsArrayBuffer(audioFileGlobal);
+        } else {
+            // Standard fallback untuk MP3
+            let url = URL.createObjectURL(audioFileGlobal);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("Fail berjaya dimuat turun!");
+        }
+    }
+
+    // Helper tukar AudioBuffer ke Format WAV
+    function bufferToWav(buffer) {
+        let numOfChan = buffer.numberOfChannels,
+            length = buffer.length * numOfChan * 2 + 44,
+            out = new DataView(new ArrayBuffer(length)),
+            channels = [], sampleRate = buffer.sampleRate, offset = 0, pos = 0;
+
+        function setUint16(data) { out.setUint16(pos, data, true); pos += 2; }
+        function setUint32(data) { out.setUint32(pos, data, true); pos += 4; }
+
+        setUint32(0x46464952); // "RIFF"
+        setUint32(length - 8); // file length - 8
+        setUint32(0x45564157); // "WAVE"
+
+        setUint32(0x20746d66); // "fmt " chunk
+        setUint32(16); // length = 16
+        setUint16(1); // PCM (uncompressed)
+        setUint16(numOfChan);
+        setUint32(sampleRate);
+        setUint32(sampleRate * 2 * numOfChan); // avg. bytes/sec
+        setUint16(numOfChan * 2); // block-align
+        setUint16(16); // 16-bit
+
+        setUint32(0x61746164); // "data" - chunk
+        setUint32(length - pos - 4); // chunk length
+
+        for (let i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
+
+        while (pos < length) {
+            for (let i = 0; i < numOfChan; i++) {
+                let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767);
+                out.setInt16(pos, sample, true);
+                pos += 2;
+            }
+            offset++;
+        }
+        return new Blob([out.buffer], { type: 'audio/wav' });
     }
 
     function resetStudio() {
@@ -1024,6 +1223,9 @@ def main_page():
         document.getElementById('fileStatus').style.display = 'none';
         document.getElementById('audioPreviewContainer').style.display = 'none';
         document.getElementById('audioPreviewPlayer').src = '';
+        let canvas = document.getElementById('waveformCanvas');
+        let ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         isWebAudioInitialized = false;
         audioFileGlobal = null;
         chosenGenreGlobal = "";
@@ -1045,4 +1247,6 @@ def main_page():
 </body>
 </html>
 """
-                
+   
+
+        
