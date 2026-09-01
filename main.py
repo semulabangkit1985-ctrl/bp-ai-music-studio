@@ -54,8 +54,8 @@ def main_page():
         }
 
         .screen-overlay {
-            background: rgba(11, 15, 25, 0.75);
-            backdrop-filter: blur(4px);
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(6px);
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -311,6 +311,12 @@ def main_page():
             padding: 16px;
             margin-bottom: 14px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        
+        .project-card:hover {
+            border-color: #22d3ee;
         }
 
         .project-status {
@@ -344,6 +350,95 @@ def main_page():
             color: #0f172a;
         }
 
+        /* WAVEFORM STYLES */
+        .waveform-box {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 15px;
+        }
+
+        .waveform-bars {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 48px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .wave-bar {
+            width: 4px;
+            background: #22d3ee;
+            border-radius: 4px;
+            height: 12px;
+            transition: height 0.2s ease;
+        }
+
+        .playing .wave-bar {
+            animation: soundWave 1.2s infinite ease-in-out alternate;
+        }
+
+        @keyframes soundWave {
+            0% { height: 10px; }
+            50% { height: 42px; }
+            100% { height: 16px; }
+        }
+
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(6) { animation-delay: 0.5s; }
+        .wave-bar:nth-child(7) { animation-delay: 0.15s; }
+        .wave-bar:nth-child(8) { animation-delay: 0.25s; }
+        .wave-bar:nth-child(9) { animation-delay: 0.35s; }
+        .wave-bar:nth-child(10) { animation-delay: 0.45s; }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .control-btn-main {
+            background: #22d3ee;
+            color: #0b0f19;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+        }
+
+        .stems-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .stem-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
         .hidden { display: none !important; }
 
         #toast {
@@ -367,7 +462,6 @@ def main_page():
 
 <div class="app-container">
 
-    <!-- SKRIN 1: LOGIN -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -400,7 +494,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 1 (1/5) -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -421,7 +514,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 2 (2/5) -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -445,7 +537,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 3 (3/5) -->
     <div id="wizardStep3" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">3/5</div>
@@ -469,7 +560,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- WIZARD STEP 4 (5/5 - GENRES) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">5/5</div>
@@ -478,7 +568,6 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <!-- 🇲🇾 Melayu / Nusantara -->
             <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
             <div class="pill-grid">
                 <div class="pill-option active" onclick="toggleMulti(this)">Malaya / Melayu</div>
@@ -498,7 +587,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Etnik Nusantara</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Tradisional Melayu</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sabah</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
+                  <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Minang</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Jawa</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Sunda</div>
@@ -511,7 +600,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Nusantara Electronic</div>
             </div>
 
-            <!-- 🎤 Pop -->
             <div class="genre-category-title">🎤 Pop</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Pop</div>
@@ -531,10 +619,9 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Noir Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Future Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
-                 <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
             </div>
 
-            <!-- 🎸 Rock -->
             <div class="genre-category-title">🎸 Rock</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
@@ -558,7 +645,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Metal Rock</div>
             </div>
 
-            <!-- 🎤 Hip Hop / Rap -->
             <div class="genre-category-title">🎤 Hip Hop / Rap</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
@@ -583,7 +669,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Hybrid Trap</div>
             </div>
 
-            <!-- 🔥 Phonk -->
             <div class="genre-category-title">🔥 Phonk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Phonk</div>
@@ -602,7 +687,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
             </div>
 
-            <!-- ⚡ Techno / Electronic -->
             <div class="genre-category-title">⚡ Techno / Electronic</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
@@ -641,7 +725,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Cinematic Electronic</div>
             </div>
 
-            <!-- 🌑 Dark / Cyber / Experimental -->
             <div class="genre-category-title">🌑 Dark / Cyber / Experimental</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Darkwave</div>
@@ -667,7 +750,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Glitch Hop</div>
             </div>
 
-            <!-- 🎷 R&B / Soul / Funk -->
             <div class="genre-category-title">🎷 R&B / Soul / Funk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">R&B</div>
@@ -682,7 +764,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Funk Soul</div>
             </div>
 
-            <!-- 🎷 Jazz / Blues -->
             <div class="genre-category-title">🎷 Jazz / Blues</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Jazz</div>
@@ -698,7 +779,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Soul Blues</div>
             </div>
 
-            <!-- 🎸 Akustik / Folk -->
             <div class="genre-category-title">🎸 Akustik / Folk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
@@ -715,7 +795,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Relaxing</div>
             </div>
 
-            <!-- 🎻 Orkestra / Klasik -->
             <div class="genre-category-title">🎻 Orkestra / Klasik</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Classical</div>
@@ -734,7 +813,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Baroque</div>
             </div>
 
-            <!-- ❤️ Sedih / Emosi / Cinta -->
             <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Sad Song</div>
@@ -752,7 +830,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Power Ballad</div>
             </div>
 
-            <!-- 🌎 Antarabangsa -->
             <div class="genre-category-title">🌎 Antarabangsa</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">K-Pop</div>
@@ -771,14 +848,13 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Ska</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Country</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Country Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
+                  <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Gospel</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Celtic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Arabic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Middle Eastern</div>
             </div>
 
-            <!-- 🤘 Metal -->
             <div class="genre-category-title">🤘 Metal</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Heavy Metal</div>
@@ -793,7 +869,6 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Doom Metal</div>
             </div>
 
-            <!-- 🎬 Cinematic / Mood / Khas -->
             <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
@@ -802,7 +877,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Mysterious</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Horror</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Thriller</div>
-                   <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Heroic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Inspirational</div>
@@ -835,7 +910,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- AI PROMPT STUDIO SCREEN (BARU) -->
     <div id="screenAIPrompt" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">AI STUDIO</div>
@@ -868,7 +942,62 @@ def main_page():
         </div>
     </div>
 
-    <!-- DASHBOARD -->
+    <div id="screenAudioPlayer" class="screen-overlay hidden">
+        <div>
+            <div class="wizard-step-indicator">PLAYER & STEMS</div>
+            <div class="wizard-title">Projek Malay Bounce Studio</div>
+            <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems yang dijana AI.</div>
+        </div>
+        
+        <div class="wizard-body">
+            <div class="waveform-box" id="waveformBox">
+                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVEFORM VISUALIZER</div>
+                <div class="waveform-bars">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">02:34 / 03:45</div>
+
+                <div class="player-controls">
+                    <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
+                </div>
+            </div>
+
+            <div class="genre-category-title">Fail Stems Berasingan</div>
+            <div class="stems-list">
+                <div class="stem-item">
+                    <span>🎙️ Vokal Utama (AI)</span>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Vokal...')">Muat Turun ⬇</button>
+                </div>
+                <div class="stem-item">
+                    <span>🥁 Drum & Percussion</span>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Drum...')">Muat Turun ⬇</button>
+                </div>
+                <div class="stem-item">
+                    <span>🎸 Bass Line</span>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Bass...')">Muat Turun ⬇</button>
+                </div>
+                <div class="stem-item">
+                    <span>🎹 Melodi & Synth</span>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Melodi...')">Muat Turun ⬇</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali ke Dashboard</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya dimuat turun!')">Muat Turun Master 🎵</button>
+        </div>
+    </div>
+
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
@@ -889,8 +1018,9 @@ def main_page():
 
         <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
 
-        <div class="project-card">
+        <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
             <div style="font-weight: 700; font-size: 15px;">Projek Malay Bounce Studio</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio & stems 🎧</div>
             <div class="project-status">
                 ✓ All services are up and running
             </div>
@@ -952,14 +1082,32 @@ def main_page():
             statusBox.style.display = 'none';
             showToast("Trek muzik berjaya dijana oleh AI!");
             setTimeout(() => {
-                nextScreen('dashboardScreen');
+                nextScreen('screenAudioPlayer');
             }, 1000);
         }, 2500);
+    }
+
+    let isPlaying = false;
+    function togglePlayAudio() {
+        let box = document.getElementById('waveformBox');
+        let btn = document.getElementById('playPauseBtn');
+        
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+            box.classList.add('playing');
+            btn.innerText = '⏸';
+            showToast("Mainkan audio trek...");
+        } else {
+            box.classList.remove('playing');
+            btn.innerText = '▶';
+            showToast("Audio dijeda.");
+        }
     }
 </script>
 
 </body>
 </html>
 """
-                
+
+    
                 
