@@ -367,6 +367,7 @@ def main_page():
 
 <div class="app-container">
 
+    <!-- SKRIN 1: LOGIN -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -399,6 +400,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 1 (1/5) -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -419,6 +421,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 2 (2/5) -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -442,6 +445,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 3 (3/5) -->
     <div id="wizardStep3" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">3/5</div>
@@ -465,6 +469,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 4 (5/5 - GENRES) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">5/5</div>
@@ -473,6 +478,7 @@ def main_page():
         </div>
         
         <div class="wizard-body">
+            <!-- 🇲🇾 Melayu / Nusantara -->
             <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
             <div class="pill-grid">
                 <div class="pill-option active" onclick="toggleMulti(this)">Malaya / Melayu</div>
@@ -505,6 +511,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Nusantara Electronic</div>
             </div>
 
+            <!-- 🎤 Pop -->
             <div class="genre-category-title">🎤 Pop</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Pop</div>
@@ -524,9 +531,11 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Noir Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Future Pop</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
+                    <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
             </div>
-              <div class="genre-category-title">🎸 Rock</div>
+
+            <!-- 🎸 Rock -->
+            <div class="genre-category-title">🎸 Rock</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Soft Rock</div>
@@ -549,6 +558,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Metal Rock</div>
             </div>
 
+            <!-- 🎤 Hip Hop / Rap -->
             <div class="genre-category-title">🎤 Hip Hop / Rap</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
@@ -573,6 +583,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Hybrid Trap</div>
             </div>
 
+            <!-- 🔥 Phonk -->
             <div class="genre-category-title">🔥 Phonk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Phonk</div>
@@ -591,6 +602,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
             </div>
 
+            <!-- ⚡ Techno / Electronic -->
             <div class="genre-category-title">⚡ Techno / Electronic</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
@@ -629,6 +641,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Cinematic Electronic</div>
             </div>
 
+            <!-- 🌑 Dark / Cyber / Experimental -->
             <div class="genre-category-title">🌑 Dark / Cyber / Experimental</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Darkwave</div>
@@ -654,6 +667,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Glitch Hop</div>
             </div>
 
+            <!-- 🎷 R&B / Soul / Funk -->
             <div class="genre-category-title">🎷 R&B / Soul / Funk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">R&B</div>
@@ -668,6 +682,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Funk Soul</div>
             </div>
 
+            <!-- 🎷 Jazz / Blues -->
             <div class="genre-category-title">🎷 Jazz / Blues</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Jazz</div>
@@ -683,6 +698,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Soul Blues</div>
             </div>
 
+            <!-- 🎸 Akustik / Folk -->
             <div class="genre-category-title">🎸 Akustik / Folk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
@@ -699,6 +715,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Relaxing</div>
             </div>
 
+            <!-- 🎻 Orkestra / Klasik -->
             <div class="genre-category-title">🎻 Orkestra / Klasik</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Classical</div>
@@ -717,6 +734,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Baroque</div>
             </div>
 
+            <!-- ❤️ Sedih / Emosi / Cinta -->
             <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Sad Song</div>
@@ -734,6 +752,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Power Ballad</div>
             </div>
 
+            <!-- 🌎 Antarabangsa -->
             <div class="genre-category-title">🌎 Antarabangsa</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">K-Pop</div>
@@ -759,6 +778,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Middle Eastern</div>
             </div>
 
+            <!-- 🤘 Metal -->
             <div class="genre-category-title">🤘 Metal</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Heavy Metal</div>
@@ -773,6 +793,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Doom Metal</div>
             </div>
 
+            <!-- 🎬 Cinematic / Mood / Khas -->
             <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
@@ -781,14 +802,14 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Mysterious</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Horror</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Thriller</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
+                     <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Heroic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Inspirational</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Motivational</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Spiritual</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Religious</div>
-                " onclick="toggleMulti(this)">Peaceful</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Peaceful</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Meditation</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Atmospheric</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Dreamy</div>
@@ -814,6 +835,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
@@ -886,5 +908,6 @@ def main_page():
 </body>
 </html>
 """
-
-            
+              
+                
+                
