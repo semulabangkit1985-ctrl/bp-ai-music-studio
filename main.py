@@ -53,13 +53,15 @@ def main_page():
             margin: 0 auto;
         }
 
+        /* Semua skrin (1 hingga 5) kini tersusun di tengah-tengah secara menegak */
         .screen-overlay {
             background: rgba(11, 15, 25, 0.72);
             backdrop-filter: blur(3px);
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 20px;
             padding: 28px 22px;
             box-sizing: border-box;
             min-height: 100vh;
@@ -70,8 +72,6 @@ def main_page():
             background-image: url('/images (43).jpeg');
             background-size: cover;
             background-position: center;
-            justify-content: center; /* Susun ke tengah-tengah menegak */
-            gap: 20px; /* Jarak antara elemen */
         }
 
         .dashboard-container {
@@ -195,11 +195,8 @@ def main_page():
         }
 
         .wizard-body {
-            flex: 1;
             width: 100%;
-            overflow-y: auto;
-            max-height: 55vh;
-            padding-right: 4px;
+            max-height: 50vh;
         }
 
         .pill-grid {
@@ -207,7 +204,6 @@ def main_page():
             flex-wrap: wrap;
             gap: 10px;
             width: 100%;
-            margin-bottom: 20px;
         }
 
         .pill-option {
@@ -235,7 +231,6 @@ def main_page():
             align-items: center;
             padding-top: 16px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin-top: auto;
         }
 
         .btn-text {
