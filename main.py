@@ -458,6 +458,8 @@ def main_page():
 </head>
 <body>
 
+<audio id="audioElement" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+
 <div id="toast">Berjaya!</div>
 
 <div class="app-container">
@@ -586,8 +588,8 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Pop Nusantara</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Etnik Nusantara</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Tradisional Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sabah</div>
-                  <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
+                       <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sabah</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Minang</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Jawa</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Sunda</div>
@@ -778,8 +780,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Blues Rock</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Soul Blues</div>
             </div>
-
-            <div class="genre-category-title">🎸 Akustik / Folk</div>
+               <div class="genre-category-title">🎸 Akustik / Folk</div>
             <div class="pill-grid">
                 <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Acoustic Pop</div>
@@ -848,7 +849,7 @@ def main_page():
                 <div class="pill-option" onclick="toggleMulti(this)">Ska</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Country</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Country Pop</div>
-                  <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
+                <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Gospel</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Celtic</div>
                 <div class="pill-option" onclick="toggleMulti(this)">Arabic</div>
@@ -964,7 +965,7 @@ def main_page():
                     <div class="wave-bar"></div>
                     <div class="wave-bar"></div>
                 </div>
-                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">02:34 / 03:45</div>
+                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">00:00 / 03:45</div>
 
                 <div class="player-controls">
                     <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
@@ -1046,6 +1047,15 @@ def main_page():
     }
 
     function nextScreen(screenId) {
+        // Jeda audio jika keluar dari skrin player
+        let audio = document.getElementById('audioElement');
+        if(screenId !== 'screenAudioPlayer' && !audio.paused) {
+            audio.pause();
+            isPlaying = false;
+            document.getElementById('waveformBox').classList.remove('playing');
+            document.getElementById('playPauseBtn').innerText = '▶';
+        }
+
         document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
         document.getElementById(screenId).classList.remove('hidden');
         window.scrollTo(0, 0);
@@ -1088,26 +1098,52 @@ def main_page():
     }
 
     let isPlaying = false;
+    const audio = document.getElementById('audioElement');
+
     function togglePlayAudio() {
         let box = document.getElementById('waveformBox');
         let btn = document.getElementById('playPauseBtn');
         
-        isPlaying = !isPlaying;
         if (isPlaying) {
-            box.classList.add('playing');
-            btn.innerText = '⏸';
-            showToast("Mainkan audio trek...");
-        } else {
+            audio.pause();
             box.classList.remove('playing');
             btn.innerText = '▶';
             showToast("Audio dijeda.");
+            isPlaying = false;
+        } else {
+            audio.play().then(() => {
+                box.classList.add('playing');
+                btn.innerText = '⏸';
+                showToast("Memainkan audio trek...");
+                isPlaying = true;
+            }).catch(e => {
+                showToast("Sila klik skrin sekali lagi untuk kebenaran audio.");
+            });
         }
     }
+
+    // Kemas kini masa pemain audio secara masa sebenar
+    audio.addEventListener('timeupdate', () => {
+        let currentMinutes = Math.floor(audio.currentTime / 60);
+        let currentSeconds = Math.floor(audio.currentTime % 60);
+        let durMinutes = Math.floor(audio.duration / 60) || 3;
+        let durSeconds = Math.floor(audio.duration % 60) || 45;
+
+        let formattedCurrent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')}`;
+        let formattedDuration = `${String(durMinutes).padStart(2, '0')}:${String(durSeconds).padStart(2, '0')}`;
+
+        document.getElementById('playerTime').innerText = `${formattedCurrent} / ${formattedDuration}`;
+    });
+
+    audio.addEventListener('ended', () => {
+        isPlaying = false;
+        document.getElementById('waveformBox').classList.remove('playing');
+        document.getElementById('playPauseBtn').innerText = '▶';
+    });
 </script>
 
 </body>
 </html>
 """
-
-    
+        
                 
