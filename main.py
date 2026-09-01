@@ -462,11 +462,12 @@ def main_page():
 
         .waveform-canvas {
             width: 100%;
-            height: 50px;
+            height: 55px;
             background: rgba(15, 23, 42, 0.9);
             border-radius: 6px;
             border: 1px solid rgba(59, 130, 246, 0.4);
             margin-bottom: 10px;
+            cursor: pointer;
         }
 
         .success-icon {
@@ -564,7 +565,7 @@ def main_page():
                 <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
             </div>
         </div>
-        <!-- HALAMAN TETAPAN MASTERING AKHIR -->
+ <!-- HALAMAN TETAPAN MASTERING AKHIR -->
         <div id="pageUpload" class="page-section hidden">
             <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -575,12 +576,13 @@ def main_page():
                 <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                 <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
 
-                <!-- Waveform Canvas -->
-                <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+                <!-- Interactive Waveform Canvas -->
+                <canvas id="waveformCanvas" class="waveform-canvas" onclick="seekAudioFromWaveform(event)" title="Klik untuk lompat ke masa lagu"></canvas>
+                <div style="font-size: 9.5px; color: #94a3b8; margin-bottom: 10px;">💡 Tip: Klik pada gelombang di atas untuk melompat ke masa lagu.</div>
 
                 <div class="audio-preview-box" id="audioPreviewContainer">
                     <label class="control-label" style="margin-bottom: 4px;">🎧 Test Dengar Lagu (Real-time Mastering)</label>
-                    <audio id="audioPreviewPlayer" controls onplay="initWebAudioAndResume()"></audio>
+                    <audio id="audioPreviewPlayer" controls onplay="initWebAudioAndResume()" ontimeupdate="updateWaveformProgress()"></audio>
                 </div>
 
                 <div class="control-group">
@@ -723,6 +725,7 @@ def main_page():
     let isWebAudioInitialized = false;
     let isBypassed = false;
     let animationId = null;
+    let waveformPeaks = [];
 
     function showToast(message) {
         let toast = document.getElementById('toastNotification');
@@ -814,10 +817,7 @@ def main_page():
                 
                 let rawData = buffer.getChannelData(0);
                 let step = Math.ceil(rawData.length / canvas.width);
-                let amp = canvas.height / 2;
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#3b82f6';
+                waveformPeaks = [];
                 
                 for (let i = 0; i < canvas.width; i++) {
                     let min = 1.0;
@@ -827,11 +827,61 @@ def main_page():
                         if (datum < min) min = datum;
                         if (datum > max) max = datum;
                     }
-                    ctx.fillRect(i, (1 + min) * amp, 1, Math.max(1, (max - min) * amp));
+                    waveformPeaks.push({min: min, max: max});
                 }
+                renderWaveformCanvas(0);
             });
         };
         reader.readAsArrayBuffer(file);
+    }
+
+    function renderWaveformCanvas(progressRatio) {
+        let canvas = document.getElementById('waveformCanvas');
+        if (!canvas || waveformPeaks.length === 0) return;
+        let ctx = canvas.getContext('2d');
+        let width = canvas.width;
+        let height = canvas.height;
+        let amp = height / 2;
+
+        ctx.clearRect(0, 0, width, height);
+
+        let splitX = width * progressRatio;
+
+        for (let i = 0; i < width; i++) {
+            let p = waveformPeaks[i];
+            let barHeight = Math.max(1, (p.max - p.min) * amp);
+            let y = (1 + p.min) * amp;
+ // Warna hijau terang untuk bahagian yang sudah dimainkan, biru malap untuk belum
+            if (i <= splitX) {
+                ctx.fillStyle = '#10b981'; 
+            } else {
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
+            }
+            ctx.fillRect(i, y, 1, barHeight);
+        }
+
+        // Garisan penunjuk masa (playhead) yang bergerak
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillRect(splitX, 0, 2, height);
+    }
+
+    function updateWaveformProgress() {
+        let audioPlayer = document.getElementById('audioPreviewPlayer');
+        if (audioPlayer && audioPlayer.duration) {
+            let ratio = audioPlayer.currentTime / audioPlayer.duration;
+            renderWaveformCanvas(ratio);
+        }
+    }
+
+    function seekAudioFromWaveform(event) {
+        let audioPlayer = document.getElementById('audioPreviewPlayer');
+        if (!audioPlayer || !audioPlayer.duration) return;
+        let canvas = document.getElementById('waveformCanvas');
+        let rect = canvas.getBoundingClientRect();
+        let clickX = event.clientX - rect.left;
+        let ratio = clickX / canvas.clientWidth;
+        audioPlayer.currentTime = ratio * audioPlayer.duration;
+        renderWaveformCanvas(ratio);
     }
 
     function initWebAudioAndResume() {
@@ -1102,7 +1152,6 @@ def main_page():
         showToast("Mastering selesai sepenuhnya!");
     }
 
-    // Fungsi Offline Audio Rendering untuk Download File Sebenar Berkesan
     function downloadMasteredFile() {
         if (!audioFileGlobal) return;
         let format = document.getElementById('downloadFormat').value;
@@ -1166,7 +1215,6 @@ def main_page():
             };
             reader.readAsArrayBuffer(audioFileGlobal);
         } else {
-            // Standard fallback untuk MP3
             let url = URL.createObjectURL(audioFileGlobal);
             let a = document.createElement('a');
             a.href = url;
@@ -1178,7 +1226,6 @@ def main_page():
         }
     }
 
-    // Helper tukar AudioBuffer ke Format WAV
     function bufferToWav(buffer) {
         let numOfChan = buffer.numberOfChannels,
             length = buffer.length * numOfChan * 2 + 44,
@@ -1189,20 +1236,20 @@ def main_page():
         function setUint32(data) { out.setUint32(pos, data, true); pos += 4; }
 
         setUint32(0x46464952); // "RIFF"
-        setUint32(length - 8); // file length - 8
+        setUint32(length - 8); 
         setUint32(0x45564157); // "WAVE"
 
         setUint32(0x20746d66); // "fmt " chunk
-        setUint32(16); // length = 16
-        setUint16(1); // PCM (uncompressed)
+        setUint32(16); 
+        setUint16(1); 
         setUint16(numOfChan);
         setUint32(sampleRate);
-        setUint32(sampleRate * 2 * numOfChan); // avg. bytes/sec
-        setUint16(numOfChan * 2); // block-align
-        setUint16(16); // 16-bit
+        setUint32(sampleRate * 2 * numOfChan); 
+        setUint16(numOfChan * 2); 
+        setUint16(16); 
 
-        setUint32(0x61746164); // "data" - chunk
-        setUint32(length - pos - 4); // chunk length
+        setUint32(0x61746164); // "data"
+        setUint32(length - pos - 4); 
 
         for (let i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
 
@@ -1226,6 +1273,7 @@ def main_page():
         let canvas = document.getElementById('waveformCanvas');
         let ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        waveformPeaks = [];
         isWebAudioInitialized = false;
         audioFileGlobal = null;
         chosenGenreGlobal = "";
@@ -1247,6 +1295,4 @@ def main_page():
 </body>
 </html>
 """
-   
-
-        
+       
