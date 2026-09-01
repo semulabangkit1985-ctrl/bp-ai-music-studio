@@ -565,7 +565,8 @@ def main_page():
                 <button type="button" class="btn" onclick="goToPage('page2')">Kembali</button>
             </div>
         </div>
- <!-- HALAMAN TETAPAN MASTERING AKHIR -->
+
+        <!-- HALAMAN TETAPAN MASTERING AKHIR -->
         <div id="pageUpload" class="page-section hidden">
             <div class="poster-title">TETAPAN MASTERING AKHIR</div>
 
@@ -575,7 +576,7 @@ def main_page():
                 <span class="section-label">📁 Pilih Fail Muzik</span>
                 <input type="file" id="audioFile" accept="audio/*" onchange="handleFileSelected(this)">
                 <div id="fileStatus" class="status-ready">✅ Fail berjaya dipilih!</div>
-
+                
                 <!-- Interactive Waveform Canvas -->
                 <canvas id="waveformCanvas" class="waveform-canvas" onclick="seekAudioFromWaveform(event)" title="Klik untuk lompat ke masa lagu"></canvas>
                 <div style="font-size: 9.5px; color: #94a3b8; margin-bottom: 10px;">💡 Tip: Klik pada gelombang di atas untuk melompat ke masa lagu.</div>
@@ -622,9 +623,9 @@ def main_page():
                 <div class="control-group">
                     <label class="control-label">🎛️ Equalizer (EQ)</label>
                     <div class="eq-container">
-                        <div class="eq-box"><span class="eq-title">LOW <span id="eqLowVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqLow" oninput="updateEqLabel('Low'); applyAudioSettings();"></div>
-                        <div class="eq-box"><span class="eq-title">MID <span id="eqMidVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqMid" oninput="updateEqLabel('Mid'); applyAudioSettings();"></div>
-                        <div class="eq-box"><span class="eq-title">HIGH <span id="eqHighVal" style="color: #60a5fa; font-weight: 600;">0 dB</span></span><input type="range" min="-12" max="12" value="0" class="studio-range" id="eqHigh" oninput="updateEqLabel('High'); applyAudioSettings();"></div>
+                        <div class="eq-box"><span class="eq-title">LOW <span id="eqLowVal" style="color: #60a5fa; font-weight: 600;">+0.0 dB</span></span><input type="range" min="-12" max="12" step="0.5" value="0" class="studio-range" id="eqLow" oninput="updateEqLabel('Low'); applyAudioSettings();"></div>
+                        <div class="eq-box"><span class="eq-title">MID <span id="eqMidVal" style="color: #60a5fa; font-weight: 600;">+0.0 dB</span></span><input type="range" min="-12" max="12" step="0.5" value="0" class="studio-range" id="eqMid" oninput="updateEqLabel('Mid'); applyAudioSettings();"></div>
+                        <div class="eq-box"><span class="eq-title">HIGH <span id="eqHighVal" style="color: #60a5fa; font-weight: 600;">+0.0 dB</span></span><input type="range" min="-12" max="12" step="0.5" value="0" class="studio-range" id="eqHigh" oninput="updateEqLabel('High'); applyAudioSettings();"></div>
                     </div>
                 </div>
             </div>
@@ -851,7 +852,7 @@ def main_page():
             let p = waveformPeaks[i];
             let barHeight = Math.max(1, (p.max - p.min) * amp);
             let y = (1 + p.min) * amp;
- // Warna hijau terang untuk bahagian yang sudah dimainkan, biru malap untuk belum
+
             if (i <= splitX) {
                 ctx.fillStyle = '#10b981'; 
             } else {
@@ -860,7 +861,6 @@ def main_page():
             ctx.fillRect(i, y, 1, barHeight);
         }
 
-        // Garisan penunjuk masa (playhead) yang bergerak
         ctx.fillStyle = '#fbbf24';
         ctx.fillRect(splitX, 0, 2, height);
     }
@@ -868,8 +868,8 @@ def main_page():
     function updateWaveformProgress() {
         let audioPlayer = document.getElementById('audioPreviewPlayer');
         if (audioPlayer && audioPlayer.duration) {
-            let ratio = audioPlayer.currentTime / audioPlayer.duration;
-            renderWaveformCanvas(ratio);
+            let ratio = audioPlayer.currentTime / audioPlayer.
+                renderWaveformCanvas(ratio);
         }
     }
 
@@ -1010,7 +1010,7 @@ def main_page():
         let valSpan = document.getElementById('eq' + type + 'Val');
         if (slider && valSpan) {
             let val = parseFloat(slider.value);
-            valSpan.innerText = (val > 0 ? '+' + val : val) + ' dB';
+            valSpan.innerText = (val > 0 ? '+' + val.toFixed(1) : val.toFixed(1)) + ' dB';
         }
     }
 
@@ -1295,4 +1295,5 @@ def main_page():
 </body>
 </html>
 """
-       
+
+                
