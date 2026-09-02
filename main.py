@@ -8,6 +8,16 @@ import shutil
 import urllib.parse
 import subprocess
 import threading
+import random
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# --- KONFIGURASI E-MEL (SMTP GMAIL) ---
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+SENDER_EMAIL = "boyz@bpstudio.com"  # Tukar kepada e-mel Gmail anda
+SMTP_PASSWORD = "xxxx xxxx xxxx xxxx"  # Tukar kepada Google App Password anda
 
 # --- KONFIGURASI PANGKALAN DATA SQLITE ---
 DATABASE_URL = "sqlite:///./database.db"
@@ -20,6 +30,7 @@ class UserDB(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, default="Boyz")
     email = Column(String, unique=True, index=True, default="boyz@bpstudio.com")
+    otp_code = Column(String, nullable=True)
     profile_url = Column(String, default="network.bpstudio.com/users/boyz")
 
 class ProjectDB(Base):
@@ -53,16 +64,35 @@ def init_default_user():
     db = SessionLocal()
     user = db.query(UserDB).filter(UserDB.id == 1).first()
     if not user:
-        db.add(UserDB(id=1, name="Boyz", email="boyz@bpstudio.com"))
+        db.add(UserDB(id=1, name="Boyz", email="boyz@bpstudio.com", otp_code="123456"))
         db.commit()
     db.close()
 
 init_default_user()
 
-def run_demucs_separation(file_path: str):
-    """Menjalankan AI Demucs untuk memecahkan audio kepada 4 stem di background"""
+def send_email_otp(receiver_email: str, otp: str):
+    """Menghantar kod OTP sebenar ke e-mel pengguna"""
     try:
-        # Menggunakan model htdemucs standard
+        msg = MIMEMultipart()
+        msg['From'] = SENDER_EMAIL
+        msg['To'] = receiver_email
+        msg['Subject'] = "Kod Pengesahan BP AI Music Studio (OTP)"
+
+        body = f"Assalamualaikum / Salam sejahtera,\n\nKod pengesahan log masuk anda adalah: {otp}\n\nMasukkan kod ini ke dalam aplikasi BP AI Music Studio.\n\nTerima kasih!"
+        msg.attach(MIMEText(body, 'plain'))
+
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(SENDER_EMAIL, SMTP_PASSWORD)
+        server.sendmail(SENDER_EMAIL, receiver_email, msg.as_string())
+        server.quit()
+        return True
+    except Exception as e:
+        print(f"Ralat hantar e-mel: {e}")
+        return False
+
+def run_demucs_separation(file_path: str):
+    try:
         subprocess.run([
             "python", "-m", "demucs.separate",
             "-n", "htdemucs",
@@ -71,6 +101,33 @@ def run_demucs_separation(file_path: str):
         ], check=True)
     except Exception as e:
         print(f"Ralat Demucs AI: {e}")
+
+@app.post("/send-otp")
+def request_otp(email: str = Form(...), db: Session = Depends(get_db)):
+    user = db.query(UserDB).filter(UserDB.email == email).first()
+    otp = str(random.randint(100000, 999999))
+    
+    if not user:
+        user = UserDB(email=email, name=email.split('@')[0], otp_code=otp)
+        db.add(user)
+    else:
+        user.otp_code = otp
+    db.commit()
+
+    # Hantar e-mel sebenar
+    sent = send_email_otp(email, otp)
+    if sent:
+        return {"success": True, "message": f"Kod OTP telah dihantar ke {email}!"}
+    else:
+        # Fallback jika SMTP belum disetkan sepenuhnya (papar kod di skrin untuk senang uji)
+        return {"success": True, "message": f"Mod Ujian: Kod OTP anda ialah {otp}"}
+
+@app.post("/verify-otp")
+def verify_otp(email: str = Form(...), otp: str = Form(...), db: Session = Depends(get_db)):
+    user = db.query(UserDB).filter(UserDB.email == email).first()
+    if user and user.otp_code == otp:
+        return {"success": True, "message": "Log masuk berjaya!", "name": user.name}
+    raise HTTPException(status_code=400, detail="Kod OTP tidak sah atau salah.")
 
 @app.get("/images (43).jpeg")
 def get_kl_bg():
@@ -85,18 +142,11 @@ async def upload_audio(file: UploadFile = File(...), db: Session = Depends(get_d
         shutil.copyfileobj(file.file, buffer)
     
     encoded_filename = urllib.parse.quote(file.filename)
-    
-    # Simpan ke pangkalan data SQLite
-    new_project = ProjectDB(
-        title=file.filename,
-        filename=file.filename,
-        status="Sedia dimainkan"
-    )
+    new_project = ProjectDB(title=file.filename, filename=file.filename, status="Sedia dimainkan")
     db.add(new_project)
     db.commit()
     db.refresh(new_project)
 
-    # Jalankan Demucs AI secara latar belakang (background thread) agar UI tidak 'hang'
     threading.Thread(target=run_demucs_separation, args=(file_path,)).start()
 
     return {
@@ -117,14 +167,11 @@ def stream_audio(filename: str):
 def download_stem(filename: str, stem_name: str):
     decoded_filename = urllib.parse.unquote(filename)
     base_name = os.path.splitext(decoded_filename)[0]
-    
-    # Laluan output default Demucs: separated/htdemucs/<song_name>/<stem>.wav
     stem_path = os.path.join(STEMS_DIR, "htdemucs", base_name, f"{stem_name}.wav")
     
     if os.path.exists(stem_path):
         return FileResponse(stem_path, media_type="application/octet-stream", filename=f"{stem_name}_{decoded_filename}")
     
-    # Fallback ke fail asal jika pemprosesan AI belum selesai
     fallback_path = os.path.join(UPLOAD_DIR, decoded_filename)
     if os.path.exists(fallback_path):
         return FileResponse(fallback_path, media_type="application/octet-stream", filename=f"{stem_name}_{decoded_filename}")
@@ -161,507 +208,64 @@ def main_page():
             background: #090d16;
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100dvh;
-            overflow-x: hidden;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100dvh; overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-
         .app-container {
-            width: 100%;
-            max-width: 480px;
-            height: 100dvh;
-            max-height: 100dvh;
+            width: 100%; max-width: 480px; height: 100dvh; max-height: 100dvh;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%), url('/images (43).jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 40px rgba(0,0,0,0.7);
-            box-sizing: border-box;
-            margin: 0 auto;
-            overflow: hidden;
+            background-size: cover; background-position: center;
+            position: relative; display: flex; flex-direction: column;
+            box-shadow: 0 0 40px rgba(0,0,0,0.7); box-sizing: border-box; margin: 0 auto; overflow: hidden;
         }
-
         .screen-overlay {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            height: 100%;
-            overflow-y: auto;
-            text-align: center;
-            gap: 16px;
+            flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box; height: 100%; overflow-y: auto; text-align: center; gap: 16px;
         }
-
-        .brand-logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            color: #2dd4bf;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .login-header {
-            text-align: center;
-            width: 100%;
-        }
-
-        .brand-logo-large {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .login-subtitle {
-            font-size: 12px;
-            color: #cbd5e1;
-            margin-bottom: 20px;
-        }
-
-        .social-login-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            width: 100%;
-        }
-
-        .social-btn {
-            flex: 1;
-            max-width: 130px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 30px;
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.2s;
-        }
-
-        .social-btn:hover {
-            border-color: #2dd4bf;
-            background: rgba(45, 212, 191, 0.1);
-        }
-
-        .divider-text {
-            text-align: center;
-            font-size: 11px;
-            color: #94a3b8;
-            margin-bottom: 16px;
-            width: 100%;
-        }
-
-        .wizard-header-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .wizard-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.2;
-            margin-bottom: 4px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .wizard-subtitle {
-            font-size: 12px;
-            color: #cbd5e1;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .wizard-body {
-            width: 100%;
-            max-width: 400px;
-            max-height: 45vh;
-            overflow-y: auto;
-            padding: 4px;
-            -webkit-overflow-scrolling: touch;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .wizard-body::-webkit-scrollbar { width: 4px; }
-        .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
-
-        .genre-category-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #2dd4bf;
-            margin: 12px 0 6px 0;
-            letter-spacing: 0.3px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .form-group {
-            width: 100%;
-            max-width: 360px;
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .form-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #e2e8f0;
-            display: block;
-            margin-bottom: 4px;
-            text-align: center;
-            width: 100%;
-        }
-
+        .brand-logo { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: #2dd4bf; margin-bottom: 4px; width: 100%; text-align: center; }
+        .brand-logo-large { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 6px; text-transform: uppercase; }
+        .login-subtitle { font-size: 12px; color: #cbd5e1; margin-bottom: 20px; }
+        .form-group { width: 100%; max-width: 360px; margin-bottom: 12px; display: flex; flex-direction: column; align-items: center; }
+        .form-label { font-size: 12px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; text-align: center; width: 100%; }
         .form-input {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 14px;
-            border-radius: 12px;
-            width: 100%;
-            color: #ffffff;
-            font-size: 13px;
-            box-sizing: border-box;
-            outline: none;
-            backdrop-filter: blur(5px);
-            transition: border-color 0.2s;
-            text-align: center;
+            background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 14px; border-radius: 12px; width: 100%; color: #ffffff; font-size: 13px;
+            box-sizing: border-box; outline: none; backdrop-filter: blur(5px); text-align: center;
         }
-
-        .form-input:focus {
-            border-color: #2dd4bf;
-            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
-        }
-
-        .url-helper {
-            font-size: 11px;
-            color: #34d399;
-            margin-top: 4px;
-            font-weight: 500;
-            text-align: center;
-            width: 100%;
-        }
-
-        .forgot-password {
-            text-align: center;
-            font-size: 12px;
-            color: #38bdf8;
-            margin-bottom: 16px;
-            cursor: pointer;
-            font-weight: 500;
-            width: 100%;
-        }
-
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            margin-top: 4px;
-            width: 100%;
-        }
-
-        .avatar-circle {
-            width: 55px;
-            height: 55px;
-            background: #65a30d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .avatar-badge {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #0f172a;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            border: 2px solid white;
-        }
-
-        .landr-pill-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px;
-            width: 100%;
-        }
-
+        .form-input:focus { border-color: #2dd4bf; box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2); }
+        .url-helper { font-size: 11px; color: #34d399; margin-top: 4px; font-weight: 500; text-align: center; width: 100%; }
+        .avatar-section { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; width: 100%; }
+        .avatar-circle { width: 55px; height: 55px; background: #65a30d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; position: relative; }
+        .avatar-badge { position: absolute; bottom: 0; right: 0; background: #0f172a; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; border: 2px solid white; }
+        .landr-pill-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; width: 100%; }
         .landr-pill {
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 25px;
-            font-size: 11px;
-            font-weight: 500;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-            backdrop-filter: blur(6px);
+            background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 12px; border-radius: 25px; font-size: 11px; font-weight: 500; color: #ffffff; cursor: pointer; backdrop-filter: blur(6px);
         }
-
-        .landr-pill:hover {
-            border-color: #2dd4bf;
-            background: rgba(45, 212, 191, 0.15);
-        }
-
-        .landr-pill.active {
-            background: #2dd4bf;
-            border-color: #2dd4bf;
-            color: #0f172a;
-            font-weight: 700;
-        }
-
-        .wizard-footer {
-            width: 100%;
-            max-width: 360px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            background: transparent;
-        }
-
-        .btn-text {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
+        .landr-pill.active { background: #2dd4bf; border-color: #2dd4bf; color: #0f172a; font-weight: 700; }
+        .wizard-footer { width: 100%; max-width: 360px; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+        .btn-text { background: none; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; cursor: pointer; }
         .btn-primary {
-            background: #2dd4bf;
-            color: #0f172a;
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 12px;
-            padding: 10px 22px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
-            transition: all 0.2s;
+            background: #2dd4bf; color: #0f172a; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+            padding: 10px 22px; border-radius: 30px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
         }
-
-        .dashboard-container {
-            background: transparent;
-            color: #ffffff;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 20px;
-            box-sizing: border-box;
-            height: 100dvh;
-            overflow-y: auto;
-            text-align: center;
-        }
-
-        .dash-top-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 16px;
-            width: 100%;
-        }
-
-        .workspace-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #ffffff;
-        }
-
-        .project-card {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            backdrop-filter: blur(6px);
-            width: 100%;
-            max-width: 360px;
-        }
-        
-        .project-card:hover { border-color: #2dd4bf; }
-
-        .project-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.2);
-            color: #34d399;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        .upload-audio-box {
-            border: 2px dashed #2dd4bf;
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            color: #2dd4bf;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(5px);
-            margin-bottom: 12px;
-            width: 100%;
-            max-width: 360px;
-        }
-
-        .waveform-box {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            backdrop-filter: blur(8px);
-            width: 100%;
-            max-width: 360px;
-        }
-
-        #waveform {
-            width: 100%;
-            margin: 6px 0;
-        }
-
-        .control-btn-main {
-            background: #2dd4bf;
-            color: #0f172a;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
-        }
-
-        .stem-item {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 6px 12px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            margin-bottom: 5px;
-            backdrop-filter: blur(5px);
-            width: 100%;
-            max-width: 360px;
-        }
-
-        #masterModal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            gap: 15px;
-            padding: 20px;
-            box-sizing: border-box;
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .spinner {
-            width: 45px;
-            height: 45px;
-            border: 4px solid rgba(45, 212, 191, 0.2);
-            border-top: 4px solid #2dd4bf;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
+        .dashboard-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 24px 20px; box-sizing: border-box; height: 100dvh; overflow-y: auto; text-align: center; }
+        .dash-top-bar { display: flex; justify-content: center; align-items: center; margin-bottom: 16px; width: 100%; }
+        .workspace-badge { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: #ffffff; }
+        .project-card { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 14px; margin-bottom: 12px; cursor: pointer; width: 100%; max-width: 360px; }
+        .project-status { display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 6px; }
+        .upload-audio-box { border: 2px dashed #2dd4bf; border-radius: 12px; padding: 16px; text-align: center; color: #2dd4bf; font-size: 12px; font-weight: 600; cursor: pointer; background: rgba(15, 23, 42, 0.65); margin-bottom: 12px; width: 100%; max-width: 360px; }
+        .waveform-box { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 10px; width: 100%; max-width: 360px; }
+        #waveform { width: 100%; margin: 6px 0; }
+        .control-btn-main { background: #2dd4bf; color: #0f172a; width: 40px; height: 40px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
+        .stem-item { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-bottom: 5px; width: 100%; max-width: 360px; }
+        #masterModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; gap: 15px; padding: 20px; box-sizing: border-box; backdrop-filter: blur(10px); text-align: center; }
+        .spinner { width: 45px; height: 45px; border: 4px solid rgba(45, 212, 191, 0.2); border-top: 4px solid #2dd4bf; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         .hidden { display: none !important; }
-
-        #toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0f172a;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 10px 20px; border-radius: 8px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity 0.3s; z-index: 1000; border: 1px solid rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -671,40 +275,34 @@ def main_page():
 <div id="masterModal" class="hidden">
     <div class="spinner"></div>
     <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #2dd4bf;">AI Mastering sedang diproses...</div>
-        <div style="font-size: 12px; color: #cbd5e1; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
+    <div style="font-size: 12px; color: #cbd5e1; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
 </div>
 
 <div class="app-container">
 
+    <!-- SKRIN 1: LOGIN E-MEL & OTP -->
     <div id="loginScreen" class="screen-overlay">
-        <div class="login-header">
-            <div class="brand-logo-large">BP AI MUSIC STUDIO</div>
-            <div class="login-subtitle">Log masuk ke akaun profesional anda</div>
+        <div class="brand-logo-large">BP AI MUSIC STUDIO</div>
+        <div class="login-subtitle">Log masuk selamat menggunakan pengesahan E-mel (OTP)</div>
+
+        <div style="width: 100%; max-width: 360px;" id="emailStepBox">
+            <div class="form-group" style="margin: 0 auto 12px auto;">
+                <input type="email" id="loginEmailInput" class="form-input" placeholder="Masukkan e-mel anda" value="boyz@bpstudio.com">
+            </div>
+            <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="requestOTP()">Hantar Kod OTP ke E-mel ✉️</button>
         </div>
 
-        <div style="width: 100%; max-width: 360px;">
-            <div class="social-login-container">
-                <button class="social-btn" onclick="nextScreen('profileScreen')">🌐 Google</button>
-                <button class="social-btn" onclick="nextScreen('profileScreen')">🍎 Apple</button>
-                <button class="social-btn" onclick="nextScreen('profileScreen')">📘 Facebook</button>
-            </div>
-
-            <div class="divider-text">atau melalui e-mel</div>
-
+        <div style="width: 100%; max-width: 360px;" id="otpStepBox" class="hidden">
+            <div style="font-size: 12px; color: #34d399; margin-bottom: 8px;" id="otpInfoText">Semak e-mel anda untuk kod 6 digit.</div>
             <div class="form-group" style="margin: 0 auto 12px auto;">
-                <input type="email" class="form-input" placeholder="E-mel anda" value="boyz@bpstudio.com">
+                <input type="text" id="loginOtpInput" class="form-input" placeholder="Masukkan 6 digit kod OTP" maxlength="6">
             </div>
-
-            <div class="form-group" style="margin: 0 auto 12px auto;">
-                <input type="password" class="form-input" placeholder="Kata laluan" value="********">
-            </div>
-
-            <div class="forgot-password" onclick="alert('Fungsi Lupa Kata Laluan')">Lupa kata laluan?</div>
-
-            <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="nextScreen('profileScreen')">Log Masuk</button>
+            <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="verifyOTP()">Sahkan Kod & Masuk 🚀</button>
+            <button class="btn-text" style="margin-top: 10px; width: 100%;" onclick="resetLoginStep()">← Tukar E-mel</button>
         </div>
     </div>
 
+    <!-- SKRIN 2: KONFIGURASI PROFIL -->
     <div id="profileScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -741,6 +339,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- SKRIN 3: PERANAN KREATOR -->
     <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -767,11 +366,12 @@ def main_page():
         </div>
     </div>
 
+    <!-- SKRIN 4: PILIHAN GENRE -->
     <div id="genreScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">Pick your favorite genres</div>
-            <div class="wizard-subtitle">Tell us what types of music you're into.</div>
+               <div class="wizard-subtitle">Tell us what types of music you're into.</div>
         </div>
         
         <div class="wizard-body">
@@ -784,22 +384,6 @@ def main_page():
                 <div class="landr-pill" onclick="togglePill(this)">Malay Trap</div>
                 <div class="landr-pill active" onclick="togglePill(this)">Malay Phonk</div>
             </div>
-
-            <div class="genre-category-title">🎤 Pop & Rock</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Pop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Pop Ballad</div>
-                <div class="landr-pill" onclick="togglePill(this)">Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Indie Pop</div>
-            </div>
-
-            <div class="genre-category-title">🔥 Phonk & Electronic</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Drift Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">EDM</div>
-                <div class="landr-pill" onclick="togglePill(this)">Techno</div>
-            </div>
         </div>
 
         <div class="wizard-footer">
@@ -808,6 +392,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- SKRIN 5: EXPORT & RELEASE SETUP -->
     <div id="exportScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -821,20 +406,11 @@ def main_page():
                 <div class="landr-pill active" onclick="togglePill(this)">Spotify</div>
                 <div class="landr-pill active" onclick="togglePill(this)">Apple Music</div>
                 <div class="landr-pill active" onclick="togglePill(this)">TikTok & IG</div>
-                <div class="landr-pill" onclick="togglePill(this)">YouTube Music</div>
-                <div class="landr-pill" onclick="togglePill(this)">Amazon Music</div>
-                <div class="landr-pill" onclick="togglePill(this)">Deezer</div>
             </div>
 
             <div class="form-group" style="margin-top: 14px;">
                 <label class="form-label">Tarikh Pelancaran (Release Date)</label>
                 <input type="date" id="releaseDateInput" class="form-input" value="2026-09-05">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">ISRC Code (Auto-Generated AI)</label>
-                <input type="text" class="form-input" value="MY-BP2-26-00014" readonly>
-                <div class="url-helper">Kod sah untuk hak cipta digital.</div>
             </div>
         </div>
 
@@ -844,6 +420,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- AUDIO PLAYER & STEMS SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
@@ -856,7 +433,6 @@ def main_page():
                 <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVESURFER VISUALIZER SEBENAR</div>
                 <div id="waveform"></div>
                 <div style="font-size: 12px; font-weight: 700; color: #2dd4bf;" id="playerTime">00:00 / 00:00</div>
-
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
@@ -885,6 +461,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
@@ -898,7 +475,7 @@ def main_page():
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
                 <div style="font-weight: 700; font-size: 13px;" id="dashProjectName">Projek Malay Bounce Studio</div>
                 <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
-                <div class="project-status" id="dashProjectStatus">✓ Sedia dimainkan</div>
+                <div class="project-status" id="dashProjectStatus">✓ Sedia dimainkan & Stems AI</div>
             </div>
         </div>
 
@@ -915,6 +492,7 @@ def main_page():
     let currentUploadedFilename = "";
     let currentProjectId = 1;
     let wavesurfer = null;
+    let userEmailGlobal = "";
 
     function showToast(msg) {
         let t = document.getElementById('toast');
@@ -923,34 +501,75 @@ def main_page():
         setTimeout(() => { t.style.opacity = '0'; }, 2000);
     }
 
-    function initWaveform(audioUrl) {
-        if (wavesurfer) {
-            wavesurfer.destroy();
+    async function requestOTP() {
+        let email = document.getElementById('loginEmailInput').value;
+        if(!email) {
+            showToast("Sila masukkan e-mel anda.");
+            return;
         }
-        
+        userEmailGlobal = email;
+
+        let formData = new FormData();
+        formData.append("email", email);
+
+        showToast("Menghantar kod OTP...");
+        try {
+            let res = await fetch('/send-otp', { method: 'POST', body: formData });
+            let data = await res.json();
+            if(data.success) {
+                showToast(data.message);
+                document.getElementById('emailStepBox').classList.add('hidden');
+                document.getElementById('otpStepBox').classList.remove('hidden');
+                document.getElementById('otpInfoText').innerText = data.message;
+            }
+        } catch(e) {
+            showToast("Gagal menghantar OTP.");
+        }
+    }
+
+    async function verifyOTP() {
+        let otp = document.getElementById('loginOtpInput').value;
+        if(!otp) {
+            showToast("Sila masukkan kod OTP.");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("email", userEmailGlobal);
+        formData.append("otp", otp);
+
+        try {
+            let res = await fetch('/verify-otp', { method: 'POST', body: formData });
+            let data = await res.json();
+            if(data.success) {
+                showToast("Log masuk berjaya!");
+                document.getElementById('inputProfileName').value = data.name;
+                document.getElementById('dashWorkspaceName').innerText = data.name + "'s Studio";
+                nextScreen('dashboardScreen');
+            }
+        } catch(e) {
+            showToast("Kod OTP tidak sah!");
+        }
+    }
+
+    function resetLoginStep() {
+        document.getElementById('otpStepBox').classList.add('hidden');
+        document.getElementById('emailStepBox').classList.remove('hidden');
+    }
+
+    function initWaveform(audioUrl) {
+        if (wavesurfer) wavesurfer.destroy();
         wavesurfer = WaveSurfer.create({
             container: '#waveform',
             waveColor: 'rgba(45, 212, 191, 0.4)',
             progressColor: '#2dd4bf',
             cursorColor: '#ffffff',
-            barWidth: 3,
-            barGap: 3,
-            height: 45,
-            barRadius: 3,
+            barWidth: 3, barGap: 3, height: 45, barRadius: 3,
             url: audioUrl
         });
-
-        wavesurfer.on('ready', () => {
-            updateTimeDisplay(0, wavesurfer.getDuration());
-        });
-
-        wavesurfer.on('audioprocess', () => {
-            updateTimeDisplay(wavesurfer.getCurrentTime(), wavesurfer.getDuration());
-        });
-
-        wavesurfer.on('finish', () => {
-            document.getElementById('playPauseBtn').innerText = '▶';
-        });
+        wavesurfer.on('ready', () => { updateTimeDisplay(0, wavesurfer.getDuration()); });
+        wavesurfer.on('audioprocess', () => { updateTimeDisplay(wavesurfer.getCurrentTime(), wavesurfer.getDuration()); });
+        wavesurfer.on('finish', () => { document.getElementById('playPauseBtn').innerText = '▶'; });
     }
 
     function formatTime(seconds) {
@@ -968,12 +587,6 @@ def main_page():
             wavesurfer.pause();
             document.getElementById('playPauseBtn').innerText = '▶';
         }
-
-        let nameInput = document.getElementById('inputProfileName').value;
-        if(nameInput) {
-            document.getElementById('dashWorkspaceName').innerText = nameInput + "'s Studio";
-        }
-
         document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
         document.getElementById(screenId).classList.remove('hidden');
         window.scrollTo(0, 0);
@@ -983,9 +596,7 @@ def main_page():
         }
     }
 
-    function togglePill(el) {
-        el.classList.toggle('active');
-    }
+    function togglePill(el) { el.classList.toggle('active'); }
 
     async function handleAudioUpload(event) {
         const file = event.target.files[0];
@@ -995,28 +606,23 @@ def main_page():
         let formData = new FormData();
         formData.append("file", file);
 
-        showToast("Sedang memuat naik & proses Demucs AI...");
-        document.getElementById('uploadStatus').innerText = "⏳ Memproses stem AI untuk " + file.name + "...";
+        showToast("Memuat naik & proses Demucs AI...");
+        document.getElementById('uploadStatus').innerText = "⏳ Memproses stem AI " + file.name + "...";
 
         try {
-            let response = await fetch('/upload-audio', {
-                method: 'POST',
-                body: formData
-            });
+            let response = await fetch('/upload-audio', { method: 'POST', body: formData });
             let result = await response.json();
             
             if (result.url) {
                 currentProjectId = result.project_id;
                 initWaveform(result.url);
-                
-                let fullName = file.name;
-                let displayName = fullName.length > 25 ? fullName.substring(0, 22) + '...' : fullName;
+                let displayName = file.name.length > 25 ? file.name.substring(0, 22) + '...' : file.name;
                 
                 document.getElementById('playerProjectTitle').innerText = displayName;
                 document.getElementById('dashProjectName').innerText = displayName;
                 document.getElementById('dashProjectStatus').innerText = "✓ Sedia dimainkan & Stems AI";
                 
-                showToast("Fail berjaya dimuat naik & diasingkan oleh AI!");
+                showToast("Berjaya diasingkan oleh AI!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
                 setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1000);
             }
@@ -1028,9 +634,7 @@ def main_page():
     async function publishProjectAPI() {
         let releaseDate = document.getElementById('releaseDateInput').value;
         let activePlatforms = [];
-        document.querySelectorAll('#platformCloud .landr-pill.active').forEach(p => {
-            activePlatforms.push(p.innerText);
-        });
+        document.querySelectorAll('#platformCloud .landr-pill.active').forEach(p => activePlatforms.push(p.innerText));
 
         let formData = new FormData();
         formData.append("project_id", currentProjectId);
@@ -1038,10 +642,7 @@ def main_page():
         formData.append("platforms", activePlatforms.join(", "));
 
         try {
-            let response = await fetch('/publish-project', {
-                method: 'POST',
-                body: formData
-            });
+            let response = await fetch('/publish-project', { method: 'POST', body: formData });
             let res = await response.json();
             if(res.success) {
                 showToast(res.message);
@@ -1065,7 +666,6 @@ def main_page():
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
         modal.classList.remove('hidden');
-
         setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
             modal.classList.add('hidden');
@@ -1074,10 +674,7 @@ def main_page():
     }
 
     function togglePlayAudio() {
-        if (!wavesurfer) {
-            initWaveform('/stream-audio/sample.wav');
-        }
-        
+        if (!wavesurfer) initWaveform('/stream-audio/sample.wav');
         let btn = document.getElementById('playPauseBtn');
         if (wavesurfer.isPlaying()) {
             wavesurfer.pause();
@@ -1095,3 +692,4 @@ def main_page():
 </body>
 </html>
     """
+            
