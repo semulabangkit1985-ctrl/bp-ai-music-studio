@@ -58,7 +58,7 @@ def main_page():
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100dvh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -66,8 +66,8 @@ def main_page():
         .app-container {
             width: 100%;
             max-width: 480px;
-            height: 100vh;
-            max-height: 100vh;
+            height: 100dvh;
+            max-height: 100dvh;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%), url('/images (43).jpeg');
             background-size: cover;
             background-position: center;
@@ -81,7 +81,6 @@ def main_page():
             overflow: hidden;
         }
 
-        /* SEMUA KANDUNGAN DILETAKKAN DI TENGAH SECARA KEMAS */
         .screen-overlay {
             flex: 1;
             display: flex;
@@ -91,7 +90,7 @@ def main_page():
             padding: 20px;
             box-sizing: border-box;
             height: 100%;
-            overflow: hidden;
+            overflow-y: auto;
             text-align: center;
             gap: 16px;
         }
@@ -278,7 +277,6 @@ def main_page():
             width: 100%;
         }
 
-        /* Avatar Section */
         .avatar-section {
             display: flex;
             align-items: center;
@@ -319,7 +317,6 @@ def main_page():
             border: 2px solid white;
         }
 
-        /* Pill Cloud */
         .landr-pill-cloud {
             display: flex;
             flex-wrap: wrap;
@@ -388,7 +385,6 @@ def main_page():
             transition: all 0.2s;
         }
 
-        /* Dashboard & Studio */
         .dashboard-container {
             background: transparent;
             color: #ffffff;
@@ -398,7 +394,7 @@ def main_page():
             align-items: center;
             padding: 24px 20px;
             box-sizing: border-box;
-            height: 100vh;
+            height: 100dvh;
             overflow-y: auto;
             text-align: center;
         }
@@ -667,10 +663,10 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 3: PERANAN KREATOR -
-       <div id="roleScreen" class="screen-overlay hidden">
+    <!-- SKRIN 3: PERANAN KREATOR (HALAMAN KETIGA) -->
+    <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
-            <div class="brand-logo">BP AI MUSIC STUDIO</div>
+             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">What best represents you?</div>
             <div class="wizard-subtitle">Display the best of yourself and link up with like-minded creators.</div>
         </div>
@@ -694,7 +690,7 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 4: PILIHAN GENRE LENGKAP -->
+    <!-- SKRIN 4: PILIHAN GENRE -->
     <div id="genreScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -736,7 +732,7 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 5: EXPORT & RELEASE (LANGKAH SETERUSNYA - SEMUA DI TENGAH) -->
+    <!-- SKRIN 5: EXPORT & RELEASE SETUP -->
     <div id="exportScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -773,7 +769,7 @@ def main_page():
         </div>
     </div>
 
-    <!-- AUDIO PLAYER & STEMS SCREEN (SKRIN 6) -->
+    <!-- AUDIO PLAYER & STEMS SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
@@ -961,4 +957,3 @@ def main_page():
 </body>
 </html>
     """
-    
