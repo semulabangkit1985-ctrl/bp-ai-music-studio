@@ -25,7 +25,7 @@
         }
         .container { max-width: 480px; margin: 0 auto; }
         
-        /* Paparan Landing Page */
+        /* Landing Page */
         #landing-view { text-align: center; padding: 1.5rem 1rem; }
         .hero-image-container {
             margin-bottom: 1.25rem;
@@ -40,7 +40,7 @@
         #landing-view p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.85rem; line-height: 1.5; text-align: justify; }
         .tagline { color: #93c5fd; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center; }
 
-        /* Paparan Mod Selector (Gaya Landr Pilihan Utama) */
+        /* Mode Selector */
         #mode-view { display: none; padding: 1rem 0; }
         .mode-title { font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-bottom: 0.4rem; text-align: center; }
         .mode-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center; }
@@ -56,12 +56,12 @@
             align-items: center;
             justify-content: space-between;
         }
-        .mode-card:hover, .mode-card.selected { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.1); }
+        .mode-card:hover { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.1); }
         .mode-info h3 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 0.2rem; }
         .mode-info p { font-size: 0.78rem; color: var(--text-muted); }
         .mode-arrow { color: var(--accent-blue); font-weight: bold; }
 
-        /* Paparan Console DAW */
+        /* Console DAW */
         #console-view { display: none; }
         header { text-align: center; margin-bottom: 1.25rem; }
         header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; color: #60a5fa; text-transform: uppercase; }
@@ -79,6 +79,14 @@
         }
         .section-title { font-size: 0.8rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
         
+        /* Genre Pills (Gaya Pilihan Landr) */
+        .genre-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+        .genre-pill {
+            background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
+            padding: 0.4rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .genre-pill.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
+
         .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
         .style-btn {
             background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
@@ -114,7 +122,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- 1. LANDING PAGE VIEW -->
+        <!-- 1. LANDING PAGE -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -126,7 +134,7 @@
             <button class="btn-action" onclick="showModeSelector()">Mula Mastering ➔</button>
         </div>
 
-        <!-- 2. MODE SELECTOR VIEW (Inspirasi Landr) -->
+        <!-- 2. MODE SELECTOR -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -142,7 +150,7 @@
                 <div class="mode-card" onclick="showConsole('coproducer')">
                     <div class="mode-info">
                         <h3>🎛️ AI Co-Producer (Stems)</h3>
-                        <p>asingkan & atur lapisan drum, bass & vokal</p>
+                        <p>Asingkan & atur lapisan drum, bass & vokal</p>
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
@@ -168,34 +176,83 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
+            <!-- KAD PILIHAN GENRE / VIBE (Diambil dari senarai Nusantara & Moden) -->
             <div class="card">
-                <div class="section-title">Mastering Styles</div>
-                <div class="style-buttons">
-                    <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
-                    <div class="style-btn" onclick="selectStyle(this)">Open</div>
-                    <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
-                </div>
-
-                <div class="section-title">Dynamics & Tonal Controls</div>
-                <div class="control-group">
-                    <div class="control-header"><span>EQ Balance (Low/High)</span><span class="control-value" id="v1">+1.5 dB</span></div>
-                    <input type="range" min="-10" max="10" step="0.1" value="1.5" oninput="document.getElementById('v1').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
-                </div>
-                <div class="control-group" style="margin-top: 0.75rem;">
-                    <div class="control-header"><span>Presence & De-Esser</span><span class="control-value" id="v2">82%</span></div>
-                    <input type="range" min="0" max="100" value="82" oninput="document.getElementById('v2').textContent = this.value + '%'">
+                <div class="section-title">Pilih Genre & Vibe Lagu</div>
+                <div class="genre-pills">
+                    <div class="genre-pill active" onclick="selectGenre(this)">Malay Phonk</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Pop Melayu</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Rock Melayu</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Malay Bounce</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Balada Melayu</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Dangdut / Zapin</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">EDM / Electronic</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Hip Hop / Trap</div>
+                    <div class="genre-pill" onclick="selectGenre(this)">Cinematic / Epic</div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="section-title">AI Co-Producer (Instrument Layers)</div>
-                <div class="instrument-grid">
-                    <label class="instrument-checkbox"><span class="instrument-name">Drum</span><input type="checkbox" checked></label>
-                    <label class="instrument-checkbox"><span class="instrument-name">Bass</span><input type="checkbox" checked></label>
-                    <label class="instrument-checkbox"><span class="instrument-name">Guitar</span><input type="checkbox"></label>
-                    <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
+            <!-- PANEL 1: MASTERING -->
+            <div id="panel-mastering" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Mastering Styles</div>
+                    <div class="style-buttons">
+                        <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
+                        <div class="style-btn" onclick="selectStyle(this)">Open</div>
+                        <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
+                    </div>
+
+                    <div class="section-title">Loudness & Dynamics</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
+                        <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="document.getElementById('m1').textContent = this.value + ' LUFS'">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
+                        <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="document.getElementById('m2').textContent = this.value + ' dB'">
+                    </div>
                 </div>
-                <button class="btn-action" onclick="alert('Audio sedang diproses oleh AI!')">Proses Audio AI ➔</button>
+                <button class="btn-action" onclick="alert('AI Mastering sedang diproses berdasarkan genre dipilih!')">Proses AI Mastering ➔</button>
+            </div>
+
+            <!-- PANEL 2: CO-PRODUCER -->
+            <div id="panel-coproducer" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Stem Separation Layers</div>
+                    <div class="instrument-grid">
+                        <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Bassline</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Melody / Synth</span><input type="checkbox" checked></label>
+                    </div>
+
+                    <div class="section-title">Separation Quality</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>AI Artifact Reduction</span><span class="control-value" id="c1">90%</span></div>
+                        <input type="range" min="50" max="100" value="90" oninput="document.getElementById('c1').textContent = this.value + '%'">
+                    </div>
+                </div>
+                <button class="btn-action" onclick="alert('Pemprosesan Stem AI sedang berjalan!')">Asingkan Stems ➔</button>
+            </div>
+
+            <!-- PANEL 3: EQ -->
+            <div id="panel-eq" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Multi-Band Spectrum EQ</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>Low Band (Sub & Bass)</span><span class="control-value" id="e1">+0.5 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="0.5" oninput="document.getElementById('e1').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Mid Band (Vocal & Lead)</span><span class="control-value" id="e2">+2.0 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="2.0" oninput="document.getElementById('e2').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>High Band (Air & Brilliance)</span><span class="control-value" id="e3">+1.0 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="1.0" oninput="document.getElementById('e3').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
+                    </div>
+                </div>
+                <button class="btn-action" onclick="alert('Pelarasan EQ & Tonal Balance sedang diproses!')">Optimumkan Tonal ➔</button>
             </div>
 
             <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
@@ -220,15 +277,33 @@
             document.getElementById('mode-view').style.display = 'none';
             document.getElementById('console-view').style.display = 'block';
             
+            document.getElementById('panel-mastering').style.display = 'none';
+            document.getElementById('panel-coproducer').style.display = 'none';
+            document.getElementById('panel-eq').style.display = 'none';
+            
             const titleEl = document.getElementById('console-title');
-            if(mode === 'mastering') titleEl.textContent = "AI Mastering Console";
-            else if(mode === 'coproducer') titleEl.textContent = "AI Co-Producer Studio";
-            else titleEl.textContent = "Tonal Balance Console";
+            
+            if(mode === 'mastering') {
+                titleEl.textContent = "AI Audio Mastering";
+                document.getElementById('panel-mastering').style.display = 'block';
+            } else if(mode === 'coproducer') {
+                titleEl.textContent = "AI Co-Producer (Stems)";
+                document.getElementById('panel-coproducer').style.display = 'block';
+            } else if(mode === 'eq') {
+                titleEl.textContent = "Tonal Balance & EQ";
+                document.getElementById('panel-eq').style.display = 'block';
+            }
         }
 
         function selectStyle(el) {
             document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
         }
+
+        function selectGenre(el) {
+            document.querySelectorAll('.genre-pill').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
     </script>
+</body>
 </html>
