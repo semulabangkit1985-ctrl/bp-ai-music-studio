@@ -3,88 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastering BP AI Music Studio</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #141c2e;
-            --card-border: #1e293b;
-            --accent-blue: #3b82f6;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 1.5rem 1rem;
-            background-image: linear-gradient(rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .container { width: 100%; max-width: 480px; }
-        header { text-align: center; margin-bottom: 1.5rem; }
-        header h1 { font-size: 1.6rem; color: #60a5fa; letter-spacing: 0.5px; font-weight: 700; line-height: 1.3; text-transform: uppercase; }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            margin-bottom: 1rem;
-        }
-        .card p { font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem; }
-        .card p:last-child { margin-bottom: 0; }
-        .sub-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1rem;
-        }
-        .sub-card h3 { font-size: 0.85rem; color: var(--text-main); font-weight: 700; margin-bottom: 0.25rem; letter-spacing: 0.5px; }
-        .sub-card p { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
-        .btn-action {
-            display: block;
-            width: 100%;
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            transition: background 0.2s;
-        }
-        .btn-action:hover { background-color: #2563eb; }
-    </style>
+    <title>BP AI Music Studio - Smart Mastering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>MASTERING BP AI<br>MUSIC STUDIO</h1>
-        </header>
-        
-        <div class="card">
-            <p>Mastering BP AI Music Studio adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
-            <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
-        </div>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col justify-between">
+    <header class="p-6 border-b border-gray-800 flex justify-between items-center">
+        <h1 class="text-xl font-bold tracking-wider text-cyan-400">BP AI MUSIC STUDIO</h1>
+        <span class="text-xs bg-cyan-950 text-cyan-300 px-3 py-1 rounded-full border border-cyan-800">v2.0 Pro</span>
+    </header>
 
-        <div class="sub-card">
-            <h3>BP AI MUSIC STUDIO</h3>
-            <p>Memperkemas bunyi, menghidupkan karya.</p>
+    <main class="flex-grow flex flex-col items-center justify-center px-4 py-12">
+        <div class="max-w-xl w-full bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-2xl text-center">
+            <h2 class="text-2xl font-bold mb-3">Platform Mastering Audio Pintar</h2>
+            <p class="text-gray-400 text-sm mb-8">Muat naik fail audio anda (WAV/MP3) untuk proses pembersihan dan penambahbaikan kualiti bunyi bertaraf studio.</p>
+            
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="border-2 border-dashed border-gray-700 hover:border-cyan-500 rounded-xl p-8 transition cursor-pointer bg-gray-950/50">
+                    <input type="file" name="audio_file" accept=".mp3,.wav" required class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-600 file:text-white hover:file:bg-cyan-500 cursor-pointer">
+                </div>
+                <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 font-semibold rounded-xl shadow-lg transition duration-200">
+                    Mula Mastering ➔
+                </button>
+            </form>
         </div>
+    </main>
 
-        <a href="/mastering" class="btn-action">Mula Mastering ➔</a>
-    </div>
+    <footer class="p-4 text-center text-xs text-gray-600 border-t border-gray-900">
+        &copy; 2026 BP AI Music Studio. Hak Cipta Terpelihara.
+    </footer>
 </body>
 </html>
