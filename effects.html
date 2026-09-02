@@ -56,17 +56,27 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Seksyen Atas: Visualizer & Status Audio */
-        .visualizer-card {
-            background: rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.4);
+        /* Kad Umum */
+        .card {
+            background: rgba(17, 24, 39, 0.80);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px;
             margin-bottom: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Seksyen Atas: Visualizer & Status Audio */
         .visualizer-screen {
             height: 80px;
             background: #030712;
@@ -125,26 +135,7 @@
             border-color: #3b82f6;
         }
 
-        /* Kad Kawalan LANDR */
-        .card {
-            background: rgba(17, 24, 39, 0.80);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 16px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #93c5fd;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
+        /* Mastering Styles */
         .styles-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -169,6 +160,7 @@
             font-weight: 700;
         }
 
+        /* Sliders */
         .slider-group {
             margin-bottom: 12px;
         }
@@ -187,7 +179,7 @@
             cursor: pointer;
         }
 
-        /* AI Co-Producer Checkboxes / Chips */
+        /* AI Co-Producer */
         .ai-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -244,8 +236,18 @@
     <div class="container">
         <h1>BP AI Studio Console</h1>
 
+        <!-- KOTAK MUAT NAIK AUDIO (WAV & MP3) -->
+        <div class="card">
+            <div class="card-title">Muat Naik Trek Audio</div>
+            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 10px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
+            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer;" onchange="uploadAudio(this)">
+            
+            <!-- Pemain Audio Selepas Dimuat Naik -->
+            <audio id="audioPlayer" controls style="width: 100%; display: none; margin-top: 12px; border-radius: 8px;"></audio>
+        </div>
+
         <!-- 1. BAHAGIAN ATAS: Visualizer & Status Audio -->
-        <div class="visualizer-card">
+        <div class="card">
             <div class="visualizer-screen">
                 <div class="bar" style="animation-delay: 0.1s;"></div>
                 <div class="bar" style="animation-delay: 0.3s;"></div>
@@ -278,25 +280,30 @@
             </div>
 
             <div class="card-title" style="margin-top: 16px;">Dynamics & Tonal Controls</div>
+            
             <div class="slider-group">
-                <label><span>EQ Balance (Low/High)</span> <span>+1.5 dB</span></label>
-                <input type="range" min="-10" max="10" value="2">
+                <label><span>EQ Balance (Low/High)</span> <span id="eqVal">+2.0 dB</span></label>
+                <input type="range" id="eqSlider" min="-10" max="10" step="0.5" value="2" oninput="updateVal('eqSlider', 'eqVal', ' dB', true)">
             </div>
+            
             <div class="slider-group">
-                <label><span>Presence & De-Esser</span> <span>45%</span></label>
-                <input type="range" min="0" max="100" value="45">
+                <label><span>Presence & De-Esser</span> <span id="presenceVal">45%</span></label>
+                <input type="range" id="presenceSlider" min="0" max="100" value="45" oninput="updateVal('presenceSlider', 'presenceVal', '%', false)">
             </div>
+            
             <div class="slider-group">
-                <label><span>Stereo Width</span> <span>60%</span></label>
-                <input type="range" min="0" max="100" value="60">
+                <label><span>Stereo Width</span> <span id="widthVal">60%</span></label>
+                <input type="range" id="widthSlider" min="0" max="100" value="60" oninput="updateVal('widthSlider', 'widthVal', '%', false)">
             </div>
+            
             <div class="slider-group">
-                <label><span>Dynamics Control</span> <span>30%</span></label>
-                <input type="range" min="0" max="100" value="30">
+                <label><span>Dynamics Control</span> <span id="dynVal">30%</span></label>
+                <input type="range" id="dynSlider" min="0" max="100" value="30" oninput="updateVal('dynSlider', 'dynVal', '%', false)">
             </div>
+            
             <div class="slider-group">
-                <label><span>Input Trim / Output</span> <span>0.0 dB</span></label>
-                <input type="range" min="-6" max="6" value="0">
+                <label><span>Input Trim / Output</span> <span id="trimVal">0.0 dB</span></label>
+                <input type="range" id="trimSlider" min="-6" max="6" step="0.1" value="0" oninput="updateVal('trimSlider', 'trimVal', ' dB', true)">
             </div>
         </div>
 
@@ -325,8 +332,53 @@
         }
 
         function selectStyle(element) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.style-bin, .style-btn').forEach(b => b.classList.remove('selected'));
             element.classList.add('selected');
+        }
+
+        // Fungsi supaya nombor di sebelah slider bergerak ikut sentuhan
+        function updateVal(sliderId, displayId, unit, isDecimal) {
+            const slider = document.getElementById(sliderId);
+            const display = document.getElementById(displayId);
+            let val = parseFloat(slider.value);
+            if (isDecimal) {
+                if (val > 0) {
+                    display.innerText = "+" + val.toFixed(1) + unit;
+                } else {
+                    display.innerText = val.toFixed(1) + unit;
+                }
+            } else {
+                display.innerText = val + unit;
+            }
+        }
+
+        // Fungsi muat naik audio ke backend FastAPI
+        async function uploadAudio(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const formData = new FormData();
+                formData.append("file", file);
+
+                try {
+                    const response = await fetch("/upload-audio", {
+                        method: "POST",
+                        body: formData
+                    });
+                    const result = await response.json();
+                    
+                    if (result.url) {
+                        const player = document.getElementById("audioPlayer");
+                        player.src = result.url;
+                        player.style.display = "block";
+                        alert("Berjaya muat naik: " + result.filename);
+                    } else {
+                        alert("Gagal memuat naik fail.");
+                    }
+                } catch (error) {
+                    console.error("Ralat:", error);
+                    alert("Berlaku ralat semasa memuat naik.");
+                }
+            }
         }
     </script>
 
