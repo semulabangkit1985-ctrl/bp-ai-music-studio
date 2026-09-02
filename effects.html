@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Mastering & Effects - BP AI Music Studio</title>
+    <title>Muat Naik & Genre - BP AI Music Studio</title>
     <style>
         * {
             box-sizing: border-box;
@@ -24,6 +24,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             position: relative;
         }
@@ -35,7 +36,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 15, 25, 0.60);
+            background: rgba(11, 15, 25, 0.65);
             z-index: -1;
         }
 
@@ -46,11 +47,11 @@
         }
 
         h1 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: 1px;
             color: #3b82f6;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             text-align: center;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
@@ -60,145 +61,18 @@
             background: rgba(17, 24, 39, 0.85);
             border: 1px solid rgba(59, 130, 246, 0.35);
             border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 16px;
+            padding: 20px;
             backdrop-filter: blur(8px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .card-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #93c5fd;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .visualizer-screen {
-            height: 80px;
-            background: #030712;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .bar {
-            width: 6px;
-            background: linear-gradient(to top, #2563eb, #60a5fa);
-            border-radius: 3px;
-            animation: pulseWave 1.2s infinite ease-in-out alternate;
-        }
-
-        @keyframes pulseWave {
-            0% { height: 15%; }
-            100% { height: 85%; }
-        }
-
-        .meter-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #9ca3af;
-            margin-bottom: 12px;
-        }
-
-        .quick-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .toggle-btn {
-            background: rgba(31, 41, 55, 0.9);
-            border: 1px solid #374151;
-            color: #d1d5db;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .toggle-btn.active {
-            background: #2563eb;
-            color: #ffffff;
-            border-color: #3b82f6;
-        }
-
-        .styles-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .style-btn {
-            background: #1f2937;
-            border: 1px solid #374151;
-            color: #e5e7eb;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .style-btn.selected {
-            background: #1d4ed8;
-            border-color: #60a5fa;
-            font-weight: 700;
-        }
-
-        .slider-group {
-            margin-bottom: 12px;
-        }
-
-        .slider-group label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #d1d5db;
-            margin-bottom: 4px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: #3b82f6;
-            cursor: pointer;
-        }
-
-        .ai-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .ai-chip {
-            background: rgba(31, 41, 55, 0.7);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .ai-chip input {
-            accent-color: #3b82f6;
         }
 
         .btn-action {
@@ -215,18 +89,9 @@
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
             border: none;
             cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
             margin-top: 20px;
-            color: #9ca3af;
-            font-size: 0.85rem;
-            text-decoration: none;
         }
-        .back-link:hover { color: #fff; }
+        .btn-action:hover { background: linear-gradient(135deg, #1d4ed8, #1e40af); }
     </style>
 </head>
 <body>
@@ -234,526 +99,54 @@
     <div class="container">
         <h1>BP AI Studio Console</h1>
 
-        <!-- KAD 1: MUAT NAIK & PILIH GENRE SAHAJA -->
         <div class="card">
             <div class="card-title">Muat Naik Trek Audio</div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 8px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
-            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer; margin-bottom: 12px;" onchange="uploadAudio(this)">
+            <p style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 8px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
+            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 10px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer; margin-bottom: 16px;" onchange="handleFile(this)">
+            
             <audio id="audioPlayer" controls style="width: 100%; display: none; margin-bottom: 16px; border-radius: 8px;"></audio>
 
             <hr style="border: none; border-top: 1px solid rgba(59, 130, 246, 0.2); margin-bottom: 16px;">
 
             <div class="card-title">Pilih Genre Lagu</div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 8px;">Tetapkan genre bagi membantu AI membuat penyesuaian yang tepat:</p>
+            <p style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 8px;">Tetapkan genre bagi membantu AI membuat penyesuaian:</p>
             
-            <select id="genreSelect" style="width: 100%; background: #1f2937; color: #e5e7eb; border: 1px solid #374151; padding: 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;">
-                
-                <optgroup label="🇲🇾 Melayu / Nusantara">
-                    <option value="Malaya / Melayu">Malaya / Melayu</option>
-                    <option value="Pop Melayu">Pop Melayu</option>
-                    <option value="Rock Melayu">Rock Melayu</option>
-                    <option value="Balada Melayu">Balada Melayu</option>
-                    <option value="Melayu Klasik">Melayu Klasik</option>
-                    <option value="Irama Malaysia">Irama Malaysia</option>
-                    <option value="Lagu Asli">Lagu Asli</option>
-                    <option value="Zapin">Zapin</option>
-                    <option value="Joget">Joget</option>
-                    <option value="Ghazal">Ghazal</option>
-                    <option value="Keroncong">Keroncong</option>
-                    <option value="Dangdut">Dangdut</option>
-                    <option value="Campursari">Campursari</option>
-                    <option value="Pop Nusantara">Pop Nusantara</option>
-                    <option value="Etnik Nusantara">Etnik Nusantara</option>
-                    <option value="Tradisional Melayu">Tradisional Melayu</option>
-                    <option value="Tradisional Sabah">Tradisional Sabah</option>
-                    <option value="Tradisional Sarawak">Tradisional Sarawak</option>
-                    <option value="Minang">Minang</option>
-                    <option value="Jawa">Jawa</option>
-                    <option value="Sunda">Sunda</option>
-                    <option value="Bugis">Bugis</option>
-                    <option value="Batak">Batak</option>
-                    <option value="Malay Bounce">Malay Bounce</option>
-                    <option value="Malay Trap">Malay Trap</option>
-                    <option value="Malay Phonk">Malay Phonk</option>
-                    <option value="Malay Electronic">Malay Electronic</option>
-                    <option value="Nusantara Electronic">Nusantara Electronic</option>
-                </optgroup>
-
-                <optgroup label="🎤 Pop">
-                    <option value="Pop">Pop</option>
-                    <option value="Pop Ballad">Pop Ballad</option>
-                    <option value="Electropop">Electropop</option>
-                    <option value="Synthpop">Synthpop</option>
-                    <option value="Dream Pop">Dream Pop</option>
-                    <option value="Indie Pop">Indie Pop</option>
-                    <option value="Teen Pop">Teen Pop</option>
-                    <option value="Adult Contemporary">Adult Contemporary</option>
-                    <option value="Dance Pop">Dance Pop</option>
-                    <option value="Power Pop">Power Pop</option>
-                    <option value="Soft Pop">Soft Pop</option>
-                    <option value="Retro Pop">Retro Pop</option>
-                    <option value="City Pop">City Pop</option>
-                    <option value="Dark Pop">Dark Pop</option>
-                    <option value="Noir Pop">Noir Pop</option>
-                    <option value="Future Pop">Future Pop</option>
-                    <option value="Neon Pop">Neon Pop</option>
-                    <option value="Experimental Pop">Experimental Pop</option>
-                </optgroup>
-
-                <optgroup label="🎸 Rock">
-                    <option value="Rock">Rock</option>
-                    <option value="Soft Rock">Soft Rock</option>
-                    <option value="Classic Rock">Classic Rock</option>
-                    <option value="Hard Rock">Hard Rock</option>
-                    <option value="Alternative Rock">Alternative Rock</option>
-                    <option value="Indie Rock">Indie Rock</option>
-                    <option value="Pop Rock">Pop Rock</option>
-                    <option value="Blues Rock">Blues Rock</option>
-                    <option value="Progressive Rock">Progressive Rock</option>
-                    <option value="Psychedelic Rock">Psychedelic Rock</option>
-                    <option value="Punk Rock">Punk Rock</option>
-                    <option value="Garage Rock">Garage Rock</option>
-                    <option value="Grunge">Grunge</option>
-                    <option value="Post-Rock">Post-Rock</option>
-                    <option value="Folk Rock">Folk Rock</option>
-                    <option value="Southern Rock">Southern Rock</option>
-                    <option value="Glam Rock">Glam Rock</option>
-                    <option value="Arena Rock">Arena Rock</option>
-                    <option value="Metal Rock">Metal Rock</option>
-                </optgroup>
-
-                <optgroup label="🎤 Hip Hop / Rap">
-                    <option value="Hip Hop">Hip Hop</option>
-                    <option value="Rap">Rap</option>
-                    <option value="Old School Hip Hop">Old School Hip Hop</option>
-                    <option value="Trap">Trap</option>
-                    <option value="Boom Bap">Boom Bap</option>
-                    <option value="Lo-Fi Hip Hop">Lo-Fi Hip Hop</option>
-                    <option value="Gangsta Rap">Gangsta Rap</option>
-                    <option value="Conscious Rap">Conscious Rap</option>
-                    <option value="Melodic Rap">Melodic Rap</option>
-                    <option value="Pop Rap">Pop Rap</option>
-                    <option value="Alternative Hip Hop">Alternative Hip Hop</option>
-                    <option value="R&B Rap">R&B Rap</option>
-                    <option value="Drill">Drill</option>
-                    <option value="West Coast Hip Hop">West Coast Hip Hop</option>
-                    <option value="East Coast Hip Hop">East Coast Hip Hop</option>
-                    <option value="UK Drill">UK Drill</option>
-                    <option value="Afro Drill">Afro Drill</option>
-                    <option value="Cyberpunk Trap">Cyberpunk Trap</option>
-                    <option value="Cinematic Trap">Cinematic Trap</option>
-                    <option value="Hybrid Trap">Hybrid Trap</option>
-                </optgroup>
-
-                <optgroup label="🔥 Phonk">
-                    <option value="Phonk">Phonk</option>
-                    <option value="Dark Phonk">Dark Phonk</option>
-                    <option value="Drift Phonk">Drift Phonk</option>
-                    <option value="Brazilian Phonk">Brazilian Phonk</option>
-                    <option value="Memphis Phonk">Memphis Phonk</option>
-                    <option value="Aggressive Phonk">Aggressive Phonk</option>
-                    <option value="Atmospheric Phonk">Atmospheric Phonk</option>
-                    <option value="Electro Phonk">Electro Phonk</option>
-                    <option value="Trap Phonk">Trap Phonk</option>
-                    <option value="Future Phonk">Future Phonk</option>
-                    <option value="Malay Phonk">Malay Phonk</option>
-                    <option value="Neon Noir Phonk">Neon Noir Phonk</option>
-                    <option value="Neon Noir Phonk - Malay Bounce">Neon Noir Phonk - Malay Bounce</option>
-                    <option value="Dark Techno / Neon Noir Phonk - Malay Bounce">Dark Techno / Neon Noir Phonk - Malay Bounce</option>
-                </optgroup>
-
-                <optgroup label="⚡ Techno / Electronic">
-                    <option value="EDM">EDM</option>
-                    <option value="Techno">Techno</option>
-                    <option value="Dark Techno">Dark Techno</option>
-                    <option value="Hard Techno">Hard Techno</option>
-                    <option value="Industrial Techno">Industrial Techno</option>
-                    <option value="Acid Techno">Acid Techno</option>
-                    <option value="Minimal Techno">Minimal Techno</option>
-                    <option value="Melodic Techno">Melodic Techno</option>
-                    <option value="Progressive Techno">Progressive Techno</option>
-                    <option value="Techno Noir">Techno Noir</option>
-                    <option value="Cyber Techno">Cyber Techno</option>
-                    <option value="House">House</option>
-                    <option value="Deep House">Deep House</option>
-                    <option value="Tropical House">Tropical House</option>
-                    <option value="Future House">Future House</option>
-                    <option value="Progressive House">Progressive House</option>
-                    <option value="Tech House">Tech House</option>
-                    <option value="Electro House">Electro House</option>
-                    <option value="Bass House">Bass House</option>
-                    <option value="G-House">G-House</option>
-                    <option value="Slap House">Slap House</option>
-                    <option value="Afro House">Afro House</option>
-                    <option value="Trance">Trance</option>
-                    <option value="Dubstep">Dubstep</option>
-                    <option value="Drum & Bass">Drum & Bass</option>
-                    <option value="Future Bass">Future Bass</option>
-                    <option value="Breakbeat">Breakbeat</option>
-                    <option value="UK Garage">UK Garage</option>
-                    <option value="Jersey Club">Jersey Club</option>
-                    <option value="Amapiano">Amapiano</option>
-                    <option value="Industrial Bass">Industrial Bass</option>
-                    <option value="Dark Electro">Dark Electro</option>
-                    <option value="Alternative Electronic">Alternative Electronic</option>
-                    <option value="Cinematic Electronic">Cinematic Electronic</option>
-                </optgroup>
-
-                <optgroup label="🌑 Dark / Cyber / Experimental">
-                    <option value="Darkwave">Darkwave</option>
-                    <option value="Witch House">Witch House</option>
-                    <option value="Dark Synthwave">Dark Synthwave</option>
-                    <option value="Neon Synthwave">Neon Synthwave</option>
-                    <option value="Synthwave">Synthwave</option>
-                    <option value="Vaporwave">Vaporwave</option>
-                    <option value="Cyberpunk">Cyberpunk</option>
-                    <option value="Cyber Pop">Cyber Pop</option>
-                    <option value="Cyberpunk Trap">Cyberpunk Trap</option>
-                    <option value="Noir Electronic">Noir Electronic</option>
-                    <option value="Dark Ambient">Dark Ambient</option>
-                    <option value="Ambient Dark">Ambient Dark</option>
-                    <option value="Horror Electronic">Horror Electronic</option>
-                    <option value="Atmospheric">Atmospheric</option>
-                    <option value="Experimental Electronic">Experimental Electronic</option>
-                    <option value="Experimental Pop">Experimental Pop</option>
-                    <option value="Future Bass">Future Bass</option>
-                    <option value="Future Garage">Future Garage</option>
-                    <option value="Industrial">Industrial</option>
-                    <option value="Noise">Noise</option>
-                    <option value="Glitch">Glitch</option>
-                    <option value="Glitch Hop">Glitch Hop</option>
-                </optgroup>
-
-                <optgroup label="🎷 R&B / Soul / Funk">
-                    <option value="R&B">R&B</option>
-                    <option value="Contemporary R&B">Contemporary R&B</option>
-                    <option value="Soul">Soul</option>
-                    <option value="Neo Soul">Neo Soul</option>
-                    <option value="Motown">Motown</option>
-                    <option value="Funk">Funk</option>
-                    <option value="Smooth Soul">Smooth Soul</option>
-                    <option value="Gospel Soul">Gospel Soul</option>
-                    <option value="R&B Ballad">R&B Ballad</option>
-                    <option value="Funk Soul">Funk Soul</option>
-                </optgroup>
-
-                <optgroup label="🎷 Jazz / Blues">
-                    <option value="Jazz">Jazz</option>
-                    <option value="Smooth Jazz">Smooth Jazz</option>
-                    <option value="Contemporary Jazz">Contemporary Jazz</option>
-                    <option value="Swing">Swing</option>
-                    <option value="Bebop">Bebop</option>
-                    <option value="Fusion Jazz">Fusion Jazz</option>
-                    <option value="Latin Jazz">Latin Jazz</option
-                                       <option value="Blues">Blues</option>
-                    <option value="Slow Blues">Slow Blues</option>
-                    <option value="Blues Rock">Blues Rock</option>
-                    <option value="Soul Blues">Soul Blues</option>
-                </optgroup>
-
-                <optgroup label="🎸 Akustik / Folk">
-                    <option value="Acoustic">Acoustic</option>
-                    <option value="Acoustic Pop">Acoustic Pop</option>
-                    <option value="Acoustic Ballad">Acoustic Ballad</option>
-                    <option value="Folk">Folk</option>
-                    <option value="Indie Folk">Indie Folk</option>
-                    <option value="Folk Pop">Folk Pop</option>
-                    <option value="Singer-Songwriter">Singer-Songwriter</option>
-                    <option value="Coffeehouse">Coffeehouse</option>
-                    <option value="Chill">Chill</option>
-                    <option value="Lo-Fi">Lo-Fi</option>
-                    <option value="Lounge">Lounge</option>
-                    <option value="Relaxing">Relaxing</option>
-                </optgroup>
-
-                <optgroup label="🎻 Orkestra / Klasik">
-                    <option value="Classical">Classical</option>
-                    <option value="Piano Solo">Piano Solo</option>
-                    <option value="Piano Ballad">Piano Ballad</option>
-                    <option value="String Orchestra">String Orchestra</option>
-                    <option value="Symphony">Symphony</option>
-                    <option value="Chamber Music">Chamber Music</option>
-                    <option value="Cinematic">Cinematic</option>
-                    <option value="Epic Orchestra">Epic Orchestra</option>
-                    <option value="Film Score">Film Score</option>
-                    <option value="Dramatic">Dramatic</option>
-                    <option value="Emotional Orchestra">Emotional Orchestra</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="Medieval">Medieval</option>
-                    <option value="Baroque">Baroque</option>
-                </optgroup>
-
-                <optgroup label="❤️ Sedih / Emosi / Cinta">
-                    <option value="Sad Song">Sad Song</option>
-                    <option value="Emotional">Emotional</option>
-                    <option value="Heartbreak">Heartbreak</option>
-                    <option value="Melancholic">Melancholic</option>
-                    <option value="Nostalgic">Nostalgic</option>
-                    <option value="Romantic">Romantic</option>
-                    <option value="Love Song">Love Song</option>
-                    <option value="Deep Emotional">Deep Emotional</option>
-                    <option value="Tearjerker">Tearjerker</option>
-                    <option value="Slow Ballad">Slow Ballad</option>
-                    <option value="Emotional Piano">Emotional Piano</option>
-                    <option value="Emotional Acoustic">Emotional Acoustic</option>
-                    <option value="Power Ballad">Power Ballad</option>
-                </optgroup>
-
-                <optgroup label="🌎 Antarabangsa">
-                    <option value="K-Pop">K-Pop</option>
-                    <option value="J-Pop">J-Pop</option>
-                    <option value="C-Pop">C-Pop</option>
-                    <option value="Bollywood">Bollywood</option>
-                    <option value="Latin Pop">Latin Pop</option>
-                    <option value="Reggaeton">Reggaeton</option>
-                    <option value="Salsa">Salsa</option>
-                    <option value="Bachata">Bachata</option>
-                    <option value="Flamenco">Flamenco</option>
-                    <option value="Afrobeat">Afrobeat</option>
-                    <option value="Afropop">Afropop</option>
-                    <option value="Reggae">Reggae</option>
-                    <option value="Dancehall">Dancehall</option>
-                    <option value="Ska">Ska</option>
-                    <option value="Country">Country</option>
-                    <option value="Country Pop">Country Pop</option>
-                    <option value="Bluegrass">Bluegrass</option>
-                    <option value="Gospel">Gospel</option>
-                    <option value="Celtic">Celtic</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Middle Eastern">Middle Eastern</option>
-                </optgroup>
-
-                <optgroup label="🤘 Metal">
-                    <option value="Heavy Metal">Heavy Metal</option>
-                    <option value="Metalcore">Metalcore</option>
-                    <option value="Death Metal">Death Metal</option>
-                    <option value="Black Metal">Black Metal</option>
-                    <option value="Symphonic Metal">Symphonic Metal</option>
-                    <option value="Power Metal">Power Metal</option>
-                    <option value="Progressive Metal">Progressive Metal</option>
-                    <option value="Nu Metal">Nu Metal</option>
-                    <option value="Alternative Metal">Alternative Metal</option>
-                    <option value="Doom Metal">Doom Metal</option>
-                </optgroup>
-
-                <optgroup label="🎬 Cinematic / Mood / Khas">
-                    <option value="Cinematic">Cinematic</option>
-                    <option value="Epic">Epic</option>
-                    <option value="Dark">Dark</option>
-                    <option value="Mysterious">Mysterious</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="Heroic">Heroic</option>
-                    <option value="Inspirational">Inspirational</option>
-                    <option value="Motivational">Motivational</option>
-                    <option value="Spiritual">Spiritual</option>
-                    <option value="Religious">Religious</option>
-                    <option value="Peaceful">Peaceful</option>
-                    <option value="Meditation">Meditation</option>
-                    <option value="Atmospheric">Atmospheric</option>
-                    <option value="Dreamy">Dreamy</option>
-                    <option value="Powerful">Powerful</option>
-                    <option value="Energetic">Energetic</option>
-                    <option value="Romantic">Romantic</option>
-                    <option value="Vintage">Vintage</option>
-                    <option value="Retro">Retro</option>
-                    <option value="80s">80s</option>
-                    <option value="90s">90s</option>
-                    <option value="Nostalgic">Nostalgic</option>
-                    <option value="Wedding">Wedding</option>
-                    <option value="Festival">Festival</option>
-                    <option value="Party">Party</option>
-                    <option value="Christmas">Christmas</option>
-                    <option value="Raya / Aidilfitri">Raya / Aidilfitri</option>
-                </optgroup>
-
+            <select id="genreSelect" style="width: 100%; background: #1f2937; color: #e5e7eb; border: 1px solid #374151; padding: 12px; border-radius: 8px; font-size: 0.9rem; cursor: pointer;">
+                <option value="Malaya / Melayu">Malaya / Melayu</option>
+                <option value="Pop Melayu">Pop Melayu</option>
+                <option value="Rock Melayu">Rock Melayu</option>
+                <option value="Hip Hop">Hip Hop</option>
+                <option value="Phonk">Phonk</option>
+                <option value="EDM / Techno">EDM / Techno</option>
+                <option value="Cinematic">Cinematic</option>
             </select>
+
+            <button class="btn-action" onclick="goToEffects()">Seterusnya ke Mastering Styles ➔</button>
         </div>
-
-        <!-- VISUALIZER & STATUS -->
-        <div class="card">
-            <div class="visualizer-screen">
-                <div class="bar" style="animation-delay: 0.1s;"></div>
-                <div class="bar" style="animation-delay: 0.3s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-                <div class="bar" style="animation-delay: 0.5s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-                <div class="bar" style="animation-delay: 0.4s;"></div>
-                <div class="bar" style="animation-delay: 0.1s;"></div>
-                <div class="bar" style="animation-delay: 0.3s;"></div>
-                <div class="bar" style="animation-delay: 0.6s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-            </div>
-            <div class="meter-info">
-                <span>Loudness: <strong style="color: #34d399;">-14.2 LUFS</strong></span>
-                <span>Peak: <strong style="color: #fbbf24;">-0.5 dB</strong></span>
-            </div>
-            <div class="quick-controls">
-                <button class="toggle-btn" id="bypassBtn" onclick="toggleBtn('bypassBtn')">Bypass</button>
-                <button class="toggle-btn active" id="gainBtn" onclick="toggleBtn('gainBtn')">Gain Match</button>
-            </div>
-        </div>
-
-        <!-- MASTERING STYLES & DYNAMICS -->
-        <div class="card">
-            <div class="card-title">Mastering Styles</div>
-            <div class="styles-grid">
-                <div class="style-btn selected" onclick="selectStyle(this)">Warm</div>
-                <div class="style-btn" onclick="selectStyle(this)">Open</div>
-                <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
-            </div>
-
-            <div class="card-title" style="margin-top: 16px; font-size: 0.85rem;">Dynamics & Tonal Controls</div>
-            
-            <div class="slider-group">
-                <label><span>EQ Balance (Low/High)</span> <span id="eqVal">+2.0 dB</span></label>
-                <input type="range" id="eqSlider" min="-10" max="10" step="0.5" value="2" oninput="updateVal('eqSlider', 'eqVal', ' dB', true)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Presence & De-Esser</span> <span id="presenceVal">45%</span></label>
-                <input type="range" id="presenceSlider" min="0" max="100" value="45" oninput="updateVal('presenceSlider', 'presenceVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Stereo Width</span> <span id="widthVal">60%</span></label>
-                <input type="range" id="widthSlider" min="0" max="100" value="60" oninput="updateVal('widthSlider', 'widthVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Dynamics Control</span> <span id="dynVal">30%</span></label>
-                <input type="range" id="dynSlider" min="0" max="100" value="30" oninput="updateVal('dynSlider', 'dynVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Input Trim / Output</span> <span id="trimVal">0.0 dB</span></label>
-                <input type="range" id="trimSlider" min="-6" max="6" step="0.1" value="0" oninput="updateVal('trimSlider', 'trimVal', ' dB', true)">
-            </div>
-        </div>
-
-        <!-- AI CO-PRODUCER -->
-        <div class="card">
-            <div class="card-title">AI Co-Producer (Instrument Layers)</div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 12px;">Pilih lapisan instrumen tambahan yang ingin dijana oleh AI berdasarkan trek anda:</p>
-            <div class="ai-grid">
-                <label class="ai-chip"><span>Drum</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Bass</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Guitar</span> <input type="checkbox"></label>
-                <label class="ai-chip"><span>Piano / Keys</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Synth</span> <input type="checkbox"></label>
-                <label class="ai-chip"><span>Trumpet</span> <input type="checkbox"></label>
-            </div>
-            <button class="btn-action" onclick="runMastering()">Jalankan AI Analisis & Proses ➔</button>
-        </div>
-
-        <a href="/" class="back-link">← Kembali ke Halaman Utama</a>
     </div>
 
     <script>
         let uploadedFilename = "";
 
-        function toggleBtn(id) {
-            const btn = document.getElementById(id);
-            btn.classList.toggle('active');
-        }
-
-        function selectStyle(element) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
-        function updateVal(sliderId, displayId, unit, isDecimal) {
-            const slider = document.getElementById(sliderId);
-            const display = document.getElementById(displayId);
-            let val = parseFloat(slider.value);
-            if (isDecimal) {
-                if (val > 0) {
-                    display.innerText = "+" + val.toFixed(1) + unit;
-                } else {
-                    display.innerText = val.toFixed(1) + unit;
-                }
-            } else {
-                display.innerText = val + unit;
-            }
-        }
-
-        async function uploadAudio(input) {
+        function handleFile(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
                 uploadedFilename = file.name;
-                const formData = new FormData();
-                formData.append("file", file);
-
-                try {
-                    const response = await fetch("/upload-audio", {
-                        method: "POST",
-                        body: formData
-                    });
-                    const result = await response.json();
-                    
-                    if (result.url) {
-                        const player = document.getElementById("audioPlayer");
-                        player.src = result.url;
-                        player.style.display = "block";
-                        alert("Fail berjaya dimuat naik: " + result.filename);
-                    } else {
-                        alert("Gagal memuat naik fail.");
-                    }
-                } catch (error) {
-                    console.error("Ralat:", error);
-                    alert("Berlaku ralat semasa memuat naik.");
-                }
+                const player = document.getElementById("audioPlayer");
+                player.src = URL.createObjectURL(file);
+                player.style.display = "block";
             }
         }
 
-        async function runMastering() {
-            if (!uploadedFilename) {
-                alert("Sila muat naik fail audio terlebih dahulu!");
-                return;
-            }
-
+        function goToEffects() {
             const selectedGenre = document.getElementById('genreSelect').value;
-            const activeStyle = document.querySelector('.style-btn.selected').innerText;
-            const eqVal = document.getElementById('eqSlider').value;
-            const presenceVal = document.getElementById('presenceSlider').value;
-            const widthVal = document.getElementById('widthSlider').value;
-            const dynVal = document.getElementById('dynSlider').value;
-            const trimVal = document.getElementById('trimSlider').value;
-
-            const formData = new FormData();
-            formData.append("filename", uploadedFilename);
-            formData.append("genre", selectedGenre);
-            formData.append("style", activeStyle);
-            formData.append("eq", eqVal);
-            formData.append("presence", presenceVal);
-            formData.append("width", widthVal);
-            formData.append("dynamics", dynVal);
-            formData.append("trim", trimVal);
-
-            try {
-                alert("AI sedang menganalisis trek genre " + selectedGenre + "...");
-                const response = await fetch("/process-audio", {
-                    method: "POST",
-                    body: formData
-                });
-                const result = await response.json();
-
-                if (result.url) {
-                    const player = document.getElementById("audioPlayer");
-                    player.src = result.url;
-                    player.play();
-                    alert(result.message + " Audio siap dimainkan!");
-                } else {
-                    alert("Proses mastering gagal.");
-                }
-            } catch (error) {
-                console.error("Ralat:", error);
-                alert("Berlaku ralat semasa proses AI.");
-            }
+            // Simpan pilihan genre/fail dalam localStorage jika perlu untuk dibawa ke halaman seterusnya
+            localStorage.setItem('selectedGenre', selectedGenre);
+            localStorage.setItem('audioFilename', uploadedFilename);
+            
+            // Pindah ke halaman mastering effects
+            window.location.href = "effects.html";
         }
     </script>
-
 </body>
-</html>                       
+</html>
