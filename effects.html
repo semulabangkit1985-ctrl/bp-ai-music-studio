@@ -56,7 +56,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Kad Umum */
         .card {
             background: rgba(17, 24, 39, 0.80);
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -76,7 +75,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Seksyen Atas: Visualizer & Status Audio */
         .visualizer-screen {
             height: 80px;
             background: #030712;
@@ -125,7 +123,6 @@
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
             text-align: center;
         }
 
@@ -135,7 +132,6 @@
             border-color: #3b82f6;
         }
 
-        /* Mastering Styles */
         .styles-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -160,7 +156,6 @@
             font-weight: 700;
         }
 
-        /* Sliders */
         .slider-group {
             margin-bottom: 12px;
         }
@@ -179,7 +174,6 @@
             cursor: pointer;
         }
 
-        /* AI Co-Producer */
         .ai-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -236,17 +230,25 @@
     <div class="container">
         <h1>BP AI Studio Console</h1>
 
-        <!-- KOTAK MUAT NAIK AUDIO (WAV & MP3) -->
         <div class="card">
             <div class="card-title">Muat Naik Trek Audio</div>
             <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 10px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
             <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer;" onchange="uploadAudio(this)">
-            
-            <!-- Pemain Audio Selepas Dimuat Naik -->
             <audio id="audioPlayer" controls style="width: 100%; display: none; margin-top: 12px; border-radius: 8px;"></audio>
         </div>
 
-        <!-- 1. BAHAGIAN ATAS: Visualizer & Status Audio -->
+        <div class="card">
+            <div class="card-title">Genre Lagu</div>
+            <select id="genreSelect" style="width: 100%; background: #1f2937; color: #e5e7eb; border: 1px solid #374151; padding: 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;">
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Hip Hop">Hip Hop</option>
+                <option value="Electronic">Electronic / EDM</option>
+                <option value="Acoustic / Jazz">Acoustic / Jazz</option>
+                <option value="R&B / Soul">R&B / Soul</option>
+            </select>
+        </div>
+
         <div class="card">
             <div class="visualizer-screen">
                 <div class="bar" style="animation-delay: 0.1s;"></div>
@@ -270,7 +272,6 @@
             </div>
         </div>
 
-        <!-- 2. BAHAGIAN TENGAH: Mastering Styles & Kawalan Landr -->
         <div class="card">
             <div class="card-title">Mastering Styles</div>
             <div class="styles-grid">
@@ -307,7 +308,6 @@
             </div>
         </div>
 
-        <!-- 3. BAHAGIAN BAWAH: AI Co-Producer Instrument Layers -->
         <div class="card">
             <div class="card-title">AI Co-Producer (Instrument Layers)</div>
             <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 12px;">Pilih lapisan instrumen tambahan yang ingin dijana oleh AI berdasarkan trek anda:</p>
@@ -353,7 +353,6 @@
             }
         }
 
-        // Fungsi muat naik audio ke backend FastAPI
         async function uploadAudio(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
@@ -383,13 +382,13 @@
             }
         }
 
-        // Fungsi menghantar tetapan kawalan ke Backend Python
         async function runMastering() {
             if (!uploadedFilename) {
                 alert("Sila muat naik fail audio terlebih dahulu!");
                 return;
             }
 
+            const selectedGenre = document.getElementById('genreSelect').value;
             const activeStyle = document.querySelector('.style-btn.selected').innerText;
             const eqVal = document.getElementById('eqSlider').value;
             const presenceVal = document.getElementById('presenceSlider').value;
@@ -399,6 +398,7 @@
 
             const formData = new FormData();
             formData.append("filename", uploadedFilename);
+            formData.append("genre", selectedGenre);
             formData.append("style", activeStyle);
             formData.append("eq", eqVal);
             formData.append("presence", presenceVal);
@@ -407,7 +407,7 @@
             formData.append("trim", trimVal);
 
             try {
-                alert("AI sedang menganalisis dan memproses trek anda...");
+                alert("AI sedang menganalisis trek genre " + selectedGenre + "...");
                 const response = await fetch("/process-audio", {
                     method: "POST",
                     body: formData
@@ -431,3 +431,4 @@
 
 </body>
 </html>
+
