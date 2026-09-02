@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Studio Console - Muat Naik</title>
+    <title>Mastering BP AI Music Studio</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -19,46 +19,36 @@
             color: var(--text-main);
             min-height: 100vh;
             padding: 1.5rem 1rem;
-            background-image: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
-        .container { width: 100%; max-width: 450px; }
-        header { text-align: center; margin-bottom: 2rem; }
-        header h1 { font-size: 1.5rem; color: #60a5fa; letter-spacing: 1px; font-weight: 700; }
+        .container { width: 100%; max-width: 480px; }
+        header { text-align: center; margin-bottom: 1.5rem; }
+        header h1 { font-size: 1.6rem; color: #60a5fa; letter-spacing: 0.5px; font-weight: 700; line-height: 1.3; text-transform: uppercase; }
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 1.5rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
         }
-        .section-title { font-size: 0.9rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.5rem; text-transform: uppercase; }
-        .section-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.4; }
-        .file-input-box {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .card p { font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem; }
+        .card p:last-child { margin-bottom: 0; }
+        .sub-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
         }
-        select {
-            width: 100%;
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: var(--text-main);
-            padding: 0.85rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            outline: none;
-        }
+        .sub-card h3 { font-size: 0.85rem; color: var(--text-main); font-weight: 700; margin-bottom: 0.25rem; letter-spacing: 0.5px; }
+        .sub-card p { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
         .btn-action {
             display: block;
             width: 100%;
@@ -68,7 +58,7 @@
             padding: 1rem;
             font-size: 1rem;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
@@ -81,26 +71,20 @@
 <body>
     <div class="container">
         <header>
-            <h1>BP AI STUDIO CONSOLE</h1>
+            <h1>MASTERING BP AI<br>MUSIC STUDIO</h1>
         </header>
+        
         <div class="card">
-            <div class="section-title">Muat Naik Trek Audio</div>
-            <div class="section-desc">Pilih fail format .mp3 atau .wav untuk mula diproses:</div>
-            <div class="file-input-box">
-                <input type="file" accept=".mp3,.wav" style="color: #cbd5e1; width: 100%;">
-            </div>
-            
-            <div class="section-title">Pilih Genre Lagu</div>
-            <div class="section-desc">Tetapkan genre bagi membantu AI membuat penyesuaian:</div>
-            <select>
-                <option>Malaya / Melayu</option>
-                <option>Pop / Ballad</option>
-                <option>Rock / Indie</option>
-                <option>Hip Hop / R&B</option>
-            </select>
-
-            <a href="/mastering" class="btn-action">Seterusnya ke Mastering Styles ➔</a>
+            <p>Mastering BP AI Music Studio adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
+            <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
         </div>
+
+        <div class="sub-card">
+            <h3>BP AI MUSIC STUDIO</h3>
+            <p>Memperkemas bunyi, menghidupkan karya.</p>
+        </div>
+
+        <a href="/mastering" class="btn-action">Mula Mastering ➔</a>
     </div>
 </body>
 </html>
