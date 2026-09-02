@@ -5,7 +5,6 @@ import shutil
 
 app = FastAPI()
 
-# Direktori sementara untuk simpan audio original
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -28,6 +27,13 @@ def stream_audio(filename: str):
     if os.path.exists(file_path):
         return FileResponse(file_path)
     return {"error": "Audio not found"}
+
+@app.get("/download-stem/{filename}")
+def download_stem(filename: str):
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="application/octet-stream", filename=f"stem_{filename}")
+    return {"error": "File not found"}
 
 @app.get("/", response_class=HTMLResponse)
 def main_page():
@@ -213,13 +219,8 @@ def main_page():
             padding-right: 4px;
         }
 
-        .wizard-body::-webkit-scrollbar {
-            width: 4px;
-        }
-        .wizard-body::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
+        .wizard-body::-webkit-scrollbar { width: 4px; }
+        .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
         .genre-category-title {
             font-size: 12px;
@@ -316,9 +317,7 @@ def main_page():
             cursor: pointer;
         }
         
-        .project-card:hover {
-            border-color: #22d3ee;
-        }
+        .project-card:hover { border-color: #22d3ee; }
 
         .project-status {
             display: inline-flex;
@@ -447,6 +446,32 @@ def main_page():
             font-size: 12px;
         }
 
+        /* MODAL LOADING AI MASTERING */
+        #masterModal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            gap: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid rgba(34, 211, 238, 0.2);
+            border-top: 4px solid #22d3ee;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         .hidden { display: none !important; }
 
         #toast {
@@ -469,8 +494,16 @@ def main_page():
 <audio id="audioElement" preload="auto"></audio>
 <div id="toast">Berjaya!</div>
 
+<!-- SKRIN PROSES AI MASTERING -->
+<div id="masterModal" class="hidden">
+    <div class="spinner"></div>
+    <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #22d3ee;">AI Mastering sedang diproses...</div>
+    <div style="font-size: 12px; color: #94a3b8; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
+</div>
+
 <div class="app-container">
 
+    <!-- SKRIN 1: LOGIN -->
     <div id="screenLogin" class="screen-overlay">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -497,6 +530,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 1 (1/5) -->
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
@@ -515,6 +549,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- WIZARD STEP 2 (2/5) -->
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
@@ -532,6 +567,7 @@ def main_page():
         </div>
     </div>
 
+    <!-- AI PROMPT STUDIO SCREEN -->
     <div id="screenAIPrompt" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">AI STUDIO</div>
@@ -558,10 +594,11 @@ def main_page():
         </div>
     </div>
 
+    <!-- AUDIO PLAYER & WAVEFORM SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">PLAYER & STEMS</div>
-            <div class="wizard-title" id="playerProjectTitle" title="Projek Malay Bounce Studio">Projek Malay Bounce Studio</div>
+            <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
             <div class="wizard-subtitle">Memainkan fail audio original anda secara langsung.</div>
         </div>
         
@@ -569,16 +606,11 @@ def main_page():
             <div class="waveform-box" id="waveformBox">
                 <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVEFORM VISUALIZER</div>
                 <div class="waveform-bars">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    
+         <div class="wave-bar"></div>
                 </div>
                 <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">00:00 / 00:00</div>
 
@@ -587,25 +619,27 @@ def main_page():
                 </div>
             </div>
 
-            <div class="genre-category-title">Fail Stems Berasingan</div>
+            <div class="genre-category-title">Fail Stems Berasingan (Muat Turun Sebenar)</div>
             <div class="stems-list">
                 <div class="stem-item">
                     <span>🎙️ Vokal Utama (Original)</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Stem Vokal sedia dimuat turun!')">Muat Turun ⬇</button>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
                 </div>
                 <div class="stem-item">
                     <span>🥁 Drum & Percussion</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Stem Drum sedia dimuat turun!')">Muat Turun ⬇</button>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
                 </div>
             </div>
         </div>
 
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya disimpan!')">Simpan Master 🎵</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="startAIMastering()">Simpan Master 🎵</button>
         </div>
     </div>
-     <div id="dashboardScreen" class="dashboard-container hidden">
+
+    <!-- DASHBOARD -->
+    <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
                 <span>🎧</span> Bangkit's workspace ▾
@@ -618,11 +652,12 @@ def main_page():
             <button class="dash-btn-new" onclick="nextScreen('screenAIPrompt')">+ New Project ▾</button>
         </div>
 
-        <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-            <div style="font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="dashProjectName">Projek Malay Bounce Studio</div>
-            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
-            <div class="project-status">
-                ✓ Audio original dimuat naik
+        <!-- SENARAI PROJEK DINAMIK -->
+        <div id="projectListContainer">
+            <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
+                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
+                <div class="project-status">✓ Sedia dimainkan</div>
             </div>
         </div>
 
@@ -634,6 +669,8 @@ def main_page():
 </div>
 
 <script>
+    let currentUploadedFilename = "";
+
     function showToast(msg) {
         let t = document.getElementById('toast');
         t.innerText = msg;
@@ -665,10 +702,12 @@ def main_page():
         setTimeout(() => { nextScreen('dashboardScreen'); }, 1000);
     }
 
+    // Fungsi muat naik fail audio & kemas kini senarai projek di dashboard
     async function handleAudioUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
 
+        currentUploadedFilename = file.name;
         let formData = new FormData();
         formData.append("file", file);
 
@@ -686,21 +725,54 @@ def main_page():
                 let audio = document.getElementById('audioElement');
                 audio.src = result.url;
                 
-                // Kemas kini nama fail dengan memendekkannya jika terlalu panjang
                 let fullName = file.name;
                 let displayName = fullName.length > 28 ? fullName.substring(0, 25) + '...' : fullName;
                 
                 document.getElementById('playerProjectTitle').innerText = displayName;
-                document.getElementById('playerProjectTitle.title') = fullName;
+                document.getElementById('playerProjectTitle').title = fullName;
                 document.getElementById('dashProjectName').innerText = displayName;
                 
-                showToast("Fail audio original berjaya dipasang!");
+                // Kemas kini senarai projek dinamik di dashboard
+                document.getElementById('projectListContainer').innerHTML = `
+                    <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
+                        <div style="font-weight: 700; font-size: 15px;">${displayName}</div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Fail audio original dimuat naik 🎧</div>
+                        <div class="project-status">✓ Audio original aktif</div>
+                    </div>
+                `;
+                
+                showToast("Fail audio berjaya dipasang!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
             }
         } catch (err) {
             showToast("Gagal memuat naik fail audio.");
             document.getElementById('uploadStatus').innerText = "❌ Ralat muat naik.";
         }
+    }
+
+    // Muat turun stem sebenar dari server
+    function downloadCurrentStem() {
+        if (!currentUploadedFilename) {
+            showToast("Tiada fail audio aktif untuk dimuat turun.");
+            return;
+        }
+        showToast("Memuat turun fail stem...");
+        window.location.href = `/download-stem/${encodeURIComponent(currentUploadedFilename)}`;
+    }
+
+    // Simulasi Proses AI Mastering dengan Progress Bar
+    function startAIMastering() {
+        let modal = document.getElementById('masterModal');
+        let statusText = document.getElementById('masterStatusText');
+        modal.classList.remove('hidden');
+
+        setTimeout(() => { statusText.innerText = "Menganalisis spektrum dinamik audio..."; }, 1200);
+        setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2500);
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            statusText.innerText = "Mengoptimumkan frekuensi & kompresi studio...";
+            showToast("Master file berjaya disimpan & siap!");
+        }, 3800);
     }
 
     let isPlaying = false;
@@ -753,5 +825,3 @@ def main_page():
 </body>
 </html>
 """
-
-    
