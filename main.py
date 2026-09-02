@@ -81,57 +81,58 @@ def main_page():
             overflow: hidden;
         }
 
+        /* DITUKAR KEPADA CENTER SUPAYA KANDUNGAN TERKUMPUL DI TENGAH */
         .screen-overlay {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 24px 20px;
+            padding: 20px;
             box-sizing: border-box;
             height: 100%;
             overflow: hidden;
             text-align: center;
+            gap: 16px;
         }
 
         .brand-logo {
             font-family: 'Syne', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             color: #2dd4bf;
             letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
             width: 100%;
             text-align: center;
         }
 
         .login-header {
             text-align: center;
-            margin-top: 20px;
             width: 100%;
         }
 
         .brand-logo-large {
             font-family: 'Syne', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
         }
 
         .login-subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #cbd5e1;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .social-login-container {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             width: 100%;
         }
 
@@ -140,7 +141,7 @@ def main_page():
             max-width: 130px;
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 10px;
+            padding: 10px;
             border-radius: 30px;
             color: #ffffff;
             font-size: 12px;
@@ -161,9 +162,9 @@ def main_page():
 
         .divider-text {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #94a3b8;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             width: 100%;
         }
 
@@ -176,11 +177,11 @@ def main_page():
 
         .wizard-title {
             font-family: 'Syne', sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: #ffffff;
             line-height: 1.2;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-align: center;
             width: 100%;
         }
@@ -189,18 +190,17 @@ def main_page():
             font-size: 12px;
             color: #cbd5e1;
             line-height: 1.4;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-align: center;
             width: 100%;
         }
 
         .wizard-body {
-            flex: 1;
             width: 100%;
             max-width: 400px;
+            max-height: 45vh;
             overflow-y: auto;
-            padding: 0 4px;
-            margin: 8px 0;
+            padding: 4px;
             -webkit-overflow-scrolling: touch;
             display: flex;
             flex-direction: column;
@@ -211,10 +211,10 @@ def main_page():
         .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
         .genre-category-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #2dd4bf;
-            margin: 16px 0 8px 0;
+            margin: 12px 0 6px 0;
             letter-spacing: 0.3px;
             text-align: center;
             width: 100%;
@@ -223,18 +223,18 @@ def main_page():
         .form-group {
             width: 100%;
             max-width: 360px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .form-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #e2e8f0;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-align: center;
             width: 100%;
         }
@@ -242,11 +242,11 @@ def main_page():
         .form-input {
             background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 14px;
+            padding: 10px 14px;
             border-radius: 12px;
             width: 100%;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             box-sizing: border-box;
             outline: none;
             backdrop-filter: blur(5px);
@@ -262,7 +262,7 @@ def main_page():
         .url-helper {
             font-size: 11px;
             color: #34d399;
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 500;
             text-align: center;
             width: 100%;
@@ -272,7 +272,7 @@ def main_page():
             text-align: center;
             font-size: 12px;
             color: #38bdf8;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             cursor: pointer;
             font-weight: 500;
             width: 100%;
@@ -284,13 +284,13 @@ def main_page():
             align-items: center;
             justify-content: center;
             gap: 14px;
-            margin-top: 6px;
+            margin-top: 4px;
             width: 100%;
         }
 
         .avatar-circle {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             background: #65a30d;
             border-radius: 50%;
             display: flex;
@@ -298,7 +298,7 @@ def main_page():
             justify-content: center;
             color: white;
             font-family: 'Syne', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             position: relative;
         }
@@ -309,13 +309,13 @@ def main_page():
             right: 0;
             background: #0f172a;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             border: 2px solid white;
         }
 
@@ -324,16 +324,16 @@ def main_page():
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
         }
 
         .landr-pill {
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 25px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             color: #ffffff;
             cursor: pointer;
@@ -356,21 +356,20 @@ def main_page():
 
         .wizard-footer {
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(10px);
+            background: transparent;
         }
 
         .btn-text {
             background: none;
             border: none;
             color: #94a3b8;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
         }
@@ -380,8 +379,8 @@ def main_page():
             color: #0f172a;
             font-family: 'Syne', sans-serif;
             font-weight: 700;
-            font-size: 13px;
-            padding: 11px 24px;
+            font-size: 12px;
+            padding: 10px 22px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
@@ -468,12 +467,12 @@ def main_page():
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 14px;
-            padding: 16px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 10px;
             backdrop-filter: blur(8px);
             width: 100%;
             max-width: 360px;
@@ -483,7 +482,7 @@ def main_page():
             display: flex;
             align-items: center;
             gap: 4px;
-            height: 40px;
+            height: 35px;
             width: 100%;
             justify-content: center;
         }
@@ -502,8 +501,8 @@ def main_page():
 
         @keyframes soundWave {
             0% { height: 8px; }
-            50% { height: 35px; }
-            100% { height: 14px; }
+            50% { height: 30px; }
+            100% { height: 12px; }
         }
 
         .wave-bar:nth-child(2) { animation-delay: 0.1s; }
@@ -514,14 +513,14 @@ def main_page():
         .control-btn-main {
             background: #2dd4bf;
             color: #0f172a;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
         }
@@ -529,13 +528,13 @@ def main_page():
         .stem-item {
             background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             backdrop-filter: blur(5px);
             width: 100%;
             max-width: 360px;
@@ -617,20 +616,18 @@ def main_page():
 
             <div class="divider-text">atau melalui e-mel</div>
 
-            <div class="form-group" style="margin: 0 auto 14px auto;">
+            <div class="form-group" style="margin: 0 auto 12px auto;">
                 <input type="email" class="form-input" placeholder="E-mel anda">
             </div>
 
-            <div class="form-group" style="margin: 0 auto 14px auto;">
+            <div class="form-group" style="margin: 0 auto 12px auto;">
                 <input type="password" class="form-input" placeholder="Kata laluan">
             </div>
 
             <div class="forgot-password" onclick="alert('Fungsi Lupa Kata Laluan')">Lupa kata laluan?</div>
 
-            <button class="btn-primary" style="width: 100%; padding: 13px;" onclick="nextScreen('profileScreen')">Log Masuk</button>
+            <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="nextScreen('profileScreen')">Log Masuk</button>
         </div>
-
-        <div></div>
     </div>
 
     <!-- SKRIN 2: KONFIGURASI PROFIL -->
@@ -667,10 +664,10 @@ def main_page():
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('loginScreen')">← Back</button>
             <button class="btn-primary" onclick="nextScreen('roleScreen')">Next →</button>
-                </div>
+        </div>
     </div>
 
-    <!-- SKRIN 3: PERANAN KREATOR -->
+       <!-- SKRIN 3: PERANAN KREATOR -->
     <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -679,7 +676,7 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <div style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #ffffff; text-align: center; width: 100%;">How would you best describe yourself?</div>
+            <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #ffffff; text-align: center; width: 100%;">How would you best describe yourself?</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill active" onclick="togglePill(this)">Producer</div>
                 <div class="landr-pill" onclick="togglePill(this)">Musician</div>
@@ -879,12 +876,12 @@ def main_page():
                     <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                     <div class="wave-bar"></div><div class="wave-bar"></div>
                 </div>
-                <div style="font-size: 13px; font-weight: 700; color: #2dd4bf;" id="playerTime">02:34 / 03:45</div>
+                <div style="font-size: 12px; font-weight: 700; color: #2dd4bf;" id="playerTime">02:34 / 03:45</div>
 
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
-            <div style="font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 8px; width: 100%; text-align: center;">Fail Stems Berasingan</div>
+            <div style="font-size: 11px; font-weight: 700; color: #ffffff; margin-bottom: 6px; width: 100%; text-align: center;">Fail Stems Berasingan</div>
             <div class="stem-item">
                 <span>🎙️ Vokal Utama (AI)</span>
                 <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
@@ -917,21 +914,21 @@ def main_page():
             </div>
         </div>
 
-        <h1 style="font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 14px 0; text-align: center; width: 100%;">Overview</h1>
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin: 0 0 12px 0; text-align: center; width: 100%;">Overview</h1>
 
         <div id="projectListContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-                <div style="font-weight: 700; font-size: 14px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+                <div style="font-weight: 700; font-size: 13px;" id="dashProjectName">Projek Malay Bounce Studio</div>
                 <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
                 <div class="project-status">✓ Sedia dimainkan</div>
             </div>
         </div>
 
-        <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 15px;">
+        <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 12px;">
             + Muat naik fail audio baru
             <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
         </div>
-        <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 5px; width: 100%;"></div>
+        <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 4px; width: 100%;"></div>
     </div>
 
 </div>
@@ -1016,7 +1013,7 @@ def main_page():
     function startAIMastering() {
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
-        modal.classList.remove('hidden');
+        modal.classList.ordinari?.remove('hidden') || modal.classList.remove('hidden');
 
         setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
@@ -1039,8 +1036,8 @@ def main_page():
             btn.innerText = '⏸';
         } else {
             audio.pause();
-            
-      box.classList.remove('playing');
+ 
+    box.classList.remove('playing');
             btn.innerText = '▶';
         }
     }
