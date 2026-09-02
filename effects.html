@@ -1,386 +1,83 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Mastering & Effects - BP AI Music Studio</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+import os
+import urllib.parse
+import shutil
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
-        body {
-            background-image: url('/kl.jpg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-color: #0b0f19;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-        }
+app = FastAPI()
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 15, 25, 0.60);
-            z-index: -1;
-        }
+# Direktori untuk menyimpan fail audio yang dimuat naik
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            z-index: 1;
-        }
+# Paparan Halaman Utama (index.html)
+@app.get("/", response_class=HTMLResponse)
+async def read_index():
+    if os.path.exists("index.html"):
+        with open("index.html", "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Fail index.html tidak dijumpai</h1>"
 
-        h1 {
-            font-size: 1.3rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #3b82f6;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
+# Paparan Halaman Studio Konsol (effects.html)
+@app.get("/effects", response_class=HTMLResponse)
+async def read_effects():
+    if os.path.exists("effects.html"):
+        with open("effects.html", "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Fail effects.html tidak dijumpai</h1>"
 
-        /* Kad Umum */
-        .card {
-            background: rgba(17, 24, 39, 0.80);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 16px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
+# Laluan untuk memuat turun / memaparkan gambar latar belakang KL
+@app.get("/kl.jpg.png")
+async def get_background():
+    if os.path.exists("kl.jpg.png"):
+        return FileResponse("kl.jpg.png")
+    raise HTTPException(status_code=404, detail="Background kl.jpg.png tidak dijumpai")
 
-        .card-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #93c5fd;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+# Laluan untuk menerima fail audio (MP3 / WAV) yang dimuat naik
+@app.post("/upload-audio")
+async def upload_audio(file: UploadFile = File(...)):
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    encoded_filename = urllib.parse.quote(file.filename)
+    return {
+        "filename": file.filename,
+        "url": f"/stream-audio/{encoded_filename}"
+    }
 
-        /* Seksyen Atas: Visualizer & Status Audio */
-        .visualizer-screen {
-            height: 80px;
-            background: #030712;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
+# Laluan untuk penstriman atau memainkan fail audio
+@app.get("/stream-audio/{filename}")
+async def stream_audio(filename: str):
+    decoded_filename = urllib.parse.unquote(filename)
+    file_path = os.path.join(UPLOAD_DIR, decoded_filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    raise HTTPException(status_code=404, detail="Fail audio tidak dijumpai")
 
-        .bar {
-            width: 6px;
-            background: linear-gradient(to top, #2563eb, #60a5fa);
-            border-radius: 3px;
-            animation: pulseWave 1.2s infinite ease-in-out alternate;
-        }
-
-        @keyframes pulseWave {
-            0% { height: 15%; }
-            100% { height: 85%; }
-        }
-
-        .meter-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #9ca3af;
-            margin-bottom: 12px;
-        }
-
-        .quick-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .toggle-btn {
-            background: rgba(31, 41, 55, 0.9);
-            border: 1px solid #374151;
-            color: #d1d5db;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .toggle-btn.active {
-            background: #2563eb;
-            color: #ffffff;
-            border-color: #3b82f6;
-        }
-
-        /* Mastering Styles */
-        .styles-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .style-btn {
-            background: #1f2937;
-            border: 1px solid #374151;
-            color: #e5e7eb;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .style-btn.selected {
-            background: #1d4ed8;
-            border-color: #60a5fa;
-            font-weight: 700;
-        }
-
-        /* Sliders */
-        .slider-group {
-            margin-bottom: 12px;
-        }
-
-        .slider-group label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #d1d5db;
-            margin-bottom: 4px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: #3b82f6;
-            cursor: pointer;
-        }
-
-        /* AI Co-Producer */
-        .ai-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .ai-chip {
-            background: rgba(31, 41, 55, 0.7);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .ai-chip input {
-            accent-color: #3b82f6;
-        }
-
-        .btn-action {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #9ca3af;
-            font-size: 0.85rem;
-            text-decoration: none;
-        }
-        .back-link:hover { color: #fff; }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>BP AI Studio Console</h1>
-
-        <!-- KOTAK MUAT NAIK AUDIO (WAV & MP3) -->
-        <div class="card">
-            <div class="card-title">Muat Naik Trek Audio</div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 10px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
-            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer;" onchange="uploadAudio(this)">
-            
-            <!-- Pemain Audio Selepas Dimuat Naik -->
-            <audio id="audioPlayer" controls style="width: 100%; display: none; margin-top: 12px; border-radius: 8px;"></audio>
-        </div>
-
-        <!-- 1. BAHAGIAN ATAS: Visualizer & Status Audio -->
-        <div class="card">
-            <div class="visualizer-screen">
-                <div class="bar" style="animation-delay: 0.1s;"></div>
-                <div class="bar" style="animation-delay: 0.3s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-                <div class="bar" style="animation-delay: 0.5s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-                <div class="bar" style="animation-delay: 0.4s;"></div>
-                <div class="bar" style="animation-delay: 0.1s;"></div>
-                <div class="bar" style="animation-delay: 0.3s;"></div>
-                <div class="bar" style="animation-delay: 0.6s;"></div>
-                <div class="bar" style="animation-delay: 0.2s;"></div>
-            </div>
-            <div class="meter-info">
-                <span>Loudness: <strong style="color: #34d399;">-14.2 LUFS</strong></span>
-                <span>Peak: <strong style="color: #fbbf24;">-0.5 dB</strong></span>
-            </div>
-            <div class="quick-controls">
-                <button class="toggle-btn" id="bypassBtn" onclick="toggleBtn('bypassBtn')">Bypass</button>
-                <button class="toggle-btn active" id="gainBtn" onclick="toggleBtn('gainBtn')">Gain Match</button>
-            </div>
-        </div>
-
-        <!-- 2. BAHAGIAN TENGAH: Mastering Styles & Kawalan Landr -->
-        <div class="card">
-            <div class="card-title">Mastering Styles</div>
-            <div class="styles-grid">
-                <div class="style-btn selected" onclick="selectStyle(this)">Warm</div>
-                <div class="style-btn" onclick="selectStyle(this)">Open</div>
-                <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
-            </div>
-
-            <div class="card-title" style="margin-top: 16px;">Dynamics & Tonal Controls</div>
-            
-            <div class="slider-group">
-                <label><span>EQ Balance (Low/High)</span> <span id="eqVal">+2.0 dB</span></label>
-                <input type="range" id="eqSlider" min="-10" max="10" step="0.5" value="2" oninput="updateVal('eqSlider', 'eqVal', ' dB', true)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Presence & De-Esser</span> <span id="presenceVal">45%</span></label>
-                <input type="range" id="presenceSlider" min="0" max="100" value="45" oninput="updateVal('presenceSlider', 'presenceVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Stereo Width</span> <span id="widthVal">60%</span></label>
-                <input type="range" id="widthSlider" min="0" max="100" value="60" oninput="updateVal('widthSlider', 'widthVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Dynamics Control</span> <span id="dynVal">30%</span></label>
-                <input type="range" id="dynSlider" min="0" max="100" value="30" oninput="updateVal('dynSlider', 'dynVal', '%', false)">
-            </div>
-            
-            <div class="slider-group">
-                <label><span>Input Trim / Output</span> <span id="trimVal">0.0 dB</span></label>
-                <input type="range" id="trimSlider" min="-6" max="6" step="0.1" value="0" oninput="updateVal('trimSlider', 'trimVal', ' dB', true)">
-            </div>
-        </div>
-
-        <!-- 3. BAHAGIAN BAWAH: AI Co-Producer Instrument Layers -->
-        <div class="card">
-            <div class="card-title">AI Co-Producer (Instrument Layers)</div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 12px;">Pilih lapisan instrumen tambahan yang ingin dijana oleh AI berdasarkan trek anda:</p>
-            <div class="ai-grid">
-                <label class="ai-chip"><span>Drum</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Bass</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Guitar</span> <input type="checkbox"></label>
-                <label class="ai-chip"><span>Piano / Keys</span> <input type="checkbox" checked></label>
-                <label class="ai-chip"><span>Synth</span> <input type="checkbox"></label>
-                <label class="ai-chip"><span>Trumpet</span> <input type="checkbox"></label>
-            </div>
-            <button class="btn-action">Jalankan AI Analisis & Proses ➔</button>
-        </div>
-
-        <a href="/" class="back-link">← Kembali ke Halaman Utama</a>
-    </div>
-
-    <script>
-        function toggleBtn(id) {
-            const btn = document.getElementById(id);
-            btn.classList.toggle('active');
-        }
-
-        function selectStyle(element) {
-            document.querySelectorAll('.style-bin, .style-btn').forEach(b => b.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
-        // Fungsi supaya nombor di sebelah slider bergerak ikut sentuhan
-        function updateVal(sliderId, displayId, unit, isDecimal) {
-            const slider = document.getElementById(sliderId);
-            const display = document.getElementById(displayId);
-            let val = parseFloat(slider.value);
-            if (isDecimal) {
-                if (val > 0) {
-                    display.innerText = "+" + val.toFixed(1) + unit;
-                } else {
-                    display.innerText = val.toFixed(1) + unit;
-                }
-            } else {
-                display.innerText = val + unit;
-            }
-        }
-
-        // Fungsi muat naik audio ke backend FastAPI
-        async function uploadAudio(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                const formData = new FormData();
-                formData.append("file", file);
-
-                try {
-                    const response = await fetch("/upload-audio", {
-                        method: "POST",
-                        body: formData
-                    });
-                    const result = await response.json();
-                    
-                    if (result.url) {
-                        const player = document.getElementById("audioPlayer");
-                        player.src = result.url;
-                        player.style.display = "block";
-                        alert("Berjaya muat naik: " + result.filename);
-                    } else {
-                        alert("Gagal memuat naik fail.");
-                    }
-                } catch (error) {
-                    console.error("Ralat:", error);
-                    alert("Berlaku ralat semasa memuat naik.");
-                }
-            }
-        }
-    </script>
-
-</body>
-</html>
+# Laluan untuk memproses audio mengikut tetapan mastering pengguna
+@app.post("/process-audio")
+async def process_audio(
+    filename: str = Form(...),
+    style: str = Form(...),
+    eq: float = Form(...),
+    presence: float = Form(...),
+    width: float = Form(...),
+    dynamics: float = Form(...),
+    trim: float = Form(...)
+):
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    if not os.path.exists(file_path):
+        return {"error": "Fail audio asal tidak dijumpai"}
+    
+    # Di sini nanti kita boleh letak kod pustaka audio Python (seperti pydub) 
+    # untuk ubah volume, EQ, atau kesan berdasarkan nilai slider yang dihantar.
+    # Untuk permulaan, pelayan menerima tetapan ini dan mengembalikan semula fail untuk dimainkan.
+    
+    encoded_filename = urllib.parse.quote(filename)
+    return {
+        "message": f"Mastering berjaya dengan gaya {style}!",
+        "url": f"/stream-audio/{encoded_filename}"
+    }
+    
