@@ -839,4 +839,352 @@
     </script>
 </body>
 </html>
-                                                       
+         <div class="mode-info">
+                        <h3>🎛️ AI Co-Producer (Stems)</h3>
+                        <p>Asingkan & atur lapisan drum, bass & vokal</p>
+                    </div>
+                    <div class="mode-arrow">➔</div>
+                </div>
+                <div class="mode-card" onclick="showConsole('eq')">
+                    <div class="mode-info">
+                        <h3>📊 Tonal Balance & EQ</h3>
+                        <p>Kawal dinamik spektrum bunyi secara terperinci</p>
+                    </div>
+                    <div class="mode-arrow">➔</div>
+                </div>
+            </div>
+            <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
+        </div>
+
+        <div id="console-view">
+            <header>
+                <h1 id="console-title">Mastering Console</h1>
+            </header>
+
+            <div class="top-controls">
+                <button class="btn-top" id="btn-bypass" onclick="toggleBypass(this)">Bypass</button>
+                <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
+            </div>
+
+            <div id="panel-mastering" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Muat Naik Fail Audio</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-1').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
+                        <div class="file-name" id="file-name-1">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-1" accept="audio/*" onchange="handleFileSelect(this, 'file-name-1', 'audio-player-1')">
+                    </div>
+                    <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
+
+                    <div class="section-title">Mastering Styles</div>
+                    <div class="style-buttons">
+                        <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
+                        <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
+                        <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
+                    </div>
+
+                    <div class="section-title">Loudness & Dynamics</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
+                        <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
+                        <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
+                    </div>
+                </div>
+                <button class="btn-action" onclick="runAIProcess('AI Mastering sedang diproses mengikut genre pilihan anda!')">Proses AI Mastering ➔</button>
+            </div>
+
+            <div id="panel-coproducer" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Muat Naik Trek Stems</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail lagu (.mp3, .wav, .m4a)</div>
+                        <div class="file-name" id="file-name-2">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-2" accept="audio/*" onchange="handleFileSelect(this, 'file-name-2', 'audio-player-2')">
+                    </div>
+                    <audio id="audio-player-2" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
+
+                    <div class="section-title">Stem Separation Layers</div>
+                    <div class="instrument-grid">
+                        <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Bassline</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Melody / Synth</span><input type="checkbox" checked></label>
+                    </div>
+
+                    <div class="section-title">Separation Quality</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>AI Artifact Reduction</span><span class="control-value" id="c1">90%</span></div>
+                        <input type="range" min="50" max="100" value="90" oninput="document.getElementById('c1').textContent = this.value + '%'">
+                    </div>
+                </div>
+                <button class="btn-action" onclick="runAIProcess('Pemprosesan Stem AI sedang berjalan untuk mengasingkan lapisan audio!')">Asingkan Stems ➔</button>
+            </div>
+
+            <div id="panel-eq" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Muat Naik Audio EQ</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-3').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
+                        <div class="file-name" id="file-name-3">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-3" accept="audio/*" onchange="handleFileSelect(this, 'file-name-3', 'audio-player-3')">
+                    </div>
+                    <audio id="audio-player-3" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
+
+                    <div class="section-title">Multi-Band Spectrum EQ</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>Low Band (Sub & Bass)</span><span class="control-value" id="e1">+0.5 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="0.5" oninput="updateEQBand('low', this.value)">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Mid Band (Vocal & Lead)</span><span class="control-value" id="e2">+2.0 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="2.0" oninput="updateEQBand('mid', this.value)">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>High Band (Air & Brilliance)</span><span class="control-value" id="e3">+1.0 dB</span></div>
+                        <input type="range" min="-10" max="10" step="0.1" value="1.0" oninput="updateEQBand('high', this.value)">
+                    </div>
+                </div>
+                <button class="btn-action" onclick="runAIProcess('Pelarasan EQ & Tonal Balance sedang dioptimumkan!')">Optimumkan Tonal ➔</button>
+            </div>
+
+            <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
+        </div>
+    </div>
+
+    <script>
+        // Web Audio API State Variables
+        let audioCtx = null;
+        let sourceNodes = new Map();
+        let eqFilters = new Map();
+        let compressorNodes = new Map();
+        let isBypassed = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedGenres = JSON.parse(localStorage.getItem('bp_ai_genres') || '[]');
+            if (savedGenres.length > 0) {
+                document.querySelectorAll('.genre-pill').forEach(pill => {
+                    if (savedGenres.includes(pill.textContent.trim())) {
+                        pill.classList.add('active');
+                    }
+                });
+            }
+        });
+
+        function showLanding() {
+            document.getElementById('landing-view').style.display = 'block';
+            document.getElementById('genre-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'none';
+        }
+
+        function showGenrePicker() {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('genre-view').style.display = 'block';
+            document.getElementById('mode-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showModeSelector() {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('genre-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'block';
+            document.getElementById('console-view').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showConsole(mode) {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('genre-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            document.getElementById('panel-mastering').style.display = 'none';
+            document.getElementById('panel-coproducer').style.display = 'none';
+            document.getElementById('panel-eq').style.display = 'none';
+            
+            const titleEl = document.getElementById('console-title');
+            
+            if(mode === 'mastering') {
+                titleEl.textContent = "AI Audio Mastering";
+                document.getElementById('panel-mastering').style.display = 'block';
+            } else if(mode === 'coproducer') {
+                titleEl.textContent = "AI Co-Producer (Stems)";
+                document.getElementById('panel-coproducer').style.display = 'block';
+            } else if(mode === 'eq') {
+                titleEl.textContent = "Tonal Balance & EQ";
+                document.getElementById('panel-eq').style.display = 'block';
+            }
+        }
+
+        function toggleGenre(el) {
+            el.classList.toggle('active');
+            const activePills = [];
+            document.querySelectorAll('.genre-pill.active').forEach(pill => {
+                activePills.push(pill.textContent.trim());
+            });
+            localStorage.setItem('bp_ai_genres', JSON.stringify(activePills));
+        }
+
+        function setMasteringStyle(styleName, el) {
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+
+            // Apply style characteristics via Web Audio API nodes if active
+            eqFilters.forEach((filter, id) => {
+                if (styleName === 'Warm') {
+                    filter.type = 'lowshelf';
+                    filter.frequency.value = 250;
+                    filter.gain.value = 3.0; // Boost warmth
+                } else if (styleName === 'Open') {
+                    filter.type = 'highshelf';
+                    filter.frequency.value = 4000;
+                    filter.gain.value = 3.5; // Boost clarity/air
+                } else if (styleName === 'Punchy') {
+                    filter.type = 'peaking';
+                    filter.frequency.value = 1000;
+                    filter.gain.value = 2.0; // Mid punch
+                }
+            });
+        }
+
+        function handleFileSelect(input, targetId, playerId) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById(targetId).textContent = file.name;
+                
+                const audioPlayer = document.getElementById(playerId);
+                if (audioPlayer) {
+                    audioPlayer.src = URL.createObjectURL(file);
+                    audioPlayer.style.display = 'block';
+                }
+            }
+        }
+
+        // Web Audio API Setup for Real-time FX
+        function setupAudioFX(audioEl) {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const playerId = audioEl.id;
+            if (!sourceNodes.has(playerId)) {
+                try {
+                    const source = audioCtx.createMediaElementSource(audioEl);
+                    const filter = audioCtx.createBiquadFilter();
+                    const compressor = audioCtx.createDynamicsCompressor();
+
+                    // Initial default values for mastering
+                    filter.type = 'lowshelf';
+                    filter.frequency.value = 250;
+                    filter.gain.value = 2.0;
+
+                    compressor.threshold.value = -24;
+                    compressor.knee.value = 30;
+                    compressor.ratio.value = 4;
+                    compressor.attack.value = 0.003;
+                    compressor.release.value = 0.250;
+
+                    // Connect chain: Source -> Filter -> Compressor -> Destination
+                    source.connect(filter);
+                    filter.connect(compressor);
+                    compressor.connect(audioCtx.destination);
+
+                    sourceNodes.set(playerId, source);
+                    eqFilters.set(playerId, filter);
+                    compressorNodes.set(playerId, compressor);
+                } catch (e) {
+                    console.log("Audio node already connected:", e);
+                }
+            }
+        }
+
+        function toggleBypass(btn) {
+            btn.classList.toggle('active');
+            isBypassed = btn.classList.contains('active');
+            
+            // Connect directly or through FX chains
+            compressorNodes.forEach((comp, id) => {
+                const audioEl = document.getElementById(id);
+                const source = sourceNodes.get(id);
+                if (source && comp) {
+                    source.disconnect();
+                    if (isBypassed) {
+                        source.connect(audioCtx.destination);
+                    } else {
+                        source.connect(eqFilters.get(id));
+                        eqFilters.get(id).connect(comp);
+                        comp.connect(audioCtx.destination);
+                    }
+                }
+            });
+        }
+
+        function updateLoudness(value) {
+            document.getElementById('m1').textContent = value + ' LUFS';
+            const ratioVal = Math.abs(parseFloat(value)) / 2;
+            compressorNodes.forEach(comp => {
+                comp.ratio.value = ratioVal;
+            });
+        }
+
+        function updatePeak(value) {
+            document.getElementById('m2').textContent = value + ' dB';
+        }
+
+        function updateEQBand(band, value) {
+            document.getElementById(band === 'low' ? 'e1' : band === 'mid' ? 'e2' : 'e3').textContent = (value > 0 ? '+' : '') + value + ' dB';
+            eqFilters.forEach(filter => {
+                if (band === 'low') {
+                    filter.frequency.value = 150;
+                    filter.gain.value = parseFloat(value);
+                } else if (band === 'mid') {
+                    filter.frequency.value = 1000;
+                    filter.gain.value = parseFloat(value);
+                } else if (band === 'high') {
+                    filter.frequency.value = 6000;
+                    filter.gain.value = parseFloat(value);
+                }
+            });
+        }
+
+        function runAIProcess(successMessage) {
+            const overlay = document.getElementById('loading-overlay');
+            const fill = document.getElementById('progress-fill');
+            const status = document.getElementById('load-status');
+            
+            overlay.style.display = 'flex';
+            fill.style.width = '0%';
+            status.textContent = "Menganalisis fail audio...";
+            
+            setTimeout(() => {
+                fill.style.width = '40%';
+                status.textContent = "Memproses spektrum frekuensi & AI model...";
+            }, 800);
+
+            setTimeout(() => {
+                fill.style.width = '80%';
+                status.textContent = "Melakukan finalisasi loudness & mastering...";
+            }, 1800);
+
+            setTimeout(() => {
+                fill.style.width = '100%';
+                status.textContent = "Selesai!";
+            }, 2600);
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                alert(successMessage + "\n(Simulasi pemprosesan berjaya!)");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>                                                   
