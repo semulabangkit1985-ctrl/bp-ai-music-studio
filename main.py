@@ -35,8 +35,8 @@ def read_result(request: Request):
 def read_studioai(request: Request):
     return templates.TemplateResponse(request, "studioai.html")
 
-# Laluan untuk paparan latar belakang bandar Kuala Lumpur
-@app.get("/images (43.jpeg)")
+# Laluan khas yang bersih untuk imej latar belakang KL
+@app.get("/kl-bg.jpeg")
 def get_kl_bg():
     if os.path.exists("images (43.jpeg)"):
         return FileResponse("images (43.jpeg)")
