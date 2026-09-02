@@ -79,7 +79,7 @@
         }
         .section-title { font-size: 0.8rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Genre Pills (Gaya Pilihan Landr) */
+        /* Genre Pills */
         .genre-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
         .genre-pill {
             background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
@@ -122,7 +122,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- 1. LANDING PAGE -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -134,7 +133,6 @@
             <button class="btn-action" onclick="showModeSelector()">Mula Mastering ➔</button>
         </div>
 
-        <!-- 2. MODE SELECTOR -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -165,7 +163,6 @@
             <button class="btn-back" onclick="showLanding()">← Kembali</button>
         </div>
 
-        <!-- 3. CONSOLE DAW VIEW -->
         <div id="console-view">
             <header>
                 <h1 id="console-title">Mastering Console</h1>
@@ -176,24 +173,22 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
-            <!-- KAD PILIHAN GENRE / VIBE (Diambil dari senarai Nusantara & Moden) -->
-            <div class="card">
-                <div class="section-title">Pilih Genre & Vibe Lagu</div>
-                <div class="genre-pills">
-                    <div class="genre-pill active" onclick="selectGenre(this)">Malay Phonk</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Pop Melayu</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Rock Melayu</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Malay Bounce</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Balada Melayu</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Dangdut / Zapin</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">EDM / Electronic</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Hip Hop / Trap</div>
-                    <div class="genre-pill" onclick="selectGenre(this)">Cinematic / Epic</div>
-                </div>
-            </div>
-
-            <!-- PANEL 1: MASTERING -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
+                <div class="card">
+                    <div class="section-title">Pilih Genre & Vibe Lagu</div>
+                    <div class="genre-pills">
+                        <div class="genre-pill active" onclick="selectGenre(this)">Malay Phonk</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Pop Melayu</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Rock Melayu</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Malay Bounce</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Balada Melayu</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Dangdut / Zapin</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">EDM / Electronic</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Hip Hop / Trap</div>
+                        <div class="genre-pill" onclick="selectGenre(this)">Cinematic / Epic</div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="section-title">Mastering Styles</div>
                     <div class="style-buttons">
@@ -212,10 +207,9 @@
                         <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="document.getElementById('m2').textContent = this.value + ' dB'">
                     </div>
                 </div>
-                <button class="btn-action" onclick="alert('AI Mastering sedang diproses berdasarkan genre dipilih!')">Proses AI Mastering ➔</button>
+                <button class="btn-action" onclick="alert('AI Mastering sedang diproses!')">Proses AI Mastering ➔</button>
             </div>
 
-            <!-- PANEL 2: CO-PRODUCER -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Stem Separation Layers</div>
@@ -235,7 +229,6 @@
                 <button class="btn-action" onclick="alert('Pemprosesan Stem AI sedang berjalan!')">Asingkan Stems ➔</button>
             </div>
 
-            <!-- PANEL 3: EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Multi-Band Spectrum EQ</div>
