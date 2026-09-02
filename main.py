@@ -668,7 +668,7 @@ def main_page():
     </div>
 
     <!-- SKRIN 3: PERANAN KREATOR -
-    <div id="roleScreen" class="screen-overlay hidden">
+       <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">What best represents you?</div>
