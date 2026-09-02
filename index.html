@@ -3,148 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio</title>
+    <title>BP AI Studio Console - Muat Naik</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #141c2e;
+            --card-border: #1e293b;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
-            background-image: url('/kl.jpg.png');
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            background-image: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-color: #0b0f19;
-            color: #ffffff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            position: relative;
         }
-
-        /* Lapisan gelap 50% supaya gambar KL lebih jelas kelihatan */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 15, 25, 0.50);
-            z-index: -1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #3b82f6;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
+        .container { width: 100%; max-width: 450px; }
+        header { text-align: center; margin-bottom: 2rem; }
+        header h1 { font-size: 1.5rem; color: #60a5fa; letter-spacing: 1px; font-weight: 700; }
         .card {
-            background: rgba(17, 24, 39, 0.75);
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            text-align: left;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-
-        .card p {
-            font-size: 0.92rem;
-            line-height: 1.6;
-            color: #e5e7eb;
-            margin-bottom: 14px;
-        }
-
-        .badge-box {
-            background: rgba(31, 41, 55, 0.8);
-            border-left: 4px solid #3b82f6;
+        .section-title { font-size: 0.9rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .section-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.4; }
+        .file-input-box {
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 24px;
-            text-align: left;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            backdrop-filter: blur(8px);
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-
-        .badge-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
+        select {
+            width: 100%;
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: var(--text-main);
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            outline: none;
         }
-
-        .badge-desc {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            font-style: italic;
-        }
-
-        .btn {
+        .btn-action {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: #ffffff;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 1rem;
             font-size: 1rem;
             font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
             text-align: center;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: background 0.2s;
         }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
+        .btn-action:hover { background-color: #2563eb; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>Mastering BP AI Music Studio</h1>
-
+        <header>
+            <h1>BP AI STUDIO CONSOLE</h1>
+        </header>
         <div class="card">
-            <p>
-                Mastering BP AI Music Studio adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
-            </p>
-            <p>
-                Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap — sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
-            </p>
-        </div>
+            <div class="section-title">Muat Naik Trek Audio</div>
+            <div class="section-desc">Pilih fail format .mp3 atau .wav untuk mula diproses:</div>
+            <div class="file-input-box">
+                <input type="file" accept=".mp3,.wav" style="color: #cbd5e1; width: 100%;">
+            </div>
+            
+            <div class="section-title">Pilih Genre Lagu</div>
+            <div class="section-desc">Tetapkan genre bagi membantu AI membuat penyesuaian:</div>
+            <select>
+                <option>Malaya / Melayu</option>
+                <option>Pop / Ballad</option>
+                <option>Rock / Indie</option>
+                <option>Hip Hop / R&B</option>
+            </select>
 
-        <div class="badge-box">
-            <div class="badge-title">BP AI MUSIC STUDIO</div>
-            <div class="badge-desc">Memperkemas bunyi, menghidupkan karya.</div>
+            <a href="/mastering" class="btn-action">Seterusnya ke Mastering Styles ➔</a>
         </div>
-
-        <!-- Pautan terus ke halaman kesan konsol studio -->
-        <a href="/effects" class="btn">Mula Mastering ➔</a>
     </div>
-
 </body>
 </html>
