@@ -3,155 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Studio Console - Mastering & Co-Producer</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #141c2e;
-            --card-border: #1e293b;
-            --accent-blue: #3b82f6;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 1.5rem 1rem;
-            background-image: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-        .container { max-width: 550px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 2rem; }
-        header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #60a5fa; }
-        .top-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-        .btn-top {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 0.85rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .btn-top.active { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.1); }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-        .section-title { font-size: 0.9rem; font-weight: 700; color: #93c5fd; margin-bottom: 1rem; text-transform: uppercase; }
-        .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
-        .style-btn {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            color: var(--text-muted);
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-        }
-        .style-btn.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
-        .control-group { margin-bottom: 1.25rem; }
-        .control-header { display: flex; justifyContent: space-between; font-size: 0.9rem; margin-bottom: 0.4rem; color: #e2e8f0; }
-        .control-value { color: #93c5fd; font-weight: 600; }
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            background: #1e293b;
-            border-radius: 3px;
-            outline: none;
-            -webkit-appearance: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--accent-blue);
-            cursor: pointer;
-        }
-        .instrument-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
-        .instrument-checkbox {
-            background-color: #1a2234;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 0.85rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .instrument-name { font-size: 0.9rem; color: #cbd5e1; }
-        .btn-action {
-            width: 100%;
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-        }
-    </style>
+    <title>Konsol Mastering - BP AI Music Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>BP AI STUDIO CONSOLE</h1>
-        </header>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col justify-between">
+    <header class="p-6 border-b border-gray-800 flex justify-between items-center">
+        <h1 class="text-xl font-bold tracking-wider text-cyan-400">DAW MASTERING CONSOLE</h1>
+        <a href="/" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition">← Muat Naik Semula</a>
+    </header>
 
-        <div class="top-controls">
-            <button class="btn-top" onclick="this.classList.toggle('active')">Bypass</button>
-            <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
+    <main class="flex-grow max-w-4xl w-full mx-auto p-6 space-y-6">
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold mb-2 text-cyan-300">Fail Aktif: <span class="text-white font-normal">{{ filename if filename else 'Tiada Fail Dipilih' }}</span></h2>
+            <p class="text-xs text-gray-400">Laraskan parameter pemprosesan AI di bawah atau guna pratetap automatik.</p>
         </div>
 
-        <div class="card">
-            <div class="section-title">Mastering Styles</div>
-            <div class="style-buttons">
-                <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
-                <div class="style-btn" onclick="selectStyle(this)">Open</div>
-                <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
+                <h3 class="font-semibold text-sm text-gray-300 uppercase tracking-wider">Pilihan Genre / Vibe</h3>
+                <select class="w-full bg-gray-950 border border-gray-800 rounded-lg p-3 text-sm text-gray-200 focus:outline-none focus:border-cyan-500">
+                    <option>Commercial Pop / Modern Radio</option>
+                    <option>Hip-Hop / Phonk Heavy Bass</option>
+                    <option>Acoustic / Warm Vocal</option>
+                    <option>Cinematic / Orchestral</option>
+                </select>
             </div>
 
-            <div class="section-title">Dynamics & Tonal Controls</div>
-            <div class="control-group">
-                <div class="control-header"><span>EQ Balance (Low/High)</span><span class="control-value" id="v1">+1.5 dB</span></div>
-                <input type="range" min="-10" max="10" step="0.1" value="1.5" oninput="document.getElementById('v1').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
-            </div>
-            <div class="control-group">
-                <div class="control-header"><span>Presence & De-Esser</span><span class="control-value" id="v2">82%</span></div>
-                <input type="range" min="0" max="100" value="82" oninput="document.getElementById('v2').textContent = this.value + '%'">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
+                <h3 class="font-semibold text-sm text-gray-300 uppercase tracking-wider">Kawalan Intensiti AI</h3>
+                <input type="range" min="1" max="100" value="75" class="w-full accent-cyan-500 cursor-pointer">
+                <div class="flex justify-between text-xs text-gray-500">
+                    <span>Lembut</span>
+                    <span>Seimbang</span>
+                    <span>Maksimum</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="section-title">AI Co-Producer (Instrument Layers)</div>
-            <div class="instrument-grid">
-                <label class="instrument-checkbox"><span class="instrument-name">Drum</span><input type="checkbox" checked></label>
-                <label class="instrument-checkbox"><span class="instrument-name">Bass</span><input type="checkbox" checked></label>
-                <label class="instrument-checkbox"><span class="instrument-name">Guitar</span><input type="checkbox"></label>
-                <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
-            </div>
-            <button class="btn-action" onclick="alert('Audio sedang diproses oleh AI!')">Proses Audio AI ➔</button>
+        <div class="pt-4 flex justify-end">
+            <button onclick="alert('Proses mastering AI sedang dijalankan... Sila tunggu sebentar.')" class="py-3 px-8 bg-cyan-600 hover:bg-cyan-500 font-semibold rounded-xl shadow-lg transition duration-200">
+                Proses & Muat Turun Master 🎵
+            </button>
         </div>
-    </div>
-    <script>
-        function selectStyle(el) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-        }
-    </script>
+    </main>
+
+    <footer class="p-4 text-center text-xs text-gray-600 border-t border-gray-900">
+        &copy; 2026 BP AI Music Studio.
+    </footer>
 </body>
 </html>
