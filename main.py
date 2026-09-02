@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 import os
 import shutil
+import urllib.parse
 
 app = FastAPI()
 
@@ -19,20 +20,25 @@ async def upload_audio(file: UploadFile = File(...)):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb+") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    return {"filename": file.filename, "url": f"/stream-audio/{file.filename}"}
+    
+    # Encode nama fail supaya ruang kosong (spaces) & simbol selamat dihantar ke URL
+    encoded_filename = urllib.parse.quote(file.filename)
+    return {"filename": file.filename, "url": f"/stream-audio/{encoded_filename}"}
 
 @app.get("/stream-audio/{filename}")
 def stream_audio(filename: str):
-    file_path = os.path.join(UPLOAD_DIR, filename)
+    decoded_filename = urllib.parse.unquote(filename)
+    file_path = os.path.join(UPLOAD_DIR, decoded_filename)
     if os.path.exists(file_path):
         return FileResponse(file_path)
     return {"error": "Audio not found"}
 
 @app.get("/download-stem/{filename}")
 def download_stem(filename: str):
-    file_path = os.path.join(UPLOAD_DIR, filename)
+    decoded_filename = urllib.parse.unquote(filename)
+    file_path = os.path.join(UPLOAD_DIR, decoded_filename)
     if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="application/octet-stream", filename=f"stem_{filename}")
+        return FileResponse(file_path, media_type="application/octet-stream", filename=f"stem_{decoded_filename}")
     return {"error": "File not found"}
 
 @app.get("/", response_class=HTMLResponse)
@@ -656,17 +662,16 @@ def main_page():
                 </div>
             </div>
         </div>
-
-        <div class="wizard-footer">
+     <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('loginScreen')">← Back</button>
             <button class="btn-primary" onclick="nextScreen('roleScreen')">Next →</button>
         </div>
     </div>
 
-    <!-- SKRIN 3: PERANAN KREATOR (HALAMAN KETIGA) -->
+    <!-- SKRIN 3: PERANAN KREATOR -->
     <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
-             <div class="brand-logo">BP AI MUSIC STUDIO</div>
+            <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">What best represents you?</div>
             <div class="wizard-subtitle">Display the best of yourself and link up with like-minded creators.</div>
         </div>
@@ -921,7 +926,7 @@ def main_page():
     function startAIMastering() {
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
-        modal.classList.remove('hidden');
+        modal.classList.et ? modal.classList.remove('hidden') : modal.classList.remove('hidden');
 
         setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
