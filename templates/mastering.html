@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Console - BP AI Music Studio</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #141c2e;
+            --card-border: #1e293b;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            background-image: linear-gradient(rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .container { max-width: 480px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 1.5rem; }
+        header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; color: #60a5fa; text-transform: uppercase; }
+        .top-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+        .btn-top {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .btn-top.active { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .section-title { font-size: 0.85rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.25rem; }
+        .style-btn {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            color: var(--text-muted);
+            padding: 0.65rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+        .style-btn.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
+        .control-group { margin-bottom: 1rem; }
+        .control-group:last-child { margin-bottom: 0; }
+        .control-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem; color: #e2e8f0; }
+        .control-value { color: #93c5fd; font-weight: 600; }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            cursor: pointer;
+        }
+        .instrument-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
+        .instrument-checkbox {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .instrument-name { font-size: 0.85rem; color: #cbd5e1; }
+        .btn-action {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        .btn-back:hover { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mastering Console</h1>
+        </header>
+
+        <div class="top-controls">
+            <button class="btn-top" onclick="this.classList.toggle('active')">Bypass</button>
+            <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Mastering Styles</div>
+            <div class="style-buttons">
+                <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
+                <div class="style-btn" onclick="selectStyle(this)">Open</div>
+                <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
+            </div>
+
+            <div class="section-title">Dynamics & Tonal Controls</div>
+            <div class="control-group">
+                <div class="control-header"><span>EQ Balance (Low/High)</span><span class="control-value" id="v1">+1.5 dB</span></div>
+                <input type="range" min="-10" max="10" step="0.1" value="1.5" oninput="document.getElementById('v1').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
+            </div>
+            <div class="control-group" style="margin-top: 0.85rem;">
+                <div class="control-header"><span>Presence & De-Esser</span><span class="control-value" id="v2">82%</span></div>
+                <input type="range" min="0" max="100" value="82" oninput="document.getElementById('v2').textContent = this.value + '%'">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">AI Co-Producer (Instrument Layers)</div>
+            <div class="instrument-grid">
+                <label class="instrument-checkbox"><span class="instrument-name">Drum</span><input type="checkbox" checked></label>
+                <label class="instrument-checkbox"><span class="instrument-name">Bass</span><input type="checkbox" checked></label>
+                <label class="instrument-checkbox"><span class="instrument-name">Guitar</span><input type="checkbox"></label>
+                <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
+            </div>
+            <button class="btn-action" onclick="alert('Audio sedang diproses oleh AI!')">Proses Audio AI ➔</button>
+        </div>
+
+        <a href="/" class="btn-back">← Kembali ke Halaman Utama</a>
+    </div>
+
+    <script>
+        function selectStyle(el) {
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
+</body>
+</html>
