@@ -70,21 +70,12 @@
             font-size: 0.9rem;
             font-weight: 700;
             color: #93c5fd;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .step-badge {
-            background: #2563eb;
-            color: #ffffff;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 600;
         }
 
         .visualizer-screen {
@@ -243,20 +234,17 @@
     <div class="container">
         <h1>BP AI Studio Console</h1>
 
+        <!-- KAD UTAMA (MUAT NAIK & GENRE DIGABUNGKAN TANPA LABEL LANGKAH) -->
         <div class="card">
-            <div class="card-title">
-                <span class="step-badge">Langkah 1</span> Muat Naik Trek Audio
-            </div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 10px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
-            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer;" onchange="uploadAudio(this)">
-            <audio id="audioPlayer" controls style="width: 100%; display: none; margin-top: 12px; border-radius: 8px;"></audio>
-        </div>
+            <div class="card-title">Muat Naik Trek Audio</div>
+            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 8px;">Pilih fail format .mp3 atau .wav untuk mula diproses:</p>
+            <input type="file" id="audioFile" accept=".mp3, .wav" style="width: 100%; color: #d1d5db; font-size: 0.85rem; padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; cursor: pointer; margin-bottom: 12px;" onchange="uploadAudio(this)">
+            <audio id="audioPlayer" controls style="width: 100%; display: none; margin-bottom: 16px; border-radius: 8px;"></audio>
 
-        <div class="card">
-            <div class="card-title">
-                <span class="step-badge">Langkah 2</span> Pilih Genre Lagu
-            </div>
-            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 10px;">Tetapkan genre bagi membantu AI membuat penyesuaian yang tepat:</p>
+            <hr style="border: none; border-top: 1px solid rgba(59, 130, 246, 0.2); margin-bottom: 16px;">
+
+            <div class="card-title">Pilih Genre Lagu</div>
+            <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 8px;">Tetapkan genre bagi membantu AI membuat penyesuaian yang tepat:</p>
             
             <select id="genreSelect" style="width: 100%; background: #1f2937; color: #e5e7eb; border: 1px solid #374151; padding: 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;">
                 
@@ -453,10 +441,10 @@
                     <option value="Jazz">Jazz</option>
                     <option value="Smooth Jazz">Smooth Jazz</option>
                     <option value="Contemporary Jazz">Contemporary Jazz</option>
-                     <option value="Swing">Swing</option>
+                    <option value="Swing">Swing</option>
                     <option value="Bebop">Bebop</option>
                     <option value="Fusion Jazz">Fusion Jazz</option>
-                    <option value="Latin Jazz">Latin Jazz</option>
+                      <option value="Latin Jazz">Latin Jazz</option>
                     <option value="Blues">Blues</option>
                     <option value="Slow Blues">Slow Blues</option>
                     <option value="Blues Rock">Blues Rock</option>
@@ -584,6 +572,7 @@
             </select>
         </div>
 
+        <!-- VISUALIZER & STATUS -->
         <div class="card">
             <div class="visualizer-screen">
                 <div class="bar" style="animation-delay: 0.1s;"></div>
@@ -607,6 +596,7 @@
             </div>
         </div>
 
+        <!-- MASTERING STYLES & DYNAMICS -->
         <div class="card">
             <div class="card-title">Mastering Styles</div>
             <div class="styles-grid">
@@ -643,6 +633,7 @@
             </div>
         </div>
 
+        <!-- AI CO-PRODUCER -->
         <div class="card">
             <div class="card-title">AI Co-Producer (Instrument Layers)</div>
             <p style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 12px;">Pilih lapisan instrumen tambahan yang ingin dijana oleh AI berdasarkan trek anda:</p>
@@ -719,7 +710,7 @@
 
         async function runMastering() {
             if (!uploadedFilename) {
-                alert("Sila muat naik fail audio terlebih dahulu di Langkah 1!");
+                alert("Sila muat naik fail audio terlebih dahulu!");
                 return;
             }
 
@@ -766,6 +757,3 @@
 
 </body>
                     </html>
-
-                
-    
