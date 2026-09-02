@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 import os
@@ -87,10 +86,12 @@ def main_page():
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            align-items: center;
             padding: 24px 20px;
             box-sizing: border-box;
             height: 100%;
             overflow: hidden;
+            text-align: center;
         }
 
         .brand-logo {
@@ -100,11 +101,14 @@ def main_page():
             color: #2dd4bf;
             letter-spacing: 0.5px;
             margin-bottom: 12px;
+            width: 100%;
+            text-align: center;
         }
 
         .login-header {
             text-align: center;
             margin-top: 20px;
+            width: 100%;
         }
 
         .brand-logo-large {
@@ -125,13 +129,15 @@ def main_page():
 
         .social-login-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .social-btn {
             flex: 1;
+            max-width: 130px;
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 12px 10px;
@@ -158,6 +164,14 @@ def main_page():
             font-size: 12px;
             color: #94a3b8;
             margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .wizard-header-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .wizard-title {
@@ -167,6 +181,8 @@ def main_page():
             color: #ffffff;
             line-height: 1.2;
             margin-bottom: 6px;
+            text-align: center;
+            width: 100%;
         }
 
         .wizard-subtitle {
@@ -174,14 +190,21 @@ def main_page():
             color: #cbd5e1;
             line-height: 1.4;
             margin-bottom: 12px;
+            text-align: center;
+            width: 100%;
         }
 
         .wizard-body {
             flex: 1;
+            width: 100%;
+            max-width: 400px;
             overflow-y: auto;
-            padding-right: 4px;
+            padding: 0 4px;
             margin: 8px 0;
             -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .wizard-body::-webkit-scrollbar { width: 4px; }
@@ -191,13 +214,19 @@ def main_page():
             font-size: 13px;
             font-weight: 700;
             color: #2dd4bf;
-            margin: 14px 0 8px 0;
+            margin: 16px 0 8px 0;
             letter-spacing: 0.3px;
+            text-align: center;
+            width: 100%;
         }
 
         .form-group {
             width: 100%;
+            max-width: 360px;
             margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .form-label {
@@ -206,6 +235,8 @@ def main_page():
             color: #e2e8f0;
             display: block;
             margin-bottom: 6px;
+            text-align: center;
+            width: 100%;
         }
 
         .form-input {
@@ -220,6 +251,7 @@ def main_page():
             outline: none;
             backdrop-filter: blur(5px);
             transition: border-color 0.2s;
+            text-align: center;
         }
 
         .form-input:focus {
@@ -232,23 +264,28 @@ def main_page():
             color: #34d399;
             margin-top: 5px;
             font-weight: 500;
+            text-align: center;
+            width: 100%;
         }
 
         .forgot-password {
-            text-align: right;
+            text-align: center;
             font-size: 12px;
             color: #38bdf8;
             margin-bottom: 20px;
             cursor: pointer;
             font-weight: 500;
+            width: 100%;
         }
 
         /* Avatar Section */
         .avatar-section {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 14px;
             margin-top: 6px;
+            width: 100%;
         }
 
         .avatar-circle {
@@ -286,6 +323,7 @@ def main_page():
         .landr-pill-cloud {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 8px;
             width: 100%;
         }
@@ -318,6 +356,7 @@ def main_page():
 
         .wizard-footer {
             width: 100%;
+            max-width: 400px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -357,17 +396,20 @@ def main_page():
             flex: 1;
             display: flex;
             flex-direction: column;
+            align-items: center;
             padding: 24px 20px;
             box-sizing: border-box;
             height: 100vh;
             overflow-y: auto;
+            text-align: center;
         }
 
         .dash-top-bar {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 16px;
+            width: 100%;
         }
 
         .workspace-badge {
@@ -387,6 +429,8 @@ def main_page():
             margin-bottom: 12px;
             cursor: pointer;
             backdrop-filter: blur(6px);
+            width: 100%;
+            max-width: 360px;
         }
         
         .project-card:hover { border-color: #2dd4bf; }
@@ -416,6 +460,8 @@ def main_page():
             background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(5px);
             margin-bottom: 12px;
+            width: 100%;
+            max-width: 360px;
         }
 
         .waveform-box {
@@ -429,6 +475,8 @@ def main_page():
             gap: 10px;
             margin-bottom: 12px;
             backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 360px;
         }
 
         .waveform-bars {
@@ -489,6 +537,8 @@ def main_page():
             font-size: 11px;
             margin-bottom: 6px;
             backdrop-filter: blur(5px);
+            width: 100%;
+            max-width: 360px;
         }
 
         #masterModal {
@@ -504,6 +554,7 @@ def main_page():
             padding: 20px;
             box-sizing: border-box;
             backdrop-filter: blur(10px);
+            text-align: center;
         }
 
         .spinner {
@@ -557,7 +608,7 @@ def main_page():
             <div class="login-subtitle">Log masuk ke akaun profesional anda</div>
         </div>
 
-        <div>
+        <div style="width: 100%; max-width: 360px;">
             <div class="social-login-container">
                 <button class="social-btn" onclick="nextScreen('profileScreen')">🌐 Google</button>
                 <button class="social-btn" onclick="nextScreen('profileScreen')">🍎 Apple</button>
@@ -566,11 +617,11 @@ def main_page():
 
             <div class="divider-text">atau melalui e-mel</div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin: 0 auto 14px auto;">
                 <input type="email" class="form-input" placeholder="E-mel anda">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin: 0 auto 14px auto;">
                 <input type="password" class="form-input" placeholder="Kata laluan">
             </div>
 
@@ -584,7 +635,7 @@ def main_page():
 
     <!-- SKRIN 2: KONFIGURASI PROFIL -->
     <div id="profileScreen" class="screen-overlay hidden">
-        <div>
+        <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">Let's configure your profile</div>
             <div class="wizard-subtitle">Join and connect with our network of artists.</div>
@@ -616,19 +667,19 @@ def main_page():
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('loginScreen')">← Back</button>
             <button class="btn-primary" onclick="nextScreen('roleScreen')">Next →</button>
-        </div>
+                </div>
     </div>
 
     <!-- SKRIN 3: PERANAN KREATOR -->
     <div id="roleScreen" class="screen-overlay hidden">
-        <div>
+        <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">What best represents you?</div>
             <div class="wizard-subtitle">Display the best of yourself and link up with like-minded creators.</div>
         </div>
         
         <div class="wizard-body">
-            <div style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #ffffff;">How would you best describe yourself?</div>
+            <div style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #ffffff; text-align: center; width: 100%;">How would you best describe yourself?</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill active" onclick="togglePill(this)">Producer</div>
                 <div class="landr-pill" onclick="togglePill(this)">Musician</div>
@@ -648,7 +699,7 @@ def main_page():
 
     <!-- SKRIN 4: PILIHAN GENRE LENGKAP -->
     <div id="genreScreen" class="screen-overlay hidden">
-        <div>
+        <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
             <div class="wizard-title">Pick your favorite genres</div>
             <div class="wizard-subtitle">Tell us what types of music you're into.</div>
@@ -813,9 +864,9 @@ def main_page():
         </div>
     </div>
 
-    <!-- AUDIO PLAYER & STEMS SCREEN -->
+    <!-- AUDIO PLAYER & STEMS SCREEN (SKRIN 5) -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
-        <div>
+        <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
             <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
             <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems AI.</div>
@@ -833,7 +884,7 @@ def main_page():
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
-            <div style="font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Fail Stems Berasingan</div>
+            <div style="font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 8px; width: 100%; text-align: center;">Fail Stems Berasingan</div>
             <div class="stem-item">
                 <span>🎙️ Vokal Utama (AI)</span>
                 <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
@@ -866,9 +917,9 @@ def main_page():
             </div>
         </div>
 
-        <h1 style="font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 14px 0;">Overview</h1>
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 14px 0; text-align: center; width: 100%;">Overview</h1>
 
-        <div id="projectListContainer">
+        <div id="projectListContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
                 <div style="font-weight: 700; font-size: 14px;" id="dashProjectName">Projek Malay Bounce Studio</div>
                 <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
@@ -880,7 +931,7 @@ def main_page():
             + Muat naik fail audio baru
             <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
         </div>
-        <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 5px;"></div>
+        <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 5px; width: 100%;"></div>
     </div>
 
 </div>
@@ -988,7 +1039,8 @@ def main_page():
             btn.innerText = '⏸';
         } else {
             audio.pause();
-            box.classList.remove('playing');
+            
+      box.classList.remove('playing');
             btn.innerText = '▶';
         }
     }
