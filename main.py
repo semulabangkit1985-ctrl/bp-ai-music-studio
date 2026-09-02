@@ -188,11 +188,15 @@ def main_page():
 
         .wizard-title {
             font-family: 'Syne', sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: #ffffff;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         .wizard-subtitle {
@@ -291,17 +295,6 @@ def main_page():
             margin-bottom: 24px;
         }
 
-        .dash-btn-invite {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
-        }
-
         .dash-btn-new {
             background: #0f172a;
             color: #ffffff;
@@ -353,7 +346,6 @@ def main_page():
             transition: border-color 0.2s;
         }
 
-        /* UPLOAD BOX STYLING */
         .upload-audio-box {
             border: 2px dashed rgba(34, 211, 238, 0.4);
             border-radius: 12px;
@@ -367,7 +359,6 @@ def main_page():
             margin-bottom: 14px;
         }
 
-        /* WAVEFORM STYLES */
         .waveform-box {
             background: rgba(15, 23, 42, 0.9);
             border: 1px solid rgba(34, 211, 238, 0.3);
@@ -476,7 +467,6 @@ def main_page():
 <body>
 
 <audio id="audioElement" preload="auto"></audio>
-
 <div id="toast">Berjaya!</div>
 
 <div class="app-container">
@@ -510,7 +500,7 @@ def main_page():
     <div id="wizardStep1" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">1/5</div>
-            <div class="wizard-title">Selamat datang! Apa yang anda ingin buat dahulu?</div>
+            <div class="wizard-title" style="white-space: normal;">Selamat datang! Apa yang anda ingin buat dahulu?</div>
         </div>
         <div class="wizard-body">
             <div class="pill-grid">
@@ -528,7 +518,7 @@ def main_page():
     <div id="wizardStep2" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">2/5</div>
-            <div class="wizard-title">Mari tetapkan Profil Studio anda</div>
+            <div class="wizard-title" style="white-space: normal;">Mari tetapkan Profil Studio anda</div>
         </div>
         <div class="wizard-body">
             <div class="form-group">
@@ -545,7 +535,7 @@ def main_page():
     <div id="screenAIPrompt" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">AI STUDIO</div>
-            <div class="wizard-title">Jana Gubahan Muzik AI</div>
+            <div class="wizard-title" style="white-space: normal;">Jana Gubahan Muzik AI</div>
             <div class="wizard-subtitle">Taip konsep lagu anda atau muat naik fail audio original di bawah.</div>
         </div>
         
@@ -571,7 +561,7 @@ def main_page():
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">PLAYER & STEMS</div>
-            <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
+            <div class="wizard-title" id="playerProjectTitle" title="Projek Malay Bounce Studio">Projek Malay Bounce Studio</div>
             <div class="wizard-subtitle">Memainkan fail audio original anda secara langsung.</div>
         </div>
         
@@ -611,12 +601,11 @@ def main_page():
         </div>
 
         <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali ke Dashboard</button>
-                        <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya disimpan!')">Simpan Master 🎵</button>
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya disimpan!')">Simpan Master 🎵</button>
         </div>
     </div>
-
-    <div id="dashboardScreen" class="dashboard-container hidden">
+     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
                 <span>🎧</span> Bangkit's workspace ▾
@@ -630,7 +619,7 @@ def main_page():
         </div>
 
         <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-            <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+            <div style="font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="dashProjectName">Projek Malay Bounce Studio</div>
             <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
             <div class="project-status">
                 ✓ Audio original dimuat naik
@@ -676,7 +665,6 @@ def main_page():
         setTimeout(() => { nextScreen('dashboardScreen'); }, 1000);
     }
 
-    // Fungsi muat naik fail audio original ke server FastAPI
     async function handleAudioUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -698,12 +686,16 @@ def main_page():
                 let audio = document.getElementById('audioElement');
                 audio.src = result.url;
                 
-                // Kemas kini nama projek pada paparan
-                document.getElementById('playerProjectTitle').innerText = file.name;
-                document.getElementById('dashProjectName').innerText = file.name;
+                // Kemas kini nama fail dengan memendekkannya jika terlalu panjang
+                let fullName = file.name;
+                let displayName = fullName.length > 28 ? fullName.substring(0, 25) + '...' : fullName;
+                
+                document.getElementById('playerProjectTitle').innerText = displayName;
+                document.getElementById('playerProjectTitle.title') = fullName;
+                document.getElementById('dashProjectName').innerText = displayName;
                 
                 showToast("Fail audio original berjaya dipasang!");
-                document.getElementById('uploadStatus').innerText = "✓ " + file.name + " sedia dimainkan!";
+                document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
             }
         } catch (err) {
             showToast("Gagal memuat naik fail audio.");
@@ -761,4 +753,5 @@ def main_page():
 </body>
 </html>
 """
-            
+
+    
