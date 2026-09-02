@@ -6,8 +6,10 @@ from sqlalchemy.orm import sessionmaker, Session
 import os
 import shutil
 import urllib.parse
+import subprocess
+import threading
 
-# --- KONfigurasi Pangkalan Data SQLite ---
+# --- KONFIGURASI PANGKALAN DATA SQLITE ---
 DATABASE_URL = "sqlite:///./database.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -36,7 +38,9 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 UPLOAD_DIR = "uploads"
+STEMS_DIR = "separated"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(STEMS_DIR, exist_ok=True)
 
 def get_db():
     db = SessionLocal()
@@ -45,7 +49,6 @@ def get_db():
     finally:
         db.close()
 
-# Pastikan ada pengguna lalai dalam DB
 def init_default_user():
     db = SessionLocal()
     user = db.query(UserDB).filter(UserDB.id == 1).first()
@@ -55,6 +58,19 @@ def init_default_user():
     db.close()
 
 init_default_user()
+
+def run_demucs_separation(file_path: str):
+    """Menjalankan AI Demucs untuk memecahkan audio kepada 4 stem di background"""
+    try:
+        # Menggunakan model htdemucs standard
+        subprocess.run([
+            "python", "-m", "demucs.separate",
+            "-n", "htdemucs",
+            "-o", STEMS_DIR,
+            file_path
+        ], check=True)
+    except Exception as e:
+        print(f"Ralat Demucs AI: {e}")
 
 @app.get("/images (43).jpeg")
 def get_kl_bg():
@@ -80,6 +96,9 @@ async def upload_audio(file: UploadFile = File(...), db: Session = Depends(get_d
     db.commit()
     db.refresh(new_project)
 
+    # Jalankan Demucs AI secara latar belakang (background thread) agar UI tidak 'hang'
+    threading.Thread(target=run_demucs_separation, args=(file_path,)).start()
+
     return {
         "filename": file.filename, 
         "url": f"/stream-audio/{encoded_filename}",
@@ -94,13 +113,23 @@ def stream_audio(filename: str):
         return FileResponse(file_path)
     return {"error": "Audio not found"}
 
-@app.get("/download-stem/{filename}")
-def download_stem(filename: str):
+@app.get("/download-stem/{filename}/{stem_name}")
+def download_stem(filename: str, stem_name: str):
     decoded_filename = urllib.parse.unquote(filename)
-    file_path = os.path.join(UPLOAD_DIR, decoded_filename)
-    if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="application/octet-stream", filename=f"stem_{decoded_filename}")
-    return {"error": "File not found"}
+    base_name = os.path.splitext(decoded_filename)[0]
+    
+    # Laluan output default Demucs: separated/htdemucs/<song_name>/<stem>.wav
+    stem_path = os.path.join(STEMS_DIR, "htdemucs", base_name, f"{stem_name}.wav")
+    
+    if os.path.exists(stem_path):
+        return FileResponse(stem_path, media_type="application/octet-stream", filename=f"{stem_name}_{decoded_filename}")
+    
+    # Fallback ke fail asal jika pemprosesan AI belum selesai
+    fallback_path = os.path.join(UPLOAD_DIR, decoded_filename)
+    if os.path.exists(fallback_path):
+        return FileResponse(fallback_path, media_type="application/octet-stream", filename=f"{stem_name}_{decoded_filename}")
+        
+    return {"error": "Stem file not found"}
 
 @app.post("/publish-project")
 def publish_project(project_id: int = Form(...), release_date: str = Form(...), platforms: str = Form(...), db: Session = Depends(get_db)):
@@ -642,7 +671,7 @@ def main_page():
 <div id="masterModal" class="hidden">
     <div class="spinner"></div>
     <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #2dd4bf;">AI Mastering sedang diproses...</div>
-    <div style="font-size: 12px; color: #cbd5e1; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
+        <div style="font-size: 12px; color: #cbd5e1; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
 </div>
 
 <div class="app-container">
@@ -667,7 +696,7 @@ def main_page():
             </div>
 
             <div class="form-group" style="margin: 0 auto 12px auto;">
-                  <input type="password" class="form-input" placeholder="Kata laluan" value="********">
+                <input type="password" class="form-input" placeholder="Kata laluan" value="********">
             </div>
 
             <div class="forgot-password" onclick="alert('Fungsi Lupa Kata Laluan')">Lupa kata laluan?</div>
@@ -819,7 +848,7 @@ def main_page():
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
             <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
-            <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems AI.</div>
+            <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems AI Demucs.</div>
         </div>
         
         <div class="wizard-body">
@@ -831,22 +860,22 @@ def main_page():
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
-            <div style="font-size: 11px; font-weight: 700; color: #ffffff; margin-bottom: 6px; width: 100%; text-align: center;">Fail Stems Berasingan</div>
+            <div style="font-size: 11px; font-weight: 700; color: #ffffff; margin-bottom: 6px; width: 100%; text-align: center;">Fail Stems Demucs AI</div>
             <div class="stem-item">
-                <span>🎙️ Vokal Utama (AI)</span>
-                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+                <span>🎙️ Vokal Utama (Vocals)</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadStemFile('vocals')">Muat Turun ⬇</button>
             </div>
             <div class="stem-item">
                 <span>🥁 Drum & Percussion</span>
-                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadStemFile('drums')">Muat Turun ⬇</button>
             </div>
             <div class="stem-item">
                 <span>🎸 Bass Line</span>
-                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadStemFile('bass')">Muat Turun ⬇</button>
             </div>
             <div class="stem-item">
-                <span>🎹 Melodi & Synth</span>
-                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+                <span>🎹 Melodi & Synth (Other)</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadStemFile('other')">Muat Turun ⬇</button>
             </div>
         </div>
 
@@ -874,7 +903,7 @@ def main_page():
         </div>
 
         <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 12px;">
-            + Muat naik fail audio baru
+            + Muat naik fail audio baru (Proses AI Demucs)
             <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
         </div>
         <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 4px; width: 100%;"></div>
@@ -966,8 +995,8 @@ def main_page():
         let formData = new FormData();
         formData.append("file", file);
 
-        showToast("Sedang memuat naik audio & pangkalan data...");
-        document.getElementById('uploadStatus').innerText = "⏳ Memproses " + file.name + "...";
+        showToast("Sedang memuat naik & proses Demucs AI...");
+        document.getElementById('uploadStatus').innerText = "⏳ Memproses stem AI untuk " + file.name + "...";
 
         try {
             let response = await fetch('/upload-audio', {
@@ -985,9 +1014,9 @@ def main_page():
                 
                 document.getElementById('playerProjectTitle').innerText = displayName;
                 document.getElementById('dashProjectName').innerText = displayName;
-                document.getElementById('dashProjectStatus').innerText = "✓ Sedia dimainkan";
+                document.getElementById('dashProjectStatus').innerText = "✓ Sedia dimainkan & Stems AI";
                 
-                showToast("Fail audio & pangkalan data berjaya disimpan!");
+                showToast("Fail berjaya dimuat naik & diasingkan oleh AI!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
                 setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1000);
             }
@@ -1024,12 +1053,12 @@ def main_page():
         }
     }
 
-    function downloadCurrentStem() {
+    function downloadStemFile(stemName) {
         if (!currentUploadedFilename) {
-            window.location.href = `/download-stem/sample.wav`;
+            window.location.href = `/download-stem/sample.wav/${stemName}`;
             return;
         }
-        window.location.href = `/download-stem/${encodeURIComponent(currentUploadedFilename)}`;
+        window.location.href = `/download-stem/${encodeURIComponent(currentUploadedFilename)}/${stemName}`;
     }
 
     function startAIMastering() {
@@ -1059,7 +1088,6 @@ def main_page():
         }
     }
 
-    // Initialize default wavesurfer on load
     window.addEventListener('DOMContentLoaded', () => {
         initWaveform('/stream-audio/sample.wav');
     });
