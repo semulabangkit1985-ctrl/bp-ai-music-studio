@@ -30,16 +30,11 @@ def read_effects(request: Request):
 def read_result(request: Request):
     return templates.TemplateResponse(request, "result.html")
 
-# Laluan untuk halaman studio AI (studioai.html)
-@app.get("/studioai", response_class=HTMLResponse)
-def read_studioai(request: Request):
-    return templates.TemplateResponse(request, "studioai.html")
-
-# Laluan untuk membaca fail imej asal dari GitHub
-@app.get("/images (43.jpeg)")
+# Laluan untuk membaca fail latar belakang kl.jpg.png
+@app.get("/kl.jpg.png")
 def get_kl_bg():
-    if os.path.exists("images (43.jpeg)"):
-        return FileResponse("images (43.jpeg)")
+    if os.path.exists("kl.jpg.png"):
+        return FileResponse("kl.jpg.png")
     return {"error": "Background image not found"}
 
 # Laluan untuk muat naik fail audio
