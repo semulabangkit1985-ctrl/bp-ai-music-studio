@@ -1,13 +1,60 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Depends, Form, HTTPException
 from fastapi.responses import HTMLResponse, FileResponse
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, Session
 import os
 import shutil
 import urllib.parse
+
+# --- KONfigurasi Pangkalan Data SQLite ---
+DATABASE_URL = "sqlite:///./database.db"
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+class UserDB(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, default="Boyz")
+    email = Column(String, unique=True, index=True, default="boyz@bpstudio.com")
+    profile_url = Column(String, default="network.bpstudio.com/users/boyz")
+
+class ProjectDB(Base):
+    __tablename__ = "projects"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), default=1)
+    title = Column(String)
+    filename = Column(String)
+    release_date = Column(String, default="2026-09-05")
+    isrc_code = Column(String, default="MY-BP2-26-00014")
+    platforms = Column(String, default="Spotify, Apple Music")
+    status = Column(String, default="Sedia dimainkan")
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# Pastikan ada pengguna lalai dalam DB
+def init_default_user():
+    db = SessionLocal()
+    user = db.query(UserDB).filter(UserDB.id == 1).first()
+    if not user:
+        db.add(UserDB(id=1, name="Boyz", email="boyz@bpstudio.com"))
+        db.commit()
+    db.close()
+
+init_default_user()
 
 @app.get("/images (43).jpeg")
 def get_kl_bg():
@@ -16,14 +63,28 @@ def get_kl_bg():
     return {"error": "Background image not found"}
 
 @app.post("/upload-audio")
-async def upload_audio(file: UploadFile = File(...)):
+async def upload_audio(file: UploadFile = File(...), db: Session = Depends(get_db)):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb+") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
-    # Encode nama fail supaya ruang kosong (spaces) & simbol selamat dihantar ke URL
     encoded_filename = urllib.parse.quote(file.filename)
-    return {"filename": file.filename, "url": f"/stream-audio/{encoded_filename}"}
+    
+    # Simpan ke pangkalan data SQLite
+    new_project = ProjectDB(
+        title=file.filename,
+        filename=file.filename,
+        status="Sedia dimainkan"
+    )
+    db.add(new_project)
+    db.commit()
+    db.refresh(new_project)
+
+    return {
+        "filename": file.filename, 
+        "url": f"/stream-audio/{encoded_filename}",
+        "project_id": new_project.id
+    }
 
 @app.get("/stream-audio/{filename}")
 def stream_audio(filename: str):
@@ -41,6 +102,17 @@ def download_stem(filename: str):
         return FileResponse(file_path, media_type="application/octet-stream", filename=f"stem_{decoded_filename}")
     return {"error": "File not found"}
 
+@app.post("/publish-project")
+def publish_project(project_id: int = Form(...), release_date: str = Form(...), platforms: str = Form(...), db: Session = Depends(get_db)):
+    project = db.query(ProjectDB).filter(ProjectDB.id == project_id).first()
+    if project:
+        project.release_date = release_date
+        project.platforms = platforms
+        project.status = "Dijadualkan untuk Edaran"
+        db.commit()
+        return {"success": True, "message": "Projek berjaya didaftarkan untuk edaran global!"}
+    raise HTTPException(status_code=404, detail="Projek tidak dijumpai")
+
 @app.get("/", response_class=HTMLResponse)
 def main_page():
     return """
@@ -53,6 +125,7 @@ def main_page():
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
     
     <style>
         body {
@@ -480,37 +553,10 @@ def main_page():
             max-width: 360px;
         }
 
-        .waveform-bars {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            height: 35px;
+        #waveform {
             width: 100%;
-            justify-content: center;
+            margin: 6px 0;
         }
-
-        .wave-bar {
-            width: 4px;
-            background: #2dd4bf;
-            border-radius: 4px;
-            height: 10px;
-            transition: height 0.2s ease;
-        }
-
-        .playing .wave-bar {
-            animation: soundWave 1.2s infinite ease-in-out alternate;
-        }
-
-        @keyframes soundWave {
-            0% { height: 8px; }
-            50% { height: 30px; }
-            100% { height: 12px; }
-        }
-
-        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
 
         .control-btn-main {
             background: #2dd4bf;
@@ -591,7 +637,6 @@ def main_page():
 </head>
 <body>
 
-<audio id="audioElement" preload="auto"></audio>
 <div id="toast">Berjaya!</div>
 
 <div id="masterModal" class="hidden">
@@ -602,7 +647,6 @@ def main_page():
 
 <div class="app-container">
 
-    <!-- SKRIN 1: LOGIN -->
     <div id="loginScreen" class="screen-overlay">
         <div class="login-header">
             <div class="brand-logo-large">BP AI MUSIC STUDIO</div>
@@ -619,11 +663,11 @@ def main_page():
             <div class="divider-text">atau melalui e-mel</div>
 
             <div class="form-group" style="margin: 0 auto 12px auto;">
-                <input type="email" class="form-input" placeholder="E-mel anda">
+                <input type="email" class="form-input" placeholder="E-mel anda" value="boyz@bpstudio.com">
             </div>
 
             <div class="form-group" style="margin: 0 auto 12px auto;">
-                <input type="password" class="form-input" placeholder="Kata laluan">
+                  <input type="password" class="form-input" placeholder="Kata laluan" value="********">
             </div>
 
             <div class="forgot-password" onclick="alert('Fungsi Lupa Kata Laluan')">Lupa kata laluan?</div>
@@ -632,7 +676,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 2: KONFIGURASI PROFIL -->
     <div id="profileScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -643,7 +686,7 @@ def main_page():
         <div class="wizard-body">
             <div class="form-group">
                 <label class="form-label">Your name</label>
-                <input type="text" class="form-input" value="Boyz">
+                <input type="text" id="inputProfileName" class="form-input" value="Boyz">
             </div>
 
             <div class="form-group">
@@ -662,13 +705,13 @@ def main_page():
                 </div>
             </div>
         </div>
-     <div class="wizard-footer">
+
+        <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('loginScreen')">← Back</button>
             <button class="btn-primary" onclick="nextScreen('roleScreen')">Next →</button>
         </div>
     </div>
 
-    <!-- SKRIN 3: PERANAN KREATOR -->
     <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -695,7 +738,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 4: PILIHAN GENRE -->
     <div id="genreScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -737,7 +779,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 5: EXPORT & RELEASE SETUP -->
     <div id="exportScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -747,7 +788,7 @@ def main_page():
         
         <div class="wizard-body">
             <div class="genre-category-title">🌐 Platform Edaran Utama</div>
-            <div class="landr-pill-cloud">
+            <div class="landr-pill-cloud" id="platformCloud">
                 <div class="landr-pill active" onclick="togglePill(this)">Spotify</div>
                 <div class="landr-pill active" onclick="togglePill(this)">Apple Music</div>
                 <div class="landr-pill active" onclick="togglePill(this)">TikTok & IG</div>
@@ -758,7 +799,7 @@ def main_page():
 
             <div class="form-group" style="margin-top: 14px;">
                 <label class="form-label">Tarikh Pelancaran (Release Date)</label>
-                <input type="date" class="form-input" value="2026-09-05">
+                <input type="date" id="releaseDateInput" class="form-input" value="2026-09-05">
             </div>
 
             <div class="form-group">
@@ -770,11 +811,10 @@ def main_page():
 
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('genreScreen')">← Back</button>
-            <button class="btn-primary" onclick="finishOnboarding()">Publish Now 🚀</button>
+            <button class="btn-primary" onclick="publishProjectAPI()">Publish Now 🚀</button>
         </div>
     </div>
 
-    <!-- AUDIO PLAYER & STEMS SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
@@ -783,13 +823,10 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <div class="waveform-box" id="waveformBox">
-                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVEFORM VISUALIZER</div>
-                <div class="waveform-bars">
-                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                    <div class="wave-bar"></div><div class="wave-bar"></div>
-                </div>
-                <div style="font-size: 12px; font-weight: 700; color: #2dd4bf;" id="playerTime">02:34 / 03:45</div>
+            <div class="waveform-box">
+                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVESURFER VISUALIZER SEBENAR</div>
+                <div id="waveform"></div>
+                <div style="font-size: 12px; font-weight: 700; color: #2dd4bf;" id="playerTime">00:00 / 00:00</div>
 
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
@@ -819,11 +856,10 @@ def main_page():
         </div>
     </div>
 
-    <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
-                <span>🎧</span> Studio Workspace ▾
+                <span>🎧</span> <span id="dashWorkspaceName">Boyz's Studio</span> ▾
             </div>
         </div>
 
@@ -833,7 +869,7 @@ def main_page():
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
                 <div style="font-weight: 700; font-size: 13px;" id="dashProjectName">Projek Malay Bounce Studio</div>
                 <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
-                <div class="project-status">✓ Sedia dimainkan</div>
+                <div class="project-status" id="dashProjectStatus">✓ Sedia dimainkan</div>
             </div>
         </div>
 
@@ -848,6 +884,8 @@ def main_page():
 
 <script>
     let currentUploadedFilename = "";
+    let currentProjectId = 1;
+    let wavesurfer = null;
 
     function showToast(msg) {
         let t = document.getElementById('toast');
@@ -856,26 +894,68 @@ def main_page():
         setTimeout(() => { t.style.opacity = '0'; }, 2000);
     }
 
-    function nextScreen(screenId) {
-        let audio = document.getElementById('audioElement');
-        if(screenId !== 'screenAudioPlayer' && !audio.paused) {
-            audio.pause();
-            document.getElementById('waveformBox').classList.remove('playing');
+    function initWaveform(audioUrl) {
+        if (wavesurfer) {
+            wavesurfer.destroy();
+        }
+        
+        wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: 'rgba(45, 212, 191, 0.4)',
+            progressColor: '#2dd4bf',
+            cursorColor: '#ffffff',
+            barWidth: 3,
+            barGap: 3,
+            height: 45,
+            barRadius: 3,
+            url: audioUrl
+        });
+
+        wavesurfer.on('ready', () => {
+            updateTimeDisplay(0, wavesurfer.getDuration());
+        });
+
+        wavesurfer.on('audioprocess', () => {
+            updateTimeDisplay(wavesurfer.getCurrentTime(), wavesurfer.getDuration());
+        });
+
+        wavesurfer.on('finish', () => {
             document.getElementById('playPauseBtn').innerText = '▶';
+        });
+    }
+
+    function formatTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function updateTimeDisplay(current, duration) {
+        document.getElementById('playerTime').innerText = `${formatTime(current)} / ${formatTime(duration || 0)}`;
+    }
+
+    function nextScreen(screenId) {
+        if(screenId !== 'screenAudioPlayer' && wavesurfer && wavesurfer.isPlaying()) {
+            wavesurfer.pause();
+            document.getElementById('playPauseBtn').innerText = '▶';
+        }
+
+        let nameInput = document.getElementById('inputProfileName').value;
+        if(nameInput) {
+            document.getElementById('dashWorkspaceName').innerText = nameInput + "'s Studio";
         }
 
         document.querySelectorAll('.screen-overlay, .dashboard-container').forEach(el => el.classList.add('hidden'));
         document.getElementById(screenId).classList.remove('hidden');
         window.scrollTo(0, 0);
+
+        if(screenId === 'screenAudioPlayer' && wavesurfer && !wavesurfer.options.url) {
+            initWaveform('/stream-audio/sample.wav');
+        }
     }
 
     function togglePill(el) {
         el.classList.toggle('active');
-    }
-
-    function finishOnboarding() {
-        showToast("Trek berjaya dijadualkan untuk edaran global!");
-        setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1200);
     }
 
     async function handleAudioUpload(event) {
@@ -886,8 +966,8 @@ def main_page():
         let formData = new FormData();
         formData.append("file", file);
 
-        showToast("Sedang memuat naik audio...");
-        document.getElementById('uploadStatus').innerText = "⏳ Memuat naik " + file.name + "...";
+        showToast("Sedang memuat naik audio & pangkalan data...");
+        document.getElementById('uploadStatus').innerText = "⏳ Memproses " + file.name + "...";
 
         try {
             let response = await fetch('/upload-audio', {
@@ -897,21 +977,50 @@ def main_page():
             let result = await response.json();
             
             if (result.url) {
-                let audio = document.getElementById('audioElement');
-                audio.src = result.url;
+                currentProjectId = result.project_id;
+                initWaveform(result.url);
                 
                 let fullName = file.name;
                 let displayName = fullName.length > 25 ? fullName.substring(0, 22) + '...' : fullName;
                 
                 document.getElementById('playerProjectTitle').innerText = displayName;
                 document.getElementById('dashProjectName').innerText = displayName;
+                document.getElementById('dashProjectStatus').innerText = "✓ Sedia dimainkan";
                 
-                showToast("Fail audio berjaya dipasang!");
+                showToast("Fail audio & pangkalan data berjaya disimpan!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
                 setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1000);
             }
         } catch (err) {
             showToast("Gagal memuat naik fail audio.");
+        }
+    }
+
+    async function publishProjectAPI() {
+        let releaseDate = document.getElementById('releaseDateInput').value;
+        let activePlatforms = [];
+        document.querySelectorAll('#platformCloud .landr-pill.active').forEach(p => {
+            activePlatforms.push(p.innerText);
+        });
+
+        let formData = new FormData();
+        formData.append("project_id", currentProjectId);
+        formData.append("release_date", releaseDate);
+        formData.append("platforms", activePlatforms.join(", "));
+
+        try {
+            let response = await fetch('/publish-project', {
+                method: 'POST',
+                body: formData
+            });
+            let res = await response.json();
+            if(res.success) {
+                showToast(res.message);
+                document.getElementById('dashProjectStatus').innerText = "✓ Dijadualkan untuk Edaran";
+                setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1200);
+            }
+        } catch(e) {
+            showToast("Ralat penghantaran edaran.");
         }
     }
 
@@ -926,38 +1035,34 @@ def main_page():
     function startAIMastering() {
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
-        modal.classList.et ? modal.classList.remove('hidden') : modal.classList.remove('hidden');
+        modal.classList.remove('hidden');
 
         setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
             modal.classList.add('hidden');
-            showToast("Master file berjaya disimpan!");
+            showToast("Master file berjaya disimpan ke pangkalan data!");
         }, 3500);
     }
 
-    const audio = document.getElementById('audioElement');
     function togglePlayAudio() {
-        let box = document.getElementById('waveformBox');
-        let btn = document.getElementById('playPauseBtn');
+        if (!wavesurfer) {
+            initWaveform('/stream-audio/sample.wav');
+        }
         
-        if (audio.paused) {
-            if (!audio.src) {
-                audio.src = "/stream-audio/sample.wav";
-            }
-            audio.play();
-            box.classList.add('playing');
-            btn.innerText = '⏸';
-        } else {
-            audio.pause();
-            box.classList.remove('playing');
+        let btn = document.getElementById('playPauseBtn');
+        if (wavesurfer.isPlaying()) {
+            wavesurfer.pause();
             btn.innerText = '▶';
+        } else {
+            wavesurfer.play();
+            btn.innerText = '⏸';
         }
     }
 
-    audio.onended = () => {
-        document.getElementById('waveformBox').classList.remove('playing');
-        document.getElementById('playPauseBtn').innerText = '▶';
-    };
+    // Initialize default wavesurfer on load
+    window.addEventListener('DOMContentLoaded', () => {
+        initWaveform('/stream-audio/sample.wav');
+    });
 </script>
 </body>
 </html>
