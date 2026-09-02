@@ -26,10 +26,7 @@
         .container { max-width: 480px; margin: 0 auto; }
         
         /* Paparan Landing Page */
-        #landing-view {
-            text-align: center;
-            padding: 1.5rem 1rem;
-        }
+        #landing-view { text-align: center; padding: 1.5rem 1rem; }
         .hero-image-container {
             margin-bottom: 1.25rem;
             border-radius: 12px;
@@ -38,169 +35,132 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             background-color: var(--card-bg);
         }
-        .hero-image {
-            width: 100%;
-            height: 170px;
-            object-fit: cover;
-            display: block;
+        .hero-image { width: 100%; height: 160px; object-fit: cover; display: block; }
+        #landing-view h1 { font-size: 1.4rem; color: #60a5fa; margin-bottom: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        #landing-view p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.85rem; line-height: 1.5; text-align: justify; }
+        .tagline { color: #93c5fd; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center; }
+
+        /* Paparan Mod Selector (Gaya Landr Pilihan Utama) */
+        #mode-view { display: none; padding: 1rem 0; }
+        .mode-title { font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-bottom: 0.4rem; text-align: center; }
+        .mode-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center; }
+        .mode-grid { display: grid; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .mode-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        #landing-view h1 {
-            font-size: 1.5rem;
-            color: #60a5fa;
-            margin-bottom: 1rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.3;
-        }
-        #landing-view p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            text-align: justify;
-        }
-        .tagline {
-            color: #93c5fd;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            letter-spacing: 0.3px;
-        }
+        .mode-card:hover, .mode-card.selected { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.1); }
+        .mode-info h3 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 0.2rem; }
+        .mode-info p { font-size: 0.78rem; color: var(--text-muted); }
+        .mode-arrow { color: var(--accent-blue); font-weight: bold; }
 
         /* Paparan Console DAW */
         #console-view { display: none; }
-        header { text-align: center; margin-bottom: 1.5rem; }
-        header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; color: #60a5fa; text-transform: uppercase; }
+        header { text-align: center; margin-bottom: 1.25rem; }
+        header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; color: #60a5fa; text-transform: uppercase; }
         
         .top-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
         .btn-top {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 0.75rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
+            background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
+            padding: 0.65rem; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; text-align: center;
         }
         .btn-top.active { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
         
         .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px;
+            padding: 1.1rem; margin-bottom: 1rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
-        .section-title { font-size: 0.85rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-title { font-size: 0.8rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.25rem; }
+        .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
         .style-btn {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            color: var(--text-muted);
-            padding: 0.65rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
+            background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
+            padding: 0.55rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center;
         }
         .style-btn.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
         
-        .control-group { margin-bottom: 1rem; }
-        .control-group:last-child { margin-bottom: 0; }
-        .control-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem; color: #e2e8f0; }
+        .control-group { margin-bottom: 0.85rem; }
+        .control-header { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem; color: #e2e8f0; }
         .control-value { color: #93c5fd; font-weight: 600; }
         
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            background: #1e293b;
-            border-radius: 3px;
-            outline: none;
-            -webkit-appearance: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--accent-blue);
-            cursor: pointer;
-        }
+        input[type="range"] { width: 100%; height: 5px; background: #1e293b; border-radius: 3px; outline: none; -webkit-appearance: none; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); cursor: pointer; }
         
-        .instrument-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
+        .instrument-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
         .instrument-checkbox {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 0.7rem 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
+            background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.6rem 0.75rem;
+            display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
-        .instrument-name { font-size: 0.85rem; color: #cbd5e1; }
+        .instrument-name { font-size: 0.8rem; color: #cbd5e1; }
         
         .btn-action {
-            display: block;
-            width: 100%;
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
+            display: block; width: 100%; background-color: var(--accent-blue); color: white; border: none;
+            padding: 0.9rem; font-size: 0.95rem; font-weight: 600; border-radius: 12px; cursor: pointer; text-align: center;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
         .btn-back {
-            display: block;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            background: none;
-            border: none;
-            width: 100%;
-            cursor: pointer;
+            display: block; text-align: center; margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted);
+            background: none; border: none; width: 100%; cursor: pointer;
         }
         .btn-back:hover { color: #60a5fa; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- LANDING PAGE VIEW -->
+        <!-- 1. LANDING PAGE VIEW -->
         <div id="landing-view">
             <div class="hero-image-container">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="BP AI Music Studio Banner" class="hero-image">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
             </div>
-            
             <h1>MASTERING BP AI MUSIC STUDIO</h1>
-            
             <p>Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
-            
             <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
-            
             <div class="tagline">BP AI MUSIC STUDIO Memperkemas bunyi, menghidupkan karya.</div>
-            
-            <button class="btn-action" onclick="showConsole()">Mula Mastering ➔</button>
+            <button class="btn-action" onclick="showModeSelector()">Mula Mastering ➔</button>
         </div>
 
-        <!-- MASTERING CONSOLE VIEW -->
+        <!-- 2. MODE SELECTOR VIEW (Inspirasi Landr) -->
+        <div id="mode-view">
+            <h2 class="mode-title">Pilih Matlamat Anda</h2>
+            <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
+            
+            <div class="mode-grid">
+                <div class="mode-card" onclick="showConsole('mastering')">
+                    <div class="mode-info">
+                        <h3>🎧 AI Audio Mastering</h3>
+                        <p>Imbang ton, ketumpatan & loudness trek penuh</p>
+                    </div>
+                    <div class="mode-arrow">➔</div>
+                </div>
+                <div class="mode-card" onclick="showConsole('coproducer')">
+                    <div class="mode-info">
+                        <h3>🎛️ AI Co-Producer (Stems)</h3>
+                        <p>asingkan & atur lapisan drum, bass & vokal</p>
+                    </div>
+                    <div class="mode-arrow">➔</div>
+                </div>
+                <div class="mode-card" onclick="showConsole('eq')">
+                    <div class="mode-info">
+                        <h3>📊 Tonal Balance & EQ</h3>
+                        <p>Kawal dinamik spektrum bunyi secara terperinci</p>
+                    </div>
+                    <div class="mode-arrow">➔</div>
+                </div>
+            </div>
+            <button class="btn-back" onclick="showLanding()">← Kembali</button>
+        </div>
+
+        <!-- 3. CONSOLE DAW VIEW -->
         <div id="console-view">
             <header>
-                <h1>Mastering Console</h1>
+                <h1 id="console-title">Mastering Console</h1>
             </header>
 
             <div class="top-controls">
@@ -221,7 +181,7 @@
                     <div class="control-header"><span>EQ Balance (Low/High)</span><span class="control-value" id="v1">+1.5 dB</span></div>
                     <input type="range" min="-10" max="10" step="0.1" value="1.5" oninput="document.getElementById('v1').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
                 </div>
-                <div class="control-group" style="margin-top: 0.85rem;">
+                <div class="control-group" style="margin-top: 0.75rem;">
                     <div class="control-header"><span>Presence & De-Esser</span><span class="control-value" id="v2">82%</span></div>
                     <input type="range" min="0" max="100" value="82" oninput="document.getElementById('v2').textContent = this.value + '%'">
                 </div>
@@ -238,19 +198,32 @@
                 <button class="btn-action" onclick="alert('Audio sedang diproses oleh AI!')">Proses Audio AI ➔</button>
             </div>
 
-            <button class="btn-back" onclick="showLanding()">← Kembali ke Halaman Utama</button>
+            <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
         </div>
     </div>
 
     <script>
-        function showConsole() {
-            document.getElementById('landing-view').style.display = 'none';
-            document.getElementById('console-view').style.display = 'block';
-        }
-
         function showLanding() {
+            document.getElementById('mode-view').style.display = 'none';
             document.getElementById('console-view').style.display = 'none';
             document.getElementById('landing-view').style.display = 'block';
+        }
+
+        function showModeSelector() {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'block';
+        }
+
+        function showConsole(mode) {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'block';
+            
+            const titleEl = document.getElementById('console-title');
+            if(mode === 'mastering') titleEl.textContent = "AI Mastering Console";
+            else if(mode === 'coproducer') titleEl.textContent = "AI Co-Producer Studio";
+            else titleEl.textContent = "Tonal Balance Console";
         }
 
         function selectStyle(el) {
@@ -258,5 +231,4 @@
             el.classList.add('active');
         }
     </script>
-</body>
 </html>
