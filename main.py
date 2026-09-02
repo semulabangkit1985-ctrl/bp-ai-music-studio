@@ -43,15 +43,15 @@ def main_page():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BP AI Music Studio</title>
+    <title>BP AI Music Studio - Landr Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
         body {
-            background: #0b0f19;
-            color: #ffffff;
+            background: #eef2f6;
+            color: #0f172a;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
@@ -61,44 +61,228 @@ def main_page():
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
 
         .app-container {
             width: 100%;
             max-width: 480px;
             min-height: 100vh;
-            background-color: #0b0f19;
+            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
             position: relative;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
             box-sizing: border-box;
             margin: 0 auto;
         }
 
         .screen-overlay {
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(6px);
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 16px;
-            padding: 24px 20px;
+            justify-content: space-between;
+            padding: 28px 24px;
             box-sizing: border-box;
             min-height: 100vh;
             width: 100%;
         }
 
-        #screenLogin {
-            background-image: url('/images (43).jpeg');
-            background-size: cover;
-            background-position: center;
+        .brand-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
 
+        .wizard-header {
+            margin-bottom: 15px;
+        }
+
+        .wizard-step-indicator {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .wizard-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .wizard-subtitle {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .wizard-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+            margin: 10px 0;
+            max-height: 55vh;
+        }
+
+        .wizard-body::-webkit-scrollbar { width: 4px; }
+        .wizard-body::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 4px; }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 14px 16px;
+            border-radius: 12px;
+            width: 100%;
+            color: #0f172a;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        }
+
+        .url-helper {
+            font-size: 12px;
+            color: #10b981;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Avatar Section */
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .avatar-circle {
+            width: 70px;
+            height: 70px;
+            background: #65a30d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .avatar-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #0f172a;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 2px solid white;
+        }
+
+        /* Fluid Pill Cloud (Landr Style) */
+        .landr-pill-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .landr-pill {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #cbd5e1;
+            padding: 11px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f172a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .landr-pill:hover {
+            border-color: #0ea5e9;
+            background: #ffffff;
+        }
+
+        .landr-pill.active {
+            background: #0f172a;
+            border-color: #0f172a;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .wizard-footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #2dd4bf;
+            color: #0f172a;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 28px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        /* Dashboard & Studio */
         .dashboard-container {
-            background: #f8fafc;
+            background: #ffffff;
             color: #0f172a;
             flex: 1;
             display: flex;
@@ -110,175 +294,11 @@ def main_page():
             overflow-y: auto;
         }
 
-        .brand-logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            text-align: center;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .social-login-grid {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .social-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 12px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: #ffffff;
-            font-size: 13px;
-        }
-
-        .divider-text {
-            text-align: center;
-            font-size: 13px;
-            color: #94a3b8;
-            margin: 10px 0;
-        }
-
-        .form-group {
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .form-input {
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 14px 18px;
-            border-radius: 12px;
-            width: 100%;
-            color: #ffffff;
-            font-size: 13px;
-            box-sizing: border-box;
-            outline: none;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: #22d3ee;
-            color: #0b0f19;
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 14px;
-            padding: 14px;
-            border-radius: 30px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
-            transition: all 0.2s;
-            margin-top: 5px;
-        }
-
-        .wizard-step-indicator {
-            font-family: 'Syne', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            color: #22d3ee;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .wizard-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.3;
-            margin-bottom: 6px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
-        }
-
-        .wizard-subtitle {
-            font-size: 12px;
-            color: #94a3b8;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
-
-        .wizard-body {
-            width: 100%;
-            max-height: 52vh;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
-        .wizard-body::-webkit-scrollbar { width: 4px; }
-        .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
-
-        .genre-category-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #22d3ee;
-            margin: 14px 0 8px 0;
-            letter-spacing: 0.5px;
-        }
-
-        .pill-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .pill-option {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #e2e8f0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .pill-option.active {
-            background: rgba(34, 211, 238, 0.25);
-            border-color: #22d3ee;
-            color: #ffffff;
-        }
-
-        .wizard-footer {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .btn-text {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
         .dash-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .workspace-badge {
@@ -290,77 +310,47 @@ def main_page():
             color: #0f172a;
         }
 
-        .dash-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .dash-btn-new {
-            background: #0f172a;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
         .project-card {
-            background: #ffffff;
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             cursor: pointer;
+            transition: border-color 0.2s;
         }
         
-        .project-card:hover { border-color: #22d3ee; }
+        .project-card:hover { border-color: #2dd4bf; }
 
         .project-status {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #dcfce7;
-            color: #166534;
-            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            margin-top: 10px;
-        }
-
-        .create-project-box {
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            background: #ffffff;
-            transition: border-color 0.2s;
+            margin-top: 8px;
         }
 
         .upload-audio-box {
-            border: 2px dashed rgba(34, 211, 238, 0.4);
+            border: 2px dashed #2dd4bf;
             border-radius: 12px;
-            padding: 16px;
+            padding: 20px;
             text-align: center;
-            color: #22d3ee;
-            font-size: 12px;
+            color: #0d9488;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(45, 212, 191, 0.05);
             margin-bottom: 14px;
         }
 
         .waveform-box {
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(34, 211, 238, 0.3);
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             border-radius: 14px;
             padding: 20px;
             display: flex;
@@ -381,7 +371,7 @@ def main_page():
 
         .wave-bar {
             width: 4px;
-            background: #22d3ee;
+            background: #0d9488;
             border-radius: 4px;
             height: 12px;
             transition: height 0.2s ease;
@@ -401,21 +391,10 @@ def main_page():
         .wave-bar:nth-child(3) { animation-delay: 0.2s; }
         .wave-bar:nth-child(4) { animation-delay: 0.3s; }
         .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-        .wave-bar:nth-child(6) { animation-delay: 0.5s; }
-        .wave-bar:nth-child(7) { animation-delay: 0.15s; }
-        .wave-bar:nth-child(8) { animation-delay: 0.25s; }
-        .wave-bar:nth-child(9) { animation-delay: 0.35s; }
-        .wave-bar:nth-child(10) { animation-delay: 0.45s; }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
 
         .control-btn-main {
-            background: #22d3ee;
-            color: #0b0f19;
+            background: #2dd4bf;
+            color: #0f172a;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -423,34 +402,27 @@ def main_page():
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
-        }
-
-        .stems-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
+            box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
         }
 
         .stem-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             padding: 10px 14px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
+            margin-bottom: 8px;
         }
 
-        /* MODAL LOADING AI MASTERING */
         #masterModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 25, 0.9);
+            background: rgba(15, 23, 42, 0.8);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -464,8 +436,8 @@ def main_page():
         .spinner {
             width: 45px;
             height: 45px;
-            border: 4px solid rgba(34, 211, 238, 0.2);
-            border-top: 4px solid #22d3ee;
+            border: 4px solid rgba(45, 212, 191, 0.2);
+            border-top: 4px solid #2dd4bf;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -477,7 +449,9 @@ def main_page():
         #toast {
             position: fixed;
             bottom: 30px;
-            background: #10b981;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
@@ -494,147 +468,183 @@ def main_page():
 <audio id="audioElement" preload="auto"></audio>
 <div id="toast">Berjaya!</div>
 
-<!-- SKRIN PROSES AI MASTERING -->
 <div id="masterModal" class="hidden">
     <div class="spinner"></div>
-    <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #22d3ee;">AI Mastering sedang diproses...</div>
-    <div style="font-size: 12px; color: #94a3b8; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
+    <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #2dd4bf;">AI Mastering sedang diproses...</div>
+    <div style="font-size: 12px; color: #cbd5e1; text-align: center;" id="masterStatusText">Mengoptimumkan frekuensi & kompresi studio...</div>
 </div>
 
 <div class="app-container">
 
-    <!-- SKRIN 1: LOGIN -->
-    <div id="screenLogin" class="screen-overlay">
+    <!-- LANGKAH 2/5: KONFIGURASI PROFIL (Rujukan Gambar 1) -->
+    <div id="wizardStep2" class="screen-overlay">
         <div>
-            <div class="brand-logo">BP AI MUSIC STUDIO</div>
-            <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-bottom: 20px;">Log masuk ke akaun profesional anda</div>
-            
-            <div class="social-login-grid">
-                <div class="social-btn" onclick="nextScreen('wizardStep1')">🌐 Google</div>
-                <div class="social-btn" onclick="nextScreen('wizardStep1')">🍎 Apple</div>
-                <div class="social-btn" onclick="nextScreen('wizardStep1')">📘 Facebook</div>
-            </div>
-
-            <div class="divider-text">atau melalui e-mel</div>
-
-            <div class="form-group">
-                <input type="email" class="form-input" placeholder="E-mel anda">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-input" placeholder="Kata laluan">
-            </div>
-        </div>
-
-        <div>
-            <button class="btn-primary" onclick="nextScreen('wizardStep1')">Log Masuk</button>
-        </div>
-    </div>
-
-    <!-- WIZARD STEP 1 (1/5) -->
-    <div id="wizardStep1" class="screen-overlay hidden">
-        <div>
-            <div class="wizard-step-indicator">1/5</div>
-            <div class="wizard-title" style="white-space: normal;">Selamat datang! Apa yang anda ingin buat dahulu?</div>
-        </div>
-        <div class="wizard-body">
-            <div class="pill-grid">
-                <div class="pill-option active" onclick="selectPill(this)">🎚️ Mastering</div>
-                <div class="pill-option" onclick="selectPill(this)">🌍 Distribution</div>
-                <div class="pill-option" onclick="selectPill(this)">🎵 Samples</div>
-            </div>
-        </div>
-        <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('screenLogin')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="nextScreen('wizardStep2')">Seterusnya →</button>
-        </div>
-    </div>
-
-    <!-- WIZARD STEP 2 (2/5) -->
-    <div id="wizardStep2" class="screen-overlay hidden">
-        <div>
+            <div class="brand-logo">LANDR Studio</div>
             <div class="wizard-step-indicator">2/5</div>
-            <div class="wizard-title" style="white-space: normal;">Mari tetapkan Profil Studio anda</div>
+            <div class="wizard-title">Let's configure your LANDR Profile</div>
+            <div class="wizard-subtitle">Join and connect with our network of 3+ million artists.</div>
         </div>
+        
         <div class="wizard-body">
             <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">NAMA ANDA / ARTIS</label>
-                <input type="text" class="form-input" value="Boyz">
+                <label class="form-label">Your name</label>
+                <input type="text" class="form-input" id="profileNameInput" value="Boyz">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Profile URL</label>
+                <input type="text" class="form-input" value="network.landr.com/users/boyz-15d0">
+                <div class="url-helper">URL available.</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Profile picture</label>
+                <div class="avatar-section">
+                    <div class="avatar-circle">
+                        B
+                        <div class="avatar-badge">📷</div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('wizardStep1')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Selesai →</button>
+            <button class="btn-text" onclick="alert('Ini adalah langkah pertama')">← Back</button>
+            <button class="btn-primary" onclick="nextScreen('wizardStep4')">Next →</button>
+        </div>
+    </div>
+
+    <!-- LANGKAH 4/5: APA YANG MENGGAMBARKAN ANDA (Rujukan Gambar 2) -->
+    <div id="wizardStep4" class="screen-overlay hidden">
+        <div>
+            <div class="brand-logo">LANDR Studio</div>
+            <div class="wizard-step-indicator">4/5</div>
+            <div class="wizard-title">What best represents you?</div>
+            <div class="wizard-subtitle">Display the best of yourself and link up with like-minded creators.</div>
+        </div>
+        
+        <div class="wizard-body">
+            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #0f172a;">How would you best describe yourself to others?</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill active" onclick="togglePill(this)">Producer</div>
+                <div class="landr-pill" onclick="togglePill(this)">Musician</div>
+                <div class="landr-pill" onclick="togglePill(this)">Engineer</div>
+                <div class="landr-pill" onclick="togglePill(this)">Label</div>
+                <div class="landr-pill" onclick="togglePill(this)">Podcaster</div>
+                <div class="landr-pill" onclick="togglePill(this)">Educator</div>
+                <div class="landr-pill" onclick="togglePill(this)">Beatmaker</div>
+                <div class="landr-pill" onclick="togglePill(this)">Composer</div>
+                <div class="landr-pill" onclick="togglePill(this)">Vocalist</div>
+                <div class="landr-pill" onclick="togglePill(this)">Other</div>
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('wizardStep2')">← Back</button>
+            <button class="btn-primary" onclick="nextScreen('wizardStep5')">Next →</button>
+        </div>
+    </div>
+
+    <!-- LANGKAH 5/5: PILIHAN GENRE (Rujukan Gambar 3) -->
+    <div id="wizardStep5" class="screen-overlay hidden">
+        <div>
+            <div class="brand-logo">LANDR Studio</div>
+            <div class="wizard-step-indicator">5/5</div>
+            <div class="wizard-title">Pick your favorite genres</div>
+            <div class="wizard-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</div>
+        </div>
+        
+        <div class="wizard-body">
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Acoustic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Afrobeat</div>
+                <div class="landr-pill" onclick="togglePill(this)">Americana</div>
+                <div class="landr-pill" onclick="togglePill(this)">Blues</div>
+                <div class="landr-pill" onclick="togglePill(this)">Chill</div>
+                <div class="landr-pill" onclick="togglePill(this)">Choral</div>
+                <div class="landr-pill" onclick="togglePill(this)">Classical</div>
+                <div class="landr-pill" onclick="togglePill(this)">Country</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dubstep</div>
+                <div class="landr-pill" onclick="togglePill(this)">Edm</div>
+                <div class="landr-pill" onclick="togglePill(this)">Electric pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Electronic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Folk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Funk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Gospel</div>
+                <div class="landr-pill" onclick="togglePill(this)">Heavy metal</div>
+                <div class="landr-pill" onclick="togglePill(this)">Heavy rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Hip hop</div>
+                <div class="landr-pill" onclick="togglePill(this)">House</div>
+                <div class="landr-pill active" onclick="togglePill(this)">Malay Bounce</div>
+                <div class="landr-pill active" onclick="togglePill(this)">Malay Phonk</div>
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('wizardStep4')">← Back</button>
+            <button class="btn-primary" onclick="finishOnboarding()">Continue →</button>
         </div>
     </div>
 
     <!-- AI PROMPT STUDIO SCREEN -->
     <div id="screenAIPrompt" class="screen-overlay hidden">
         <div>
-            <div class="wizard-step-indicator">AI STUDIO</div>
-            <div class="wizard-title" style="white-space: normal;">Jana Gubahan Muzik AI</div>
-            <div class="wizard-subtitle">Taip konsep lagu anda atau muat naik fail audio original di bawah.</div>
+            <div class="brand-logo">BP AI STUDIO</div>
+            <div class="wizard-step-indicator">AI CREATOR</div>
+            <div class="wizard-title">Jana Gubahan Muzik AI</div>
+            <div class="wizard-subtitle">Muat naik fail audio original anda di bawah.</div>
         </div>
         
         <div class="wizard-body">
             <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()">
                 📂 Muat Naik Fail Audio Original (.mp3 / .wav)
-                <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
+                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
             </div>
-            <div id="uploadStatus" style="font-size: 11px; color: #10b981; text-align: center; margin-bottom: 10px;"></div>
+            <div id="uploadStatus" style="font-size: 11px; color: #059669; text-align: center; margin-bottom: 10px;"></div>
 
             <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">KONSEP / DESKRIPSI LAGU</label>
-                <textarea class="form-input" id="songPromptText" style="height: 80px; text-align: left; resize: none;" placeholder="Contoh: Lagu pop melayu santai dengan sentuhan Malay Bounce..."></textarea>
+                <label class="form-label">KONSEP / DESKRIPSI LAGU</label>
+                <textarea class="form-input" style="height: 80px; resize: none;" placeholder="Contoh: Lagu pop melayu santai..."></textarea>
             </div>
         </div>
 
         <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="nextScreen('screenAudioPlayer')">Buka Player 🎵</button>
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Dashboard</button>
+            <button class="btn-primary" onclick="nextScreen('screenAudioPlayer')">Buka Player 🎵</button>
         </div>
     </div>
 
     <!-- AUDIO PLAYER & WAVEFORM SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div>
+            <div class="brand-logo">BP AI STUDIO</div>
             <div class="wizard-step-indicator">PLAYER & STEMS</div>
-            <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
+            <div class="wizard-title" id="playerProjectTitle">Projek Studio</div>
             <div class="wizard-subtitle">Memainkan fail audio original anda secara langsung.</div>
         </div>
         
         <div class="wizard-body">
             <div class="waveform-box" id="waveformBox">
-                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVEFORM VISUALIZER</div>
+                <div style="font-size: 11px; color: #64748b; font-weight: 600;">WAVEFORM VISUALIZER</div>
                 <div class="waveform-bars">
                     <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                    
-         <div class="wave-bar"></div>
+                    <div class="wave-bar"></div><div class="wave-bar"></div>
                 </div>
-                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">00:00 / 00:00</div>
+                <div style="font-size: 13px; font-weight: 700; color: #0d9488;" id="playerTime">00:00 / 00:00</div>
 
-                <div class="player-controls">
-                    <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
-                </div>
+                <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
-            <div class="genre-category-title">Fail Stems Berasingan (Muat Turun Sebenar)</div>
-            <div class="stems-list">
-                <div class="stem-item">
-                    <span>🎙️ Vokal Utama (Original)</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
-                </div>
-                <div class="stem-item">
-                    <span>🥁 Drum & Percussion</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
-                </div>
+            <div style="font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Fail Stems Berasingan</div>
+            <div class="stem-item">
+                <span>🎙️ Vokal Utama (Original)</span>
+                <button class="btn-text" style="color: #0d9488;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
             </div>
         </div>
 
         <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="startAIMastering()">Simpan Master 🎵</button>
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Dashboard</button>
+            <button class="btn-primary" onclick="startAIMastering()">Simpan Master 🎵</button>
         </div>
     </div>
 
@@ -642,26 +652,21 @@ def main_page():
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
-                <span>🎧</span> Bangkit's workspace ▾
+                <span>🎧</span> Studio Workspace ▾
             </div>
         </div>
 
-        <h1 style="font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
 
-        <div class="dash-actions">
-            <button class="dash-btn-new" onclick="nextScreen('screenAIPrompt')">+ New Project ▾</button>
-        </div>
-
-        <!-- SENARAI PROJEK DINAMIK -->
         <div id="projectListContainer">
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Pertama Anda</div>
                 <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
                 <div class="project-status">✓ Sedia dimainkan</div>
             </div>
         </div>
 
-        <div class="create-project-box" onclick="nextScreen('screenAIPrompt')">
+        <div class="upload-audio-box" onclick="nextScreen('screenAIPrompt')" style="margin-top: 20px;">
             + Muat naik fail baru / Buat projek
         </div>
     </div>
@@ -682,7 +687,6 @@ def main_page():
         let audio = document.getElementById('audioElement');
         if(screenId !== 'screenAudioPlayer' && !audio.paused) {
             audio.pause();
-            isPlaying = false;
             document.getElementById('waveformBox').classList.remove('playing');
             document.getElementById('playPauseBtn').innerText = '▶';
         }
@@ -692,17 +696,15 @@ def main_page():
         window.scrollTo(0, 0);
     }
 
-    function selectPill(el) {
-        el.parentElement.querySelectorAll('.pill-option').forEach(p => p.classList.remove('active'));
-        el.classList.add('active');
+    function togglePill(el) {
+        el.classList.toggle('active');
     }
 
-    function finishWizard() {
-        showToast("Profil studio disimpan!");
+    function finishOnboarding() {
+        showToast("Profil Landr & Genre disimpan!");
         setTimeout(() => { nextScreen('dashboardScreen'); }, 1000);
     }
 
-    // Fungsi muat naik fail audio & kemas kini senarai projek di dashboard
     async function handleAudioUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -711,7 +713,7 @@ def main_page():
         let formData = new FormData();
         formData.append("file", file);
 
-        showToast("Sedang memuat naik audio original...");
+        showToast("Sedang memuat naik audio...");
         document.getElementById('uploadStatus').innerText = "⏳ Memuat naik " + file.name + "...";
 
         try {
@@ -726,102 +728,65 @@ def main_page():
                 audio.src = result.url;
                 
                 let fullName = file.name;
-                let displayName = fullName.length > 28 ? fullName.substring(0, 25) + '...' : fullName;
+                let displayName = fullName.length > 25 ? fullName.substring(0, 22) + '...' : fullName;
                 
                 document.getElementById('playerProjectTitle').innerText = displayName;
-                document.getElementById('playerProjectTitle').title = fullName;
                 document.getElementById('dashProjectName').innerText = displayName;
-                
-                // Kemas kini senarai projek dinamik di dashboard
-                document.getElementById('projectListContainer').innerHTML = `
-                    <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-                        <div style="font-weight: 700; font-size: 15px;">${displayName}</div>
-                        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Fail audio original dimuat naik 🎧</div>
-                        <div class="project-status">✓ Audio original aktif</div>
-                    </div>
-                `;
                 
                 showToast("Fail audio berjaya dipasang!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
             }
         } catch (err) {
             showToast("Gagal memuat naik fail audio.");
-            document.getElementById('uploadStatus').innerText = "❌ Ralat muat naik.";
         }
     }
 
-    // Muat turun stem sebenar dari server
     function downloadCurrentStem() {
         if (!currentUploadedFilename) {
-            showToast("Tiada fail audio aktif untuk dimuat turun.");
+            showToast("Tiada fail audio aktif.");
             return;
         }
-        showToast("Memuat turun fail stem...");
         window.location.href = `/download-stem/${encodeURIComponent(currentUploadedFilename)}`;
     }
 
-    // Simulasi Proses AI Mastering dengan Progress Bar
     function startAIMastering() {
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
         modal.classList.remove('hidden');
 
-        setTimeout(() => { statusText.innerText = "Menganalisis spektrum dinamik audio..."; }, 1200);
-        setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2500);
+        setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
             modal.classList.add('hidden');
-            statusText.innerText = "Mengoptimumkan frekuensi & kompresi studio...";
-            showToast("Master file berjaya disimpan & siap!");
-        }, 3800);
+            showToast("Master file berjaya disimpan!");
+        }, 3500);
     }
 
-    let isPlaying = false;
     const audio = document.getElementById('audioElement');
-
     function togglePlayAudio() {
         let box = document.getElementById('waveformBox');
         let btn = document.getElementById('playPauseBtn');
         
-        if (!audio.src) {
-            showToast("Sila muat naik fail audio original terlebih dahulu!");
-            return;
-        }
-
-        if (isPlaying) {
+        if (audio.paused) {
+            if (!audio.src) {
+                showToast("Sila muat naik fail audio terlebih dahulu!");
+                nextScreen('screenAIPrompt');
+                return;
+            }
+            audio.play();
+            box.classList.add('playing');
+            btn.innerText = '⏸';
+        } else {
             audio.pause();
             box.classList.remove('playing');
             btn.innerText = '▶';
-            isPlaying = false;
-        } else {
-            audio.play().then(() => {
-                box.classList.add('playing');
-                btn.innerText = '⏸';
-                isPlaying = true;
-            }).catch(e => {
-                showToast("Sila klik sekali lagi untuk kebenaran audio pelayar.");
-            });
         }
     }
 
-    audio.addEventListener('timeupdate', () => {
-        let currentMinutes = Math.floor(audio.currentTime / 60);
-        let currentSeconds = Math.floor(audio.currentTime % 60);
-        let durMinutes = Math.floor(audio.duration / 60) || 0;
-        let durSeconds = Math.floor(audio.duration % 60) || 0;
-
-        let formattedCurrent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')}`;
-        let formattedDuration = `${String(durMinutes).padStart(2, '0')}:${String(durSeconds).padStart(2, '0')}`;
-
-        document.getElementById('playerTime').innerText = `${formattedCurrent} / ${formattedDuration}`;
-    });
-
-    audio.addEventListener('ended', () => {
-        isPlaying = false;
+    audio.onended = () => {
         document.getElementById('waveformBox').classList.remove('playing');
         document.getElementById('playPauseBtn').innerText = '▶';
-    });
+    };
 </script>
-
 </body>
 </html>
-"""
+    """
