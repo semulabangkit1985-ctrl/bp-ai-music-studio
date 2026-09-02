@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 import os
@@ -66,8 +67,9 @@ def main_page():
         .app-container {
             width: 100%;
             max-width: 480px;
-            min-height: 100vh;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.92) 100%), url('/images (43).jpeg');
+            height: 100vh;
+            max-height: 100vh;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%), url('/images (43).jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -77,6 +79,7 @@ def main_page():
             box-shadow: 0 0 40px rgba(0,0,0,0.7);
             box-sizing: border-box;
             margin: 0 auto;
+            overflow: hidden;
         }
 
         .screen-overlay {
@@ -84,19 +87,19 @@ def main_page():
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 28px 24px;
+            padding: 24px 20px;
             box-sizing: border-box;
-            min-height: 100vh;
-            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
         .brand-logo {
             font-family: 'Syne', sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             color: #2dd4bf;
             letter-spacing: 0.5px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .login-header {
@@ -106,7 +109,7 @@ def main_page():
 
         .brand-logo-large {
             font-family: 'Syne', sans-serif;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: 0.5px;
@@ -117,14 +120,14 @@ def main_page():
         .login-subtitle {
             font-size: 13px;
             color: #cbd5e1;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .social-login-container {
             display: flex;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .social-btn {
@@ -154,39 +157,47 @@ def main_page():
             text-align: center;
             font-size: 12px;
             color: #94a3b8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .wizard-title {
             font-family: 'Syne', sans-serif;
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
             color: #ffffff;
             line-height: 1.2;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .wizard-subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #cbd5e1;
-            line-height: 1.5;
-            margin-bottom: 15px;
+            line-height: 1.4;
+            margin-bottom: 12px;
         }
 
         .wizard-body {
             flex: 1;
             overflow-y: auto;
-            padding: 10px 0;
-            margin: 10px 0;
-            max-height: 55vh;
+            padding-right: 4px;
+            margin: 8px 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         .wizard-body::-webkit-scrollbar { width: 4px; }
         .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
+        .genre-category-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2dd4bf;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.3px;
+        }
+
         .form-group {
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .form-label {
@@ -200,7 +211,7 @@ def main_page():
         .form-input {
             background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 12px;
             width: 100%;
             color: #ffffff;
@@ -217,9 +228,9 @@ def main_page():
         }
 
         .url-helper {
-            font-size: 12px;
+            font-size: 11px;
             color: #34d399;
-            margin-top: 6px;
+            margin-top: 5px;
             font-weight: 500;
         }
 
@@ -227,7 +238,7 @@ def main_page():
             text-align: right;
             font-size: 12px;
             color: #38bdf8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             cursor: pointer;
             font-weight: 500;
         }
@@ -236,13 +247,13 @@ def main_page():
         .avatar-section {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-top: 10px;
+            gap: 14px;
+            margin-top: 6px;
         }
 
         .avatar-circle {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: #65a30d;
             border-radius: 50%;
             display: flex;
@@ -250,7 +261,7 @@ def main_page():
             justify-content: center;
             color: white;
             font-family: 'Syne', sans-serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             position: relative;
         }
@@ -261,13 +272,13 @@ def main_page():
             right: 0;
             background: #0f172a;
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
             border: 2px solid white;
         }
 
@@ -275,16 +286,16 @@ def main_page():
         .landr-pill-cloud {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
         }
 
         .landr-pill {
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 11px 20px;
-            border-radius: 30px;
-            font-size: 13px;
+            padding: 8px 14px;
+            border-radius: 25px;
+            font-size: 12px;
             font-weight: 500;
             color: #ffffff;
             cursor: pointer;
@@ -310,15 +321,17 @@ def main_page():
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 15px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
         }
 
         .btn-text {
             background: none;
             border: none;
             color: #94a3b8;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
         }
@@ -328,8 +341,8 @@ def main_page():
             color: #0f172a;
             font-family: 'Syne', sans-serif;
             font-weight: 700;
-            font-size: 14px;
-            padding: 13px 28px;
+            font-size: 13px;
+            padding: 11px 24px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
@@ -346,8 +359,7 @@ def main_page():
             flex-direction: column;
             padding: 24px 20px;
             box-sizing: border-box;
-            min-height: 100vh;
-            width: 100%;
+            height: 100vh;
             overflow-y: auto;
         }
 
@@ -355,7 +367,7 @@ def main_page():
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .workspace-badge {
@@ -371,8 +383,8 @@ def main_page():
             background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
             cursor: pointer;
             backdrop-filter: blur(6px);
         }
@@ -385,37 +397,37 @@ def main_page():
             gap: 6px;
             background: rgba(16, 185, 129, 0.2);
             color: #34d399;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .upload-audio-box {
             border: 2px dashed #2dd4bf;
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
             text-align: center;
             color: #2dd4bf;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(5px);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .waveform-box {
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 14px;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 12px;
             backdrop-filter: blur(8px);
         }
 
@@ -423,7 +435,7 @@ def main_page():
             display: flex;
             align-items: center;
             gap: 4px;
-            height: 48px;
+            height: 40px;
             width: 100%;
             justify-content: center;
         }
@@ -432,7 +444,7 @@ def main_page():
             width: 4px;
             background: #2dd4bf;
             border-radius: 4px;
-            height: 12px;
+            height: 10px;
             transition: height 0.2s ease;
         }
 
@@ -441,9 +453,9 @@ def main_page():
         }
 
         @keyframes soundWave {
-            0% { height: 10px; }
-            50% { height: 42px; }
-            100% { height: 16px; }
+            0% { height: 8px; }
+            50% { height: 35px; }
+            100% { height: 14px; }
         }
 
         .wave-bar:nth-child(2) { animation-delay: 0.1s; }
@@ -454,14 +466,14 @@ def main_page():
         .control-btn-main {
             background: #2dd4bf;
             color: #0f172a;
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
         }
@@ -469,13 +481,13 @@ def main_page():
         .stem-item {
             background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            margin-bottom: 8px;
+            font-size: 11px;
+            margin-bottom: 6px;
             backdrop-filter: blur(5px);
         }
 
@@ -564,7 +576,7 @@ def main_page():
 
             <div class="forgot-password" onclick="alert('Fungsi Lupa Kata Laluan')">Lupa kata laluan?</div>
 
-            <button class="btn-primary" style="width: 100%; padding: 14px;" onclick="nextScreen('profileScreen')">Log Masuk</button>
+            <button class="btn-primary" style="width: 100%; padding: 13px;" onclick="nextScreen('profileScreen')">Log Masuk</button>
         </div>
 
         <div></div>
@@ -616,7 +628,7 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #ffffff;">How would you best describe yourself?</div>
+            <div style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #ffffff;">How would you best describe yourself?</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill active" onclick="togglePill(this)">Producer</div>
                 <div class="landr-pill" onclick="togglePill(this)">Musician</div>
@@ -634,7 +646,7 @@ def main_page():
         </div>
     </div>
 
-    <!-- SKRIN 4: PILIHAN GENRE -->
+    <!-- SKRIN 4: PILIHAN GENRE LENGKAP -->
     <div id="genreScreen" class="screen-overlay hidden">
         <div>
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -643,13 +655,155 @@ def main_page():
         </div>
         
         <div class="wizard-body">
+            <!-- 🇲🇾 Melayu / Nusantara -->
+            <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Pop Melayu</div>
+                <div class="landr-pill" onclick="togglePill(this)">Rock Melayu</div>
+                <div class="landr-pill" onclick="togglePill(this)">Balada Melayu</div>
+                <div class="landr-pill" onclick="togglePill(this)">Melayu Klasik</div>
+                <div class="landr-pill" onclick="togglePill(this)">Irama Malaysia</div>
+                <div class="landr-pill" onclick="togglePill(this)">Lagu Asli</div>
+                <div class="landr-pill" onclick="togglePill(this)">Zapin</div>
+                <div class="landr-pill" onclick="togglePill(this)">Joget</div>
+                <div class="landr-pill" onclick="togglePill(this)">Ghazal</div>
+                <div class="landr-pill" onclick="togglePill(this)">Keroncong</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dangdut</div>
+                <div class="landr-pill" onclick="togglePill(this)">Campursari</div>
+                <div class="landr-pill" onclick="togglePill(this)">Pop Nusantara</div>
+                <div class="landr-pill" onclick="togglePill(this)">Etnik Nusantara</div>
+                <div class="landr-pill" onclick="togglePill(this)">Tradisional Melayu</div>
+                <div class="landr-pill" onclick="togglePill(this)">Minang</div>
+                <div class="landr-pill" onclick="togglePill(this)">Jawa</div>
+                <div class="landr-pill" onclick="togglePill(this)">Sunda</div>
+                <div class="landr-pill" onclick="togglePill(this)">Bugis</div>
+                <div class="landr-pill" onclick="togglePill(this)">Batak</div>
+                <div class="landr-pill active" onclick="togglePill(this)">Malay Bounce</div>
+                <div class="landr-pill" onclick="togglePill(this)">Malay Trap</div>
+                <div class="landr-pill active" onclick="togglePill(this)">Malay Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Malay Electronic</div>
+            </div>
+
+            <!-- 🎤 Pop -->
+            <div class="genre-category-title">🎤 Pop</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Pop Ballad</div>
+                <div class="landr-pill" onclick="togglePill(this)">Electropop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Synthpop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Indie Pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dance Pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">City Pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Future Pop</div>
+            </div>
+
+            <!-- 🎸 Rock -->
+            <div class="genre-category-title">🎸 Rock & Metal</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Soft Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Classic Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Hard Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Alternative Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Indie Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Pop Rock</div>
+                <div class="landr-pill" onclick="togglePill(this)">Heavy Metal</div>
+                <div class="landr-pill" onclick="togglePill(this)">Metalcore</div>
+            </div>
+
+            <!-- 🎤 Hip Hop / Rap -->
+            <div class="genre-category-title">🎤 Hip Hop / Rap</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Hip Hop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Rap</div>
+                <div class="landr-pill" onclick="togglePill(this)">Trap</div>
+                <div class="landr-pill" onclick="togglePill(this)">Boom Bap</div>
+                <div class="landr-pill" onclick="togglePill(this)">Lo-Fi Hip Hop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Melodic Rap</div>
+                <div class="landr-pill" onclick="togglePill(this)">Drill</div>
+                <div class="landr-pill" onclick="togglePill(this)">Cinematic Trap</div>
+            </div>
+
+            <!-- 🔥 Phonk -->
+            <div class="genre-category-title">🔥 Phonk</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dark Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Drift Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Brazilian Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Memphis Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Aggressive Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Atmospheric Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Malay Phonk</div>
+            </div>
+
+            <!-- ⚡ Techno / Electronic -->
+            <div class="genre-category-title">⚡ Techno / Electronic</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">EDM</div>
+                <div class="landr-pill" onclick="togglePill(this)">Techno</div>
+                <div class="landr-pill" onclick="togglePill(this)">Hard Techno</div>
+                <div class="landr-pill" onclick="togglePill(this)">Melodic Techno</div>
+                <div class="landr-pill" onclick="togglePill(this)">House</div>
+                <div class="landr-pill" onclick="togglePill(this)">Deep House</div>
+                <div class="landr-pill" onclick="togglePill(this)">Trance</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dubstep</div>
+                <div class="landr-pill" onclick="togglePill(this)">Drum & Bass</div>
+                <div class="landr-pill" onclick="togglePill(this)">Amapiano</div>
+            </div>
+
+            <!-- 🎷 R&B / Soul / Funk / Jazz -->
+            <div class="genre-category-title">🎷 R&B, Soul & Jazz</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">R&B</div>
+                <div class="landr-pill" onclick="togglePill(this)">Contemporary R&B</div>
+                <div class="landr-pill" onclick="togglePill(this)">Soul</div>
+                <div class="landr-pill" onclick="togglePill(this)">Neo Soul</div>
+                <div class="landr-pill" onclick="togglePill(this)">Funk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Jazz</div>
+                <div class="landr-pill" onclick="togglePill(this)">Smooth Jazz</div>
+                <div class="landr-pill" onclick="togglePill(this)">Blues</div>
+            </div>
+
+            <!-- 🎸 Akustik / Folk / Lo-Fi -->
+            <div class="genre-category-title">🎸 Akustik / Folk / Lo-Fi</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">Acoustic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Electronic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Hip hop</div>
-                <div class="landr-pill" onclick="togglePill(this)">House</div>
-                <div class="landr-pill active" onclick="togglePill(this)">Malay Bounce</div>
-                <div class="landr-pill active" onclick="togglePill(this)">Malay Phonk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Acoustic Pop</div>
+                <div class="landr-pill" onclick="togglePill(this)">Folk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Indie Folk</div>
+                <div class="landr-pill" onclick="togglePill(this)">Singer-Songwriter</div>
+                <div class="landr-pill" onclick="togglePill(this)">Chill</div>
+                <div class="landr-pill" onclick="togglePill(this)">Lo-Fi</div>
+                <div class="landr-pill" onclick="togglePill(this)">Lounge</div>
+            </div>
+
+            <!-- ❤️ Sedih / Emosi / Cinta -->
+            <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Sad Song</div>
+                <div class="landr-pill" onclick="togglePill(this)">Emotional</div>
+                <div class="landr-pill" onclick="togglePill(this)">Heartbreak</div>
+                <div class="landr-pill" onclick="togglePill(this)">Melancholic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Nostalgic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Romantic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Love Song</div>
+                <div class="landr-pill" onclick="togglePill(this)">Slow Ballad</div>
+            </div>
+
+            <!-- 🎬 Cinematic / Mood / Khas -->
+            <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill" onclick="togglePill(this)">Cinematic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Epic</div>
+                <div class="landr-pill" onclick="togglePill(this)">Dark</div>
+                <div class="landr-pill" onclick="togglePill(this)">Mysterious</div>
+                <div class="landr-pill" onclick="togglePill(this)">Inspirational</div>
+                <div class="landr-pill" onclick="togglePill(this)">Motivational</div>
+                <div class="landr-pill" onclick="togglePill(this)">Ambient</div>
+                <div class="landr-pill" onclick="togglePill(this)">Wedding</div>
+                <div class="landr-pill" onclick="togglePill(this)">Party</div>
+                <div class="landr-pill" onclick="togglePill(this)">Raya / Aidilfitri</div>
             </div>
         </div>
 
@@ -712,17 +866,17 @@ def main_page():
             </div>
         </div>
 
-        <h1 style="font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 14px 0;">Overview</h1>
 
         <div id="projectListContainer">
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
-                <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
+                <div style="font-weight: 700; font-size: 14px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+                <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
                 <div class="project-status">✓ Sedia dimainkan</div>
             </div>
         </div>
 
-        <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 20px;">
+        <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 15px;">
             + Muat naik fail audio baru
             <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
         </div>
@@ -847,4 +1001,3 @@ def main_page():
 </body>
 </html>
     """
-                
