@@ -43,15 +43,15 @@ def main_page():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BP AI Music Studio - Landr Style</title>
+    <title>BP AI Music Studio - KL Background</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
         body {
-            background: #eef2f6;
-            color: #0f172a;
+            background: #090d16;
+            color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
@@ -67,11 +67,15 @@ def main_page():
             width: 100%;
             max-width: 480px;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+            /* DI SINI GAMBAR LATAR BELAKANG KUALA LUMPUR DIMASUKKAN */
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%), url('/images (43).jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: relative;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
             box-sizing: border-box;
             margin: 0 auto;
         }
@@ -91,7 +95,7 @@ def main_page():
             font-family: 'Syne', sans-serif;
             font-size: 20px;
             font-weight: 800;
-            color: #0f172a;
+            color: #2dd4bf;
             letter-spacing: 0.5px;
             margin-bottom: 20px;
         }
@@ -103,7 +107,7 @@ def main_page():
         .wizard-step-indicator {
             font-size: 13px;
             font-weight: 600;
-            color: #64748b;
+            color: #94a3b8;
             margin-bottom: 8px;
         }
 
@@ -111,14 +115,14 @@ def main_page():
             font-family: 'Syne', sans-serif;
             font-size: 26px;
             font-weight: 800;
-            color: #0f172a;
+            color: #ffffff;
             line-height: 1.2;
             margin-bottom: 8px;
         }
 
         .wizard-subtitle {
             font-size: 13px;
-            color: #475569;
+            color: #cbd5e1;
             line-height: 1.5;
         }
 
@@ -131,7 +135,7 @@ def main_page():
         }
 
         .wizard-body::-webkit-scrollbar { width: 4px; }
-        .wizard-body::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 4px; }
+        .wizard-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
         .form-group {
             width: 100%;
@@ -141,18 +145,18 @@ def main_page():
         .form-label {
             font-size: 13px;
             font-weight: 600;
-            color: #0f172a;
+            color: #e2e8f0;
             display: block;
             margin-bottom: 6px;
         }
 
         .form-input {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 14px 16px;
             border-radius: 12px;
             width: 100%;
-            color: #0f172a;
+            color: #ffffff;
             font-size: 14px;
             box-sizing: border-box;
             outline: none;
@@ -160,13 +164,13 @@ def main_page():
         }
 
         .form-input:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+            border-color: #2dd4bf;
+            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
         }
 
         .url-helper {
             font-size: 12px;
-            color: #10b981;
+            color: #34d399;
             margin-top: 6px;
             font-weight: 500;
         }
@@ -219,28 +223,29 @@ def main_page():
         }
 
         .landr-pill {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 11px 20px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
-            color: #0f172a;
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.2s ease;
             user-select: none;
+            backdrop-filter: blur(5px);
         }
 
         .landr-pill:hover {
-            border-color: #0ea5e9;
-            background: #ffffff;
+            border-color: #2dd4bf;
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .landr-pill.active {
-            background: #0f172a;
-            border-color: #0f172a;
-            color: #ffffff;
-            font-weight: 600;
+            background: #2dd4bf;
+            border-color: #2dd4bf;
+            color: #0f172a;
+            font-weight: 700;
         }
 
         .wizard-footer {
@@ -249,13 +254,13 @@ def main_page():
             justify-content: space-between;
             align-items: center;
             padding-top: 15px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn-text {
             background: none;
             border: none;
-            color: #475569;
+            color: #94a3b8;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -282,8 +287,8 @@ def main_page():
 
         /* Dashboard & Studio */
         .dashboard-container {
-            background: #ffffff;
-            color: #0f172a;
+            background: transparent;
+            color: #ffffff;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -307,17 +312,18 @@ def main_page():
             gap: 8px;
             font-weight: 600;
             font-size: 14px;
-            color: #0f172a;
+            color: #ffffff;
         }
 
         .project-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 14px;
             cursor: pointer;
             transition: border-color 0.2s;
+            backdrop-filter: blur(5px);
         }
         
         .project-card:hover { border-color: #2dd4bf; }
@@ -326,8 +332,8 @@ def main_page():
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(16, 185, 129, 0.1);
-            color: #059669;
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 12px;
@@ -340,17 +346,17 @@ def main_page():
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            color: #0d9488;
+            color: #2dd4bf;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            background: rgba(45, 212, 191, 0.05);
+            background: rgba(45, 212, 191, 0.08);
             margin-bottom: 14px;
         }
 
         .waveform-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 14px;
             padding: 20px;
             display: flex;
@@ -358,6 +364,7 @@ def main_page():
             align-items: center;
             gap: 14px;
             margin-bottom: 15px;
+            backdrop-filter: blur(6px);
         }
 
         .waveform-bars {
@@ -371,7 +378,7 @@ def main_page():
 
         .wave-bar {
             width: 4px;
-            background: #0d9488;
+            background: #2dd4bf;
             border-radius: 4px;
             height: 12px;
             transition: height 0.2s ease;
@@ -408,8 +415,8 @@ def main_page():
         }
 
         .stem-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 10px 14px;
             border-radius: 10px;
             display: flex;
@@ -417,12 +424,13 @@ def main_page():
             align-items: center;
             font-size: 12px;
             margin-bottom: 8px;
+            backdrop-filter: blur(5px);
         }
 
         #masterModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -460,6 +468,7 @@ def main_page():
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.2);
         }
     </style>
 </head>
@@ -476,7 +485,6 @@ def main_page():
 
 <div class="app-container">
 
-    <!-- LANGKAH 2/5: KONFIGURASI PROFIL (Rujukan Gambar 1) -->
     <div id="wizardStep2" class="screen-overlay">
         <div>
             <div class="brand-logo">LANDR Studio</div>
@@ -509,12 +517,11 @@ def main_page():
         </div>
 
         <div class="wizard-footer">
-            <button class="btn-text" onclick="alert('Ini adalah langkah pertama')">← Back</button>
+            <button class="btn-text" onclick="alert('Ini adalah langkah awal')">← Back</button>
             <button class="btn-primary" onclick="nextScreen('wizardStep4')">Next →</button>
         </div>
     </div>
 
-    <!-- LANGKAH 4/5: APA YANG MENGGAMBARKAN ANDA (Rujukan Gambar 2) -->
     <div id="wizardStep4" class="screen-overlay hidden">
         <div>
             <div class="brand-logo">LANDR Studio</div>
@@ -524,7 +531,7 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #0f172a;">How would you best describe yourself to others?</div>
+            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #ffffff;">How would you best describe yourself to others?</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill active" onclick="togglePill(this)">Producer</div>
                 <div class="landr-pill" onclick="togglePill(this)">Musician</div>
@@ -545,7 +552,6 @@ def main_page():
         </div>
     </div>
 
-    <!-- LANGKAH 5/5: PILIHAN GENRE (Rujukan Gambar 3) -->
     <div id="wizardStep5" class="screen-overlay hidden">
         <div>
             <div class="brand-logo">LANDR Studio</div>
@@ -586,69 +592,51 @@ def main_page():
         </div>
     </div>
 
-    <!-- AI PROMPT STUDIO SCREEN -->
-    <div id="screenAIPrompt" class="screen-overlay hidden">
-        <div>
-            <div class="brand-logo">BP AI STUDIO</div>
-            <div class="wizard-step-indicator">AI CREATOR</div>
-            <div class="wizard-title">Jana Gubahan Muzik AI</div>
-            <div class="wizard-subtitle">Muat naik fail audio original anda di bawah.</div>
-        </div>
-        
-        <div class="wizard-body">
-            <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()">
-                📂 Muat Naik Fail Audio Original (.mp3 / .wav)
-                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
-            </div>
-            <div id="uploadStatus" style="font-size: 11px; color: #059669; text-align: center; margin-bottom: 10px;"></div>
-
-            <div class="form-group">
-                <label class="form-label">KONSEP / DESKRIPSI LAGU</label>
-                <textarea class="form-input" style="height: 80px; resize: none;" placeholder="Contoh: Lagu pop melayu santai..."></textarea>
-            </div>
-        </div>
-
-        <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Dashboard</button>
-            <button class="btn-primary" onclick="nextScreen('screenAudioPlayer')">Buka Player 🎵</button>
-        </div>
-    </div>
-
-    <!-- AUDIO PLAYER & WAVEFORM SCREEN -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div>
             <div class="brand-logo">BP AI STUDIO</div>
             <div class="wizard-step-indicator">PLAYER & STEMS</div>
-            <div class="wizard-title" id="playerProjectTitle">Projek Studio</div>
-            <div class="wizard-subtitle">Memainkan fail audio original anda secara langsung.</div>
+            <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
+            <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems yang dijana AI.</div>
         </div>
         
         <div class="wizard-body">
             <div class="waveform-box" id="waveformBox">
-                <div style="font-size: 11px; color: #64748b; font-weight: 600;">WAVEFORM VISUALIZER</div>
+                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">WAVEFORM VISUALIZER</div>
                 <div class="waveform-bars">
                     <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                     <div class="wave-bar"></div><div class="wave-bar"></div>
                 </div>
-                <div style="font-size: 13px; font-weight: 700; color: #0d9488;" id="playerTime">00:00 / 00:00</div>
+                <div style="font-size: 13px; font-weight: 700; color: #2dd4bf;" id="playerTime">02:34 / 03:45</div>
 
                 <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
             </div>
 
-            <div style="font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Fail Stems Berasingan</div>
+            <div style="font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Fail Stems Berasingan</div>
             <div class="stem-item">
-                <span>🎙️ Vokal Utama (Original)</span>
-                <button class="btn-text" style="color: #0d9488;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+                <span>🎙️ Vokal Utama (AI)</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+            </div>
+            <div class="stem-item">
+                <span>🥁 Drum & Percussion</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+            </div>
+            <div class="stem-item">
+                <span>🎸 Bass Line</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
+            </div>
+            <div class="stem-item">
+                <span>🎹 Melodi & Synth</span>
+                <button class="btn-text" style="color: #2dd4bf;" onclick="downloadCurrentStem()">Muat Turun ⬇</button>
             </div>
         </div>
 
         <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Dashboard</button>
+            <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali ke Dashboard</button>
             <button class="btn-primary" onclick="startAIMastering()">Simpan Master 🎵</button>
         </div>
     </div>
 
-    <!-- DASHBOARD -->
     <div id="dashboardScreen" class="dashboard-container hidden">
         <div class="dash-top-bar">
             <div class="workspace-badge">
@@ -660,15 +648,17 @@ def main_page():
 
         <div id="projectListContainer">
             <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Pertama Anda</div>
-                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
+                <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+                <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Klik untuk buka pemain audio & fail stems 🎧</div>
                 <div class="project-status">✓ Sedia dimainkan</div>
             </div>
         </div>
 
-        <div class="upload-audio-box" onclick="nextScreen('screenAIPrompt')" style="margin-top: 20px;">
-            + Muat naik fail baru / Buat projek
+        <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()" style="margin-top: 20px;">
+            + Muat naik fail audio baru
+            <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
         </div>
+        <div id="uploadStatus" style="font-size: 11px; color: #34d399; text-align: center; margin-top: 5px;"></div>
     </div>
 
 </div>
@@ -735,6 +725,7 @@ def main_page():
                 
                 showToast("Fail audio berjaya dipasang!");
                 document.getElementById('uploadStatus').innerText = "✓ " + displayName + " sedia dimainkan!";
+                setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1000);
             }
         } catch (err) {
             showToast("Gagal memuat naik fail audio.");
@@ -743,7 +734,7 @@ def main_page():
 
     function downloadCurrentStem() {
         if (!currentUploadedFilename) {
-            showToast("Tiada fail audio aktif.");
+            window.location.href = `/download-stem/sample.wav`;
             return;
         }
         window.location.href = `/download-stem/${encodeURIComponent(currentUploadedFilename)}`;
@@ -768,9 +759,7 @@ def main_page():
         
         if (audio.paused) {
             if (!audio.src) {
-                showToast("Sila muat naik fail audio terlebih dahulu!");
-                nextScreen('screenAIPrompt');
-                return;
+                audio.src = "/stream-audio/sample.wav";
             }
             audio.play();
             box.classList.add('playing');
