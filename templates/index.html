@@ -23,7 +23,7 @@
             background-size: cover;
             background-position: center;
         }
-        .container { max-width: 480px; margin: 0 auto; }
+        .container { max-width: 480px; margin: 0 auto; position: relative; }
         
         #landing-view { text-align: center; padding: 1.5rem 1rem; }
         .hero-image-container {
@@ -117,6 +117,22 @@
         }
         .section-title { font-size: 0.8rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
         
+        /* Upload Box Style */
+        .upload-box {
+            border: 2px dashed var(--card-border);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            background: rgba(20, 28, 46, 0.5);
+            margin-bottom: 1rem;
+            transition: 0.2s;
+        }
+        .upload-box:hover { border-color: var(--accent-blue); }
+        .upload-box input { display: none; }
+        .upload-text { font-size: 0.82rem; color: var(--text-muted); }
+        .file-name { font-size: 0.8rem; color: #60a5fa; margin-top: 0.3rem; font-weight: 600; }
+
         .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
         .style-btn {
             background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
@@ -148,10 +164,50 @@
             background: none; border: none; width: 100%; cursor: pointer;
         }
         .btn-back:hover { color: #60a5fa; }
+
+        /* Loading Overlay Style */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 25, 0.92);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid var(--card-border);
+            border-top: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-title { font-size: 1rem; font-weight: 700; color: #60a5fa; margin-bottom: 0.4rem; }
+        .loading-status { font-size: 0.85rem; color: var(--text-muted); text-align: center; }
+        .progress-bar-container {
+            width: 80%; max-width: 300px; height: 6px; background: #1e293b; border-radius: 3px; margin-top: 1rem; overflow: hidden;
+        }
+        .progress-bar-fill {
+            width: 0%; height: 100%; background: var(--accent-blue); transition: width 0.3s ease;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Loading Overlay -->
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <div class="loading-title" id="load-title">Memproses Audio AI...</div>
+            <div class="loading-status" id="load-status">Sila tunggu sebentar...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -277,7 +333,7 @@
             </div>
 
             <div class="genre-category">
-                <div class="category-title">🔥 Phonk</div>
+                  <div class="category-title">🔥 Phonk</div>
                 <div class="genre-pills">
                     <div class="genre-pill" onclick="toggleGenre(this)">Phonk</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Dark Phonk</div>
@@ -307,7 +363,7 @@
                     <div class="genre-pill" onclick="toggleGenre(this)">Acid Techno</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Minimal Techno</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Melodic Techno</div>
-                       <div class="genre-pill" onclick="toggleGenre(this)">Progressive Techno</div>
+                    <div class="genre-pill" onclick="toggleGenre(this)">Progressive Techno</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Techno Noir</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Cyber Techno</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">House</div>
@@ -580,8 +636,16 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
+            <!-- Panel Mastering -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
                 <div class="card">
+                    <div class="section-title">Muat Naik Fail Audio</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-1').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav)</div>
+                        <div class="file-name" id="file-name-1">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-1" accept="audio/*" onchange="handleFileSelect(this, 'file-name-1')">
+                    </div>
+
                     <div class="section-title">Mastering Styles</div>
                     <div class="style-buttons">
                         <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
@@ -595,15 +659,23 @@
                         <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="document.getElementById('m1').textContent = this.value + ' LUFS'">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
-                          <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
+                        <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
                         <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="document.getElementById('m2').textContent = this.value + ' dB'">
                     </div>
                 </div>
-                <button class="btn-action" onclick="alert('AI Mastering sedang diproses mengikut genre pilihan anda!')">Proses AI Mastering ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Mastering sedang diproses mengikut genre pilihan anda!')">Proses AI Mastering ➔</button>
             </div>
 
+            <!-- Panel Co-Producer -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
+                    <div class="section-title">Muat Naik Trek Stems</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail lagu (.mp3, .wav)</div>
+                        <div class="file-name" id="file-name-2">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-2" accept="audio/*" onchange="handleFileSelect(this, 'file-name-2')">
+                    </div>
+
                     <div class="section-title">Stem Separation Layers</div>
                     <div class="instrument-grid">
                         <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
@@ -618,11 +690,19 @@
                         <input type="range" min="50" max="100" value="90" oninput="document.getElementById('c1').textContent = this.value + '%'">
                     </div>
                 </div>
-                <button class="btn-action" onclick="alert('Pemprosesan Stem AI sedang berjalan!')">Asingkan Stems ➔</button>
+                <button class="btn-action" onclick="runAIProcess('Pemprosesan Stem AI sedang berjalan untuk mengasingkan lapisan audio!')">Asingkan Stems ➔</button>
             </div>
 
+            <!-- Panel EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
+                    <div class="section-title">Muat Naik Audio EQ</div>
+                    <div class="upload-box" onclick="document.getElementById('audio-file-3').click()">
+                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav)</div>
+                        <div class="file-name" id="file-name-3">Tiada fail dipilih</div>
+                        <input type="file" id="audio-file-3" accept="audio/*" onchange="handleFileSelect(this, 'file-name-3')">
+                    </div>
+
                     <div class="section-title">Multi-Band Spectrum EQ</div>
                     <div class="control-group">
                         <div class="control-header"><span>Low Band (Sub & Bass)</span><span class="control-value" id="e1">+0.5 dB</span></div>
@@ -637,7 +717,7 @@
                         <input type="range" min="-10" max="10" step="0.1" value="1.0" oninput="document.getElementById('e3').textContent = (this.value > 0 ? '+' : '') + this.value + ' dB'">
                     </div>
                 </div>
-                <button class="btn-action" onclick="alert('Pelarasan EQ & Tonal Balance sedang diproses!')">Optimumkan Tonal ➔</button>
+                <button class="btn-action" onclick="runAIProcess('Pelarasan EQ & Tonal Balance sedang dioptimumkan!')">Optimumkan Tonal ➔</button>
             </div>
 
             <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
@@ -645,6 +725,18 @@
     </div>
 
     <script>
+        // Load Saved Genres from localStorage on startup
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedGenres = JSON.parse(localStorage.getItem('bp_ai_genres') || '[]');
+            if (savedGenres.length > 0) {
+                document.querySelectorAll('.genre-pill').forEach(pill => {
+                    if (savedGenres.includes(pill.textContent.trim())) {
+                        pill.classList.add('active');
+                    }
+                });
+            }
+        });
+
         function showLanding() {
             document.getElementById('landing-view').style.display = 'block';
             document.getElementById('genre-view').style.display = 'none';
@@ -695,15 +787,56 @@
 
         function toggleGenre(el) {
             el.classList.toggle('active');
+            
+            // Save to localStorage
+            const activePills = [];
+            document.querySelectorAll('.genre-pill.active').forEach(pill => {
+                activePills.push(pill.textContent.trim());
+            });
+            localStorage.setItem('bp_ai_genres', JSON.stringify(activePills));
         }
 
         function selectStyle(el) {
             document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
         }
+
+        function handleFileSelect(input, targetId) {
+            if (input.files && input.files[0]) {
+                document.getElementById(targetId).textContent = input.files[0].name;
+            }
+        }
+
+        function runAIProcess(successMessage) {
+            const overlay = document.getElementById('loading-overlay');
+            const fill = document.getElementById('progress-fill');
+            const status = document.getElementById('load-status');
+            
+            overlay.style.display = 'flex';
+            fill.style.width = '0%';
+            status.textContent = "Menganalisis fail audio...";
+            
+            setTimeout(() => {
+                fill.style.width = '40%';
+                status.textContent = "Memproses spektrum frekuensi & AI model...";
+            }, 800);
+
+            setTimeout(() => {
+                fill.style.width = '80%';
+                status.textContent = "Melakukan finalisasi loudness & mastering...";
+            }, 1800);
+
+            setTimeout(() => {
+                fill.style.width = '100%';
+                status.textContent = "Selesai!";
+            }, 2600);
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                alert(successMessage + "\n(Simulasi pemprosesan berjaya!)");
+            }, 3000);
+        }
     </script>
 </body>
 </html>
-                    
-                    
-                        
+                                                       
