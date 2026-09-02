@@ -1,14 +1,33 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 import os
+import shutil
 
 app = FastAPI()
+
+# Direktori sementara untuk simpan audio original
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.get("/images (43).jpeg")
 def get_kl_bg():
     if os.path.exists("images (43).jpeg"):
         return FileResponse("images (43).jpeg")
     return {"error": "Background image not found"}
+
+@app.post("/upload-audio")
+async def upload_audio(file: UploadFile = File(...)):
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb+") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    return {"filename": file.filename, "url": f"/stream-audio/{file.filename}"}
+
+@app.get("/stream-audio/{filename}")
+def stream_audio(filename: str):
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    return {"error": "Audio not found"}
 
 @app.get("/", response_class=HTMLResponse)
 def main_page():
@@ -36,7 +55,6 @@ def main_page():
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
 
@@ -118,11 +136,6 @@ def main_page():
             font-size: 13px;
         }
 
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
         .divider-text {
             text-align: center;
             font-size: 13px;
@@ -146,10 +159,6 @@ def main_page():
             box-sizing: border-box;
             outline: none;
             text-align: center;
-        }
-
-        .form-input:focus {
-            border-color: #22d3ee;
         }
 
         .btn-primary {
@@ -312,7 +321,6 @@ def main_page():
             margin-bottom: 14px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             cursor: pointer;
-            transition: transform 0.1s ease;
         }
         
         .project-card:hover {
@@ -344,10 +352,19 @@ def main_page():
             background: #ffffff;
             transition: border-color 0.2s;
         }
-        
-        .create-project-box:hover {
-            border-color: #0f172a;
-            color: #0f172a;
+
+        /* UPLOAD BOX STYLING */
+        .upload-audio-box {
+            border: 2px dashed rgba(34, 211, 238, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            color: #22d3ee;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(15, 23, 42, 0.6);
+            margin-bottom: 14px;
         }
 
         /* WAVEFORM STYLES */
@@ -458,7 +475,7 @@ def main_page():
 </head>
 <body>
 
-<audio id="audioElement" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+<audio id="audioElement" preload="auto"></audio>
 
 <div id="toast">Berjaya!</div>
 
@@ -483,16 +500,10 @@ def main_page():
             <div class="form-group">
                 <input type="password" class="form-input" placeholder="Kata laluan">
             </div>
-            <div style="text-align: center; margin-bottom: 10px;">
-                <a href="#" style="font-size: 12px; color: #22d3ee; text-decoration: none;">Lupa kata laluan?</a>
-            </div>
         </div>
 
         <div>
             <button class="btn-primary" onclick="nextScreen('wizardStep1')">Log Masuk</button>
-            <div style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 12px;">
-                Belum ada akaun? <span style="color: #22d3ee; cursor: pointer;" onclick="nextScreen('wizardStep1')">Daftar sekarang</span>
-            </div>
         </div>
     </div>
 
@@ -500,14 +511,12 @@ def main_page():
         <div>
             <div class="wizard-step-indicator">1/5</div>
             <div class="wizard-title">Selamat datang! Apa yang anda ingin buat dahulu?</div>
-            <div class="wizard-subtitle">Beritahu kami keperluan anda supaya kami boleh bantu anda manfaatkan studio sepenuhnya.</div>
         </div>
         <div class="wizard-body">
             <div class="pill-grid">
                 <div class="pill-option active" onclick="selectPill(this)">🎚️ Mastering</div>
                 <div class="pill-option" onclick="selectPill(this)">🌍 Distribution</div>
                 <div class="pill-option" onclick="selectPill(this)">🎵 Samples</div>
-                <div class="pill-option" onclick="selectPill(this)">🔌 Plugins</div>
             </div>
         </div>
         <div class="wizard-footer">
@@ -520,394 +529,16 @@ def main_page():
         <div>
             <div class="wizard-step-indicator">2/5</div>
             <div class="wizard-title">Mari tetapkan Profil Studio anda</div>
-            <div class="wizard-subtitle">Sertai dan berhubung dengan komuniti pencipta muzik dalam ekosistem awan kami.</div>
         </div>
         <div class="wizard-body">
             <div class="form-group">
                 <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">NAMA ANDA / ARTIS</label>
                 <input type="text" class="form-input" value="Boyz">
             </div>
-            <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">URL PROFIL STUDIO</label>
-                <input type="text" class="form-input" value="network.bpstudio.com/users/boyz" readonly style="color: #60a5fa;">
-                <span style="font-size: 11px; color: #10b981; margin-top: 4px; display: block; text-align: center;">✓ URL tersedia</span>
-            </div>
         </div>
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('wizardStep1')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="nextScreen('wizardStep3')">Seterusnya →</button>
-        </div>
-    </div>
-
-    <div id="wizardStep3" class="screen-overlay hidden">
-        <div>
-            <div class="wizard-step-indicator">3/5</div>
-            <div class="wizard-title">Apakah peranan utama anda?</div>
-            <div class="wizard-subtitle">Pamerkan kepakaran anda dan berhubung dengan komuniti pencipta muzik.</div>
-        </div>
-        <div class="wizard-body">
-            <div class="pill-grid">
-                <div class="pill-option active" onclick="toggleMulti(this)">Producer</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Musician</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Engineer</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Beatmaker</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Vocalist</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Composer</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Podcaster</div>
-            </div>
-        </div>
-        <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('wizardStep2')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="nextScreen('wizardStep4')">Seterusnya →</button>
-        </div>
-    </div>
-
-    <div id="wizardStep4" class="screen-overlay hidden">
-        <div>
-            <div class="wizard-step-indicator">5/5</div>
-            <div class="wizard-title">Pick your favorite genres</div>
-            <div class="wizard-subtitle">Pilih gaya & genre kegemaran anda untuk tetapan AI tersuai.</div>
-        </div>
-        
-        <div class="wizard-body">
-            <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
-            <div class="pill-grid">
-                <div class="pill-option active" onclick="toggleMulti(this)">Malaya / Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Rock Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Balada Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Melayu Klasik</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Irama Malaysia</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Lagu Asli</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Zapin</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Joget</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Ghazal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Keroncong</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dangdut</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Campursari</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Nusantara</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Etnik Nusantara</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Melayu</div>
-                       <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sabah</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tradisional Sarawak</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Minang</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Jawa</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Sunda</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bugis</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Batak</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Bounce</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Trap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Nusantara Electronic</div>
-            </div>
-
-            <div class="genre-category-title">🎤 Pop</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Ballad</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Electropop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Synthpop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dream Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Indie Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Teen Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Adult Contemporary</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dance Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Power Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Soft Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Retro Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">City Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Noir Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Future Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Neon Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
-            </div>
-
-            <div class="genre-category-title">🎸 Rock</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Soft Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Classic Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Hard Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Alternative Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Indie Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Blues Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Progressive Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Psychedelic Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Punk Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Garage Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Grunge</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Post-Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Folk Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Southern Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Glam Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Arena Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Metal Rock</div>
-            </div>
-
-            <div class="genre-category-title">🎤 Hip Hop / Rap</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Old School Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Trap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Boom Bap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Lo-Fi Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Gangsta Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Conscious Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Melodic Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Alternative Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">R&B Rap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Drill</div>
-                <div class="pill-option" onclick="toggleMulti(this)">West Coast Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">East Coast Hip Hop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">UK Drill</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Afro Drill</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk Trap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic Trap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Hybrid Trap</div>
-            </div>
-
-            <div class="genre-category-title">🔥 Phonk</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Drift Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Brazilian Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Memphis Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Aggressive Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Electro Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Trap Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Future Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Neon Noir Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Neon Noir Phonk - Malay Bounce</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
-            </div>
-
-            <div class="genre-category-title">⚡ Techno / Electronic</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">EDM</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Hard Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Industrial Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Acid Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Minimal Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Melodic Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Progressive Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Techno Noir</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cyber Techno</div>
-                <div class="pill-option" onclick="toggleMulti(this)">House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Deep House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tropical House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Future House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Progressive House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tech House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Electro House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bass House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">G-House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Slap House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Afro House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Trance</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dubstep</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Drum & Bass</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Future Bass</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Breakbeat</div>
-                <div class="pill-option" onclick="toggleMulti(this)">UK Garage</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Jersey Club</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Amapiano</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Industrial Bass</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Electro</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Alternative Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic Electronic</div>
-            </div>
-
-            <div class="genre-category-title">🌑 Dark / Cyber / Experimental</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Darkwave</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Witch House</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Synthwave</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Neon Synthwave</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Synthwave</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Vaporwave</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cyber Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cyberpunk Trap</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Noir Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark Ambient</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Ambient Dark</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Horror Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Experimental Electronic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Experimental Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Future Garage</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Industrial</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Noise</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Glitch</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Glitch Hop</div>
-            </div>
-
-            <div class="genre-category-title">🎷 R&B / Soul / Funk</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">R&B</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Contemporary R&B</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Soul</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Neo Soul</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Motown</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Funk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Smooth Soul</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Gospel Soul</div>
-                <div class="pill-option" onclick="toggleMulti(this)">R&B Ballad</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Funk Soul</div>
-            </div>
-
-            <div class="genre-category-title">🎷 Jazz / Blues</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Jazz</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Smooth Jazz</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Contemporary Jazz</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Swing</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bebop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Fusion Jazz</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Latin Jazz</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Blues</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Slow Blues</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Blues Rock</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Soul Blues</div>
-            </div>
-               <div class="genre-category-title">🎸 Akustik / Folk</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Acoustic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Acoustic Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Acoustic Ballad</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Folk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Indie Folk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Folk Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Singer-Songwriter</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Coffeehouse</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Chill</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Lo-Fi</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Lounge</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Relaxing</div>
-            </div>
-
-            <div class="genre-category-title">🎻 Orkestra / Klasik</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Classical</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Piano Solo</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Piano Ballad</div>
-                <div class="pill-option" onclick="toggleMulti(this)">String Orchestra</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Symphony</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Chamber Music</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Epic Orchestra</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Film Score</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dramatic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Emotional Orchestra</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Medieval</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Baroque</div>
-            </div>
-
-            <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Sad Song</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Emotional</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Heartbreak</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Melancholic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Nostalgic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Romantic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Love Song</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Deep Emotional</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Tearjerker</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Slow Ballad</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Emotional Piano</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Emotional Acoustic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Power Ballad</div>
-            </div>
-
-            <div class="genre-category-title">🌎 Antarabangsa</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">K-Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">J-Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">C-Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bollywood</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Latin Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Reggaeton</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Salsa</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bachata</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Flamenco</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Afrobeat</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Afropop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Reggae</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dancehall</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Ska</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Country</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Country Pop</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Bluegrass</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Gospel</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Celtic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Arabic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Middle Eastern</div>
-            </div>
-
-            <div class="genre-category-title">🤘 Metal</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Heavy Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Metalcore</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Death Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Black Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Symphonic Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Power Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Progressive Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Nu Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Alternative Metal</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Doom Metal</div>
-            </div>
-
-            <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
-            <div class="pill-grid">
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Epic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dark</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Mysterious</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Horror</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Thriller</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Adventure</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Fantasy</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Heroic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Inspirational</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Motivational</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Spiritual</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Religious</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Peaceful</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Meditation</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Atmospheric</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Dreamy</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Powerful</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Energetic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Romantic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Vintage</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Retro</div>
-                <div class="pill-option" onclick="toggleMulti(this)">80s</div>
-                <div class="pill-option" onclick="toggleMulti(this)">90s</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Nostalgic</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Wedding</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Festival</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Party</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Christmas</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Raya / Aidilfitri</div>
-            </div>
-        </div>
-
-        <div class="wizard-footer">
-            <button class="btn-text" onclick="nextScreen('wizardStep3')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Continue</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="finishWizard()">Selesai →</button>
         </div>
     </div>
 
@@ -915,39 +546,33 @@ def main_page():
         <div>
             <div class="wizard-step-indicator">AI STUDIO</div>
             <div class="wizard-title">Jana Gubahan Muzik AI</div>
-            <div class="wizard-subtitle">Taip konsep lagu anda atau biarkan AI gubah rentak mengikut gaya pilihan anda.</div>
+            <div class="wizard-subtitle">Taip konsep lagu anda atau muat naik fail audio original di bawah.</div>
         </div>
         
         <div class="wizard-body">
+            <div class="upload-audio-box" onclick="document.getElementById('audioFileInput').click()">
+                📂 Muat Naik Fail Audio Original (.mp3 / .wav)
+                <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(event)">
+            </div>
+            <div id="uploadStatus" style="font-size: 11px; color: #10b981; text-align: center; margin-bottom: 10px;"></div>
+
             <div class="form-group">
-                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">KONSEP / LIRIK / DESKRIPSI LAGU</label>
-                <textarea class="form-input" id="songPromptText" style="height: 100px; text-align: left; resize: none;" placeholder="Contoh: Lagu pop melayu santai tentang perjalanan malam di Johor dengan sentuhan Malay Bounce..."></textarea>
-            </div>
-
-            <div class="genre-category-title">Pilih Vibe Utama Anda</div>
-            <div class="pill-grid">
-                <div class="pill-option active" onclick="toggleMulti(this)">Malay Bounce</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Malay Phonk</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Pop Melayu</div>
-                <div class="pill-option" onclick="toggleMulti(this)">Cinematic</div>
-            </div>
-
-            <div id="generationStatus" style="margin-top: 15px; padding: 12px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 10px; font-size: 12px; color: #22d3ee; display: none; text-align: center;">
-                ⚡ AI sedang menggubah trek muzik anda... Sila tunggu sebentar.
+                <label style="font-size: 11px; color: #22d3ee; font-weight: 600; display: block; margin-bottom: 6px;">KONSEP / DESKRIPSI LAGU</label>
+                <textarea class="form-input" id="songPromptText" style="height: 80px; text-align: left; resize: none;" placeholder="Contoh: Lagu pop melayu santai dengan sentuhan Malay Bounce..."></textarea>
             </div>
         </div>
 
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="generateMusicAI()">Jana Muzik 🎵</button>
+            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="nextScreen('screenAudioPlayer')">Buka Player 🎵</button>
         </div>
     </div>
 
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div>
             <div class="wizard-step-indicator">PLAYER & STEMS</div>
-            <div class="wizard-title">Projek Malay Bounce Studio</div>
-            <div class="wizard-subtitle">Pratonton audio masa sebenar & fail stems yang dijana AI.</div>
+            <div class="wizard-title" id="playerProjectTitle">Projek Malay Bounce Studio</div>
+            <div class="wizard-subtitle">Memainkan fail audio original anda secara langsung.</div>
         </div>
         
         <div class="wizard-body">
@@ -965,7 +590,7 @@ def main_page():
                     <div class="wave-bar"></div>
                     <div class="wave-bar"></div>
                 </div>
-                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">00:00 / 03:45</div>
+                <div style="font-size: 13px; font-weight: 700; color: #22d3ee;" id="playerTime">00:00 / 00:00</div>
 
                 <div class="player-controls">
                     <button class="control-btn-main" id="playPauseBtn" onclick="togglePlayAudio()">▶</button>
@@ -975,27 +600,19 @@ def main_page():
             <div class="genre-category-title">Fail Stems Berasingan</div>
             <div class="stems-list">
                 <div class="stem-item">
-                    <span>🎙️ Vokal Utama (AI)</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Vokal...')">Muat Turun ⬇</button>
+                    <span>🎙️ Vokal Utama (Original)</span>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Stem Vokal sedia dimuat turun!')">Muat Turun ⬇</button>
                 </div>
                 <div class="stem-item">
                     <span>🥁 Drum & Percussion</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Drum...')">Muat Turun ⬇</button>
-                </div>
-                <div class="stem-item">
-                    <span>🎸 Bass Line</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Bass...')">Muat Turun ⬇</button>
-                </div>
-                <div class="stem-item">
-                    <span>🎹 Melodi & Synth</span>
-                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Muat turun stem Melodi...')">Muat Turun ⬇</button>
+                    <button class="btn-text" style="color: #22d3ee;" onclick="showToast('Stem Drum sedia dimuat turun!')">Muat Turun ⬇</button>
                 </div>
             </div>
         </div>
 
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('dashboardScreen')">← Kembali ke Dashboard</button>
-            <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya dimuat turun!')">Muat Turun Master 🎵</button>
+                        <button class="btn-primary" style="width: auto; padding: 10px 24px; margin: 0;" onclick="showToast('Master file berjaya disimpan!')">Simpan Master 🎵</button>
         </div>
     </div>
 
@@ -1004,35 +621,24 @@ def main_page():
             <div class="workspace-badge">
                 <span>🎧</span> Bangkit's workspace ▾
             </div>
-            <div style="display: flex; gap: 12px; align-items: center; font-size: 16px;">
-                <span>🔍</span>
-                <span style="background: #e2e8f0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
-            </div>
         </div>
 
         <h1 style="font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin: 0 0 16px 0;">Overview</h1>
 
         <div class="dash-actions">
-            <button class="dash-btn-invite" onclick="showToast('Pautan jemputan disalin!')">👤 Invite your team</button>
-            <button class="dash-btn-new" onclick="nextScreen('screenAIPrompt')">+ New ▾</button>
+            <button class="dash-btn-new" onclick="nextScreen('screenAIPrompt')">+ New Project ▾</button>
         </div>
 
-        <h3 style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 12px;">Projects</h3>
-
         <div class="project-card" onclick="nextScreen('screenAudioPlayer')">
-            <div style="font-weight: 700; font-size: 15px;">Projek Malay Bounce Studio</div>
-            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio & stems 🎧</div>
+            <div style="font-weight: 700; font-size: 15px;" id="dashProjectName">Projek Malay Bounce Studio</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Klik untuk buka pemain audio original 🎧</div>
             <div class="project-status">
-                ✓ All services are up and running
+                ✓ Audio original dimuat naik
             </div>
         </div>
 
         <div class="create-project-box" onclick="nextScreen('screenAIPrompt')">
-            + Create new project
-        </div>
-
-        <div style="margin-top: auto; text-align: center; padding-top: 20px;">
-            <button class="btn-text" style="color: #64748b;" onclick="nextScreen('screenLogin')">Log Keluar</button>
+            + Muat naik fail baru / Buat projek
         </div>
     </div>
 
@@ -1047,7 +653,6 @@ def main_page():
     }
 
     function nextScreen(screenId) {
-        // Jeda audio jika keluar dari skrin player
         let audio = document.getElementById('audioElement');
         if(screenId !== 'screenAudioPlayer' && !audio.paused) {
             audio.pause();
@@ -1066,35 +671,44 @@ def main_page():
         el.classList.add('active');
     }
 
-    function toggleMulti(el) {
-        el.classList.toggle('active');
-    }
-
     function finishWizard() {
-        showToast("Tetapan profil & genre berjaya disimpan!");
-        setTimeout(() => {
-            nextScreen('dashboardScreen');
-        }, 1200);
+        showToast("Profil studio disimpan!");
+        setTimeout(() => { nextScreen('dashboardScreen'); }, 1000);
     }
 
-    function generateMusicAI() {
-        let promptText = document.getElementById('songPromptText').value;
-        if (!promptText.trim()) {
-            showToast("Sila masukkan deskripsi lagu dahulu!");
-            return;
+    // Fungsi muat naik fail audio original ke server FastAPI
+    async function handleAudioUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        showToast("Sedang memuat naik audio original...");
+        document.getElementById('uploadStatus').innerText = "⏳ Memuat naik " + file.name + "...";
+
+        try {
+            let response = await fetch('/upload-audio', {
+                method: 'POST',
+                body: formData
+            });
+            let result = await response.json();
+            
+            if (result.url) {
+                let audio = document.getElementById('audioElement');
+                audio.src = result.url;
+                
+                // Kemas kini nama projek pada paparan
+                document.getElementById('playerProjectTitle').innerText = file.name;
+                document.getElementById('dashProjectName').innerText = file.name;
+                
+                showToast("Fail audio original berjaya dipasang!");
+                document.getElementById('uploadStatus').innerText = "✓ " + file.name + " sedia dimainkan!";
+            }
+        } catch (err) {
+            showToast("Gagal memuat naik fail audio.");
+            document.getElementById('uploadStatus').innerText = "❌ Ralat muat naik.";
         }
-
-        let statusBox = document.getElementById('generationStatus');
-        statusBox.style.display = 'block';
-        showToast("Proses gubahan AI bermula...");
-
-        setTimeout(() => {
-            statusBox.style.display = 'none';
-            showToast("Trek muzik berjaya dijana oleh AI!");
-            setTimeout(() => {
-                nextScreen('screenAudioPlayer');
-            }, 1000);
-        }, 2500);
     }
 
     let isPlaying = false;
@@ -1104,30 +718,32 @@ def main_page():
         let box = document.getElementById('waveformBox');
         let btn = document.getElementById('playPauseBtn');
         
+        if (!audio.src) {
+            showToast("Sila muat naik fail audio original terlebih dahulu!");
+            return;
+        }
+
         if (isPlaying) {
             audio.pause();
             box.classList.remove('playing');
             btn.innerText = '▶';
-            showToast("Audio dijeda.");
             isPlaying = false;
         } else {
             audio.play().then(() => {
                 box.classList.add('playing');
                 btn.innerText = '⏸';
-                showToast("Memainkan audio trek...");
                 isPlaying = true;
             }).catch(e => {
-                showToast("Sila klik skrin sekali lagi untuk kebenaran audio.");
+                showToast("Sila klik sekali lagi untuk kebenaran audio pelayar.");
             });
         }
     }
 
-    // Kemas kini masa pemain audio secara masa sebenar
     audio.addEventListener('timeupdate', () => {
         let currentMinutes = Math.floor(audio.currentTime / 60);
         let currentSeconds = Math.floor(audio.currentTime % 60);
-        let durMinutes = Math.floor(audio.duration / 60) || 3;
-        let durSeconds = Math.floor(audio.duration % 60) || 45;
+        let durMinutes = Math.floor(audio.duration / 60) || 0;
+        let durSeconds = Math.floor(audio.duration % 60) || 0;
 
         let formattedCurrent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')}`;
         let formattedDuration = `${String(durMinutes).padStart(2, '0')}:${String(durSeconds).padStart(2, '0')}`;
@@ -1145,5 +761,4 @@ def main_page():
 </body>
 </html>
 """
-        
-                
+            
