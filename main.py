@@ -81,7 +81,7 @@ def main_page():
             overflow: hidden;
         }
 
-        /* DITUKAR KEPADA CENTER SUPAYA KANDUNGAN TERKUMPUL DI TENGAH */
+        /* SEMUA KANDUNGAN DILETAKKAN DI TENGAH SECARA KEMAS */
         .screen-overlay {
             flex: 1;
             display: flex;
@@ -667,7 +667,7 @@ def main_page():
         </div>
     </div>
 
-       <!-- SKRIN 3: PERANAN KREATOR -->
+    <!-- SKRIN 3: PERANAN KREATOR -
     <div id="roleScreen" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI MUSIC STUDIO</div>
@@ -703,165 +703,77 @@ def main_page():
         </div>
         
         <div class="wizard-body">
-            <!-- 🇲🇾 Melayu / Nusantara -->
             <div class="genre-category-title">🇲🇾 Melayu / Nusantara</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">Pop Melayu</div>
                 <div class="landr-pill" onclick="togglePill(this)">Rock Melayu</div>
                 <div class="landr-pill" onclick="togglePill(this)">Balada Melayu</div>
-                <div class="landr-pill" onclick="togglePill(this)">Melayu Klasik</div>
-                <div class="landr-pill" onclick="togglePill(this)">Irama Malaysia</div>
-                <div class="landr-pill" onclick="togglePill(this)">Lagu Asli</div>
-                <div class="landr-pill" onclick="togglePill(this)">Zapin</div>
-                <div class="landr-pill" onclick="togglePill(this)">Joget</div>
-                <div class="landr-pill" onclick="togglePill(this)">Ghazal</div>
-                <div class="landr-pill" onclick="togglePill(this)">Keroncong</div>
-                <div class="landr-pill" onclick="togglePill(this)">Dangdut</div>
-                <div class="landr-pill" onclick="togglePill(this)">Campursari</div>
-                <div class="landr-pill" onclick="togglePill(this)">Pop Nusantara</div>
-                <div class="landr-pill" onclick="togglePill(this)">Etnik Nusantara</div>
-                <div class="landr-pill" onclick="togglePill(this)">Tradisional Melayu</div>
-                <div class="landr-pill" onclick="togglePill(this)">Minang</div>
-                <div class="landr-pill" onclick="togglePill(this)">Jawa</div>
-                <div class="landr-pill" onclick="togglePill(this)">Sunda</div>
-                <div class="landr-pill" onclick="togglePill(this)">Bugis</div>
-                <div class="landr-pill" onclick="togglePill(this)">Batak</div>
                 <div class="landr-pill active" onclick="togglePill(this)">Malay Bounce</div>
                 <div class="landr-pill" onclick="togglePill(this)">Malay Trap</div>
                 <div class="landr-pill active" onclick="togglePill(this)">Malay Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Malay Electronic</div>
             </div>
 
-            <!-- 🎤 Pop -->
-            <div class="genre-category-title">🎤 Pop</div>
+            <div class="genre-category-title">🎤 Pop & Rock</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">Pop</div>
                 <div class="landr-pill" onclick="togglePill(this)">Pop Ballad</div>
-                <div class="landr-pill" onclick="togglePill(this)">Electropop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Synthpop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Indie Pop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Dance Pop</div>
-                <div class="landr-pill" onclick="togglePill(this)">City Pop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Future Pop</div>
-            </div>
-
-            <!-- 🎸 Rock -->
-            <div class="genre-category-title">🎸 Rock & Metal</div>
-            <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Soft Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Classic Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Hard Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Alternative Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Indie Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Pop Rock</div>
-                <div class="landr-pill" onclick="togglePill(this)">Heavy Metal</div>
-                <div class="landr-pill" onclick="togglePill(this)">Metalcore</div>
+                <div class="landr-pill" onclick="togglePill(this)">Indie Pop</div>
             </div>
 
-            <!-- 🎤 Hip Hop / Rap -->
-            <div class="genre-category-title">🎤 Hip Hop / Rap</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Hip Hop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Rap</div>
-                <div class="landr-pill" onclick="togglePill(this)">Trap</div>
-                <div class="landr-pill" onclick="togglePill(this)">Boom Bap</div>
-                <div class="landr-pill" onclick="togglePill(this)">Lo-Fi Hip Hop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Melodic Rap</div>
-                <div class="landr-pill" onclick="togglePill(this)">Drill</div>
-                <div class="landr-pill" onclick="togglePill(this)">Cinematic Trap</div>
-            </div>
-
-            <!-- 🔥 Phonk -->
-            <div class="genre-category-title">🔥 Phonk</div>
+            <div class="genre-category-title">🔥 Phonk & Electronic</div>
             <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Dark Phonk</div>
                 <div class="landr-pill" onclick="togglePill(this)">Drift Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Brazilian Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Memphis Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Aggressive Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Atmospheric Phonk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Malay Phonk</div>
-            </div>
-
-            <!-- ⚡ Techno / Electronic -->
-            <div class="genre-category-title">⚡ Techno / Electronic</div>
-            <div class="landr-pill-cloud">
                 <div class="landr-pill" onclick="togglePill(this)">EDM</div>
                 <div class="landr-pill" onclick="togglePill(this)">Techno</div>
-                <div class="landr-pill" onclick="togglePill(this)">Hard Techno</div>
-                <div class="landr-pill" onclick="togglePill(this)">Melodic Techno</div>
-                <div class="landr-pill" onclick="togglePill(this)">House</div>
-                <div class="landr-pill" onclick="togglePill(this)">Deep House</div>
-                <div class="landr-pill" onclick="togglePill(this)">Trance</div>
-                <div class="landr-pill" onclick="togglePill(this)">Dubstep</div>
-                <div class="landr-pill" onclick="togglePill(this)">Drum & Bass</div>
-                <div class="landr-pill" onclick="togglePill(this)">Amapiano</div>
-            </div>
-
-            <!-- 🎷 R&B / Soul / Funk / Jazz -->
-            <div class="genre-category-title">🎷 R&B, Soul & Jazz</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">R&B</div>
-                <div class="landr-pill" onclick="togglePill(this)">Contemporary R&B</div>
-                <div class="landr-pill" onclick="togglePill(this)">Soul</div>
-                <div class="landr-pill" onclick="togglePill(this)">Neo Soul</div>
-                <div class="landr-pill" onclick="togglePill(this)">Funk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Jazz</div>
-                <div class="landr-pill" onclick="togglePill(this)">Smooth Jazz</div>
-                <div class="landr-pill" onclick="togglePill(this)">Blues</div>
-            </div>
-
-            <!-- 🎸 Akustik / Folk / Lo-Fi -->
-            <div class="genre-category-title">🎸 Akustik / Folk / Lo-Fi</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Acoustic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Acoustic Pop</div>
-                <div class="landr-pill" onclick="togglePill(this)">Folk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Indie Folk</div>
-                <div class="landr-pill" onclick="togglePill(this)">Singer-Songwriter</div>
-                <div class="landr-pill" onclick="togglePill(this)">Chill</div>
-                <div class="landr-pill" onclick="togglePill(this)">Lo-Fi</div>
-                <div class="landr-pill" onclick="togglePill(this)">Lounge</div>
-            </div>
-
-            <!-- ❤️ Sedih / Emosi / Cinta -->
-            <div class="genre-category-title">❤️ Sedih / Emosi / Cinta</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Sad Song</div>
-                <div class="landr-pill" onclick="togglePill(this)">Emotional</div>
-                <div class="landr-pill" onclick="togglePill(this)">Heartbreak</div>
-                <div class="landr-pill" onclick="togglePill(this)">Melancholic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Nostalgic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Romantic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Love Song</div>
-                <div class="landr-pill" onclick="togglePill(this)">Slow Ballad</div>
-            </div>
-
-            <!-- 🎬 Cinematic / Mood / Khas -->
-            <div class="genre-category-title">🎬 Cinematic / Mood / Khas</div>
-            <div class="landr-pill-cloud">
-                <div class="landr-pill" onclick="togglePill(this)">Cinematic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Epic</div>
-                <div class="landr-pill" onclick="togglePill(this)">Dark</div>
-                <div class="landr-pill" onclick="togglePill(this)">Mysterious</div>
-                <div class="landr-pill" onclick="togglePill(this)">Inspirational</div>
-                <div class="landr-pill" onclick="togglePill(this)">Motivational</div>
-                <div class="landr-pill" onclick="togglePill(this)">Ambient</div>
-                <div class="landr-pill" onclick="togglePill(this)">Wedding</div>
-                <div class="landr-pill" onclick="togglePill(this)">Party</div>
-                <div class="landr-pill" onclick="togglePill(this)">Raya / Aidilfitri</div>
             </div>
         </div>
 
         <div class="wizard-footer">
             <button class="btn-text" onclick="nextScreen('roleScreen')">← Back</button>
-            <button class="btn-primary" onclick="finishOnboarding()">Continue →</button>
+            <button class="btn-primary" onclick="nextScreen('exportScreen')">Next →</button>
         </div>
     </div>
 
-    <!-- AUDIO PLAYER & STEMS SCREEN (SKRIN 5) -->
+    <!-- SKRIN 5: EXPORT & RELEASE (LANGKAH SETERUSNYA - SEMUA DI TENGAH) -->
+    <div id="exportScreen" class="screen-overlay hidden">
+        <div class="wizard-header-container">
+            <div class="brand-logo">BP AI MUSIC STUDIO</div>
+            <div class="wizard-title">Export & Release Setup</div>
+            <div class="wizard-subtitle">Choose where you want to publish your AI track globally.</div>
+        </div>
+        
+        <div class="wizard-body">
+            <div class="genre-category-title">🌐 Platform Edaran Utama</div>
+            <div class="landr-pill-cloud">
+                <div class="landr-pill active" onclick="togglePill(this)">Spotify</div>
+                <div class="landr-pill active" onclick="togglePill(this)">Apple Music</div>
+                <div class="landr-pill active" onclick="togglePill(this)">TikTok & IG</div>
+                <div class="landr-pill" onclick="togglePill(this)">YouTube Music</div>
+                <div class="landr-pill" onclick="togglePill(this)">Amazon Music</div>
+                <div class="landr-pill" onclick="togglePill(this)">Deezer</div>
+            </div>
+
+            <div class="form-group" style="margin-top: 14px;">
+                <label class="form-label">Tarikh Pelancaran (Release Date)</label>
+                <input type="date" class="form-input" value="2026-09-05">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ISRC Code (Auto-Generated AI)</label>
+                <input type="text" class="form-input" value="MY-BP2-26-00014" readonly>
+                <div class="url-helper">Kod sah untuk hak cipta digital.</div>
+            </div>
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn-text" onclick="nextScreen('genreScreen')">← Back</button>
+            <button class="btn-primary" onclick="finishOnboarding()">Publish Now 🚀</button>
+        </div>
+    </div>
+
+    <!-- AUDIO PLAYER & STEMS SCREEN (SKRIN 6) -->
     <div id="screenAudioPlayer" class="screen-overlay hidden">
         <div class="wizard-header-container">
             <div class="brand-logo">BP AI STUDIO</div>
@@ -961,8 +873,8 @@ def main_page():
     }
 
     function finishOnboarding() {
-        showToast("Profil & Genre berjaya disimpan!");
-        setTimeout(() => { nextScreen('dashboardScreen'); }, 1000);
+        showToast("Trek berjaya dijadualkan untuk edaran global!");
+        setTimeout(() => { nextScreen('screenAudioPlayer'); }, 1200);
     }
 
     async function handleAudioUpload(event) {
@@ -1013,7 +925,7 @@ def main_page():
     function startAIMastering() {
         let modal = document.getElementById('masterModal');
         let statusText = document.getElementById('masterStatusText');
-        modal.classList.ordinari?.remove('hidden') || modal.classList.remove('hidden');
+        modal.classList.remove('hidden');
 
         setTimeout(() => { statusText.innerText = "Mengaplikasikan AI Neural Limiter..."; }, 2000);
         setTimeout(() => {
@@ -1036,8 +948,7 @@ def main_page():
             btn.innerText = '⏸';
         } else {
             audio.pause();
- 
-    box.classList.remove('playing');
+            box.classList.remove('playing');
             btn.innerText = '▶';
         }
     }
@@ -1050,3 +961,4 @@ def main_page():
 </body>
 </html>
     """
+    
