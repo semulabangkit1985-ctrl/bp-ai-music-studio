@@ -12,6 +12,7 @@
             --accent-blue: #3b82f6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --success-green: #10b981;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
@@ -25,10 +26,7 @@
         }
         .container { max-width: 480px; margin: 0 auto; position: relative; }
         
-        /* Paparan Default (Landing) */
         #landing-view { display: block; text-align: center; padding: 1.5rem 1rem; }
-        
-        /* Paparan Lain (Disembunyikan secara lalai untuk elak bertindih) */
         #genre-view, #mode-view, #console-view { display: none; }
 
         .hero-image-container {
@@ -74,9 +72,7 @@
 
         .sticky-footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(11, 15, 25, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem;
@@ -155,8 +151,21 @@
             background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.6rem 0.75rem;
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
-        .instrument-name { font-size: 0.8rem; color: #cbd5e1; }
+        .instrument-name { font-size: 0.78rem; color: #cbd5e1; }
         
+        /* Meter & Visualizer Styling */
+        .meter-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;
+            background: #0f172a; padding: 0.75rem; border-radius: 10px; border: 1px solid var(--card-border);
+        }
+        .meter-box { text-align: center; }
+        .meter-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.2rem; text-transform: uppercase; }
+        .meter-value { font-size: 0.9rem; font-weight: 700; color: var(--success-green); }
+        
+        canvas.visualizer {
+            width: 100%; height: 60px; background: #0b0f19; border-radius: 8px; border: 1px solid var(--card-border); margin-bottom: 1rem; display: block;
+        }
+
         .btn-action {
             display: block; width: 100%; background-color: var(--accent-blue); color: white; border: none;
             padding: 0.9rem; font-size: 0.95rem; font-weight: 600; border-radius: 12px; cursor: pointer; text-align: center;
@@ -169,33 +178,19 @@
         .btn-back:hover { color: #60a5fa; }
 
         #loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 25, 0.92);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 1.5rem;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 25, 0.92); z-index: 999;
+            justify-content: center; align-items: center; flex-direction: column; padding: 1.5rem;
         }
         .spinner {
-            width: 50px; height: 50px;
-            border: 4px solid var(--card-border);
-            border-top: 4px solid var(--accent-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+            width: 50px; height: 50px; border: 4px solid var(--card-border); border-top: 4px solid var(--accent-blue);
+            border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-title { font-size: 1rem; font-weight: 700; color: #60a5fa; margin-bottom: 0.4rem; }
         .loading-status { font-size: 0.85rem; color: var(--text-muted); text-align: center; }
-        .progress-bar-container {
-            width: 80%; max-width: 300px; height: 6px; background: #1e293b; border-radius: 3px; margin-top: 1rem; overflow: hidden;
-        }
-        .progress-bar-fill {
-            width: 0%; height: 100%; background: var(--accent-blue); transition: width 0.3s ease;
-        }
+        .progress-bar-container { width: 80%; max-width: 300px; height: 6px; background: #1e293b; border-radius: 3px; margin-top: 1rem; overflow: hidden; }
+        .progress-bar-fill { width: 0%; height: 100%; background: var(--accent-blue); transition: width 0.3s ease; }
     </style>
 </head>
 <body>
@@ -209,7 +204,6 @@
             </div>
         </div>
 
-        <!-- 1. LANDING VIEW -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -221,7 +215,6 @@
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
 
-        <!-- 2. GENRE VIEW -->
         <div id="genre-view">
             <h2 class="picker-title">Pick your favorite genres</h2>
             <p class="picker-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</p>
@@ -260,7 +253,6 @@
                 </div>
             </div>
 
-            <!-- Kategori-kategori genre yang lain dikekalkan -->
             <div class="genre-category">
                 <div class="category-title">🎤 Pop</div>
                 <div class="genre-pills">
@@ -280,7 +272,6 @@
             </div>
         </div>
 
-        <!-- 3. MODE VIEW -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -296,7 +287,7 @@
                 <div class="mode-card" onclick="showConsole('coproducer')">
                     <div class="mode-info">
                         <h3>🎛️ AI Co-Producer (Stems)</h3>
-                        <p>Asingkan & atur lapisan drum, bass & vokal</p>
+                        <p>Asingkan & atur lapisan drum, bass, vokal & instrumen</p>
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
@@ -311,7 +302,6 @@
             <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
         </div>
 
-        <!-- 4. CONSOLE VIEW -->
         <div id="console-view">
             <header>
                 <h1 id="console-title">Mastering Console</h1>
@@ -322,7 +312,6 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
-            <!-- Panel Mastering -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Fail Audio</div>
@@ -333,36 +322,17 @@
                     </div>
                     <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
-                    <div class="section-title">Mastering Styles</div>
-                    <div class="style-buttons">
-                        <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
-                        <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
-                        <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
+                    <canvas id="visualizer-canvas" class="visualizer"></canvas>
+                    <div class="meter-container">
+                        <div class="meter-box">
+                            <div class="meter-label">Loudness Meter</div>
+                            <div class="meter-value" id="loudness-meter">-14.2 LUFS</div>
+                        </div>
+                        <div class="meter-box">
+                            <div class="meter-label">Output Meter</div>
+                            <div class="meter-value" id="output-meter">-0.8 dB</div>
+                        </div>
                     </div>
-
-                    <div class="section-title">Loudness & Dynamics</div>
-                    <div class="control-group">
-                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
-                        <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
-                        <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
-                    </div>
-                </div>
-                <button class="btn-action" onclick="runAIProcess('AI Mastering sedang diproses mengikut genre pilihan anda!')">Proses AI Mastering ➔</button>
-            </div>
-
-            <!-- Panel Co-Producer -->
-            <div id="panel-coproducer" class="control-panel" style="display: none;">
-                <div class="card">
-                    <div class="section-title">Muat Naik Trek Stems</div>
-                    <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
-                          <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
-                        <div class="file-name" id="file-name-1">Tiada fail dipilih</div>
-                        <input type="file" id="audio-file-1" accept="audio/*" onchange="handleFileSelect(this, 'file-name-1', 'audio-player-1')">
-                    </div>
-                    <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
                     <div class="section-title">Mastering Styles</div>
                     <div class="style-buttons">
@@ -371,23 +341,38 @@
                         <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
                     </div>
 
-                    <div class="section-title">Loudness & Dynamics</div>
+                    <div class="section-title">Input & Dynamics Control</div>
                     <div class="control-group">
-                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
+                        <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">0.0 dB</span></div>
+                        <input type="range" min="-6" max="6" step="0.1" value="0" oninput="updateInputTrim(this.value)">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                          <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
                         <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
                         <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
                     </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Presence (High-Mid Clarity)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
+                        <input type="range" min="-5" max="5" step="0.1" value="1.5" oninput="updatePresence(this.value)">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>De-Esser (Sibilance Control)</span><span class="control-value" id="deesser-val">30%</span></div>
+                        <input type="range" min="0" max="100" value="30" oninput="document.getElementById('deesser-val').textContent = this.value + '%'">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Stereo Width</span><span class="control-value" id="width-val">120%</span></div>
+                        <input type="range" min="50" max="200" value="120" oninput="document.getElementById('width-val').textContent = this.value + '%'">
+                    </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Mastering sedang diproses mengikut genre pilihan anda!')">Proses AI Mastering ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis AI selesai diproses mengikut genre pilihan!')">Proses AI Mastering ➔</button>
             </div>
 
-            <!-- Panel Co-Producer -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
-                    <div class="section-title">Muat Naik Trek Stems</div>
+                    <div class="section-title">Muat Naik Trek Stems & Analisis AI</div>
                     <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
                         <div class="upload-text">📂 Klik untuk pilih fail lagu (.mp3, .wav, .m4a)</div>
                         <div class="file-name" id="file-name-2">Tiada fail dipilih</div>
@@ -395,12 +380,16 @@
                     </div>
                     <audio id="audio-player-2" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
-                    <div class="section-title">Stem Separation Layers</div>
+                    <div class="section-title">AI Co-Producer Instrument Layers</div>
                     <div class="instrument-grid">
                         <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
                         <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" checked></label>
                         <label class="instrument-checkbox"><span class="instrument-name">Bassline</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Melody / Synth</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Guitar (Acoustic/Electric)</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Trumpet / Brass</span><input type="checkbox"></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Synth / Leads</span><input type="checkbox" checked></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Other Instruments</span><input type="checkbox"></label>
                     </div>
 
                     <div class="section-title">Separation Quality</div>
@@ -409,10 +398,9 @@
                         <input type="range" min="50" max="100" value="90" oninput="document.getElementById('c1').textContent = this.value + '%'">
                     </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('Pemprosesan Stem AI sedang berjalan untuk mengasingkan lapisan audio!')">Asingkan Stems ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Co-Producer sedang mendengar track dan menjana stem instrumen terperinci!')">Jana & Asingkan Stems ➔</button>
             </div>
 
-            <!-- Panel EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Audio EQ</div>
@@ -445,12 +433,13 @@
     </div>
 
     <script>
-        // Web Audio API State Variables
         let audioCtx = null;
         let sourceNodes = new Map();
         let eqFilters = new Map();
         let compressorNodes = new Map();
+        let analyserNodes = new Map();
         let isBypassed = false;
+        let animationId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedGenres = JSON.parse(localStorage.getItem('bp_ai_genres') || '[]');
@@ -463,7 +452,6 @@
             }
         });
 
-        // Fungsi Pusat Pengurusan Paparan (Elak Bertindih)
         function switchView(viewId) {
             const views = ['landing-view', 'genre-view', 'mode-view', 'console-view'];
             views.forEach(id => {
@@ -558,7 +546,9 @@
                     const source = audioCtx.createMediaElementSource(audioEl);
                     const filter = audioCtx.createBiquadFilter();
                     const compressor = audioCtx.createDynamicsCompressor();
+                    const analyser = audioCtx.createAnalyser();
 
+                    analyser.fftSize = 256;
                     filter.type = 'lowshelf';
                     filter.frequency.value = 250;
                     filter.gain.value = 2.0;
@@ -571,15 +561,49 @@
 
                     source.connect(filter);
                     filter.connect(compressor);
-                    compressor.connect(audioCtx.destination);
+                    compressor.connect(analyser);
+                    analyser.connect(audioCtx.destination);
 
                     sourceNodes.set(playerId, source);
                     eqFilters.set(playerId, filter);
                     compressorNodes.set(playerId, compressor);
+                    analyserNodes.set(playerId, analyser);
+
+                    startVisualizer(analyser);
                 } catch (e) {
                     console.log("Audio node already connected:", e);
                 }
             }
+        }
+
+        function startVisualizer(analyser) {
+            const canvas = document.getElementById('visualizer-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                animationId = requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.fillStyle = '#0b0f19';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    let barHeight = dataArray[i] / 3;
+
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+                    x += barWidth + 1;
+                }
+            }
+            if (animationId) cancelAnimationFrame(animationId);
+            draw();
         }
 
         function toggleBypass(btn) {
@@ -588,21 +612,29 @@
             
             compressorNodes.forEach((comp, id) => {
                 const source = sourceNodes.get(id);
-                if (source && comp) {
+                const analyser = analyserNodes.get(id);
+                if (source && comp && analyser) {
                     source.disconnect();
                     if (isBypassed) {
-                        source.connect(audioCtx.destination);
+                        source.connect(analyser);
+                        analyser.connect(audioCtx.destination);
                     } else {
                         source.connect(eqFilters.get(id));
                         eqFilters.get(id).connect(comp);
-                        comp.connect(audioCtx.destination);
+                        comp.connect(analyser);
+                        analyser.connect(audioCtx.destination);
                     }
                 }
             });
         }
 
+        function updateInputTrim(value) {
+            document.getElementById('input-trim-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
+        }
+
         function updateLoudness(value) {
             document.getElementById('m1').textContent = value + ' LUFS';
+            document.getElementById('loudness-meter').textContent = value + ' LUFS';
             const ratioVal = Math.abs(parseFloat(value)) / 2;
             compressorNodes.forEach(comp => {
                 comp.ratio.value = ratioVal;
@@ -611,6 +643,11 @@
 
         function updatePeak(value) {
             document.getElementById('m2').textContent = value + ' dB';
+            document.getElementById('output-meter').textContent = (parseFloat(value) - 0.2).toFixed(1) + ' dB';
+        }
+
+        function updatePresence(value) {
+            document.getElementById('presence-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
         }
 
         function updateEQBand(band, value) {
@@ -636,30 +673,29 @@
             
             overlay.style.display = 'flex';
             fill.style.width = '0%';
-            status.textContent = "Menganalisis fail audio...";
+            status.textContent = "AI sedang menganalisis trek & spektrum audio...";
             
             setTimeout(() => {
                 fill.style.width = '40%';
-                status.textContent = "Memproses spektrum frekuensi & AI model...";
-            }, 800);
+                status.textContent = "Menjana model pelarasan co-producer & mastering...";
+            }, 900);
 
             setTimeout(() => {
                 fill.style.width = '80%';
-                status.textContent = "Melakukan finalisasi loudness & mastering...";
-            }, 1800);
+                status.textContent = "Mengoptimumkan loudness, dynamic range & tonal balance...";
+            }, 1900);
 
             setTimeout(() => {
                 fill.style.width = '100%';
                 status.textContent = "Selesai!";
-            }, 2600);
+            }, 2700);
 
             setTimeout(() => {
                 overlay.style.display = 'none';
-                alert(successMessage + "\n(Simulasi pemprosesan berjaya!)");
-            }, 3000);
+                alert(successMessage);
+            }, 3200);
         }
     </script>
 </body>
 </html>
-        
-                            
+     
