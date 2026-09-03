@@ -517,7 +517,6 @@
 </head>
 <body>
 
-    <!-- Professional Navbar -->
     <header>
         <div class="logo-area">
             <div class="logo-icon">BP</div>
@@ -528,7 +527,6 @@
 
     <div class="main-container">
 
-        <!-- VIEW 1: HERO / INTRO SCREEN -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Recording" class="hero-image">
@@ -543,7 +541,6 @@
             </div>
         </div>
 
-        <!-- VIEW 2: AI AUDIO MASTERING PRO CONSOLE -->
         <div id="view-mastering" class="view">
             <div class="section-header">
                 <h2 class="title">AI Audio Mastering</h2>
@@ -554,7 +551,6 @@
                 <button class="btn-top" onclick="toggleActive(this)">Gain Match</button>
             </div>
 
-            <!-- Waveform & Meters -->
             <div class="waveform-box" id="waveformContainer"></div>
 
             <div class="meters-grid">
@@ -577,7 +573,6 @@
                 </div>
             </div>
 
-            <!-- PILIH GENRE & VIBE LAGU (TRIGGER MODAL) -->
             <div class="card">
                 <div class="card-title">Genre & Vibe Terpilih</div>
                 <button class="genre-trigger" onclick="openGenreModal()">
@@ -653,13 +648,16 @@
                         <span>Stereo Width (Widening)</span>
                         <span id="val-width">110%</span>
                     </div>
-                      <button class="btn-primary">Proses AI Mastering →</button>
+                    <input type="range" min="50" max="150" value="110" oninput="updateVal('val-width', this.value + '%')">
+                </div>
+            </div>
+
+            <button class="btn-primary">Proses AI Mastering →</button>
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Utama</div>
-        </div>
+         </div>
 
     </div>
 
-    <!-- FULL GENRE SELECTION MODAL -->
     <div class="modal-overlay" id="genreModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -667,8 +665,7 @@
                 <button class="close-modal" onclick="closeGenreModal()">✕</button>
             </div>
             <div class="modal-body" id="modalGenreBody">
-                <!-- Dynamically populated or static full catalog -->
-            </div>
+                </div>
         </div>
     </div>
 
@@ -692,9 +689,9 @@
             { category: "🎬 Cinematic / Mood / Khas", list: ["Cinematic", "Epic", "Dark", "Mysterious", "Horror", "Thriller", "Adventure", "Fantasy", "Heroic", "Inspirational", "Motivational", "Spiritual", "Religious", "Peaceful", "Meditation", "Atmospheric", "Dreamy", "Powerful", "Energetic", "Romantic", "Vintage", "Retro", "80s", "90s", "Nostalgic", "Wedding", "Festival", "Party", "Christmas", "Raya / Aidilfitri"] }
         ];
 
-        // Populate Modal Content
+        // Populate Modal Content Correctly
         const modalBody = document.getElementById('modalGenreBody');
-        genreCatalogforEach = genreCatalog.forEach(group => {
+        genreCatalog.forEach(group => {
             const catTitle = document.createElement('div');
             catTitle.className = 'genre-category-title';
             catTitle.textContent = group.category;
@@ -768,5 +765,4 @@
         }
     </script>
 </body>
-        </html>
-                        
+</html>
