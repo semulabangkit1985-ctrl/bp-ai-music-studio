@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Audio Mastering Studio</title>
+    <title>Halaman Utama & Audio Mastering Studio</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -19,6 +19,23 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        /* Stail Bahagian Pengenalan */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .intro-section h1 {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .intro-section p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.5;
         }
         h2 {
             text-align: center;
@@ -110,6 +127,13 @@
 <body>
 
     <div class="container">
+        <!-- BAHAGIAN 1: HALAMAN PENGENALAN -->
+        <div class="intro-section">
+            <h1>Selamat Datang</h1>
+            <p>Ini adalah halaman pengenalan platform anda. Anda boleh mengubah teks ini mengikut ayat asal yang anda kehendaki sebelum masuk ke bahagian sistem studio di bawah.</p>
+        </div>
+
+        <!-- BAHAGIAN 2: AUDIO MASTERING STUDIO -->
         <h2>Audio Mastering Studio</h2>
 
         <!-- Muat Naik Fail -->
@@ -154,13 +178,12 @@
         let splitter, merger, leftGain, rightGain;
         let masterGainNode;
         
-        let isGainMatched = true; // Bermula dalam keadaan aktif mengikut butang default
+        let isGainMatched = true;
         let isDeEsserActive = true;
         let isStereoWidthActive = true;
 
         let audioElement = document.getElementById('audio-element');
 
-        // Mulakan Web Audio API apabila audio mula dimainkan
         audioElement.addEventListener('play', () => {
             if (!audioCtx) {
                 initAudioContext();
@@ -173,25 +196,20 @@
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             sourceNode = audioCtx.createMediaElementSource(audioElement);
 
-            // 1. De-Esser Filter (BiquadFilter peaking pada 6kHz)
             deEsserFilter = audioCtx.createBiquadFilter();
             deEsserFilter.type = 'peaking';
             deEsserFilter.frequency.value = 6000;
             deEsserFilter.Q.value = 2.0;
-            deEsserFilter.gain.value = -5.0; // Nilai potongan awal
+            deEsserFilter.gain.value = -5.0;
 
-            // 2. Stereo Width (Splitter & Merger dengan Gain Kawalan Saluran)
             splitter = audioCtx.createChannelSplitter(2);
             merger = audioCtx.createChannelMerger(2);
             leftGain = audioCtx.createGain();
             rightGain = audioCtx.createGain();
 
-            // 3. Master Gain (Untuk LUFS & Gain Match)
             masterGainNode = audioCtx.createGain();
             updateMasterGainValue();
 
-            // Sambungkan Rantaian Audio (Chain):
-            // Source -> De-Esser -> Splitter -> (Left/Right Gains) -> Merger -> Master Gain -> Destination
             sourceNode.connect(deEsserFilter);
             deEsserFilter.connect(splitter);
 
@@ -205,7 +223,6 @@
             masterGainNode.connect(audioCtx.destination);
         }
 
-        // Pengurusan Fail Input
         document.getElementById('audio-file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -215,7 +232,6 @@
             }
         });
 
-        // Toggle Fungsi
         function toggleGainMatch(btn) {
             btn.classList.toggle('active');
             isGainMatched = btn.classList.contains('active');
@@ -240,11 +256,10 @@
             }
         }
 
-        // Kemas Kini Parameter
         function updateMasterGainValue() {
             if (!masterGainNode) return;
             if (isGainMatched) {
-                masterGainNode.gain.value = 1.0; // Sama aras input asal
+                masterGainNode.gain.value = 1.0;
             } else {
                 const lufsVal = parseFloat(document.getElementById('lufs-range').value);
                 let boostFactor = 1.3;
