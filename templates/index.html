@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -39,11 +40,11 @@
         }
 
         .view {
-            display: none !important;
+            display: none;
         }
 
         .view.active {
-            display: block !important;
+            display: block;
             animation: fadeIn 0.25s ease-in-out;
         }
 
@@ -387,7 +388,6 @@
 
     <div class="studio-container">
 
-        <!-- VIEW 1: HALAMAN PENGENALAN (HERO INTRO) -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
@@ -404,18 +404,16 @@
 
                     <div class="hero-tagline">BP AI MUSIC STUDIO &nbsp; Memperkemas bunyi, menghidupkan karya.</div>
 
-                    <button class="btn-primary" onclick="switchView('view-mastering')">Mula Sekarang →</button>
+                    <button class="btn-primary" type="button" onclick="switchView('view-mastering')">Mula Sekarang →</button>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW 2: MASTERING CONSOLE & AI CO-PRODUCER -->
         <div id="view-mastering" class="view">
             <div style="text-align: center; margin-bottom: 14px;">
                 <h2 style="font-size: 1.15rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Pro Mastering & AI Console</h2>
             </div>
 
-            <!-- VISUALIZER & METERS -->
             <div class="card">
                 <div class="card-title">
                     <span>Visualizer & Meters</span>
@@ -449,7 +447,6 @@
                 </div>
             </div>
 
-            <!-- AI CO-PRODUCER ENGINE -->
             <div class="card coproducer-box">
                 <div class="card-title">
                     <span>🤖 AI Co-Producer Engine</span>
@@ -467,7 +464,6 @@
                 </div>
             </div>
 
-            <!-- MUAT NAIK FAIL AUDIO & SUARA LAGU DEMO -->
             <div class="card">
                 <div class="card-title">Sumber Fail Audio</div>
                 
@@ -478,27 +474,25 @@
                     <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
                 </div>
 
-                <button class="demo-btn" onclick="loadDemoAudio()">
+                <button class="demo-btn" type="button" onclick="loadDemoAudio()">
                     🎵 Mainkan Demo Lagu (Sample Audio)
                 </button>
 
                 <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
             </div>
 
-            <!-- GENRE TRIGGER -->
             <div class="card">
                 <div class="card-title">Genre & Vibe Trek</div>
-                <button class="genre-trigger" onclick="switchView('view-genre')">
+                <button class="genre-trigger" type="button" onclick="switchView('view-genre')">
                     <span id="selectedGenreText">🎵 Malay Phonk</span>
                     <span>▼</span>
                 </button>
             </div>
 
-            <button class="btn-primary" onclick="alert('Proses Mastering & AI Co-Producer sedang dijalankan...')">Run AI Analysis & Mastering →</button>
+            <button class="btn-primary" type="button" onclick="alert('Proses Mastering & AI Co-Producer sedang dijalankan...')">Run AI Analysis & Mastering →</button>
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Halaman Pengenalan</div>
         </div>
 
-        <!-- VIEW 3: PILIH GENRE -->
         <div id="view-genre" class="view">
             <div class="card">
                 <div class="card-title">
@@ -515,6 +509,17 @@
     </div>
 
     <script>
+        window.switchView = function(viewId) {
+            document.querySelectorAll('.view').forEach(v => {
+                v.classList.remove('active');
+            });
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
         const genreCatalog = [
             { category: "🇲🇾 Melayu / Nusantara", list: ["Malaya / Melayu", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Melayu Klasik", "Irama Malaysia", "Lagu Asli", "Zapin", "Joget", "Ghazal", "Keroncong", "Dangdut", "Campursari", "Pop Nusantara", "Etnik Nusantara", "Tradisional Melayu", "Tradisional Sabah", "Tradisional Sarawak", "Minang", "Jawa", "Sunda", "Bugis", "Batak", "Malay Bounce", "Malay Trap", "Malay Phonk", "Malay Electronic", "Nusantara Electronic"] },
             { category: "🎤 Pop", list: ["Pop", "Pop Ballad", "Electropop", "Synthpop", "Dream Pop", "Indie Pop", "Teen Pop", "Adult Contemporary", "Dance Pop", "Power Pop", "Soft Pop", "Retro Pop", "City Pop", "Dark Pop", "Noir Pop", "Future Pop", "Neon Pop", "Experimental Pop"] },
@@ -522,8 +527,8 @@
             { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
             { category: "🔥 Phonk", list: ["Phonk", "Dark Phonk", "Drift Phonk", "Brazilian Phonk", "Memphis Phonk", "Aggressive Phonk", "Atmospheric Phonk", "Electro Phonk", "Trap Phonk", "Future Phonk", "Malay Phonk", "Neon Noir Phonk", "Neon Noir Phonk - Malay Bounce", "Dark Techno / Neon Noir Phonk - Malay Bounce"] },
             { category: "⚡ Techno / Electronic", list: ["EDM", "Techno", "Dark Techno", "Hard Techno", "Industrial Techno", "Acid Techno", "Minimal Techno", "Melodic Techno", "Progressive Techno", "Techno Noir", "Cyber Techno", "House", "Deep House", "Tropical House", "Future House", "Progressive House", "Tech House", "Electro House", "Bass House", "G-House", "Slap House", "Afro House", "Trance", "Dubstep", "Drum & Bass", "Future Bass", "Breakbeat", "UK Garage", "Jersey Club", "Amapiano", "Industrial Bass", "Dark Electro", "Alternative Electronic", "Cinematic Electronic"] },
-            { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise",
-                       { category: "🎷 R&B / Soul / Funk", list: ["R&B", "Contemporary R&B", "Soul", "Neo Soul", "Motown", "Funk", "Smooth Soul", "Gospel Soul", "R&B Ballad", "Funk Soul"] },
+               { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise", "Glitch", "Glitch Hop"] },
+            { category: "🎷 R&B / Soul / Funk", list: ["R&B", "Contemporary R&B", "Soul", "Neo Soul", "Motown", "Funk", "Smooth Soul", "Gospel Soul", "R&B Ballad", "Funk Soul"] },
             { category: "🎷 Jazz / Blues", list: ["Jazz", "Smooth Jazz", "Contemporary Jazz", "Swing", "Bebop", "Fusion Jazz", "Latin Jazz", "Blues", "Slow Blues", "Blues Rock", "Soul Blues"] },
             { category: "🎸 Akustik / Folk", list: ["Acoustic", "Acoustic Pop", "Acoustic Ballad", "Folk", "Indie Folk", "Folk Pop", "Singer-Songwriter", "Coffeehouse", "Chill", "Lo-Fi", "Lounge", "Relaxing"] },
             { category: "🎻 Orkestra / Klasik", list: ["Classical", "Piano Solo", "Piano Ballad", "String Orchestra", "Symphony", "Chamber Music", "Cinematic", "Epic Orchestra", "Film Score", "Dramatic", "Emotional Orchestra", "Fantasy", "Medieval", "Baroque"] },
@@ -545,6 +550,7 @@
 
             group.list.forEach(genre => {
                 const btn = document.createElement('button');
+                btn.type = 'button';
                 btn.className = 'genre-option-btn';
                 if(genre === "Malay Phonk") btn.classList.add('selected');
                 btn.textContent = genre;
@@ -559,12 +565,6 @@
             btnElement.classList.add('selected');
             document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
             switchView('view-mastering');
-        }
-
-        function switchView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleState(btn) {
@@ -584,14 +584,12 @@
 
         function loadDemoAudio() {
             const player = document.getElementById('audioPlayer');
-            // Menggunakan audio sampel percuma untuk ujian demo
             player.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
             document.getElementById('fileNameDisplay').textContent = 'Demo Track: SoundHelix-Song-1.mp3';
             player.style.display = 'block';
             player.play();
         }
 
-        // Setup Visualizer Bars Animation
         const waveContainer = document.getElementById('waveformContainer');
         const bars = [];
         if (waveContainer) {
@@ -604,7 +602,6 @@
             }
         }
 
-        // Animasi turun naik visualizer secara dinamik apabila lagu dimainkan
         const player = document.getElementById('audioPlayer');
         player.addEventListener('play', () => {
             setInterval(() => {
@@ -617,4 +614,5 @@
         });
     </script>
 </body>
-</html>                                          
+</html>
+                                                                
