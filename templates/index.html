@@ -73,41 +73,43 @@
             font-size: 13px;
             font-style: italic;
             color: #94a3b8;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-weight: 500;
         }
 
-        /* Kotak Pilihan 4 Peranan */
-        .roles-container {
-            margin-bottom: 24px;
+        /* Gaya untuk Halaman 2 (Pilihan Peranan) */
+        .page {
+            display: none;
+            padding: 24px 20px;
             text-align: left;
-            background-color: #121826;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #222d44;
         }
 
-        .roles-title {
+        .page.active {
+            display: block;
+        }
+
+        .step-indicator {
             font-size: 13px;
-            font-weight: 600;
             color: #60a5fa;
-            margin-bottom: 10px;
-            text-align: center;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .roles-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
+            margin-top: 16px;
+            margin-bottom: 24px;
         }
 
         .role-btn {
             background-color: #1e293b;
             color: #cbd5e1;
             border: 1px solid #334155;
-            padding: 10px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             text-align: center;
@@ -118,10 +120,10 @@
             background-color: #2563eb;
             color: #ffffff;
             border-color: #3b82f6;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        /* Button */
+        /* Butang Umum */
         .cta-button {
             display: block;
             width: 100%;
@@ -147,10 +149,12 @@
 <body>
 
     <div class="container">
-        <div class="card-content">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Studio Rakaman" class="hero-image">
-            
-            <div class="text-section">
+        
+        <!-- HALAMAN 1: Pengenalan Mastering -->
+        <div id="page-1" class="page active">
+            <div class="card-content" style="margin: 0; border: none; background: transparent;">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Studio Rakaman" class="hero-image" style="border-radius: 12px; margin-bottom: 20px;">
+                
                 <h1 class="main-heading">MASTERING BP AI MUSIC STUDIO</h1>
                 
                 <p class="description">
@@ -163,24 +167,39 @@
 
                 <p class="sub-heading">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
 
-                <!-- Pilihan 4 Peranan -->
-                <div class="roles-container">
-                    <p class="roles-title">Pilih Peranan Anda:</p>
-                    <div class="roles-grid">
-                        <button class="role-btn selected" type="button">Producer (Penerbit)</button>
-                        <button class="role-btn" type="button">Musician (Pemuzik)</button>
-                        <button class="role-btn" type="button">Beatmaker (Pembuat Beat)</button>
-                        <button class="role-btn" type="button">Composer (Pencipta Lagu)</button>
-                    </div>
-                </div>
-
-                <a href="#" class="cta-button">Mula Mastering Pro →</a>
+                <button type="button" class="cta-button" onclick="goToPage(2)">Mula Mastering Pro →</button>
             </div>
         </div>
+
+        <!-- HALAMAN 2: Pilihan Peranan (Berasingan) -->
+        <div id="page-2" class="page">
+            <div class="step-indicator" style="cursor: pointer; display: inline-block;" onclick="goToPage(1)">← Kembali</div>
+            <h1 class="main-heading" style="margin-top: 8px;">What best represents you?</h1>
+            <p class="description" style="margin-bottom: 12px;">Display the best of yourself and link up with like-minded creators.</p>
+            
+            <p style="font-size: 13px; color: #cbd5e1; font-weight: 500; margin-bottom: 10px;">How would you best describe yourself to others?</p>
+
+            <div class="roles-grid">
+                <button class="role-btn selected" type="button">Producer (Penerbit)</button>
+                <button class="role-btn" type="button">Musician (Pemuzik)</button>
+                <button class="role-btn" type="button">Beatmaker (Pembuat Beat)</button>
+                <button class="role-btn" type="button">Composer (Pencipta Lagu)</button>
+            </div>
+
+            <button type="button" class="cta-button" onclick="alert('Tahniah! Pilihan anda telah disimpan.')">Seterusnya →</button>
+        </div>
+
     </div>
 
     <script>
-        // Skrip interaktif untuk memilih peranan
+        // Fungsi untuk bertukar halaman
+        function goToPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageNumber).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Skrip interaktif untuk memilih butang peranan
         const buttons = document.querySelectorAll('.role-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -192,4 +211,3 @@
 
 </body>
 </html>
-
