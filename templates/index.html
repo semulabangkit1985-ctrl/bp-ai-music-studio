@@ -73,10 +73,55 @@
             font-size: 13px;
             font-style: italic;
             color: #94a3b8;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
+        /* Kotak Pilihan 4 Peranan */
+        .roles-container {
+            margin-bottom: 24px;
+            text-align: left;
+            background-color: #121826;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #222d44;
+        }
+
+        .roles-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .role-btn {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .role-btn:hover, .role-btn.selected {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Button */
         .cta-button {
             display: block;
             width: 100%;
@@ -90,6 +135,8 @@
             text-decoration: none;
             transition: background-color 0.2s;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -116,10 +163,33 @@
 
                 <p class="sub-heading">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
 
+                <!-- Pilihan 4 Peranan -->
+                <div class="roles-container">
+                    <p class="roles-title">Pilih Peranan Anda:</p>
+                    <div class="roles-grid">
+                        <button class="role-btn selected" type="button">Producer (Penerbit)</button>
+                        <button class="role-btn" type="button">Musician (Pemuzik)</button>
+                        <button class="role-btn" type="button">Beatmaker (Pembuat Beat)</button>
+                        <button class="role-btn" type="button">Composer (Pencipta Lagu)</button>
+                    </div>
+                </div>
+
                 <a href="#" class="cta-button">Mula Mastering Pro →</a>
             </div>
         </div>
     </div>
 
+    <script>
+        // Skrip interaktif untuk memilih peranan
+        const buttons = document.querySelectorAll('.role-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+    </script>
+
 </body>
 </html>
+
