@@ -349,7 +349,7 @@
                     </div>
 
                     <div class="section-title">Mastering Styles</div>
-                      <div class="style-buttons">
+                    <div class="style-buttons">
                         <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
                         <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
                         <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
@@ -455,7 +455,9 @@
         let inputTrimNodes = new Map();
         let eqFilters = new Map();
         let presenceFilters = new Map();
+        let deesserFilters = new Map();
         let compressorNodes = new Map();
+        let widthGainNodes = new Map();
         let masterGainNodes = new Map();
         let analyserNodes = new Map();
         let isBypassed = false;
@@ -626,6 +628,12 @@
                     presenceFilter.frequency.value = 3500;
                     presenceFilter.gain.value = 3.0;
 
+                    // 🎛️ DE-ESSER NODE
+                    const deesserFilter = audioCtx.createBiquadFilter();
+                    deesserFilter.type = 'peaking';
+                    deesserFilter.frequency.value = 6000;
+                    deesserFilter.gain.value = -1.8; // 30% default attenuation
+
                     const compressor = audioCtx.createDynamicsCompressor();
                     compressor.threshold.value = -20;
                     compressor.knee.value = 10;
@@ -633,17 +641,35 @@
                     compressor.attack.value = 0.002;
                     compressor.release.value = 0.150;
 
+                    // 🎧 STEREO WIDTH NODES (Splitter & Merger)
+                    const splitter = audioCtx.createChannelSplitter(2);
+                    const merger = audioCtx.createChannelMerger(2);
+                    const leftGain = audioCtx.createGain();
+                    const rightGain = audioCtx.createGain();
+                    leftGain.gain.value = 1.2;  // 120% default
+                    rightGain.gain.value = 1.2;
+
                     const masterGain = audioCtx.createGain();
                     masterGain.gain.value = 1.4;
 
                     const analyser = audioCtx.createAnalyser();
                     analyser.fftSize = 256;
 
+                    // Sambungan Laluan Audio (Routing Chain)
                     source.connect(inputTrimNode);
                     inputTrimNode.connect(filter);
                     filter.connect(presenceFilter);
-                    presenceFilter.connect(compressor);
-                    compressor.connect(masterGain);
+                    presenceFilter.connect(deesserFilter);
+                    deesserFilter.connect(compressor);
+                    
+                    // Stereo Widening Routing
+                    compressor.connect(splitter);
+                    splitter.connect(leftGain, 0);
+                    splitter.connect(rightGain, 1);
+                    leftGain.connect(merger, 0, 0);
+                    rightGain.connect(merger, 0, 1);
+
+                    merger.connect(masterGain);
                     masterGain.connect(analyser);
                     analyser.connect(audioCtx.destination);
 
@@ -651,7 +677,9 @@
                     inputTrimNodes.set(playerId, inputTrimNode);
                     eqFilters.set(playerId, filter);
                     presenceFilters.set(playerId, presenceFilter);
+                    deesserFilters.set(playerId, deesserFilter);
                     compressorNodes.set(playerId, compressor);
+                    widthGainNodes.set(playerId, { left: leftGain, right: rightGain });
                     masterGainNodes.set(playerId, masterGain);
                     analyserNodes.set(playerId, analyser);
 
@@ -686,7 +714,7 @@
                     x += barWidth + 1;
                 }
             }
-            if (animationId) cancelAnimationFrame(animationId);
+        if (animationId) cancelAnimationFrame(animationId);
             draw();
         }
 
@@ -706,13 +734,31 @@
                         const trim = inputTrimNodes.get(id);
                         const filter = eqFilters.get(id);
                         const presence = presenceFilters.get(id);
+                        const deesser = deesserFilters.get(id);
                         const comp = compressorNodes.get(id);
+                        const widths = widthGainNodes.get(id);
                         
                         source.connect(trim);
                         trim.connect(filter);
                         filter.connect(presence);
-                        presence.connect(comp);
-                        comp.connect(masterGain);
+                        presence.connect(deesser);
+                        deesser.connect(comp);
+                        
+                        // Cuba sambung semula ikut laluan stereo
+                        try {
+                            const audioCtxRef = comp.context;
+                            const splitter = audioCtxRef.createChannelSplitter(2);
+                            const merger = audioCtxRef.createChannelMerger(2);
+                            comp.connect(splitter);
+                            splitter.connect(widths.left, 0);
+                            splitter.connect(widths.right, 1);
+                            widths.left.connect(merger, 0, 0);
+                            widths.right.connect(merger, 0, 1);
+                            merger.connect(masterGain);
+                        } catch(err) {
+                            comp.connect(masterGain);
+                        }
+
                         masterGain.connect(analyser);
                         analyser.connect(audioCtx.destination);
                     }
@@ -756,10 +802,21 @@
 
         function updateDeEsser(value) {
             document.getElementById('deesser-val').textContent = value + '%';
+            const attenuation = -((parseFloat(value) / 100) * 6.0);
+            deesserFilters.forEach(filter => {
+                filter.gain.value = attenuation;
+            });
         }
 
         function updateStereoWidth(value) {
             document.getElementById('width-val').textContent = value + '%';
+            const scale = parseFloat(value) / 100;
+            widthGainNodes.forEach(nodes => {
+                if (nodes.left && nodes.right) {
+                    nodes.left.gain.value = scale;
+                    nodes.right.gain.value = scale;
+                }
+            });
         }
 
         function updateEQBand(band, value) {
@@ -810,4 +867,4 @@
     </script>
 </body>
 </html>
-            
+                    
