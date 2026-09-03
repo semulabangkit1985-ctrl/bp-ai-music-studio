@@ -35,7 +35,7 @@
 
         .studio-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 540px;
             margin: 0 auto;
             padding: 20px 16px;
         }
@@ -54,48 +54,68 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card {
+        /* Hero Card Styling */
+        .hero-card {
             background: var(--bg-card);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 16px;
+            border-radius: 16px;
+            overflow: hidden;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--accent-glow);
+        }
+
+        .hero-content {
+            padding: 24px 20px;
         }
 
         .hero-title {
-            font-size: 1.3rem;
-            color: #60a5fa;
-            font-weight: 800;
             text-align: center;
-            margin-bottom: 16px;
+            font-size: 1.2rem;
+            color: #60a5fa;
+            margin-bottom: 8px;
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
+        .hero-tagline {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
         .hero-desc {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: #cbd5e1;
-            line-height: 1.7;
+            line-height: 1.6;
             margin-bottom: 14px;
             text-align: left;
         }
 
-        .hero-tagline {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #38bdf8;
-            font-weight: 700;
-            margin-top: 18px;
-            margin-bottom: 22px;
-            letter-spacing: 0.5px;
+        /* Common Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .card-title {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: #60a5fa;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
             text-transform: uppercase;
             display: flex;
@@ -108,10 +128,10 @@
             background: #020617;
             border-radius: 10px;
             padding: 12px;
-            height: 85px;
+            height: 75px;
             display: flex;
             align-items: flex-end;
-            gap: 3px;
+            gap: 2px;
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
             overflow: hidden;
@@ -121,14 +141,14 @@
             flex: 1;
             background: var(--accent);
             border-radius: 2px;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .meters-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .meter-item {
@@ -140,33 +160,32 @@
         }
 
         .meter-label {
-            font-size: 0.62rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .meter-val {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #38bdf8;
         }
 
-        /* Action Toggles */
+        /* Toggles */
         .action-toggles {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 14px;
         }
 
         .toggle-btn {
             background: #030712;
             border: 1px solid var(--border-color);
             color: var(--text-sub);
-            padding: 10px;
+            padding: 9px;
             border-radius: 8px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
@@ -179,17 +198,17 @@
             border-color: var(--accent);
         }
 
-        /* AI Co-Producer */
+        /* AI Co-Producer Engine */
         .coproducer-box {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(15, 23, 42, 0.8));
             border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .coproducer-desc {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: #cbd5e1;
-            margin-bottom: 12px;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .instrument-grid {
@@ -217,49 +236,126 @@
             border-color: var(--accent);
         }
 
-        /* Mastering Styles */
-        .styles-grid {
+        /* Upload Box */
+        .upload-box {
+            border: 2px dashed rgba(96, 165, 250, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(37, 99, 235, 0.02);
+            transition: all 0.2s;
+        }
+
+        .upload-box:hover {
+            background: rgba(37, 99, 235, 0.06);
+            border-color: #60a5fa;
+        }
+
+        .upload-box p {
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .upload-box span {
+            font-size: 0.72rem;
+            color: #60a5fa;
+        }
+
+        /* Genre Trigger Button */
+        .genre-trigger {
+            background: var(--bg-main);
+            border: 1px solid var(--accent);
+            color: #60a5fa;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .genre-trigger:hover {
+            background: rgba(37, 99, 235, 0.12);
+        }
+
+        /* Presets & Styles Grids */
+        .preset-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .preset-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 10px 8px;
+            border-radius: 9px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .preset-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px var(--accent-glow);
+        }
+
+        .style-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
         }
 
         .style-btn {
-            background: #030712;
+            background: var(--bg-main);
             border: 1px solid var(--border-color);
             color: var(--text-sub);
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 9px;
             font-size: 0.78rem;
             font-weight: 600;
-            text-align: center;
             cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
         }
 
         .style-btn.active {
             background: var(--accent);
             color: white;
             border-color: var(--accent);
+            box-shadow: 0 2px 8px var(--accent-glow);
         }
 
         /* Sliders */
-        .control-row {
+        .slider-group {
             margin-bottom: 12px;
         }
 
-        .control-row:last-child {
+        .slider-group:last-child {
             margin-bottom: 0;
         }
 
-        .control-header {
+        .slider-header {
             display: flex;
             justify-content: space-between;
             font-size: 0.78rem;
-            color: var(--text-sub);
             margin-bottom: 5px;
+            color: var(--text-sub);
         }
 
-        .control-header span:last-child {
+        .slider-header span:last-child {
             color: #60a5fa;
             font-weight: 600;
         }
@@ -269,11 +365,11 @@
             accent-color: var(--accent);
             cursor: pointer;
             height: 4px;
-            background: #030712;
+            background: var(--bg-main);
             border-radius: 2px;
         }
 
-        /* Buttons */
+        /* Primary Action Button */
         .btn-primary {
             width: 100%;
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -284,20 +380,21 @@
             font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px var(--accent-glow);
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-top: 6px;
+            box-shadow: 0 4px 15px var(--accent-glow);
             text-align: center;
             display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
+            opacity: 0.95;
             transform: translateY(-1px);
         }
 
-        .back-link {
+        .footer-link {
             text-align: center;
             margin-top: 16px;
             font-size: 0.82rem;
@@ -307,8 +404,45 @@
             width: 100%;
         }
 
-        .back-link:hover {
+        .footer-link:hover {
             color: #ffffff;
+        }
+
+        /* Genre Page Styling */
+        .genre-category-title {
+            font-size: 0.72rem;
+            color: #60a5fa;
+            font-weight: 700;
+            margin: 12px 0 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .genre-list-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .genre-option-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .genre-option-btn:hover, .genre-option-btn.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
         }
     </style>
 </head>
@@ -316,41 +450,43 @@
 
     <div class="studio-container">
 
-        <!-- VIEW 1: HERO INTRO -->
         <div id="view-intro" class="view active">
-            <div class="card">
-                <h1 class="hero-title">MASTERING BP AI MUSIC STUDIO</h1>
-                
-                <p class="hero-desc">
-                    Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
-                </p>
-                
-                <p class="hero-desc">
-                    Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
-                </p>
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
+                <div class="hero-content">
+                    <h1 class="hero-title">MASTERING BP AI MUSIC STUDIO</h1>
+                    <div class="hero-tagline">BP AI MUSIC STUDIO &nbsp; Memperkemas bunyi, menghidupkan karya.</div>
+                    
+                    <p class="hero-desc">
+                        Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
+                    </p>
+                    
+                    <p class="hero-desc">
+                        Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
+                    </p>
 
-                <div class="hero-tagline">
-                    BP AI MUSIC STUDIO &nbsp; Memperkemas bunyi, menghidupkan karya.
+                    <button class="btn-primary" onclick="switchView('view-mastering')">Mula Sekarang →</button>
                 </div>
-
-                <button class="btn-primary" onclick="switchView('view-console')">Mula Mastering Sekarang →</button>
+            </div>
+            
+            <div style="margin-top: 14px;">
+                <button class="btn-primary" style="background: #1e293b; border: 1px solid var(--border-color); box-shadow: none;" onclick="switchView('view-mastering')">Proses AI Mastering →</button>
+                <div class="footer-link" onclick="alert('Mod Pilihan Aktif')">← Tukar Mod Pilihan</div>
             </div>
         </div>
 
-        <!-- VIEW 2: MASTERING & CO-PRODUCER CONSOLE -->
-        <div id="view-console" class="view">
-            <div class="card" style="margin-bottom: 16px; text-align: center; padding: 12px;">
-                <h2 style="font-size: 1.1rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px;">Pro Mastering & Co-Producer Console</h2>
+        <div id="view-mastering" class="view">
+            <div style="text-align: center; margin-bottom: 14px;">
+                <h2 style="font-size: 1.1rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px;">Pro Mastering & AI Console</h2>
             </div>
 
-            <!-- VISUALIZER & METERS -->
             <div class="card">
                 <div class="card-title">
                     <span>Visualizer & Meters</span>
-                    <span style="color: var(--success); font-size: 0.68rem;">● AI Active</span>
+                    <span style="color: var(--success); font-size: 0.65rem;">● AI Active</span>
                 </div>
                 
-                <div class="visualizer-box" id="waveformViz"></div>
+                <div class="visualizer-box" id="waveformContainer"></div>
 
                 <div class="meters-grid">
                     <div class="meter-item">
@@ -377,7 +513,6 @@
                 </div>
             </div>
 
-            <!-- AI CO-PRODUCER MODULE -->
             <div class="card coproducer-box">
                 <div class="card-title">
                     <span>🤖 AI Co-Producer Engine</span>
@@ -395,62 +530,89 @@
                 </div>
             </div>
 
-            <!-- MASTERING STYLES -->
             <div class="card">
-                <div class="card-title">Mastering Styles</div>
-                <div class="styles-grid">
+                <div class="card-title">Muat Naik Fail Audio</div>
+                <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
+                    <div>📁</div>
+                    <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
+                    <span id="fileNameDisplay">Tiada fail dipilih</span>
+                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
+                </div>
+                <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Genre & Vibe Trek</div>
+                <button class="genre-trigger" onclick="switchView('view-genre')">
+                    <span id="selectedGenreText">🎵 Malay Phonk</span>
+                    <span>▼</span>
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Platform Target Preset</div>
+                <div class="preset-grid">
+                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Spotify / YT (-14 LUFS)</div>
+                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Apple Music (-16 LUFS)</div>
+                    <div class="preset-btn active" onclick="selectOption(this, '.preset-grid')">Radio / Club (-11 LUFS)</div>
+                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">TikTok / SC (-12 LUFS)</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Mastering Character</div>
+                <div class="style-grid">
                     <div class="style-btn active" onclick="selectStyle(this)">Warm</div>
                     <div class="style-btn" onclick="selectStyle(this)">Open</div>
                     <div class="style-btn" onclick="selectStyle(this)">Punchy</div>
                 </div>
             </div>
 
-            <!-- DETAILED CONTROLS -->
             <div class="card">
                 <div class="card-title">Dynamics & Tone Customization</div>
                 
-                <div class="control-row">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>Input Trim</span>
                         <span id="val-trim">+3.5 dB</span>
                     </div>
                     <input type="range" min="-10" max="10" step="0.1" value="3.5" oninput="updateVal('val-trim', this.value + ' dB')">
                 </div>
 
-                <div class="control-row" style="margin-top: 10px;">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>EQ Balance</span>
                         <span id="val-eq">Balanced</span>
                     </div>
                     <input type="range" min="-5" max="5" step="0.5" value="0" oninput="updateVal('val-eq', this.value + ' dB')">
                 </div>
 
-                <div class="control-row" style="margin-top: 10px;">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>Presence Boost</span>
                         <span id="val-presence">+1.5 dB</span>
                     </div>
                     <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
 
-                <div class="control-row" style="margin-top: 10px;">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>De-Esser Sensitivity</span>
                         <span id="val-deesser">3.0 dB</span>
                     </div>
                     <input type="range" min="0" max="10" step="0.5" value="3.0" oninput="updateVal('val-deesser', this.value + ' dB')">
                 </div>
 
-                <div class="control-row" style="margin-top: 10px;">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>Stereo Width</span>
                         <span id="val-width">115%</span>
                     </div>
                     <input type="range" min="50" max="150" value="115" oninput="updateVal('val-width', this.value + '%')">
                 </div>
 
-                <div class="control-row" style="margin-top: 10px;">
-                    <div class="control-header">
+                <div class="slider-group">
+                    <div class="slider-header">
                         <span>Dynamics Control (Compression)</span>
                         <span id="val-dyn">Medium</span>
                     </div>
@@ -459,47 +621,13 @@
             </div>
 
             <button class="btn-primary" onclick="alert('AI Analysis & Co-Producer sedang memproses track dan instrumen anda...')">Run AI Analysis & Mastering →</button>
-            <div class="back-link" onclick="switchView('view-intro')">← Kembali ke Halaman Utama</div>
+            <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Halaman Utama</div>
         </div>
 
-    </div>
-
-    <script>
-        function switchView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleState(btn) {
-            btn.classList.toggle('active');
-        }
-
-        function selectStyle(btn) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        function updateVal(id, text) {
-            document.getElementById(id).textContent = text;
-        }
-
-        function updateDyn(val) {
-            const levels = ['Light', 'Soft', 'Medium', 'Heavy', 'Aggressive'];
-            document.getElementById('val-dyn').textContent = levels[val - 1];
-        }
-
-        // Generate visualizer wave bars
-        const viz = document.getElementById('waveformViz');
-        if (viz) {
-            for (let i = 0; i < 45; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'wave-bar';
-                bar.style.height = (Math.floor(Math.random() * 70) + 15) + '%';
-                viz.appendChild(bar);
-            }
-        }
-    </script>
-</body>
-    </html>
-
+        <div id="view-genre" class="view">
+            <div class="card">
+                <div class="card-title">
+                    <span>Pilih Genre & Vibe</span>
+                    <span style="cursor: pointer; font-size: 1rem;" onclick="switchView('view-mastering')">✕</span>
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-sub); margin-bottom: 8px;">Pilih k
