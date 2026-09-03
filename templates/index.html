@@ -71,7 +71,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Hero / Intro Screen Styles */
         .hero-card {
             background: var(--bg-card);
             border-radius: 16px;
@@ -114,7 +113,6 @@
             margin-bottom: 14px;
         }
 
-        /* Mode Selection Cards */
         .mode-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -154,7 +152,6 @@
             padding-left: 10px;
         }
 
-        /* Studio Components & Cards */
         .top-buttons {
             display: flex;
             gap: 10px;
@@ -219,15 +216,6 @@
         .upload-box span {
             font-size: 0.75rem;
             color: #4da6ff;
-        }
-
-        audio::-webkit-media-controls-panel {
-            background-color: var(--bg-main);
-        }
-
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: var(--text-main);
         }
 
         .waveform-box {
@@ -411,7 +399,6 @@
             color: #ffffff;
         }
 
-        /* Modal Overlay for Full Genres */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -514,6 +501,7 @@
 
     <div class="main-container">
 
+        <!-- VIEW 1: HERO / INTRO SCREEN -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Recording" class="hero-image">
@@ -528,6 +516,7 @@
             </div>
         </div>
 
+        <!-- VIEW 2: PILIH MOD OPERASI -->
         <div id="view-mode" class="view">
             <div class="section-header">
                 <h2 class="title">Pilih Mod Operasi</h2>
@@ -561,6 +550,7 @@
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali</div>
         </div>
 
+        <!-- VIEW 3: AI AUDIO MASTERING PRO CONSOLE -->
         <div id="view-mastering" class="view">
             <div class="section-header">
                 <h2 class="title">AI Audio Mastering</h2>
@@ -648,15 +638,13 @@
                     </div>
                     <input type="range" min="-6" max="0" step="0.1" value="-2" oninput="updateVal('val-peak', this.value + ' dB')">
                 </div>
-                  <input type="range" min="-6" max="0" step="0.1" value="-2" oninput="updateVal('val-peak', this.value + ' dB')">
-                </div>
 
                 <div class="slider-group">
                     <div class="slider-header">
                         <span>Presence (High-Mid Clarity)</span>
                         <span id="val-presence">+1 dB</span>
                     </div>
-                    <input type="range" min="-5" max="5" step="0.5" value="1" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
+                        <input type="range" min="-5" max="5" step="0.5" value="1" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
 
                 <div class="slider-group">
@@ -682,6 +670,7 @@
 
     </div>
 
+    <!-- FULL GENRE SELECTION MODAL -->
     <div class="modal-overlay" id="genreModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -796,6 +785,4 @@
         }
     </script>
 </body>
-</html>
-
-                
+                </html>
