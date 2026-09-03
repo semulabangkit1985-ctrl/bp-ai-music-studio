@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Pro Mastering & AI Console</title>
+    <title>BP AI Music Studio - Pro Mastering & Co-Producer Console</title>
     <style>
         :root {
             --bg-main: #030712;
@@ -38,19 +38,68 @@
             padding: 20px 16px;
         }
 
-        .console-header {
+        .view {
+            display: none !important;
+        }
+
+        .view.active {
+            display: block !important;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Card Styling */
+        .hero-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--accent-glow);
+        }
+
+        .hero-content {
+            padding: 24px 20px;
+        }
+
+        .hero-title {
             text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .console-header h2 {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: #60a5fa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 16px;
             font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
+        .hero-tagline {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: 600;
+            margin: 16px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        /* Common Cards */
         .card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -61,7 +110,7 @@
         }
 
         .card-title {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: #60a5fa;
             margin-bottom: 10px;
@@ -91,6 +140,7 @@
             background: var(--accent);
             border-radius: 2px;
             opacity: 0.85;
+            transition: height 0.1s ease;
         }
 
         .meters-grid {
@@ -193,6 +243,7 @@
             cursor: pointer;
             background: rgba(37, 99, 235, 0.02);
             transition: all 0.2s;
+            margin-bottom: 10px;
         }
 
         .upload-box:hover {
@@ -210,6 +261,29 @@
         .upload-box span {
             font-size: 0.72rem;
             color: #60a5fa;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #1e3a8a, #1e293b);
+            border: 1px solid var(--accent);
+            color: #60a5fa;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .demo-btn:hover {
+            background: #1d4ed8;
+            color: white;
         }
 
         /* Primary Action Button */
@@ -236,82 +310,263 @@
             opacity: 0.95 !important;
             transform: translateY(-1px) !important;
         }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            color: #ffffff;
+        }
+
+        /* Genre Page Styling */
+        .genre-category-title {
+            font-size: 0.72rem;
+            color: #60a5fa;
+            font-weight: 700;
+            margin: 12px 0 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .genre-list-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .genre-option-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .genre-option-btn:hover, .genre-option-btn.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .genre-trigger {
+            background: var(--bg-main);
+            border: 1px solid var(--accent);
+            color: #60a5fa;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .genre-trigger:hover {
+            background: rgba(37, 99, 235, 0.12);
+        }
     </style>
 </head>
 <body>
 
     <div class="studio-container">
 
-        <div class="console-header">
-            <h2>Pro Mastering & AI Console</h2>
-        </div>
+        <!-- VIEW 1: HALAMAN PENGENALAN (HERO INTRO) -->
+        <div id="view-intro" class="view active">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
+                <div class="hero-content">
+                    <h1 class="hero-title">MASTERING BP AI MUSIC STUDIO</h1>
+                    
+                    <p class="hero-desc">
+                        Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
+                    </p>
+                    
+                    <p class="hero-desc">
+                        Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
+                    </p>
 
-        <div class="card">
-            <div class="card-title">
-                <span>Visualizer & Meters</span>
-                <span style="color: var(--success); font-size: 0.65rem;">● AI Active</span>
-            </div>
-            
-            <div class="visualizer-box" id="waveformContainer"></div>
+                    <div class="hero-tagline">BP AI MUSIC STUDIO &nbsp; Memperkemas bunyi, menghidupkan karya.</div>
 
-            <div class="meters-grid">
-                <div class="meter-item">
-                    <div class="meter-label">Loudness</div>
-                    <div class="meter-val">-11.2 LUFS</div>
+                    <button class="btn-primary" onclick="switchView('view-mastering')">Mula Sekarang →</button>
                 </div>
-                <div class="meter-item">
-                    <div class="meter-label">True Peak</div>
-                    <div class="meter-val">-1.8 dB</div>
-                </div>
-                <div class="meter-item">
-                    <div class="meter-label">Output</div>
-                    <div class="meter-val">-0.1 dB</div>
-                </div>
-                <div class="meter-item">
-                    <div class="meter-label">Dynamics</div>
-                    <div class="meter-val">8.4 DR</div>
-                </div>
-            </div>
-
-            <div class="action-toggles">
-                <div class="toggle-btn" onclick="toggleState(this)">Bypass</div>
-                <div class="toggle-btn active" onclick="toggleState(this)">Gain Match</div>
             </div>
         </div>
 
-        <div class="card coproducer-box">
-            <div class="card-title">
-                <span>🤖 AI Co-Producer Engine</span>
+        <!-- VIEW 2: MASTERING CONSOLE & AI CO-PRODUCER -->
+        <div id="view-mastering" class="view">
+            <div style="text-align: center; margin-bottom: 14px;">
+                <h2 style="font-size: 1.15rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Pro Mastering & AI Console</h2>
             </div>
-            <p class="coproducer-desc">AI mendengar struktur track anda dan menjana lapisan instrumen tambahan secara pintar:</p>
-            
-            <div class="instrument-grid">
-                <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Drum</div>
-                <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Bass</div>
-                <div class="inst-chip" onclick="this.classList.toggle('selected')">Guitar</div>
-                <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Piano/Keys</div>
-                <div class="inst-chip" onclick="this.classList.toggle('selected')">Trumpet</div>
-                <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Synth</div>
-                <div class="inst-chip selected" onclick="this.classList.toggle('selected', true)" style="grid-column: span 3;">+ Instrument Layers (Full Mix)</div>
+
+            <!-- VISUALIZER & METERS -->
+            <div class="card">
+                <div class="card-title">
+                    <span>Visualizer & Meters</span>
+                    <span style="color: var(--success); font-size: 0.65rem;">● AI Active</span>
+                </div>
+                
+                <div class="visualizer-box" id="waveformContainer"></div>
+
+                <div class="meters-grid">
+                    <div class="meter-item">
+                        <div class="meter-label">Loudness</div>
+                        <div class="meter-val">-11.2 LUFS</div>
+                    </div>
+                    <div class="meter-item">
+                        <div class="meter-label">True Peak</div>
+                        <div class="meter-val">-1.8 dB</div>
+                    </div>
+                    <div class="meter-item">
+                        <div class="meter-label">Output</div>
+                        <div class="meter-val">-0.1 dB</div>
+                    </div>
+                    <div class="meter-item">
+                        <div class="meter-label">Dynamics</div>
+                        <div class="meter-val">8.4 DR</div>
+                    </div>
+                </div>
+
+                <div class="action-toggles">
+                    <div class="toggle-btn" onclick="toggleState(this)">Bypass</div>
+                    <div class="toggle-btn active" onclick="toggleState(this)">Gain Match</div>
+                </div>
             </div>
+
+            <!-- AI CO-PRODUCER ENGINE -->
+            <div class="card coproducer-box">
+                <div class="card-title">
+                    <span>🤖 AI Co-Producer Engine</span>
+                </div>
+                <p class="coproducer-desc">AI mendengar struktur track anda dan menjana lapisan instrumen tambahan secara pintar:</p>
+                
+                <div class="instrument-grid">
+                    <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Drum</div>
+                    <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Bass</div>
+                    <div class="inst-chip" onclick="this.classList.toggle('selected')">Guitar</div>
+                    <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Piano/Keys</div>
+                    <div class="inst-chip" onclick="this.classList.toggle('selected')">Trumpet</div>
+                    <div class="inst-chip selected" onclick="this.classList.toggle('selected')">Synth</div>
+                    <div class="inst-chip selected" onclick="this.classList.toggle('selected', true)" style="grid-column: span 3;">+ Instrument Layers (Full Mix)</div>
+                </div>
+            </div>
+
+            <!-- MUAT NAIK FAIL AUDIO & SUARA LAGU DEMO -->
+            <div class="card">
+                <div class="card-title">Sumber Fail Audio</div>
+                
+                <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
+                    <div>📁</div>
+                    <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
+                    <span id="fileNameDisplay">Tiada fail dipilih</span>
+                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
+                </div>
+
+                <button class="demo-btn" onclick="loadDemoAudio()">
+                    🎵 Mainkan Demo Lagu (Sample Audio)
+                </button>
+
+                <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
+            </div>
+
+            <!-- GENRE TRIGGER -->
+            <div class="card">
+                <div class="card-title">Genre & Vibe Trek</div>
+                <button class="genre-trigger" onclick="switchView('view-genre')">
+                    <span id="selectedGenreText">🎵 Malay Phonk</span>
+                    <span>▼</span>
+                </button>
+            </div>
+
+            <button class="btn-primary" onclick="alert('Proses Mastering & AI Co-Producer sedang dijalankan...')">Run AI Analysis & Mastering →</button>
+            <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Halaman Pengenalan</div>
         </div>
 
-        <div class="card">
-            <div class="card-title">Muat Naik Fail Audio</div>
-            <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
-                <div>📁</div>
-                <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
-                <span id="fileNameDisplay">Tiada fail dipilih</span>
-                <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
+        <!-- VIEW 3: PILIH GENRE -->
+        <div id="view-genre" class="view">
+            <div class="card">
+                <div class="card-title">
+                    <span>Pilih Genre & Vibe</span>
+                    <span style="cursor: pointer; font-size: 1rem;" onclick="switchView('view-mastering')">✕</span>
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-sub); margin-bottom: 8px;">Pilih kategori muzik untuk tetapan mastering anda.</p>
+                <div id="genreContainerView"></div>
             </div>
-            <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
-        </div>
 
-        <button class="btn-primary" onclick="alert('Proses Mastering & AI Co-Producer sedang dijalankan...')">Run AI Analysis & Mastering →</button>
+            <div class="footer-link" onclick="switchView('view-mastering')">← Kembali ke Konsol Mastering</div>
+        </div>
 
     </div>
 
     <script>
+        const genreCatalog = [
+            { category: "🇲🇾 Melayu / Nusantara", list: ["Malaya / Melayu", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Melayu Klasik", "Irama Malaysia", "Lagu Asli", "Zapin", "Joget", "Ghazal", "Keroncong", "Dangdut", "Campursari", "Pop Nusantara", "Etnik Nusantara", "Tradisional Melayu", "Tradisional Sabah", "Tradisional Sarawak", "Minang", "Jawa", "Sunda", "Bugis", "Batak", "Malay Bounce", "Malay Trap", "Malay Phonk", "Malay Electronic", "Nusantara Electronic"] },
+            { category: "🎤 Pop", list: ["Pop", "Pop Ballad", "Electropop", "Synthpop", "Dream Pop", "Indie Pop", "Teen Pop", "Adult Contemporary", "Dance Pop", "Power Pop", "Soft Pop", "Retro Pop", "City Pop", "Dark Pop", "Noir Pop", "Future Pop", "Neon Pop", "Experimental Pop"] },
+            { category: "🎸 Rock", list: ["Rock", "Soft Rock", "Classic Rock", "Hard Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Blues Rock", "Progressive Rock", "Psychedelic Rock", "Punk Rock", "Garage Rock", "Grunge", "Post-Rock", "Folk Rock", "Southern Rock", "Glam Rock", "Arena Rock", "Metal Rock"] },
+            { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
+            { category: "🔥 Phonk", list: ["Phonk", "Dark Phonk", "Drift Phonk", "Brazilian Phonk", "Memphis Phonk", "Aggressive Phonk", "Atmospheric Phonk", "Electro Phonk", "Trap Phonk", "Future Phonk", "Malay Phonk", "Neon Noir Phonk", "Neon Noir Phonk - Malay Bounce", "Dark Techno / Neon Noir Phonk - Malay Bounce"] },
+            { category: "⚡ Techno / Electronic", list: ["EDM", "Techno", "Dark Techno", "Hard Techno", "Industrial Techno", "Acid Techno", "Minimal Techno", "Melodic Techno", "Progressive Techno", "Techno Noir", "Cyber Techno", "House", "Deep House", "Tropical House", "Future House", "Progressive House", "Tech House", "Electro House", "Bass House", "G-House", "Slap House", "Afro House", "Trance", "Dubstep", "Drum & Bass", "Future Bass", "Breakbeat", "UK Garage", "Jersey Club", "Amapiano", "Industrial Bass", "Dark Electro", "Alternative Electronic", "Cinematic Electronic"] },
+            { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise",
+                       { category: "🎷 R&B / Soul / Funk", list: ["R&B", "Contemporary R&B", "Soul", "Neo Soul", "Motown", "Funk", "Smooth Soul", "Gospel Soul", "R&B Ballad", "Funk Soul"] },
+            { category: "🎷 Jazz / Blues", list: ["Jazz", "Smooth Jazz", "Contemporary Jazz", "Swing", "Bebop", "Fusion Jazz", "Latin Jazz", "Blues", "Slow Blues", "Blues Rock", "Soul Blues"] },
+            { category: "🎸 Akustik / Folk", list: ["Acoustic", "Acoustic Pop", "Acoustic Ballad", "Folk", "Indie Folk", "Folk Pop", "Singer-Songwriter", "Coffeehouse", "Chill", "Lo-Fi", "Lounge", "Relaxing"] },
+            { category: "🎻 Orkestra / Klasik", list: ["Classical", "Piano Solo", "Piano Ballad", "String Orchestra", "Symphony", "Chamber Music", "Cinematic", "Epic Orchestra", "Film Score", "Dramatic", "Emotional Orchestra", "Fantasy", "Medieval", "Baroque"] },
+            { category: "❤️ Sedih / Emosi / Cinta", list: ["Sad Song", "Emotional", "Heartbreak", "Melancholic", "Nostalgic", "Romantic", "Love Song", "Deep Emotional", "Tearjerker", "Slow Ballad", "Emotional Piano", "Emotional Acoustic", "Power Ballad"] },
+            { category: "🌎 Antarabangsa", list: ["K-Pop", "J-Pop", "C-Pop", "Bollywood", "Latin Pop", "Reggaeton", "Salsa", "Bachata", "Flamenco", "Afrobeat", "Afropop", "Reggae", "Dancehall", "Ska", "Country", "Country Pop", "Bluegrass", "Gospel", "Celtic", "Arabic", "Middle Eastern"] },
+            { category: "🤘 Metal", list: ["Heavy Metal", "Metalcore", "Death Metal", "Black Metal", "Symphonic Metal", "Power Metal", "Progressive Metal", "Nu Metal", "Alternative Metal", "Doom Metal"] },
+            { category: "🎬 Cinematic / Mood / Khas", list: ["Cinematic", "Epic", "Dark", "Mysterious", "Horror", "Thriller", "Adventure", "Fantasy", "Heroic", "Inspirational", "Motivational", "Spiritual", "Religious", "Peaceful", "Meditation", "Atmospheric", "Dreamy", "Powerful", "Energetic", "Romantic", "Vintage", "Retro", "80s", "90s", "Nostalgic", "Wedding", "Festival", "Party", "Christmas", "Raya / Aidilfitri"] }
+        ];
+
+        const genreContainer = document.getElementById('genreContainerView');
+        genreCatalog.forEach(group => {
+            const catTitle = document.createElement('div');
+            catTitle.className = 'genre-category-title';
+            catTitle.textContent = group.category;
+            genreContainer.appendChild(catTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'genre-list-grid';
+
+            group.list.forEach(genre => {
+                const btn = document.createElement('button');
+                btn.className = 'genre-option-btn';
+                if(genre === "Malay Phonk") btn.classList.add('selected');
+                btn.textContent = genre;
+                btn.onclick = () => selectGenre(genre, btn);
+                grid.appendChild(btn);
+            });
+            genreContainer.appendChild(grid);
+        });
+
+        function selectGenre(genreName, btnElement) {
+            document.querySelectorAll('.genre-option-btn').forEach(b => b.classList.remove('selected'));
+            btnElement.classList.add('selected');
+            document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
+            switchView('view-mastering');
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function toggleState(btn) {
             btn.classList.toggle('active');
         }
@@ -327,15 +582,39 @@
             }
         }
 
+        function loadDemoAudio() {
+            const player = document.getElementById('audioPlayer');
+            // Menggunakan audio sampel percuma untuk ujian demo
+            player.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+            document.getElementById('fileNameDisplay').textContent = 'Demo Track: SoundHelix-Song-1.mp3';
+            player.style.display = 'block';
+            player.play();
+        }
+
+        // Setup Visualizer Bars Animation
         const waveContainer = document.getElementById('waveformContainer');
+        const bars = [];
         if (waveContainer) {
             for (let i = 0; i < 42; i++) {
                 const bar = document.createElement('div');
                 bar.className = 'wave-bar';
-                bar.style.height = (Math.floor(Math.random() * 60) + 15) + '%';
+                bar.style.height = (Math.floor(Math.random() * 50) + 10) + '%';
                 waveContainer.appendChild(bar);
+                bars.push(bar);
             }
         }
+
+        // Animasi turun naik visualizer secara dinamik apabila lagu dimainkan
+        const player = document.getElementById('audioPlayer');
+        player.addEventListener('play', () => {
+            setInterval(() => {
+                if (!player.paused) {
+                    bars.forEach(bar => {
+                        bar.style.height = (Math.floor(Math.random() * 75) + 15) + '%';
+                    });
+                }
+            }, 120);
+        });
     </script>
 </body>
-</html>
+</html>                                          
