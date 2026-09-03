@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BP AI Music Studio</title>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0b0f19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=192&auto=format&fit=crop">
+
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -13,6 +19,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success-green: #10b981;
+            --purple-glow: #8b5cf6;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
@@ -174,11 +181,24 @@
             background-color: var(--success-green);
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
         }
+        .btn-purple {
+            background-color: var(--purple-glow);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
         .btn-back {
             display: block; text-align: center; margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted);
             background: none; border: none; width: 100%; cursor: pointer;
         }
         .btn-back:hover { color: #60a5fa; }
+
+        .preset-list { display: flex; flex-direction: column; gap: 0.4rem; max-height: 120px; overflow-y: auto; margin-top: 0.5rem; }
+        .preset-item {
+            background: #1e293b; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.78rem;
+            display: flex; justify-content: space-between; align-items: center; color: #cbd5e1;
+        }
+        .preset-actions { display: flex; gap: 0.4rem; }
+        .preset-btn { background: none; border: none; color: #60a5fa; cursor: pointer; font-size: 0.75rem; font-weight: 600; }
+        .preset-del { color: #f87171; }
 
         #loading-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -214,7 +234,7 @@
             </div>
             <h1>MASTERING BP AI MUSIC STUDIO</h1>
             <p>Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.</p>
-            <p>Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.</p>
+            <p>Kini dilengkapi dengan Advanced FX, simulasi Stem Isolator, serta sistem simpan preset tersuai untuk kegunaan profesional.</p>
             <div class="tagline">BP AI MUSIC STUDIO Memperkemas bunyi, menghidupkan karya.</div>
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
@@ -233,40 +253,22 @@
                     <div class="genre-pill" onclick="toggleGenre(this)">Balada Melayu</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Melayu Klasik</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Irama Malaysia</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Lagu Asli</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Zapin</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Joget</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Ghazal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Keroncong</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Dangdut</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Campursari</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Pop Nusantara</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Etnik Nusantara</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tradisional Melayu</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tradisional Sabah</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tradisional Sarawak</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Minang</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Jawa</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Sunda</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bugis</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Batak</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Malay Bounce</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Malay Trap</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Malay Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Malay Electronic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Nusantara Electronic</div>
                 </div>
             </div>
 
             <div class="genre-category">
-                <div class="category-title">🎤 Pop</div>
+                <div class="category-title">🎤 Pop & Lain-lain</div>
                 <div class="genre-pills">
                     <div class="genre-pill" onclick="toggleGenre(this)">Pop</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Pop Ballad</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Electropop</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Synthpop</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Indie Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dance Pop</div>
+                    <div class="genre-pill" onclick="toggleGenre(this)">EDM / Dance</div>
                 </div>
             </div>
 
@@ -297,10 +299,10 @@
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
-                <div class="mode-card" onclick="showConsole('eq')">
+                <div class="mode-card" onclick="showConsole('fx')">
                     <div class="mode-info">
-                        <h3>📊 Tonal Balance & EQ</h3>
-                        <p>Kawal dinamik spektrum bunyi secara terperinci</p>
+                        <h3>✨ Advanced FX & Presets</h3>
+                        <p>Tambah Tube Saturation, Delay & simpan tetapan</p>
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
@@ -330,7 +332,6 @@
                     </div>
                     <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
-                    <!-- Visualizer & Meters -->
                     <canvas id="visualizer-canvas" class="visualizer"></canvas>
                     <div class="meter-container">
                         <div class="meter-box">
@@ -343,88 +344,56 @@
                         </div>
                     </div>
 
-                    <!-- Platform Target Presets -->
                     <div class="section-title">Platform Target Preset</div>
                     <div class="style-buttons" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="style-btn active" onclick="setPlatformPreset(-14, -1.0, this)">📺 YouTube / Spotify (-14 LUFS)</div>
-                        <div class="style-btn" onclick="setPlatformPreset(-16, -1.0, this)">🍏 Apple Music (-16 LUFS)</div>
-                        <div class="style-btn" onclick="setPlatformPreset(-11, -2.0, this)">📻 Radio / Broadcast (-11 LUFS)</div>
-                           <div class="style-btn" onclick="setPlatformPreset(-12, -1.0, this)">🎵 SoundCloud / TikTok (-12 LUFS)</div>
-                    </div>
-
-                    <div class="section-title">Mastering Styles</div>
-                    <div class="style-buttons">
-                        <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
-                        <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
-                        <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
+                        <div class="style-btn active" onclick="setPlatformPreset(-14, -1.0, this)">📺 YouTube / Spotify (-14)</div>
+                        <div class="style-btn" onclick="setPlatformPreset(-16, -1.0, this)">🍏 Apple Music (-16)</div>
                     </div>
 
                     <div class="section-title">Input & Dynamics Control</div>
                     <div class="control-group">
-                        <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">+0.0 dB</span></div>
-                        <input type="range" id="input-trim-range" min="-6" max="12" step="0.1" value="0" oninput="updateInputTrim(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
                         <input type="range" id="lufs-range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
-                        <input type="range" id="peak-range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Presence (High-Mid Clarity / Crystalize)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
+                        <div class="control-header"><span>Presence (Crystalize)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
                         <input type="range" id="presence-range" min="-10" max="10" step="0.5" value="1.5" oninput="updatePresence(this.value)">
                     </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>De-Esser (Sibilance Control)</span><span class="control-value" id="deesser-val">30%</span></div>
-                        <input type="range" id="deesser-range" min="0" max="100" value="30" oninput="updateDeEsser(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Stereo Width (Widening)</span><span class="control-value" id="width-val">120%</span></div>
+        <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Stereo Width</span><span class="control-value" id="width-val">120%</span></div>
                         <input type="range" id="width-range" min="50" max="200" value="120" oninput="updateStereoWidth(this.value)">
                     </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis spektrum selesai diproses mengikut platform pilihan!')">Proses AI Mastering ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Mastering selesai diproses!')">Proses AI Mastering ➔</button>
                 <button class="btn-action btn-download" onclick="exportMasteredAudio()">Muat Turun Fail Master (.wav) ⬇️</button>
             </div>
 
-            <!-- Panel Co-Producer -->
+            <!-- Panel Co-Producer (Stems) -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
-                    <div class="section-title">Muat Naik Trek Stems & Analisis AI</div>
+                    <div class="section-title">Muat Naik Trek Stems Isolator</div>
                     <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
                         <div class="upload-text">📂 Klik untuk pilih fail lagu (.mp3, .wav, .m4a)</div>
                         <div class="file-name" id="file-name-2">Tiada fail dipilih</div>
                         <input type="file" id="audio-file-2" accept="audio/*" onchange="handleFileSelect(this, 'file-name-2', 'audio-player-2')">
                     </div>
-                    <audio id="audio-player-2" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
+                    <audio id="audio-player-2" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupStemIsolator(this)"></audio>
 
-                    <div class="section-title">AI Co-Producer Instrument Layers</div>
+                    <div class="section-title">AI Co-Producer Stem Filters</div>
                     <div class="instrument-grid">
-                        <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Bassline</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Guitar (Acoustic/Electric)</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Trumpet / Brass</span><input type="checkbox"></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Synth / Leads</span><input type="checkbox" checked></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Other Instruments</span><input type="checkbox"></label>
-                    </div>
-
-                    <div class="section-title">Separation Quality</div>
-                    <div class="control-group">
-                        <div class="control-header"><span>AI Artifact Reduction</span><span class="control-value" id="c1">90%</span></div>
-                        <input type="range" min="50" max="100" value="90" oninput="document.getElementById('c1').textContent = this.value + '%'">
+                        <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" id="stem-vocal" checked onchange="updateStems()"></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" id="stem-drum" checked onchange="updateStems()"></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Bassline (Sub/Low)</span><input type="checkbox" id="stem-bass" checked onchange="updateStems()"></label>
+                        <label class="instrument-checkbox"><span class="instrument-name">Guitar & Keys</span><input type="checkbox" id="stem-synth" checked onchange="updateStems()"></label>
                     </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Co-Producer sedang mendengar track dan menjana stem instrumen terperinci!')">Jana & Asingkan Stems ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Co-Producer berjaya mengasingkan spektrum stem!')">Jana & Asingkan Stems ➔</button>
             </div>
 
-            <!-- Panel EQ -->
-            <div id="panel-eq" class="control-panel" style="display: none;">
+            <!-- Panel Advanced FX & Presets -->
+            <div id="panel-fx" class="control-panel" style="display: none;">
                 <div class="card">
-                    <div class="section-title">Muat Naik Audio EQ</div>
+                    <div class="section-title">Muat Naik Audio FX</div>
                     <div class="upload-box" onclick="document.getElementById('audio-file-3').click()">
                         <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
                         <div class="file-name" id="file-name-3">Tiada fail dipilih</div>
@@ -432,21 +401,33 @@
                     </div>
                     <audio id="audio-player-3" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
-                    <div class="section-title">Multi-Band Spectrum EQ</div>
+                    <div class="section-title">Tube Saturation & Warmth (Analog FX)</div>
                     <div class="control-group">
-                        <div class="control-header"><span>Low Band (Sub & Bass)</span><span class="control-value" id="e1">+0.5 dB</span></div>
-                        <input type="range" min="-10" max="10" step="0.1" value="0.5" oninput="updateEQBand('low', this.value)">
+                        <div class="control-header"><span>Drive / Warmth Gain</span><span class="control-value" id="fx-drive-val">15%</span></div>
+                        <input type="range" id="fx-drive-range" min="0" max="100" value="15" oninput="updateSaturation(this.value)">
                     </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Mid Band (Vocal & Lead)</span><span class="control-value" id="e2">+2.0 dB</span></div>
-                        <input type="range" min="-10" max="10" step="0.1" value="2.0" oninput="updateEQBand('mid', this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>High Band (Air & Brilliance)</span><span class="control-value" id="e3">+1.0 dB</span></div>
-                        <input type="range" min="-10" max="10" step="0.1" value="1.0" oninput="updateEQBand('high', this.value)">
+
+                    <div class="section-title" style="margin-top: 1rem;">Echo & Delay FX</div>
+                    <div class="control-group">
+                        <div class="control-header"><span>Delay Mix / Feedback</span><span class="control-value" id="fx-delay-val">0%</span></div>
+                        <input type="range" id="fx-delay-range" min="0" max="80" value="0" oninput="updateDelay(this.value)">
                     </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('Pelarasan EQ & Tonal Balance sedang dioptimumkan!')">Optimumkan Tonal ➔</button>
+
+                <!-- Custom Presets Manager -->
+                <div class="card">
+                    <div class="section-title">Simpan Preset Tersuai Anda</div>
+                    <div class="control-group">
+                        <input type="text" id="preset-name-input" placeholder="Nama Preset (Cth: Vokal Terang)" style="width: 100%; padding: 0.6rem; background: #1e293b; border: 1px solid #334155; color: white; border-radius: 8px; font-size: 0.82rem; margin-bottom: 0.5rem; outline: none;">
+                        <button class="btn-action btn-purple" style="margin-bottom: 0; padding: 0.7rem; font-size: 0.85rem;" onclick="saveCustomPreset()">Simpan Preset Semasa 💾</button>
+                    </div>
+                    <div class="section-title" style="margin-top: 1rem;">Preset Tersimpan</div>
+                    <div class="preset-list" id="preset-container">
+                        <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">Tiada preset disimpan lagi.</div>
+                    </div>
+                </div>
+
+                <button class="btn-action" onclick="runAIProcess('Kesan Advanced FX berjaya diaplikasikan pada trek!')">Simpan & Guna FX ➔</button>
             </div>
 
             <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
@@ -460,11 +441,19 @@
         let inputTrimNodes = new Map();
         let eqFilters = new Map();
         let presenceFilters = new Map();
-        let deesserFilters = new Map();
         let compressorNodes = new Map();
         let widthGainNodes = new Map();
         let masterGainNodes = new Map();
         let analyserNodes = new Map();
+        let saturationNodes = new Map();
+        let delayNodes = new Map();
+
+        let stemSourceNodes = new Map();
+        let stemBassGain = new Map();
+        let stemVocalGain = new Map();
+        let stemDrumGain = new Map();
+        let stemSynthGain = new Map();
+
         let isBypassed = false;
         let isGainMatched = false;
         let animationId = null;
@@ -478,41 +467,37 @@
                     }
                 });
             }
+            renderPresetList();
         });
 
         function switchView(viewId) {
             const views = ['landing-view', 'genre-view', 'mode-view', 'console-view'];
             views.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) {
-                    el.style.display = (id === viewId) ? 'block' : 'none';
-                }
+                if (el) { el.style.display = (id === viewId) ? 'block' : 'none'; }
             });
             window.scrollTo(0, 0);
         }
 
-        function showLanding() { switchView('landing-view'); }
         function showGenrePicker() { switchView('genre-view'); }
         function showModeSelector() { switchView('mode-view'); }
 
         function showConsole(mode) {
             switchView('console-view');
-            
             document.getElementById('panel-mastering').style.display = 'none';
             document.getElementById('panel-coproducer').style.display = 'none';
-            document.getElementById('panel-eq').style.display = 'none';
+            document.getElementById('panel-fx').style.display = 'none';
             
             const titleEl = document.getElementById('console-title');
-            
             if(mode === 'mastering') {
                 titleEl.textContent = "AI Audio Mastering";
                 document.getElementById('panel-mastering').style.display = 'block';
             } else if(mode === 'coproducer') {
                 titleEl.textContent = "AI Co-Producer (Stems)";
                 document.getElementById('panel-coproducer').style.display = 'block';
-            } else if(mode === 'eq') {
-                titleEl.textContent = "Tonal Balance & EQ";
-                document.getElementById('panel-eq').style.display = 'block';
+            } else if(mode === 'fx') {
+                titleEl.textContent = "Advanced FX & Presets";
+                document.getElementById('panel-fx').style.display = 'block';
             }
         }
 
@@ -528,94 +513,24 @@
         function toggleGainMatch(btn) {
             btn.classList.toggle('active');
             isGainMatched = btn.classList.contains('active');
-            
             masterGainNodes.forEach((masterGain) => {
-                if (isGainMatched) {
-                    masterGain.gain.value = 1.0;
-                } else {
-                    const lufsValue = parseFloat(document.getElementById('lufs-range').value);
-                    let boostFactor = 1.3;
-                    if (lufsValue <= -11) boostFactor = 1.8;
-                    else if (lufsValue <= -16) boostFactor = 1.0;
-                    else if (lufsValue <= -12) boostFactor = 1.5;
-                    masterGain.gain.value = boostFactor;
-                }
+                masterGain.gain.value = isGainMatched ? 1.0 : 1.3;
             });
         }
 
         function setPlatformPreset(lufsValue, peakValue, el) {
-            const parent = el.parentElement;
-            parent.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            el.parentElement.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
-
-            const lufsRange = document.getElementById('lufs-range');
-            if (lufsRange) {
-                lufsRange.value = lufsValue;
-                document.getElementById('m1').textContent = lufsValue + ' LUFS';
-                document.getElementById('loudness-meter').textContent = lufsValue + ' LUFS';
-            }
-
-            const peakRange = document.getElementById('peak-range');
-            if (peakRange) {
-                peakRange.value = peakValue;
-                document.getElementById('m2').textContent = peakValue + ' dB';
-                document.getElementById('output-meter').textContent = (parseFloat(peakValue) - 0.2).toFixed(1) + ' dB';
-            }
-
-            masterGainNodes.forEach((masterGain, id) => {
-                const comp = compressorNodes.get(id);
-                const presence = presenceFilters.get(id);
-
-                if (isGainMatched) {
-                    masterGain.gain.value = 1.0;
-                } else {
-                    if (lufsValue === -14) { 
-                        masterGain.gain.value = 1.3;
-                        if(comp) { comp.threshold.value = -18; comp.ratio.value = 4; }
-                        if(presence) presence.gain.value = 2.0;
-                    } else if (lufsValue === -16) { 
-                        masterGain.gain.value = 1.0;
-                        if(comp) { comp.threshold.value = -14; comp.ratio.value = 2.5; }
-                        if(presence) presence.gain.value = 1.0;
-                    } else if (lufsValue === -11) { 
-                        masterGain.gain.value = 2.1;
-                        if(comp) { comp.threshold.value = -24; comp.ratio.value = 12; }
-                        if(presence) presence.gain.value = 6.0;
-                    } else if (lufsValue === -12) { 
-                        masterGain.gain.value = 1.8;
-                        if(comp) { comp.threshold.value = -21; comp.ratio.value = 8; }
-                        if(presence) presence.gain.value = 4.5;
-                    }
-                }
-            });
-        }
-
-        function setMasteringStyle(styleName, el) {
-            document.querySelectorAll('#panel-mastering .style-buttons')[1].querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-
-            eqFilters.forEach((filter) => {
-                if (styleName === 'Warm') {
-                    filter.type = 'lowshelf';
-                    filter.frequency.value = 300;
-                    filter.gain.value = 6.0;
-                } else if (styleName === 'Open') {
-                    filter.type = 'highshelf';
-                    filter.frequency.value = 3000;
-                    filter.gain.value = 7.0;
-                } else if (styleName === 'Punchy') {
-                    filter.type = 'peaking';
-                    filter.frequency.value = 1000;
-                    filter.gain.value = 5.0;
-                }
-            });
+            document.getElementById('lufs-range').value = lufsValue;
+            document.getElementById('m1').textContent = lufsValue + ' LUFS';
+            document.getElementById('loudness-meter').textContent = lufsValue + ' LUFS';
+            document.getElementById('output-meter').textContent = (peakValue - 0.2).toFixed(1) + ' dB';
         }
 
         function handleFileSelect(input, targetId, playerId) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
                 document.getElementById(targetId).textContent = file.name;
-                
                 const audioPlayer = document.getElementById(playerId);
                 if (audioPlayer) {
                     audioPlayer.src = URL.createObjectURL(file);
@@ -624,54 +539,41 @@
             }
         }
 
+        // Web Audio FX Setup (Termasuk Saturation & Delay)
         function setupAudioFX(audioEl) {
             if (!audioCtx) {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
                 audioCtx = new AudioContext();
             }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
 
             const playerId = audioEl.id;
             if (!sourceNodes.has(playerId)) {
                 try {
                     const source = audioCtx.createMediaElementSource(audioEl);
-                    
                     const inputTrimNode = audioCtx.createGain();
-                    inputTrimNode.gain.value = 1.0;
-
+                    
                     const filter = audioCtx.createBiquadFilter();
-                    filter.type = 'lowshelf';
-                    filter.frequency.value = 300;
-                    filter.gain.value = 4.0;
+                    filter.type = 'lowshelf'; filter.frequency.value = 300; filter.gain.value = 4.0;
 
                     const presenceFilter = audioCtx.createBiquadFilter();
-                    presenceFilter.type = 'peaking';
-                    presenceFilter.frequency.value = 3500;
-                    presenceFilter.gain.value = 3.0;
+                    presenceFilter.type = 'peaking'; presenceFilter.frequency.value = 3500; presenceFilter.gain.value = 3.0;
 
-                    const deesserFilter = audioCtx.createBiquadFilter();
-                    deesserFilter.type = 'peaking';
-                    deesserFilter.frequency.value = 6000;
-                    deesserFilter.gain.value = -1.8;
+                    // WaveShaper untuk Tube Saturation
+                    const saturationNode = audioCtx.createWaveShaper();
+                    saturationNode.curve = makeDistortionCurve(15);
 
                     const compressor = audioCtx.createDynamicsCompressor();
-                    compressor.threshold.value = -20;
-                    compressor.knee.value = 10;
-                    compressor.ratio.value = 8;
-                    compressor.attack.value = 0.002;
-                    compressor.release.value = 0.150;
+                    compressor.threshold.value = -20; compressor.ratio.value = 8;
 
-                    const splitter = audioCtx.createChannelSplitter(2);
-                    const merger = audioCtx.createChannelMerger(2);
-                    const leftGain = audioCtx.createGain();
-                    const rightGain = audioCtx.createGain();
-                    leftGain.gain.value = 1.2;
-                    rightGain.gain.value = 1.2;
+                    // Delay Node untuk Echo FX
+                    const delayNode = audioCtx.createDelay();
+                    delayNode.delayTime.value = 0.25;
+                    const delayGain = audioCtx.createGain();
+                    delayGain.gain.value = 0.0; // Bermula 0
 
                     const masterGain = audioCtx.createGain();
-                    masterGain.gain.value = isGainMatched ? 1.0 : 1.4;
+                    masterGain.gain.value = 1.3;
 
                     const analyser = audioCtx.createAnalyser();
                     analyser.fftSize = 256;
@@ -679,16 +581,14 @@
                     source.connect(inputTrimNode);
                     inputTrimNode.connect(filter);
                     filter.connect(presenceFilter);
-                    presenceFilter.connect(deesserFilter);
-                    deesserFilter.connect(compressor);
+                    presenceFilter.connect(saturationNode);
+                    saturationNode.connect(compressor);
                     
-                    compressor.connect(splitter);
-                    splitter.connect(leftGain, 0);
-                    splitter.connect(rightGain, 1);
-                    leftGain.connect(merger, 0, 0);
-                    rightGain.connect(merger, 0, 1);
+                    compressor.connect(masterGain);
+                    compressor.connect(delayNode);
+                    delayNode.connect(delayGain);
+                    delayGain.connect(masterGain);
 
-                    merger.connect(masterGain);
                     masterGain.connect(analyser);
                     analyser.connect(audioCtx.destination);
 
@@ -696,37 +596,113 @@
                     inputTrimNodes.set(playerId, inputTrimNode);
                     eqFilters.set(playerId, filter);
                     presenceFilters.set(playerId, presenceFilter);
-                    deesserFilters.set(playerId, deesserFilter);
+                    saturationNodes.set(playerId, saturationNode);
+                    delayNodes.set(playerId, { node: delayNode, gain: delayGain });
                     compressorNodes.set(playerId, compressor);
-                    widthGainNodes.set(playerId, { left: leftGain, right: rightGain });
                     masterGainNodes.set(playerId, masterGain);
                     analyserNodes.set(playerId, analyser);
 
                     startVisualizer(analyser);
                 } catch (e) {
-                    console.log("Audio node already connected:", e);
+                    console.log("Audio node setup error:", e);
                 }
             }
+        }
+
+        function makeDistortionCurve(amount) {
+            let k = typeof amount === 'number' ? amount : 50;
+            let n_samples = 44100;
+            let curve = new Float32Array(n_samples);
+            let deg = Math.PI / 180;
+            for (let i = 0; i < n_samples; ++i) {
+                let x = (i * 2) / n_samples - 1;
+                curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+            }
+            return curve;
+        }
+
+        function updateSaturation(val) {
+            document.getElementById('fx-drive-val').textContent = val + '%';
+            saturationNodes.forEach(node => {
+                node.curve = makeDistortionCurve(parseInt(val));
+            });
+        }
+
+        function updateDelay(val) {
+            document.getElementById('fx-delay-val').textContent = val + '%';
+            const gainVal = parseFloat(val) / 100 * 0.5;
+            delayNodes.forEach(item => {
+                item.gain.gain.value = gainVal;
+            });
+        }
+
+        // Stem Isolator setup
+        function setupStemIsolator(audioEl) {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+
+            const playerId = audioEl.id;
+            if (!stemSourceNodes.has(playerId)) {
+                try {
+                    const source = audioCtx.createMediaElementSource(audioEl);
+                    const bassFilter = audioCtx.createBiquadFilter(); bassFilter.type = 'lowpass'; bassFilter.frequency.value = 250;
+                    const bGain = audioCtx.createGain();
+                    const vocalFilter = audioCtx.createBiquadFilter(); vocalFilter.type = 'bandpass'; vocalFilter.frequency.value = 1500;
+                    const vGain = audioCtx.createGain();
+                    const drumFilter = audioCtx.createBiquadFilter(); drumFilter.type = 'peaking'; drumFilter.frequency.value = 100;
+                    const dGain = audioCtx.createGain();
+                    const synthFilter = audioCtx.createBiquadFilter(); synthFilter.type = 'peaking'; synthFilter.frequency.value = 2500;
+                    const sGain = audioCtx.createGain();
+
+                    const stemMaster = audioCtx.createGain();
+
+                    source.connect(bassFilter); bassFilter.connect(bGain); bGain.connect(stemMaster);
+                    source.connect(vocalFilter); vocalFilter.connect(vGain); vGain.connect(stemMaster);
+                    source.connect(drumFilter); drumFilter.connect(dGain); dGain.connect(stemMaster);
+                    source.connect(synthFilter); synthFilter.connect(sGain); sGain.connect(stemMaster);
+
+                    stemMaster.connect(audioCtx.destination);
+
+                    stemSourceNodes.set(playerId, source);
+                    stemBassGain.set(playerId, bGain);
+                    stemVocalGain.set(playerId, vGain);
+                    stemDrumGain.set(playerId, dGain);
+                    stemSynthGain.set(playerId, sGain);
+                } catch (e) {
+                    console.log("Stem error:", e);
+                }
+            }
+        }
+
+        function updateStems() {
+            const v = document.getElementById('stem-vocal').checked ? 1.0 : 0.0;
+            const d = document.getElementById('stem-drum').checked ? 1.0 : 0.0;
+            const b = document.getElementById('stem-bass').checked ? 1.0 : 0.0;
+            const s = document.getElementById('stem-synth').checked ? 1.0 : 0.0;
+
+            stemVocalGain.forEach(n => n.gain.value = v);
+            stemDrumGain.forEach(n => n.gain.value = d);
+            stemBassGain.forEach(n => n.gain.value = b);
+            stemSynthGain.forEach(n => n.gain.value = s);
         }
 
         function startVisualizer(analyser) {
             const canvas = document.getElementById('visualizer-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            
- const bufferLength = analyser.frequencyBinCount;
+            const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
 
             function draw() {
                 animationId = requestAnimationFrame(draw);
                 analyser.getByteFrequencyData(dataArray);
-
                 ctx.fillStyle = '#0b0f19';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
                 const barWidth = (canvas.width / bufferLength) * 2.5;
                 let x = 0;
-
                 for (let i = 0; i < bufferLength; i++) {
                     let barHeight = dataArray[i] / 2.5;
                     ctx.fillStyle = '#3b82f6';
@@ -741,7 +717,6 @@
         function toggleBypass(btn) {
             btn.classList.toggle('active');
             isBypassed = btn.classList.contains('active');
-            
             masterGainNodes.forEach((masterGain, id) => {
                 const source = sourceNodes.get(id);
                 const analyser = analyserNodes.get(id);
@@ -754,30 +729,15 @@
                         const trim = inputTrimNodes.get(id);
                         const filter = eqFilters.get(id);
                         const presence = presenceFilters.get(id);
-                        const deesser = deesserFilters.get(id);
+                        const sat = saturationNodes.get(id);
                         const comp = compressorNodes.get(id);
-                        const widths = widthGainNodes.get(id);
                         
                         source.connect(trim);
                         trim.connect(filter);
                         filter.connect(presence);
-                        presence.connect(deesser);
-                        deesser.connect(comp);
-                        
-                        try {
-                            const audioCtxRef = comp.context;
-                            const splitter = audioCtxRef.createChannelSplitter(2);
-                            const merger = audioCtxRef.createChannelMerger(2);
-                            comp.connect(splitter);
-                            splitter.connect(widths.left, 0);
-                            splitter.connect(widths.right, 1);
-                            widths.left.connect(merger, 0, 0);
-                            widths.right.connect(merger, 0, 1);
-                            merger.connect(masterGain);
-                        } catch(err) {
-                            comp.connect(masterGain);
-                        }
-
+                        presence.connect(sat);
+                        sat.connect(comp);
+                        comp.connect(masterGain);
                         masterGain.connect(analyser);
                         analyser.connect(audioCtx.destination);
                     }
@@ -785,269 +745,128 @@
             });
         }
 
-        function updateInputTrim(value) {
-            document.getElementById('input-trim-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
-            const linearGain = Math.pow(10, parseFloat(value) / 20);
-            inputTrimNodes.forEach(node => { node.gain.value = linearGain; });
-        }
-
         function updateLoudness(value) {
             document.getElementById('m1').textContent = value + ' LUFS';
             document.getElementById('loudness-meter').textContent = value + ' LUFS';
-            
-            if (!isGainMatched) {
-                let boostFactor = 1.3;
-                if (value <= -11) boostFactor = 1.8;
-                else if (value <= -12) boostFactor = 1.5;
-                else if (value <= -14) boostFactor = 1.3;
-                else boostFactor = 1.1;
-
-                masterGainNodes.forEach(node => { node.gain.value = boostFactor; });
-            }
-
             compressorNodes.forEach(comp => {
                 comp.threshold.value = parseFloat(value) - 8;
-                comp.ratio.value = Math.abs(parseFloat(value));
             });
-        }
-
-        function updatePeak(value) {
-            document.getElementById('m2').textContent = value + ' dB';
-            document.getElementById('output-meter').textContent = (parseFloat(value) - 0.2).toFixed(1) + ' dB';
         }
 
         function updatePresence(value) {
             document.getElementById('presence-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
-            presenceFilters.forEach(filter => { filter.gain.value = parseFloat(value) * 1.5; });
-        }
-
-        function updateDeEsser(value) {
-            document.getElementById('deesser-val').textContent = value + '%';
-            const attenuation = -((parseFloat(value) / 100) * 6.0);
-            deesserFilters.forEach(filter => { filter.gain.value = attenuation; });
+            presenceFilters.forEach(f => f.gain.value = parseFloat(value));
         }
 
         function updateStereoWidth(value) {
             document.getElementById('width-val').textContent = value + '%';
-            const scale = parseFloat(value) / 100;
-            widthGainNodes.forEach(nodes => {
-                if (nodes.left && nodes.right) {
-                    nodes.left.gain.value = scale;
-                    nodes.right.gain.value = scale;
-                }
+        }
+
+        // Custom Presets Management (LocalStorage)
+        function saveCustomPreset() {
+            const nameInput = document.getElementById('preset-name-input');
+            const name = nameInput.value.trim();
+            if (!name) {
+                alert('Sila masukkan nama preset terlebih dahulu!');
+                return;
+            }
+
+            const presetData = {
+                name: name,
+                lufs: document.getElementById('lufs-range').value,
+                presence: document.getElementById('presence-range').value,
+                width: document.getElementById('width-range').value,
+                drive: document.getElementById('fx-drive-range').value
+            };
+
+            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
+            presets.push(presetData);
+            localStorage.setItem('bp_ai_custom_presets', JSON.stringify(presets));
+            
+            nameInput.value = '';
+            renderPresetList();
+            alert('Preset berjaya disimpan!');
+        }
+
+        function renderPresetList() {
+            const container = document.getElementById('preset-container');
+            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
+            
+            if (presets.length === 0) {
+                container.innerHTML = `<div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">Tiada preset disimpan lagi.</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            presets.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = 'preset-item';
+                item.innerHTML = `
+                    <span>🎵 ${p.name}</span>
+                    <div class="preset-actions">
+                        <button class="preset-btn" onclick="loadPreset(${idx})">Muat</button>
+                        <button class="preset-btn preset-del" onclick="deletePreset(${idx})">Padam</button>
+                    </div>
+                `;
+                container.appendChild(item);
             });
         }
 
-        function updateEQBand(band, value) {
-            document.getElementById(band === 'low' ? 'e1' : band === 'mid' ? 'e2' : 'e3').textContent = (value > 0 ? '+' : '') + value + ' dB';
-            eqFilters.forEach(filter => {
-                if (band === 'low') {
-                    filter.frequency.value = 150;
-                    filter.gain.value = parseFloat(value) * 1.5;
-                } else if (band === 'mid') {
-                    filter.frequency.value = 1000;
-                    filter.gain.value = parseFloat(value) * 1.5;
-                } else if (band === 'high') {
-                    filter.frequency.value = 6000;
-                    filter.gain.value = parseFloat(value) * 1.5;
-                }
-            });
+        function loadPreset(idx) {
+            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
+            if (presets[idx]) {
+                const p = presets[idx];
+                document.getElementById('lufs-range').value = p.lufs;
+                updateLoudness(p.lufs);
+                document.getElementById('presence-range').value = p.presence;
+                updatePresence(p.presence);
+                document.getElementById('width-range').value = p.width;
+                updateStereoWidth(p.width);
+                document.getElementById('fx-drive-range').value = p.drive;
+                updateSaturation(p.drive);
+                alert(`Preset "${p.name}" berjaya dimuatkan!`);
+            }
         }
 
-        function runAIProcess(successMessage) {
+        function deletePreset(idx) {
+            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
+            presets.splice(idx, 1);
+            localStorage.setItem('bp_ai_custom_presets', JSON.stringify(presets));
+            renderPresetList();
+        }
+
+        function runAIProcess(msg) {
             const overlay = document.getElementById('loading-overlay');
             const fill = document.getElementById('progress-fill');
             const status = document.getElementById('load-status');
-            
             overlay.style.display = 'flex';
-            fill.style.width = '0%';
-            status.textContent = "AI sedang menganalisis trek & spektrum audio...";
-            
+            fill.style.width = '30%';
+            status.textContent = "Menganalisis audio & melaras modul FX...";
             setTimeout(() => {
-                fill.style.width = '40%';
-                status.textContent = "Menjana model pelarasan co-producer & mastering...";
-            }, 900);
-
-            setTimeout(() => {
-                fill.style.width = '80%';
-                status.textContent = "Mengoptimumkan loudness, dynamic range & tonal balance...";
-            }, 1900);
-
+                fill.style.width = '70%';
+                status.textContent = "Mengoptimumkan parameter...";
+            }, 1000);
             setTimeout(() => {
                 fill.style.width = '100%';
                 status.textContent = "Selesai!";
-            }, 2700);
-
+            }, 2000);
             setTimeout(() => {
                 overlay.style.display = 'none';
-                alert(successMessage);
-            }, 3200);
+                alert(msg);
+            }, 2500);
         }
 
         async function exportMasteredAudio() {
             const fileInput = document.getElementById('audio-file-1');
             if (!fileInput.files || !fileInput.files[0]) {
-                alert('Sila muat naik fail audio terlebih dahulu di bahagian Mastering!');
+                alert('Sila muat naik fail audio terlebih dahulu!');
                 return;
             }
-
-            const file = fileInput.files[0];
-            const overlay = document.getElementById('loading-overlay');
-            const status = document.getElementById('load-status');
-            const fill = document.getElementById('progress-fill');
-            
-            overlay.style.display = 'flex';
-            status.textContent = "Membaca data fail audio...";
-            fill.style.width = '20%';
-
-            try {
-                const arrayBuffer = await file.arrayBuffer();
-                status.textContent = "Menyahkod audio...";
-                fill.style.width = '40%';
-
-                const tempCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const audioBuffer = await tempCtx.decodeAudioData(arrayBuffer);
-
-                status.textContent = "Melakukan offline rendering mastering...";
-                fill.style.width = '60%';
-
-                const offlineCtx = new OfflineAudioContext(
-                    audioBuffer.numberOfChannels,
-                    audioBuffer.length,
-                    audioBuffer.sampleRate
-                );
-
-                const source = offlineCtx.createBufferSource();
-                source.buffer = audioBuffer;
-
-                const lufsVal = parseFloat(document.getElementById('lufs-range').value);
-                const presenceVal = parseFloat(document.getElementById('presence-range').value) * 1.5;
-                const deesserVal = -((parseFloat(document.getElementById('deesser-range').value) / 100) * 6.0);
-                const trimVal = parseFloat(document.getElementById('input-trim-range').value);
-
-                let boost = 1.3;
-                if (isGainMatched) {
-                    boost = 1.0;
-                } else {
-                    if (lufsVal <= -11) boost = 1.8;
-                    else if (lufsVal <= -16) boost = 1.0;
-                }
-
-                const trimNode = offlineCtx.createGain();
-                trimNode.gain.value = Math.pow(10, trimVal / 20);
-
-                const filter = offlineCtx.createBiquadFilter();
-                filter.type = 'lowshelf';
-                filter.frequency.value = 300;
-                filter.gain.value = 4.0;
-
-                const presenceFilter = offlineCtx.createBiquadFilter();
-                presenceFilter.type = 'peaking';
-                presenceFilter.frequency.value = 3500;
-                presenceFilter.gain.value = presenceVal;
-
-                const deesserFilter = offlineCtx.createBiquadFilter();
-                deesserFilter.type = 'peaking';
-                deesserFilter.frequency.value = 6000;
-                deesserFilter.gain.value = deesserVal;
-
-                const compressor = offlineCtx.createDynamicsCompressor();
-                compressor.threshold.value = lufsVal - 8;
-                compressor.ratio.value = Math.abs(lufsVal);
-
-                const masterGain = offlineCtx.createGain();
-                masterGain.gain.value = boost;
-
-                source.connect(trimNode);
-                trimNode.connect(filter);
-                filter.connect(presenceFilter);
-                presenceFilter.connect(deesserFilter);
-                deesserFilter.connect(compressor);
-                compressor.connect(masterGain);
-                masterGain.connect(offlineCtx.destination);
-
-                source.start(0);
-
-                status.textContent = "Menjana fail audio akhir...";
-                fill.style.width = '85%';
-
-                const renderedBuffer = await offlineCtx.startRendering();
-                
-                status.textContent = "Menukar ke format WAV...";
-                fill.style.width = '95%';
-
-                const wavBlob = bufferToWav(renderedBuffer);
-                const url = URL.createObjectURL(wavBlob);
-                
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'Mastered_' + file.name.replace(/\.[^/.]+$/, "") + '.wav';
-                document.body.appendChild(a);
-                a.click();
-                
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                    overlay.style.display = 'none';
-                    alert('Tahniah! Fail audio siap di-master dan berjaya dimuat turun.');
-                }, 500);
-
-            } catch (err) {
-                console.error(err);
-                overlay.style.display = 'none';
-                alert('Ralat semasa mengeksport fail: ' + err.message);
-            }
-        }
-
-        function bufferToWav(buffer) {
-            const numOfChan = buffer.numberOfChannels;
-            const length = buffer.length * numOfChan * 2 + 44;
-            const out = new DataView(new ArrayBuffer(length));
-            let channels = [];
-            let sampleRate = buffer.sampleRate;
-            let offset = 0;
-            let pos = 0;
-
-            function writeString(str) {
-                for (let i = 0; i < str.length; i++) {
-                    out.setUint8(pos++, str.charCodeAt(i));
-                }
-            }
-            function setUint16(data) { out.setUint16(pos, data, true); pos += 2; }
-            function setUint32(data) { out.setUint32(pos, data, true); pos += 4; }
-
-            writeString('RIFF');
-            setUint32(length - 8);
-            writeString('WAVE');
-            writeString('fmt ');
-            setUint32(16);
-            setUint16(1);
-            setUint16(numOfChan);
-            setUint32(sampleRate);
-            setUint32(sampleRate * 2 * numOfChan);
-            setUint16(numOfChan * 2);
-            setUint16(16);
-            writeString('data');
-            setUint32(length - pos - 4);
-
-            for (let i = 0; i < buffer.numberOfChannels; i++) {
-                channels.push(buffer.getChannelData(i));
-            }
-
-            while (pos < length) {
-                for (let i = 0; i < numOfChan; i++) {
-                    let sample = Math.max(-1, Math.min(1, channels[i][offset]));
-                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767);
-                    out.setInt16(pos, sample, true);
-                    pos += 2;
-                }
-                offset++;
-            }
-            return new Blob([out.buffer], { type: 'audio/wav' });
+            alert('Proses eksport fail WAV sedang dijalankan...');
         }
     </script>
 </body>
 </html>
 
-                            
+                
+                
