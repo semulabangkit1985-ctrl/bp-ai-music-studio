@@ -25,7 +25,7 @@
             background-position: center;
         }
         .container { max-width: 480px; margin: 0 auto; position: relative; }
-        
+
         #landing-view { display: block; text-align: center; padding: 1.5rem 1rem; }
         #genre-view, #mode-view, #console-view { display: none; }
 
@@ -45,10 +45,10 @@
         #genre-view { padding: 0.5rem 0; }
         .picker-title { font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; }
         .picker-subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.4; }
-        
+
         .genre-category { margin-bottom: 1.5rem; }
         .category-title { font-size: 0.95rem; font-weight: 700; color: #60a5fa; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
-        
+
         .genre-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .genre-pill {
             background-color: var(--card-bg);
@@ -103,20 +103,20 @@
 
         header { text-align: center; margin-bottom: 1.25rem; }
         header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; color: #60a5fa; text-transform: uppercase; }
-        
+
         .top-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
         .btn-top {
             background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
             padding: 0.65rem; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; text-align: center;
         }
         .btn-top.active { border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        
+
         .card {
             background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px;
             padding: 1.1rem; margin-bottom: 1rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         .section-title { font-size: 0.8rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        
+
         .upload-box {
             border: 2px dashed var(--card-border);
             padding: 1rem;
@@ -138,22 +138,21 @@
             padding: 0.55rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center;
         }
         .style-btn.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
-        
+
         .control-group { margin-bottom: 0.85rem; }
         .control-header { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem; color: #e2e8f0; }
         .control-value { color: #93c5fd; font-weight: 600; }
-        
+
         input[type="range"] { width: 100%; height: 5px; background: #1e293b; border-radius: 3px; outline: none; -webkit-appearance: none; }
         input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); cursor: pointer; }
-        
+
         .instrument-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
         .instrument-checkbox {
             background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.6rem 0.75rem;
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
         .instrument-name { font-size: 0.78rem; color: #cbd5e1; }
-        
-        /* Meter & Visualizer Styling */
+
         .meter-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;
             background: #0f172a; padding: 0.75rem; border-radius: 10px; border: 1px solid var(--card-border);
@@ -161,7 +160,7 @@
         .meter-box { text-align: center; }
         .meter-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.2rem; text-transform: uppercase; }
         .meter-value { font-size: 0.9rem; font-weight: 700; color: var(--success-green); }
-        
+
         canvas.visualizer {
             width: 100%; height: 60px; background: #0b0f19; border-radius: 8px; border: 1px solid var(--card-border); margin-bottom: 1rem; display: block;
         }
@@ -204,6 +203,7 @@
             </div>
         </div>
 
+        <!-- 1. LANDING VIEW -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -215,6 +215,7 @@
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
 
+        <!-- 2. GENRE VIEW -->
         <div id="genre-view">
             <h2 class="picker-title">Pick your favorite genres</h2>
             <p class="picker-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</p>
@@ -272,6 +273,7 @@
             </div>
         </div>
 
+        <!-- 3. MODE VIEW -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -302,6 +304,7 @@
             <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
         </div>
 
+        <!-- 4. CONSOLE VIEW -->
         <div id="console-view">
             <header>
                 <h1 id="console-title">Mastering Console</h1>
@@ -312,6 +315,7 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
+            <!-- Panel Mastering -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Fail Audio</div>
@@ -322,15 +326,16 @@
                     </div>
                     <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
+                    <!-- Visualizer & Meters -->
                     <canvas id="visualizer-canvas" class="visualizer"></canvas>
                     <div class="meter-container">
                         <div class="meter-box">
                             <div class="meter-label">Loudness Meter</div>
-                            <div class="meter-value" id="loudness-meter">-14.2 LUFS</div>
+                            <div class="meter-value" id="loudness-meter">-14.0 LUFS</div>
                         </div>
                         <div class="meter-box">
                             <div class="meter-label">Output Meter</div>
-                            <div class="meter-value" id="output-meter">-0.8 dB</div>
+                            <div class="meter-value" id="output-meter">-1.0 dB</div>
                         </div>
                     </div>
 
@@ -345,9 +350,9 @@
                     <div class="control-group">
                         <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">0.0 dB</span></div>
                         <input type="range" min="-6" max="6" step="0.1" value="0" oninput="updateInputTrim(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                          <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
+                    </div
+                        <div class="control-group" style="margin-top: 0.75rem;">
+                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
                         <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
@@ -360,16 +365,17 @@
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>De-Esser (Sibilance Control)</span><span class="control-value" id="deesser-val">30%</span></div>
-                        <input type="range" min="0" max="100" value="30" oninput="document.getElementById('deesser-val').textContent = this.value + '%'">
+                        <input type="range" min="0" max="100" value="30" oninput="updateDeEsser(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>Stereo Width</span><span class="control-value" id="width-val">120%</span></div>
-                        <input type="range" min="50" max="200" value="120" oninput="document.getElementById('width-val').textContent = this.value + '%'">
+                        <input type="range" min="50" max="200" value="120" oninput="updateStereoWidth(this.value)">
                     </div>
                 </div>
                 <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis AI selesai diproses mengikut genre pilihan!')">Proses AI Mastering ➔</button>
             </div>
 
+            <!-- Panel Co-Producer -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Trek Stems & Analisis AI</div>
@@ -401,6 +407,7 @@
                 <button class="btn-action" onclick="runAIProcess('AI Co-Producer sedang mendengar track dan menjana stem instrumen terperinci!')">Jana & Asingkan Stems ➔</button>
             </div>
 
+            <!-- Panel EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Audio EQ</div>
@@ -432,10 +439,13 @@
         </div>
     </div>
 
+    <!-- Script JavaScript Terus Di Dalam Fail -->
     <script>
         let audioCtx = null;
         let sourceNodes = new Map();
+        let inputTrimNodes = new Map();
         let eqFilters = new Map();
+        let presenceFilters = new Map();
         let compressorNodes = new Map();
         let analyserNodes = new Map();
         let isBypassed = false;
@@ -544,28 +554,41 @@
             if (!sourceNodes.has(playerId)) {
                 try {
                     const source = audioCtx.createMediaElementSource(audioEl);
-                    const filter = audioCtx.createBiquadFilter();
-                    const compressor = audioCtx.createDynamicsCompressor();
-                    const analyser = audioCtx.createAnalyser();
+                    
+                    const inputTrimNode = audioCtx.createGain();
+                    inputTrimNode.gain.value = 1.0;
 
-                    analyser.fftSize = 256;
+                    const filter = audioCtx.createBiquadFilter();
                     filter.type = 'lowshelf';
                     filter.frequency.value = 250;
                     filter.gain.value = 2.0;
 
+                    const presenceFilter = audioCtx.createBiquadFilter();
+                    presenceFilter.type = 'peaking';
+                    presenceFilter.frequency.value = 3500;
+                    presenceFilter.gain.value = 1.5;
+
+                    const compressor = audioCtx.createDynamicsCompressor();
                     compressor.threshold.value = -24;
                     compressor.knee.value = 30;
                     compressor.ratio.value = 4;
                     compressor.attack.value = 0.003;
                     compressor.release.value = 0.250;
 
-                    source.connect(filter);
-                    filter.connect(compressor);
+                    const analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 256;
+
+                    source.connect(inputTrimNode);
+                    inputTrimNode.connect(filter);
+                    filter.connect(presenceFilter);
+                    presenceFilter.connect(compressor);
                     compressor.connect(analyser);
                     analyser.connect(audioCtx.destination);
 
                     sourceNodes.set(playerId, source);
+                    inputTrimNodes.set(playerId, inputTrimNode);
                     eqFilters.set(playerId, filter);
+                    presenceFilters.set(playerId, presenceFilter);
                     compressorNodes.set(playerId, compressor);
                     analyserNodes.set(playerId, analyser);
 
@@ -595,10 +618,8 @@
 
                 for (let i = 0; i < bufferLength; i++) {
                     let barHeight = dataArray[i] / 3;
-
                     ctx.fillStyle = '#3b82f6';
                     ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-
                     x += barWidth + 1;
                 }
             }
@@ -619,8 +640,14 @@
                         source.connect(analyser);
                         analyser.connect(audioCtx.destination);
                     } else {
-                        source.connect(eqFilters.get(id));
-                        eqFilters.get(id).connect(comp);
+                        const trim = inputTrimNodes.get(id);
+                        const filter = eqFilters.get(id);
+                        const presence = presenceFilters.get(id);
+                        
+                        source.connect(trim);
+                        trim.connect(filter);
+                        filter.connect(presence);
+                        presence.connect(comp);
                         comp.connect(analyser);
                         analyser.connect(audioCtx.destination);
                     }
@@ -630,6 +657,8 @@
 
         function updateInputTrim(value) {
             document.getElementById('input-trim-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
+            const linearGain = Math.pow(10, parseFloat(value) / 20);
+            inputTrimNodes.forEach(node => { node.gain.value = linearGain; });
         }
 
         function updateLoudness(value) {
@@ -638,6 +667,7 @@
             const ratioVal = Math.abs(parseFloat(value)) / 2;
             compressorNodes.forEach(comp => {
                 comp.ratio.value = ratioVal;
+                comp.threshold.value = parseFloat(value) - 10;
             });
         }
 
@@ -648,6 +678,15 @@
 
         function updatePresence(value) {
             document.getElementById('presence-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
+            presenceFilters.forEach(filter => { filter.gain.value = parseFloat(value); });
+        }
+
+        function updateDeEsser(value) {
+            document.getElementById('deesser-val').textContent = value + '%';
+        }
+
+        function updateStereoWidth(value) {
+            document.getElementById('width-val').textContent = value + '%';
         }
 
         function updateEQBand(band, value) {
@@ -697,5 +736,4 @@
         }
     </script>
 </body>
-</html>
-     
+</html>                                                  </html>
