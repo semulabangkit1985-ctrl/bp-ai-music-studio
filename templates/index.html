@@ -369,7 +369,7 @@
             border-radius: 2px;
         }
 
-        /* Primary Action Button (Fixed with !important for rendering consistency) */
+        /* Primary Action Button */
         .btn-primary {
             width: 100% !important;
             background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
@@ -450,6 +450,7 @@
 
     <div class="studio-container">
 
+        <!-- VIEW 1: HERO INTRO -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
@@ -473,11 +474,13 @@
             <div class="footer-link" onclick="alert('Mod Pilihan Aktif')">← Tukar Mod Pilihan</div>
         </div>
 
+        <!-- VIEW 2: MASTERING CONSOLE & CO-PRODUCER -->
         <div id="view-mastering" class="view">
             <div style="text-align: center; margin-bottom: 14px;">
                 <h2 style="font-size: 1.1rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px;">Pro Mastering & AI Console</h2>
             </div>
 
+            <!-- VISUALIZER & METERS -->
             <div class="card">
                 <div class="card-title">
                     <span>Visualizer & Meters</span>
@@ -511,6 +514,7 @@
                 </div>
             </div>
 
+            <!-- AI CO-PRODUCER MODULE -->
             <div class="card coproducer-box">
                 <div class="card-title">
                     <span>🤖 AI Co-Producer Engine</span>
@@ -528,6 +532,7 @@
                 </div>
             </div>
 
+            <!-- UPLOAD FAIL AUDIO -->
             <div class="card">
                 <div class="card-title">Muat Naik Fail Audio</div>
                 <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
@@ -539,6 +544,7 @@
                 <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
             </div>
 
+            <!-- GENRE TRIGGER -->
             <div class="card">
                 <div class="card-title">Genre & Vibe Trek</div>
                 <button class="genre-trigger" onclick="switchView('view-genre')">
@@ -547,6 +553,7 @@
                 </button>
             </div>
 
+            <!-- PLATFORM TARGET PRESET -->
             <div class="card">
                 <div class="card-title">Platform Target Preset</div>
                 <div class="preset-grid">
@@ -557,6 +564,7 @@
                 </div>
             </div>
 
+            <!-- MASTERING CHARACTER -->
             <div class="card">
                 <div class="card-title">Mastering Character</div>
                 <div class="style-grid">
@@ -566,6 +574,7 @@
                 </div>
             </div>
 
+            <!-- DYNAMICS & TONE CUSTOMIZATION -->
             <div class="card">
                 <div class="card-title">Dynamics & Tone Customization</div>
                 
@@ -588,11 +597,12 @@
                 <div class="slider-group">
                     <div class="slider-header">
                         <span>Presence Boost</span>
-                        <span id="val-presence">+1.5 dB</span>
+       <span id="val-presence">+1.5 dB</span>
                     </div>
                     <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
-                 <div class="slider-group">
+
+                <div class="slider-group">
                     <div class="slider-header">
                         <span>De-Esser Sensitivity</span>
                         <span id="val-deesser">3.0 dB</span>
@@ -621,6 +631,7 @@
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Halaman Utama</div>
         </div>
 
+        <!-- VIEW 3: PILIH GENRE (HALAMAN KHAS) -->
         <div id="view-genre" class="view">
             <div class="card">
                 <div class="card-title">
@@ -638,11 +649,21 @@
 
     <script>
         const genreCatalog = [
-            { category: "🇲🇾 Nusantara / Melayu", list: ["Malay Phonk", "Malay Bounce", "Malay Trap", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Irama Malaysia", "Dangdut Nusantara", "Etnik Nusantara"] },
-            { category: "🎤 Pop & Rock", list: ["Pop", "Synthpop", "Indie Pop", "Dance Pop", "Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Metal"] },
-            { category: "🔥 Phonk & Hip Hop", list: ["Phonk", "Drift Phonk", "Brazilian Phonk", "Dark Phonk", "Memphis Phonk", "Hip Hop", "Trap", "Boom Bap", "Drill", "Lo-Fi Hip Hop"] },
-            { category: "⚡ Electronic & Techno", list: ["EDM", "Techno", "Dark Techno", "House", "Deep House", "Trance", "Dubstep", "Drum & Bass", "Synthwave", "Cyberpunk"] },
-            { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
+            { category: "🇲🇾 Melayu / Nusantara", list: ["Malaya / Melayu", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Melayu Klasik", "Irama Malaysia", "Lagu Asli", "Zapin", "Joget", "Ghazal", "Keroncong", "Dangdut", "Campursari", "Pop Nusantara", "Etnik Nusantara", "Tradisional Melayu", "Tradisional Sabah", "Tradisional Sarawak", "Minang", "Jawa", "Sunda", "Bugis", "Batak", "Malay Bounce", "Malay Trap", "Malay Phonk", "Malay Electronic", "Nusantara Electronic"] },
+            { category: "🎤 Pop", list: ["Pop", "Pop Ballad", "Electropop", "Synthpop", "Dream Pop", "Indie Pop", "Teen Pop", "Adult Contemporary", "Dance Pop", "Power Pop", "Soft Pop", "Retro Pop", "City Pop", "Dark Pop", "Noir Pop", "Future Pop", "Neon Pop", "Experimental Pop"] },
+            { category: "🎸 Rock", list: ["Rock", "Soft Rock", "Classic Rock", "Hard Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Blues Rock", "Progressive Rock", "Psychedelic Rock", "Punk Rock", "Garage Rock", "Grunge", "Post-Rock", "Folk Rock", "Southern Rock", "Glam Rock", "Arena Rock", "Metal Rock"] },
+            { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
+            { category: "🔥 Phonk", list: ["Phonk", "Dark Phonk", "Drift Phonk", "Brazilian Phonk", "Memphis Phonk", "Aggressive Phonk", "Atmospheric Phonk", "Electro Phonk", "Trap Phonk", "Future Phonk", "Malay Phonk", "Neon Noir Phonk", "Neon Noir Phonk - Malay Bounce", "Dark Techno / Neon Noir Phonk - Malay Bounce"] },
+            { category: "⚡ Techno / Electronic", list: ["EDM", "Techno", "Dark Techno", "Hard Techno", "Industrial Techno", "Acid Techno", "Minimal Techno", "Melodic Techno", "Progressive Techno", "Techno Noir", "Cyber Techno", "House", "Deep House", "Tropical House", "Future House", "Progressive House", "Tech House", "Electro House", "Bass House", "G-House", "Slap House", "Afro House", "Trance", "Dubstep", "Drum & Bass", "Future Bass", "Breakbeat", "UK Garage", "Jersey Club", "Amapiano", "Industrial Bass", "Dark Electro", "Alternative Electronic", "Cinematic Electronic"] },
+            { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise", "Glitch", "Glitch Hop"] },
+            { category: "🎷 R&B / Soul / Funk", list: ["R&B", "Contemporary R&B", "Soul", "Neo Soul", "Motown", "Funk", "Smooth Soul", "Gospel Soul", "R&B Ballad", "Funk Soul"] },
+            { category: "🎷 Jazz / Blues", list: ["Jazz", "Smooth Jazz", "Contemporary Jazz", "Swing", "Bebop", "Fusion Jazz", "Latin Jazz", "Blues", "Slow Blues", "Blues Rock", "Soul Blues"] },
+            { category: "🎸 Akustik / Folk", list: ["Acoustic", "Acoustic Pop", "Acoustic Ballad", "Folk", "Indie Folk", "Folk Pop", "Singer-Songwriter", "Coffeehouse", "Chill", "Lo-Fi", "Lounge", "Relaxing"] },
+            { category: "🎻 Orkestra / Klasik", list: ["Classical", "Piano Solo", "Piano Ballad", "String Orchestra", "Symphony", "Chamber Music", "Cinematic", "Epic Orchestra", "Film Score", "Dramatic", "Emotional Orchestra", "Fantasy", "Medieval", "Baroque"] },
+            { category: "❤️ Sedih / Emosi / Cinta", list: ["Sad Song", "Emotional", "Heartbreak", "Melancholic", "Nostalgic", "Romantic", "Love Song", "Deep Emotional", "Tearjerker", "Slow Ballad", "Emotional Piano", "Emotional Acoustic", "Power Ballad"] },
+            { category: "🌎 Antarabangsa", list: ["K-Pop", "J-Pop", "C-Pop", "Bollywood", "Latin Pop", "Reggaeton", "Salsa", "Bachata", "Flamenco", "Afrobeat", "Afropop", "Reggae", "Dancehall", "Ska", "Country", "Country Pop", "Bluegrass", "Gospel", "Celtic", "Arabic", "Middle Eastern"] },
+            { category: "🤘 Metal", list: ["Heavy Metal", "Metalcore", "Death Metal", "Black Metal", "Symphonic Metal", "Power Metal", "Progressive Metal", "Nu Metal", "Alternative Metal", "Doom Metal"] },
+            { category: "🎬 Cinematic / Mood / Khas", list: ["Cinematic", "Epic", "Dark", "Mysterious", "Horror", "Thriller", "Adventure", "Fantasy", "Heroic", "Inspirational", "Motivational", "Spiritual", "Religious", "Peaceful", "Meditation", "Atmospheric", "Dreamy", "Powerful", "Energetic", "Romantic", "Vintage", "Retro", "80s", "90s", "Nostalgic", "Wedding", "Festival", "Party", "Christmas", "Raya / Aidilfitri"] }
         ];
 
         const genreContainer = document.getElementById('genreContainerView');
@@ -725,6 +746,5 @@
     </script>
 </body>
 </html>
-
     
                     
