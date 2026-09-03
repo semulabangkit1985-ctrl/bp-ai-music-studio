@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Pro Console</title>
+    <title>BP AI Music Studio - Pro Mastering Console</title>
     <style>
         :root {
-            --bg-main: #070913;
+            --bg-main: #05070f;
             --bg-card: #0d1221;
-            --bg-card-hover: #161e38;
+            --bg-card-hover: #151d36;
             --border-color: rgba(255, 255, 255, 0.08);
-            --accent: #2b70e6;
-            --accent-hover: #1d5ec2;
-            --text-main: #ffffff;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-glow: rgba(37, 99, 235, 0.3);
+            --text-main: #f8fafc;
             --text-sub: #94a3b8;
             --text-muted: #64748b;
+            --success: #10b981;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -30,6 +32,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-bottom: 30px;
         }
 
         .main-container {
@@ -40,7 +43,6 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
         .view {
@@ -49,26 +51,26 @@
 
         .view.active {
             display: block !important;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.25s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .section-header {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             text-align: center;
         }
 
         h2.title {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: #4da6ff;
-            margin-bottom: 6px;
+            color: #60a5fa;
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .hero-card {
@@ -76,14 +78,16 @@
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
         .hero-image {
             width: 100%;
-            height: 200px;
+            height: 210px;
             object-fit: cover;
-            border-bottom: 2px solid rgba(43, 112, 230, 0.3);
+            border-bottom: 2px solid var(--accent-glow);
         }
 
         .hero-content {
@@ -92,10 +96,11 @@
 
         .hero-title {
             text-align: center;
-            font-size: 1.3rem;
-            color: #4da6ff;
+            font-size: 1.35rem;
+            color: #60a5fa;
             margin-bottom: 6px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
         .hero-tagline {
@@ -103,77 +108,15 @@
             font-size: 0.85rem;
             color: #cbd5e1;
             font-style: italic;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .hero-desc {
-            font-size: 0.88rem;
+            font-size: 0.87rem;
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 14px;
-        }
-
-        .mode-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .mode-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .mode-info h3 {
-            font-size: 1rem;
-            color: #4da6ff;
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-
-        .mode-info p {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            line-height: 1.4;
-        }
-
-        .mode-arrow {
-            color: #4da6ff;
-            font-size: 1.1rem;
-            font-weight: bold;
-            padding-left: 10px;
-        }
-
-        .top-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .btn-top {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-top:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--accent);
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .card {
@@ -185,44 +128,46 @@
         }
 
         .card-title {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: var(--text-muted);
             margin-bottom: 10px;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .upload-box {
-            border: 2px dashed rgba(43, 112, 230, 0.3);
+            border: 2px dashed rgba(96, 165, 250, 0.3);
             border-radius: 10px;
-            padding: 16px;
+            padding: 18px;
             text-align: center;
             cursor: pointer;
-            background: rgba(43, 112, 230, 0.02);
-            transition: background 0.2s;
+            background: rgba(37, 99, 235, 0.02);
+            transition: all 0.2s;
         }
 
         .upload-box:hover {
-            background: rgba(43, 112, 230, 0.06);
+            background: rgba(37, 99, 235, 0.06);
+            border-color: #60a5fa;
         }
 
         .upload-box p {
             font-size: 0.85rem;
-            color: #d1d5db;
-            margin-top: 4px;
+            color: #e2e8f0;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         .upload-box span {
             font-size: 0.75rem;
-            color: #4da6ff;
+            color: #60a5fa;
         }
 
         .waveform-box {
-            background: #04060d;
+            background: #020408;
             border-radius: 10px;
             padding: 12px;
-            height: 70px;
+            height: 75px;
             display: flex;
             align-items: flex-end;
             gap: 2px;
@@ -235,7 +180,7 @@
             flex: 1;
             background: var(--accent);
             border-radius: 2px;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .meters-grid {
@@ -249,12 +194,12 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
         }
 
         .meter-label {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -262,18 +207,18 @@
         }
 
         .meter-val {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: #4da6ff;
+            color: #60a5fa;
         }
 
         .genre-trigger {
             background: var(--bg-main);
             border: 1px solid var(--accent);
-            color: #4da6ff;
+            color: #60a5fa;
             padding: 12px 14px;
             border-radius: 10px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
@@ -284,7 +229,7 @@
         }
 
         .genre-trigger:hover {
-            background: rgba(43, 112, 230, 0.1);
+            background: rgba(37, 99, 235, 0.12);
         }
 
         .preset-grid {
@@ -299,7 +244,7 @@
             color: var(--text-sub);
             padding: 10px 8px;
             border-radius: 9px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
@@ -310,7 +255,7 @@
             background: var(--accent);
             color: white;
             border-color: var(--accent);
-            box-shadow: 0 2px 8px rgba(43, 112, 230, 0.4);
+            box-shadow: 0 2px 8px var(--accent-glow);
         }
 
         .style-grid {
@@ -323,7 +268,7 @@
             background: var(--bg-main);
             border: 1px solid var(--border-color);
             color: var(--text-sub);
-            padding: 9px;
+            padding: 10px;
             border-radius: 9px;
             font-size: 0.8rem;
             font-weight: 600;
@@ -336,10 +281,11 @@
             background: var(--accent);
             color: white;
             border-color: var(--accent);
+            box-shadow: 0 2px 8px var(--accent-glow);
         }
 
         .slider-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .slider-header {
@@ -351,7 +297,7 @@
         }
 
         .slider-header span:last-child {
-            color: #4da6ff;
+            color: #60a5fa;
             font-weight: 600;
         }
 
@@ -376,7 +322,7 @@
             cursor: pointer;
             transition: background 0.2s;
             margin-top: 6px;
-            box-shadow: 0 4px 12px rgba(43, 112, 230, 0.3);
+            box-shadow: 0 4px 15px var(--accent-glow);
             text-align: center;
             display: block;
         }
@@ -387,8 +333,8 @@
 
         .footer-link {
             text-align: center;
-            margin-top: 18px;
-            font-size: 0.85rem;
+            margin-top: 16px;
+            font-size: 0.82rem;
             color: var(--text-sub);
             cursor: pointer;
             display: inline-block;
@@ -405,8 +351,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(4, 6, 13, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(2, 4, 8, 0.85);
+            backdrop-filter: blur(6px);
             z-index: 1000;
             display: none;
             justify-content: center;
@@ -423,12 +369,12 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             width: 100%;
-            max-width: 480px;
+            max-width: 460px;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
 
         .modal-header {
@@ -437,13 +383,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(13, 18, 33, 0.95);
+            background: rgba(13, 18, 33, 0.98);
         }
 
         .modal-header h3 {
-            font-size: 1rem;
-            color: #4da6ff;
+            font-size: 0.95rem;
+            color: #60a5fa;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
         .close-modal {
@@ -461,8 +408,8 @@
         }
 
         .genre-category-title {
-            font-size: 0.8rem;
-            color: #4da6ff;
+            font-size: 0.75rem;
+            color: #60a5fa;
             font-weight: 700;
             margin: 14px 0 8px 0;
             text-transform: uppercase;
@@ -501,64 +448,25 @@
 
     <div class="main-container">
 
-        <!-- VIEW 1: HERO / INTRO SCREEN -->
+        <!-- VIEW 1: HERO INTRO -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Recording" class="hero-image">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
                 <div class="hero-content">
                     <h1 class="hero-title">BP AI MUSIC STUDIO</h1>
-                    <div class="hero-tagline">Memperkemas bunyi, menghidupkan karya.</div>
+                    <div class="hero-tagline">Professional AI Audio Mastering Console</div>
                     <p class="hero-desc">
-                        Selamat datang ke era baharu penerbitan muzik! Manfaatkan teknologi kecerdasan buatan (AI) termaju untuk mengadun, mengimbang ton, dan menyempurnakan kualiti audio trek anda seperti jurutera profesional.
+                        Platform mastering audio berasaskan kecerdasan buatan (AI) untuk mengimbang ton, kompresi, dan loudness trek anda pada tahap profesional.
                     </p>
-                    <button class="btn-primary" onclick="switchView('view-mode')">Mula Sekarang →</button>
+                    <button class="btn-primary" onclick="switchView('view-mastering')">Mula Mastering Sekarang →</button>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW 2: PILIH MOD OPERASI -->
-        <div id="view-mode" class="view">
-            <div class="section-header">
-                <h2 class="title">Pilih Mod Operasi</h2>
-                <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Pilih cara anda ingin memproses audio trek anda.</p>
-            </div>
-
-            <div class="mode-card" onclick="switchView('view-mastering')">
-                <div class="mode-info">
-                    <h3>AI Music Mastering</h3>
-                    <p>Mengimbangkan EQ, Compression & Volume secara pro.</p>
-                </div>
-                <div class="mode-arrow">→</div>
-            </div>
-
-            <div class="mode-card" onclick="alert('Mod AI Stem Separation akan datang!')">
-                <div class="mode-info">
-                    <h3>AI Stem Separation</h3>
-                    <p>Asingkan vokal, drum, bass & instrumen secara bersih.</p>
-                </div>
-                <div class="mode-arrow">→</div>
-            </div>
-
-            <div class="mode-card" onclick="alert('Mod AI Co-Producer akan datang!')">
-                <div class="mode-info">
-                    <h3>AI Co-Producer (Stems)</h3>
-                    <p>Jana susunan trek, pilih genre & lapisan instrumen AI.</p>
-                </div>
-                <div class="mode-arrow">→</div>
-            </div>
-
-            <div class="footer-link" onclick="switchView('view-intro')">← Kembali</div>
-        </div>
-
-        <!-- VIEW 3: AI AUDIO MASTERING PRO CONSOLE -->
+        <!-- VIEW 2: MASTERING CONSOLE -->
         <div id="view-mastering" class="view">
             <div class="section-header">
                 <h2 class="title">AI Audio Mastering</h2>
-            </div>
-
-            <div class="top-buttons">
-                <button class="btn-top" onclick="toggleActive(this)">Bypass</button>
-                <button class="btn-top" onclick="toggleActive(this)">Gain Match</button>
             </div>
 
             <div class="waveform-box" id="waveformContainer"></div>
@@ -566,27 +474,27 @@
             <div class="meters-grid">
                 <div class="meter-card">
                     <div class="meter-label">Loudness Meter</div>
-                    <div class="meter-val">-11 LUFS</div>
+                    <div class="meter-val">-11.2 LUFS</div>
                 </div>
                 <div class="meter-card">
-                    <div class="meter-label">Output Meter</div>
-                    <div class="meter-val">-2.2 dB</div>
+                    <div class="meter-label">True Peak Ceiling</div>
+                    <div class="meter-val">-1.8 dB</div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-title">Muat Naik & Dengar Audio</div>
+                <div class="card-title">Muat Naik Fail Audio</div>
                 <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
                     <div>📁</div>
                     <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
-                    <span id="fileNameDisplay">Belum ada fail dipilih</span>
+                    <span id="fileNameDisplay">Tiada fail dipilih</span>
                     <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
                 </div>
                 <audio id="audioPlayer" controls style="width: 100%; margin-top: 12px; display: none; border-radius: 8px;"></audio>
             </div>
 
             <div class="card">
-                <div class="card-title">Genre & Vibe Terpilih</div>
+                <div class="card-title">Genre & Vibe Trek</div>
                 <button class="genre-trigger" onclick="openGenreModal()">
                     <span id="selectedGenreText">🎵 Malay Phonk</span>
                     <span>▼</span>
@@ -596,15 +504,15 @@
             <div class="card">
                 <div class="card-title">Platform Target Preset</div>
                 <div class="preset-grid">
-                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">YouTube / Spotify (-14 LUFS)</div>
+                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Spotify / YT (-14 LUFS)</div>
                     <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Apple Music (-16 LUFS)</div>
-                    <div class="preset-btn active" onclick="selectOption(this, '.preset-grid')">Radio / Broadcast (-11 LUFS)</div>
-                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">SoundCloud / TikTok (-12 LUFS)</div>
+                    <div class="preset-btn active" onclick="selectOption(this, '.preset-grid')">Radio / Club (-11 LUFS)</div>
+                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">TikTok / SC (-12 LUFS)</div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-title">Mastering Styles</div>
+                <div class="card-title">Mastering Character</div>
                 <div class="style-grid">
                     <div class="style-btn active" onclick="selectOption(this, '.style-grid')">Warm</div>
                     <div class="style-btn" onclick="selectOption(this, '.style-grid')">Open</div>
@@ -613,19 +521,19 @@
             </div>
 
             <div class="card">
-                <div class="card-title">Input & Dynamics Control</div>
+                <div class="card-title">Dynamics & Tone Customization</div>
                 
                 <div class="slider-group">
                     <div class="slider-header">
                         <span>Input Trim</span>
-                        <span id="val-trim">+4.8 dB</span>
+                        <span id="val-trim">+3.5 dB</span>
                     </div>
-                    <input type="range" min="-10" max="10" step="0.1" value="4.8" oninput="updateVal('val-trim', this.value + ' dB')">
+                    <input type="range" min="-10" max="10" step="0.1" value="3.5" oninput="updateVal('val-trim', this.value + ' dB')">
                 </div>
 
                 <div class="slider-group">
                     <div class="slider-header">
-                        <span>Target Loudness (LUFS)</span>
+                        <span>Target Loudness</span>
                         <span id="val-lufs">-11 LUFS</span>
                     </div>
                     <input type="range" min="-24" max="-6" step="0.5" value="-11" oninput="updateVal('val-lufs', this.value + ' LUFS')">
@@ -633,45 +541,32 @@
 
                 <div class="slider-group">
                     <div class="slider-header">
-                        <span>True Peak Ceiling</span>
-                        <span id="val-peak">-2 dB</span>
+                        <span>Stereo Width</span>
+                        <span id="val-width">115%</span>
                     </div>
-                    <input type="range" min="-6" max="0" step="0.1" value="-2" oninput="updateVal('val-peak', this.value + ' dB')">
-                </div>
-
-                <div class="slider-group">
-                    <div class="slider-header">
-                        <span>Presence (High-Mid Clarity)</span>
-                        <span id="val-presence">+1 dB</span>
-                    </div>
-                      <div class="slider-group">
-                    <div class="slider-header">
-                        <span>De-Esser (Sibilance Control)</span>
-                        <span id="val-deesser">25%</span>
-                    </div>
-                    <input type="range" min="0" max="100" value="25" oninput="updateVal('val-deesser', this.value + '%')">
+                    <input type="range" min="50" max="150" value="115" oninput="updateVal('val-width', this.value + '%')">
                 </div>
 
                 <div class="slider-group" style="margin-bottom: 0;">
                     <div class="slider-header">
-                        <span>Stereo Width (Widening)</span>
-                        <span id="val-width">110%</span>
+                        <span>Presence Boost</span>
+                        <span id="val-presence">+1.5 dB</span>
                     </div>
-                    <input type="range" min="50" max="150" value="110" oninput="updateVal('val-width', this.value + '%')">
+                    <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
             </div>
 
-            <button class="btn-primary" onclick="alert('Fail audio sedang diproses oleh AI Mastering...')">Proses AI Mastering →</button>
-            <div class="footer-link" onclick="switchView('view-mode')">← Tukar Mod Pilihan</div>
+            <button class="btn-primary" onclick="alert('Fail audio sedang diproses secara profesional oleh AI Mastering...')">Proses AI Mastering →</button>
+            <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Utama</div>
         </div>
 
     </div>
 
-    <!-- FULL GENRE SELECTION MODAL -->
+    <!-- GENRE MODAL -->
     <div class="modal-overlay" id="genreModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Pilih Genre & Vibe Lagu</h3>
+                <h3>Pilih Genre & Vibe</h3>
                 <button class="close-modal" onclick="closeGenreModal()">✕</button>
             </div>
             <div class="modal-body" id="modalGenreBody"></div>
@@ -680,21 +575,11 @@
 
     <script>
         const genreCatalog = [
-            { category: "🇲🇾 Melayu / Nusantara", list: ["Malaya / Melayu", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Melayu Klasik", "Irama Malaysia", "Lagu Asli", "Zapin", "Joget", "Ghazal", "Keroncong", "Dangdut", "Campursari", "Pop Nusantara", "Etnik Nusantara", "Tradisional Melayu", "Tradisional Sabah", "Tradisional Sarawak", "Minang", "Jawa", "Sunda", "Bugis", "Batak", "Malay Bounce", "Malay Trap", "Malay Phonk", "Malay Electronic", "Nusantara Electronic"] },
-            { category: "🎤 Pop", list: ["Pop", "Pop Ballad", "Electropop", "Synthpop", "Dream Pop", "Indie Pop", "Teen Pop", "Adult Contemporary", "Dance Pop", "Power Pop", "Soft Pop", "Retro Pop", "City Pop", "Dark Pop", "Noir Pop", "Future Pop", "Neon Pop", "Experimental Pop"] },
-            { category: "🎸 Rock", list: ["Rock", "Soft Rock", "Classic Rock", "Hard Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Blues Rock", "Progressive Rock", "Psychedelic Rock", "Punk Rock", "Garage Rock", "Grunge", "Post-Rock", "Folk Rock", "Southern Rock", "Glam Rock", "Arena Rock", "Metal Rock"] },
-            { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
-            { category: "🔥 Phonk", list: ["Phonk", "Dark Phonk", "Drift Phonk", "Brazilian Phonk", "Memphis Phonk", "Aggressive Phonk", "Atmospheric Phonk", "Electro Phonk", "Trap Phonk", "Future Phonk", "Malay Phonk", "Neon Noir Phonk", "Neon Noir Phonk - Malay Bounce", "Dark Techno / Neon Noir Phonk - Malay Bounce"] },
-            { category: "⚡ Techno / Electronic", list: ["EDM", "Techno", "Dark Techno", "Hard Techno", "Industrial Techno", "Acid Techno", "Minimal Techno", "Melodic Techno", "Progressive Techno", "Techno Noir", "Cyber Techno", "House", "Deep House", "Tropical House", "Future House", "Progressive House", "Tech House", "Electro House", "Bass House", "G-House", "Slap House", "Afro House", "Trance", "Dubstep", "Drum & Bass", "Future Bass", "Breakbeat", "UK Garage", "Jersey Club", "Amapiano", "Industrial Bass", "Dark Electro", "Alternative Electronic", "Cinematic Electronic"] },
-            { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise", "Glitch", "Glitch Hop"] },
-            { category: "🎷 R&B / Soul / Funk", list: ["R&B", "Contemporary R&B", "Soul", "Neo Soul", "Motown", "Funk", "Smooth Soul", "Gospel Soul", "R&B Ballad", "Funk Soul"] },
-            { category: "🎷 Jazz / Blues", list: ["Jazz", "Smooth Jazz", "Contemporary Jazz", "Swing", "Bebop", "Fusion Jazz", "Latin Jazz", "Blues", "Slow Blues", "Blues Rock", "Soul Blues"] },
-            { category: "🎸 Akustik / Folk", list: ["Acoustic", "Acoustic Pop", "Acoustic Ballad", "Folk", "Indie Folk", "Folk Pop", "Singer-Songwriter", "Coffeehouse", "Chill", "Lo-Fi", "Lounge", "Relaxing"] },
-            { category: "🎻 Orkestra / Klasik", list: ["Classical", "Piano Solo", "Piano Ballad", "String Orchestra", "Symphony", "Chamber Music", "Cinematic", "Epic Orchestra", "Film Score", "Dramatic", "Emotional Orchestra", "Fantasy", "Medieval", "Baroque"] },
-            { category: "❤️ Sedih / Emosi / Cinta", list: ["Sad Song", "Emotional", "Heartbreak", "Melancholic", "Nostalgic", "Romantic", "Love Song", "Deep Emotional", "Tearjerker", "Slow Ballad", "Emotional Piano", "Emotional Acoustic", "Power Ballad"] },
-            { category: "🌎 Antarabangsa", list: ["K-Pop", "J-Pop", "C-Pop", "Bollywood", "Latin Pop", "Reggaeton", "Salsa", "Bachata", "Flamenco", "Afrobeat", "Afropop", "Reggae", "Dancehall", "Ska", "Country", "Country Pop", "Bluegrass", "Gospel", "Celtic", "Arabic", "Middle Eastern"] },
-            { category: "🤘 Metal", list: ["Heavy Metal", "Metalcore", "Death Metal", "Black Metal", "Symphonic Metal", "Power Metal", "Progressive Metal", "Nu Metal", "Alternative Metal", "Doom Metal"] },
-            { category: "🎬 Cinematic / Mood / Khas", list: ["Cinematic", "Epic", "Dark", "Mysterious", "Horror", "Thriller", "Adventure", "Fantasy", "Heroic", "Inspirational", "Motivational", "Spiritual", "Religious", "Peaceful", "Meditation", "Atmospheric", "Dreamy", "Powerful", "Energetic", "Romantic", "Vintage", "Retro", "80s", "90s", "Nostalgic", "Wedding", "Festival", "Party", "Christmas", "Raya / Aidilfitri"] }
+            { category: "🇲🇾 Nusantara / Melayu", list: ["Malay Phonk", "Malay Bounce", "Malay Trap", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Irama Malaysia", "Dangdut Nusantara", "Etnik Nusantara"] },
+            { category: "🎤 Pop & Rock", list: ["Pop", "Synthpop", "Indie Pop", "Dance Pop", "Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Metal"] },
+            { category: "🔥 Phonk & Hip Hop", list: ["Phonk", "Drift Phonk", "Brazilian Phonk", "Dark Phonk", "Memphis Phonk", "Hip Hop", "Trap", "Boom Bap", "Drill", "Lo-Fi Hip Hop"] },
+            { category: "⚡ Electronic & Techno", list: ["EDM", "Techno", "Dark Techno", "House", "Deep House", "Trance", "Dubstep", "Drum & Bass", "Synthwave", "Cyberpunk"] },
+            { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
         ];
 
         const modalBody = document.getElementById('modalGenreBody');
@@ -728,30 +613,19 @@
 
         function selectGenre(genreName, btnElement) {
             document.querySelectorAll('.genre-option-btn').forEach(b => b.classList.remove('selected'));
-            btnElement.classList.add('selected');
+           btnElement.classList.add('selected');
             document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
             closeGenreModal();
         }
 
         function switchView(viewId) {
-            const views = document.querySelectorAll('.view');
-            views.forEach(v => v.classList.remove('active'));
-            
-            const targetView = document.getElementById(viewId);
-            if (targetView) {
-                targetView.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function toggleActive(btn) {
-            btn.style.borderColor = btn.style.borderColor === 'rgb(43, 112, 230)' ? '' : 'var(--accent)';
-            btn.style.background = btn.style.background ? '' : 'rgba(43, 112, 230, 0.15)';
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function selectOption(btn, selector) {
-            const parent = btn.closest(selector);
-            parent.querySelectorAll('div').forEach(b => b.classList.remove('active'));
+            btn.closest(selector).querySelectorAll('div').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
 
@@ -763,20 +637,19 @@
             const file = event.target.files[0];
             if (file) {
                 document.getElementById('fileNameDisplay').textContent = file.name;
-                const audioPlayer = document.getElementById('audioPlayer');
-                audioPlayer.src = URL.createObjectURL(file);
-                audioPlayer.style.display = 'block';
-                audioPlayer.play();
+                const player = document.getElementById('audioPlayer');
+                player.src = URL.createObjectURL(file);
+                player.style.display = 'block';
+                player.play();
             }
         }
 
         const waveContainer = document.getElementById('waveformContainer');
         if (waveContainer) {
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 42; i++) {
                 const bar = document.createElement('div');
                 bar.className = 'wave-bar';
-                const height = Math.floor(Math.random() * 50) + 15;
-                bar.style.height = height + '%';
+                bar.style.height = (Math.floor(Math.random() * 60) + 15) + '%';
                 waveContainer.appendChild(bar);
             }
         }
