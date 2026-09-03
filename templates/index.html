@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilih Mod Operasi</title>
+    <title>BP AI Music Studio</title>
     <style>
         * {
             box-sizing: border-box;
@@ -23,23 +23,53 @@
         .container {
             width: 100%;
             max-width: 450px;
-            text-align: center;
+            background: #131a2b;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        h2 {
-            font-size: 1.4rem;
+        .view {
+            display: none;
+        }
+        .view.active {
+            display: block;
+        }
+        /* Welcome View Styles */
+        .welcome-center {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .welcome-center h1 {
+            font-size: 1.5rem;
+            color: #4da6ff;
+            margin-bottom: 10px;
+        }
+        .welcome-center p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        /* Mode Selection Styles */
+        h2.title {
+            text-align: center;
+            font-size: 1.25rem;
             color: #4da6ff;
             margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
         p.sub {
+            text-align: center;
             font-size: 0.85rem;
             color: #7a92b8;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .mode-card {
-            background: #131a2b;
+            background: #172136;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 16px 20px;
+            border-radius: 12px;
+            padding: 16px;
             margin-bottom: 12px;
             text-align: left;
             cursor: pointer;
@@ -47,11 +77,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         .mode-card:hover {
             border-color: #2b70e6;
-            background: #172136;
+            background: #1a253c;
         }
         .mode-info h3 {
             font-size: 0.95rem;
@@ -68,15 +97,133 @@
             font-weight: bold;
             padding-left: 10px;
         }
-        .btn-back {
-            display: inline-block;
-            margin-top: 16px;
+        /* Co-Producer View Styles */
+        .top-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .btn-top {
+            flex: 1;
+            background: #1a233a;
+            border: 1px solid #2a3b5c;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-top:hover {
+            background: #253352;
+        }
+        .card {
+            background: #172136;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
             color: #7a92b8;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .upload-box {
+            border: 2px dashed #2a3b5c;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(26, 35, 58, 0.4);
+        }
+        .upload-box p {
             font-size: 0.85rem;
-            text-decoration: none;
+            color: #c0d0e0;
+            margin-top: 6px;
+        }
+        .upload-box span {
+            font-size: 0.75rem;
+            color: #4da6ff;
+        }
+        .genre-select {
+            width: 100%;
+            background: #1a253c;
+            border: 1px solid #2a3b5c;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+        }
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .checkbox-label {
+            background: #1a253c;
+            border: 1px solid #2a3b5c;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-label input {
+            accent-color: #2b70e6;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
         }
-        .btn-back:hover {
+        .slider-container {
+            margin-top: 6px;
+        }
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+        .slider-header span:last-child {
+            color: #4da6ff;
+            font-weight: 600;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #2b70e6;
+            cursor: pointer;
+        }
+        .btn-generate {
+            width: 100%;
+            background: #2b70e6;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 4px;
+        }
+        .btn-generate:hover {
+            background: #1d5ec2;
+        }
+        .footer-link {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #7a92b8;
+            cursor: pointer;
+        }
+        .footer-link:hover {
             color: #ffffff;
         }
     </style>
@@ -84,38 +231,450 @@
 <body>
 
     <div class="container">
-        <h2>Pilih Mod Operasi</h2>
-        <p class="sub">Pilih cara anda ingin memproses audio trek anda.</p>
 
-        <!-- Mod 1 -->
-        <div class="mode-card">
-            <div class="mode-info">
-                <h3>AI Music Mastering</h3>
-                <p>Mengimbangkan EQ, Compression & Volume secara pro.</p>
+        <!-- VIEW 1: WELCOME / INTRO SCREEN -->
+        <div id="view-welcome" class="view active">
+            <div class="welcome-center">
+                <h1>BP AI Music Studio</h1>
+                <p>Selamat datang ke studio produksi audio pintar anda. Sediakan trek berkualiti tinggi dengan bantuan kecerdasan buatan terkini.</p>
+                <button class="btn-generate" onclick="switchView('view-modes')">Mula Sekarang →</button>
             </div>
-            <div class="arrow">→</div>
         </div>
 
-        <!-- Mod 2 -->
-        <div class="mode-card">
-            <div class="mode-info">
-                <h3>AI Stem Separation</h3>
-                <p>Asingkan vokal, drum, bass & instrumen secara bersih.</p>
+        <!-- VIEW 2: MODE SELECTION SCREEN (3 MODES) -->
+        <div id="view-modes" class="view">
+            <h2 class="title">Pilih Mod Operasi</h2>
+            <p class="sub">Pilih cara anda ingin memproses audio trek anda.</p>
+
+            <div class="mode-card" onclick="switchView('view-mastering')">
+                <div class="mode-info">
+                    <h3>AI Music Mastering</h3>
+                    <p>Mengimbangkan EQ, Compression & Volume secara pro.</p>
+                </div>
+                <div class="arrow">→</div>
             </div>
-            <div class="arrow">→</div>
+
+            <div class="mode-card" onclick="switchView('view-separation')">
+                <div class="mode-info">
+                    <h3>AI Stem Separation</h3>
+                    <p>Asingkan vokal, drum, bass & instrumen secara bersih.</p>
+                </div>
+                <div class="arrow">→</div>
+            </div>
+
+            <div class="mode-card" onclick="switchView('view-coproducer')">
+                <div class="mode-info">
+                    <h3>AI Co-Producer (Stems)</h3>
+                    <p>Jana susunan trek, pilih genre & lapisan instrumen AI.</p>
+                </div>
+                <div class="arrow">→</div>
+            </div>
+
+            <div class="footer-link" onclick="switchView('view-welcome')">← Kembali ke Utama</div>
         </div>
 
-        <!-- Mod 3 (Yang Hilang Sebelum Ini) -->
-        <div class="mode-card">
-            <div class="mode-info">
-                <h3>AI Co-Producer (Stems)</h3>
-                <p>Jana susunan trek, pilih genre & lapisan instrumen AI.</p>
+        <!-- VIEW 3: AI CO-PRODUCER (STEMS) SCREEN (LENGKAP GENRE & 8 INSTRUMEN) -->
+        <div id="view-coproducer" class="view">
+            <h2 class="title">AI CO-PRODUCER (STEMS)</h2>
+
+            <div class="top-buttons">
+                <button class="btn-top">Bypass</button>
+                <button class="btn-top">Gain Match</button>
             </div>
-            <div class="arrow">→</div>
+
+            <div class="card">
+                <div class="section-title">MUAT NAIK TREK STEMS & ANALISIS AI</div>
+                <div class="upload-box">
+                    <div>📁</div>
+                    <p>Klik untuk pilih fail lagu (.mp3, .wav, .m4a)</p>
+                    <span>Tiada fail dipilih</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">GENRE / STYLE</div>
+                <select class="genre-select">
+                    <optgroup label="🇲🇾 Melayu / Nusantara">
+                        <option>Malaya / Melayu</option>
+                        <option>Pop Melayu</option>
+                        <option>Rock Melayu</option>
+                        <option>Balada Melayu</option>
+                        <option>Melayu Klasik</option>
+                        <option>Irama Malaysia</option>
+                        <option>Lagu Asli</option>
+                        <option>Zapin</option>
+                        <option>Joget</option>
+                        <option>Ghazal</option>
+                        <option>Keroncong</option>
+                        <option>Dangdut</option>
+                        <option>Campursari</option>
+                        <option>Pop Nusantara</option>
+                        <option>Etnik Nusantara</option>
+                        <option>Tradisional Melayu</option>
+                        <option>Tradisional Sabah</option>
+                        <option>Tradisional Sarawak</option>
+                        <option>Minang</option>
+                        <option>Jawa</option>
+                        <option>Sunda</option>
+                        <option>Bugis</option>
+                        <option>Batak</option>
+                        <option>Malay Bounce</option>
+                        <option>Malay Trap</option>
+                        <option>Malay Phonk</option>
+                        <option>Malay Electronic</option>
+                        <option>Nusantara Electronic</option>
+                    </optgroup>
+                    <optgroup label="🎤 Pop">
+                        <option>Pop</option>
+                        <option>Pop Ballad</option>
+                        <option>Electropop</option>
+                        <option>Synthpop</option>
+                        <option>Dream Pop</option>
+                        <option>Indie Pop</option>
+                        <option>Teen Pop</option>
+                        <option>Adult Contemporary</option>
+                        <option>Dance Pop</option>
+                        <option>Power Pop</option>
+                        <option>Soft Pop</option>
+                        <option>Retro Pop</option>
+                        <option>City Pop</option>
+                        <option>Dark Pop</option>
+                        <option>Noir Pop</option>
+                        <option>Future Pop</option>
+                        <option>Neon Pop</option>
+                        <option>Experimental Pop</option>
+                    </optgroup>
+                    <optgroup label="🎸 Rock">
+                        <option>Rock</option>
+                        <option>Soft Rock</option>
+                        <option>Classic Rock</option>
+                        <option>Hard Rock</option>
+                        <option>Alternative Rock</option>
+                        <option>Indie Rock</option>
+                        <option>Pop Rock</option>
+                        <option>Blues Rock</option>
+                        <option>Progressive Rock</option>
+                        <option>Psychedelic Rock</option>
+                        <option>Punk Rock</option>
+                        <option>Garage Rock</option>
+                        <option>Grunge</option>
+                        <option>Post-Rock</option>
+                        <option>Folk Rock</option>
+                        <option>Southern Rock</option>
+                        <option>Glam Rock</option>
+                        <option>Arena Rock</option>
+                        <option>Metal Rock</option>
+                    </optgroup>
+                    <optgroup label="🎤 Hip Hop / Rap">
+                        <option>Hip Hop</option>
+                        <option>Rap</option>
+                        <option>Old School Hip Hop</option>
+                        <option>Trap</option>
+                        <option>Boom Bap</option>
+                        <option>Lo-Fi Hip Hop</option>
+                        <option>Gangsta Rap</option>
+                        <option>Conscious Rap</option>
+                        <option>Melodic Rap</option>
+                        <option>Pop Rap</option>
+                        <option>Alternative Hip Hop</option>
+                        <option>R&B Rap</option>
+                        <option>Drill</option>
+                        <option>West Coast Hip Hop</option>
+                        <option>East Coast Hip Hop</option>
+                        <option>UK Drill</option>
+                        <option>Afro Drill</option>
+                        <option>Cyberpunk Trap</option>
+                        <option>Cinematic Trap</option>
+                        <option>Hybrid Trap</option>
+                    </optgroup>
+                    <optgroup label="🔥 Phonk">
+                        <option>Phonk</option>
+                        <option>Dark Phonk</option>
+                        <option>Drift Phonk</option>
+                        <option>Brazilian Phonk</option>
+                        <option>Memphis Phonk</option>
+                        <option>Aggressive Phonk</option>
+                        <option>Atmospheric Phonk</option>
+                        <option>Electro Phonk</option>
+                        <option>Trap Phonk</option>
+                        <option>Future Phonk</option>
+                        <option>Malay Phonk</option>
+                        <option>Neon Noir Phonk</option>
+                        <option>Neon Noir Phonk - Malay Bounce</option>
+                        <option>Dark Techno / Neon Noir Phonk - Malay Bounce</option>
+                    </optgroup>
+                    <optgroup label="⚡ Techno / Electronic">
+                        <option>EDM</option>
+                        <option>Techno</option>
+                        <option>Dark Techno</option>
+                        <option>Hard Techno</option>
+                        <option>Industrial Techno</option>
+                        <option>Acid Techno</option>
+                        <option>Minimal Techno</option>
+                        <option>Melodic Techno</option>
+                        <option>Progressive Techno</option>
+                        <option>Techno Noir</option>
+                        <option>Cyber Techno</option>
+                        <option>House</option>
+                        <option>Deep House</option>
+                        <option>Tropical House</option>
+                        <option>Future House</option>
+                        <option>Progressive House</option>
+                        <option>Tech House</option>
+                        <option>Electro House</option>
+                        <option>Bass House</option>
+                        <option>G-House</option>
+                        <option>Slap House</option>
+                        <option>Afro House</option>
+                        <option>Trance</option>
+                        <option>Dubstep</option>
+                        <option>Drum & Bass</option>
+                        <option>Future Bass</option>
+                        <option>Breakbeat</option>
+                        <option>UK Garage</option>
+                        <option>Jersey Club</option>
+                        <option>Amapiano</option>
+                        <option>Industrial Bass</option>
+                        <option>Dark Electro</option>
+                        <option>Alternative Electronic</option>
+                        <option>Cinematic Electronic</option>
+                    </optgroup>
+                    <optgroup label="🌑 Dark / Cyber / Experimental">
+                        <option>Darkwave</option>
+                        <option>Witch House</option>
+                        <option>Dark Synthwave</option>
+                        <option>Neon Synthwave</option>
+                        <option>Synthwave</option>
+                        <option>Vaporwave</option>
+                        <option>Cyberpunk</option>
+                        <option>Cyber Pop</option>
+                        <option>Cyberpunk Trap</option>
+                        <option>Noir Electronic</option>
+                        <option>Dark Ambient</option>
+                        <option>Ambient Dark</option>
+                        <option>Horror Electronic</option>
+                        <option>Atmospheric</option>
+                        <option>Experimental Electronic</option>
+                        <option>Experimental Pop</option>
+                        <option>Future Bass</option>
+                        <option>Future Garage</option>
+                        <option>Industrial</option>
+                        <option>Noise</option>
+                        <option>Glitch</option>
+                        <option>Glitch Hop</option>
+                    </optgroup>
+                    <optgroup label="🎷 R&B / Soul / Funk">
+                        <option>R&B</option>
+                        <option>Contemporary R&B</option>
+                        <option>Soul</option>
+                        <option>Neo Soul</option>
+                        <option>Motown</option>
+                        <option>Funk</option>
+                        <option>Smooth Soul</option>
+                        <option>Gospel Soul</option>
+                        <option>R&B Ballad</option>
+                        <option>Funk Soul</option>
+                    </optgroup>
+                    <optgroup label="🎷 Jazz / Blues">
+                        <option>Jazz</option>
+                        <option>Smooth Jazz</option>
+                        <option>Contemporary Jazz</option>
+                        <option>Swing</option>
+                        <option>Bebop</option>
+                        <option>Fusion Jazz</option>
+                        <option>Latin Jazz</option>
+                        <option>Blues</option>
+                        <option>Slow Blues</option>
+                        <option>Blues Rock</option>
+                        <option>Soul Blues</option>
+                    </optgroup>
+                    <optgroup label="🎸 Akustik / Folk">
+                        <option>Acoustic</option>
+                        <option>Acoustic Pop</option>
+                        <option>Acoustic Ballad</option>
+                        <option>Folk</option>
+                        <option>Indie Folk</option>
+                        <option>Folk Pop</option>
+                        <option>Singer-Songwriter</option>
+                        <option>Coffeehouse</option>
+                        <option>Chill</option>
+                        <option>Lo-Fi</option>
+                        <option>Lounge</option>
+                        <option>Relaxing</option>
+                    </optgroup>
+                    <optgroup label="🎻 Orkestra / Klasik">
+                        <option>Classical</option>
+                        <option>Piano Solo</option>
+                        <option>Piano Ballad</option>
+                        <option>String Orchestra</option>
+                        <option>Symphony</option>
+                        <option>Chamber Music</option>
+                        <option>Cinematic</option>
+                        <option>Epic Orchestra</option>
+                        <option>Film Score</option>
+                        <option>Dramatic</option>
+                        <option>Emotional Orchestra</option>
+                        <option>Fantasy</option>
+                        <option>Medieval</option>
+                        <option>Baroque</option>
+                    </optgroup>
+                    <optgroup label="❤️ Sedih / Emosi / Cinta">
+                        <option>Sad Song</option>
+                        <option>Emotional</option>
+                        <option>Heartbreak</option>
+                        <option>Melancholic</option>
+                        <option>Nostalgic</option>
+                        <option>Romantic</option>
+                        <option>Love Song</option>
+                        <option>Deep Emotional</option>
+                        <option>Tearjerker</option>
+                        <option>Slow Ballad</option>
+                        <option>Emotional Piano</option>
+                        <option>Emotional Acoustic</option>
+                        <option>Power Ballad</option>
+                    </optgroup>
+                    <optgroup label="🌎 Antarabangsa">
+                        <option>K-Pop</option>
+                        <option>J-Pop</option>
+                        <option>C-Pop</option>
+                        <option>Bollywood</option>
+                        <option>Latin Pop</option>
+                        <option>Reggaeton</option>
+                        <option>Salsa</option>
+                        <option>Bachata</option>
+                        <option>Flamenco</option>
+                        <option>Afrobeat</option>
+                        <option>Afropop</option>
+                        <option>Reggae</option>
+                        <option>Dancehall</option>
+                        <option>Ska</option>
+                        <option>Country</option>
+                        <option>Country Pop</option>
+                        <option>Bluegrass</option>
+                        <option>Gospel</option>
+                        <option>Celtic</option>
+                        <option>Arabic</option>
+                        <option>Middle Eastern</option>
+                    </optgroup>
+                    <optgroup label="🤘 Metal">
+                        <option>Heavy Metal</option>
+                        <option>Metalcore</option>
+                        <option>Death Metal</option>
+                        <option>Black Metal</option>
+                        <option>Symphonic Metal</option>
+                        <option>Power Metal</option>
+                        <option>Progressive Metal</option>
+                        <option>Nu Metal</option>
+                        <option>Alternative Metal</option>
+                        <option>Doom Metal</option>
+                    </optgroup>
+                    <optgroup label="🎬 Cinematic / Mood / Khas">
+                        <option>Cinematic</option>
+                        <option>Epic</option>
+                        <option>Dark</option>
+                        <option>Mysterious</option>
+                        <option>Horror</option>
+                        <option>Thriller</option>
+                        <option>Adventure</option>
+                        <option>Fantasy</option>
+                        <option>Heroic</option>
+                        <option>Inspirational</option>
+                        <option>Motivational</option>
+                        <option>Spiritual</option>
+                        <option>Religious</option>
+                        <option>Peaceful</option>
+                        <option>Meditation</option>
+                        <option>Atmospheric</option>
+                        <option>Dreamy</option>
+                        <option>Powerful</option>
+                        <option>Energetic</option>
+                        <option>Romantic</option>
+                        <option>Vintage</option>
+                        <option>Retro</option>
+                        <option>80s</option>
+                        <option>90s</option>
+                        <option>Nostalgic</option>
+                        <option>Wedding</option>
+                        <option>Festival</option>
+                        <option>Party</option>
+                        <option>Christmas</option>
+                        <option>Raya / Aidilfitri</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="card">
+                <div class="section-title">AI CO-DUCER INSTRUMENT LAYERS</div>
+                <div class="checkbox-grid">
+                    <label class="checkbox-label">Vocal Isolation <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Drum / Percussion <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Bassline <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Guitar (Acoustic/Electric) <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Piano / Keys <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Trumpet / Brass <input type="checkbox"></label>
+                    <label class="checkbox-label">Synth / Leads <input type="checkbox" checked></label>
+                    <label class="checkbox-label">Other Instruments <input type="checkbox"></label>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">SEPARATION QUALITY</div>
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>AI Artifact Reduction</span>
+                        <span id="slider-value">97%</span>
+                    </div>
+                    <input type="range" id="artifactSlider" min="0" max="100" value="97">
+                </div>
+            </div>
+
+            <button class="btn-generate">Jana & Asingkan Stems →</button>
+            <div class="footer-link" onclick="switchView('view-modes')">← Tukar Mod Pilihan</div>
         </div>
 
-        <a href="#" class="btn-back">← Kembali</a>
+        <!-- VIEW 4: MASTERING SCREEN -->
+        <div id="view-mastering" class="view">
+            <h2 class="title">AI MUSIC MASTERING</h2>
+            <p class="sub">Optimumkan trek audio anda ke tahap profesional.</p>
+            <div class="card" style="text-align: center; padding: 30px;">
+                <p style="color: #94a3b8; font-size: 0.9rem;">Mod Mastering aktif. Muat naik fail audio anda di sini.</p>
+            </div>
+            <div class="footer-link" onclick="switchView('view-modes')">← Tukar Mod Pilihan</div>
+        </div>
+
+        <!-- VIEW 5: SEPARATION SCREEN -->
+        <div id="view-separation" class="view">
+            <h2 class="title">AI STEM SEPARATION</h2>
+            <p class="sub">Asingkan trek kepada komponen bersih.</p>
+            <div class="card" style="text-align: center; padding: 30px;">
+                <p style="color: #94a3b8; font-size: 0.9rem;">Mod Stem Separation aktif. Pilih trek untuk diasingkan.</p>
+            </div>
+            <div class="footer-link" onclick="switchView('view-modes')">← Tukar Mod Pilihan</div>
+        </div>
+
     </div>
 
+    <script>
+        // Fungsi untuk menukar paparan skrin (view switching) secara dinamik
+        function switchView(viewId) {
+            const views = document.querySelectorAll('.view');
+            views.forEach(v => v.classList.remove('active'));
+            
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+        }
+
+        // Script untuk kemaskini peratus slider Artifact Reduction secara langsung
+        const slider = document.getElementById('artifactSlider');
+        const output = document.getElementById('slider-value');
+        if (slider && output) {
+            slider.addEventListener('input', function() {
+                output.textContent = this.value + '%';
+            });
+        }
+    </script>
 </body>
 </html>
+                
