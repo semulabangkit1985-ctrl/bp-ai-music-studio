@@ -91,7 +91,9 @@
             font-weight: 600;
             margin: 16px 0;
             letter-spacing: 0.5px;
-             .hero-desc {
+        }
+
+        .hero-desc {
             font-size: 0.85rem;
             color: #cbd5e1;
             line-height: 1.6;
@@ -367,29 +369,29 @@
             border-radius: 2px;
         }
 
-        /* Primary Action Button */
+        /* Primary Action Button (Fixed with !important for rendering consistency) */
         .btn-primary {
-            width: 100%;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 6px;
-            box-shadow: 0 4px 15px var(--accent-glow);
-            text-align: center;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            width: 100% !important;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+            color: white !important;
+            border: none !important;
+            padding: 14px !important;
+            border-radius: 12px !important;
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+            margin-top: 12px !important;
+            box-shadow: 0 4px 15px var(--accent-glow) !important;
+            text-align: center !important;
+            display: block !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
         }
 
         .btn-primary:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
+            opacity: 0.95 !important;
+            transform: translateY(-1px) !important;
         }
 
         .footer-link {
@@ -590,8 +592,7 @@
                     </div>
                     <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
-
-                <div class="slider-group">
+                 <div class="slider-group">
                     <div class="slider-header">
                         <span>De-Esser Sensitivity</span>
                         <span id="val-deesser">3.0 dB</span>
@@ -640,8 +641,8 @@
             { category: "🇲🇾 Nusantara / Melayu", list: ["Malay Phonk", "Malay Bounce", "Malay Trap", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Irama Malaysia", "Dangdut Nusantara", "Etnik Nusantara"] },
             { category: "🎤 Pop & Rock", list: ["Pop", "Synthpop", "Indie Pop", "Dance Pop", "Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Metal"] },
             { category: "🔥 Phonk & Hip Hop", list: ["Phonk", "Drift Phonk", "Brazilian Phonk", "Dark Phonk", "Memphis Phonk", "Hip Hop", "Trap", "Boom Bap", "Drill", "Lo-Fi Hip Hop"] },
-            { category: "⚡ Electronic & Techno", list: ["EDM", "Techno", "Dark Techno", "House", "Deep House", "Trance", "Dubstep"
-                                                          { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
+            { category: "⚡ Electronic & Techno", list: ["EDM", "Techno", "Dark Techno", "House", "Deep House", "Trance", "Dubstep", "Drum & Bass", "Synthwave", "Cyberpunk"] },
+            { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
         ];
 
         const genreContainer = document.getElementById('genreContainerView');
@@ -724,3 +725,6 @@
     </script>
 </body>
 </html>
+
+    
+                    
