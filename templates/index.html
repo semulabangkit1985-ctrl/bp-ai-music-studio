@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio</title>
+    <title>BP AI Music Studio - Full Suite</title>
     <style>
         * {
             box-sizing: border-box;
@@ -32,6 +32,19 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
+        .page {
+            display: none;
+            padding: 20px;
+            text-align: left;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Halaman 1 Styles */
         .hero-image {
             width: 100%;
             height: 200px;
@@ -46,8 +59,6 @@
             font-weight: 800;
             color: #60a5fa;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            line-height: 1.3;
             text-align: center;
         }
 
@@ -56,7 +67,6 @@
             line-height: 1.6;
             color: #cbd5e1;
             margin-bottom: 16px;
-            text-align: left;
         }
 
         .sub-heading {
@@ -64,29 +74,15 @@
             font-style: italic;
             color: #94a3b8;
             margin-bottom: 24px;
-            font-weight: 500;
             text-align: center;
         }
 
-        /* Sistem Halaman */
-        .page {
-            display: none;
-            padding: 20px;
-            text-align: left;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* Kotak Modal/Paparan */
+        /* Modal / Header Halaman 2 & 3 */
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             border-bottom: 1px solid #1e293b;
             padding-bottom: 12px;
         }
@@ -94,7 +90,7 @@
         .modal-title {
             font-size: 15px;
             font-weight: 700;
-            color: #ffffff;
+            color: #60a5fa;
             letter-spacing: 0.5px;
         }
 
@@ -106,7 +102,7 @@
             cursor: pointer;
         }
 
-        /* Kotak Carian */
+        /* Carian & Tab Halaman 2 */
         .search-box {
             width: 100%;
             padding: 10px 14px;
@@ -118,11 +114,7 @@
             margin-bottom: 14px;
             outline: none;
         }
-        .search-box::placeholder {
-            color: #64748b;
-        }
 
-        /* Tab Kategori Mendatar */
         .category-tabs {
             display: flex;
             gap: 8px;
@@ -131,9 +123,7 @@
             margin-bottom: 16px;
             scrollbar-width: none;
         }
-        .category-tabs::-webkit-scrollbar {
-            display: none;
-        }
+        .category-tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             background-color: #1e293b;
@@ -145,30 +135,21 @@
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
-            transition: all 0.2s;
         }
-
         .tab-btn.active-tab {
             background-color: #2563eb;
             color: #ffffff;
             border-color: #3b82f6;
         }
 
-        .category-section {
-            display: none;
-        }
-        .category-section.active-section {
-            display: block;
-        }
+        .category-section { display: none; }
+        .category-section.active-section { display: block; }
 
         .category-title {
             font-size: 13px;
             font-weight: 700;
             color: #60a5fa;
-            margin: 10px 0 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin: 10px 0;
         }
 
         .genres-grid {
@@ -185,20 +166,16 @@
             padding: 10px 12px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
         }
-
         .genre-btn:hover, .genre-btn.selected {
             background-color: #2563eb;
             color: #ffffff;
             border-color: #3b82f6;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
-        /* Bahagian Kawalan Halaman 3 */
+        /* Halaman 3 Styles (Kawalan Pro & AI Co-Producer) */
         .section-box {
             background-color: #161e31;
             border: 1px solid #222d44;
@@ -230,17 +207,13 @@
             padding: 10px 12px;
             border-radius: 12px;
             font-size: 12px;
-            font-weight: 500;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
         }
-
         .ctrl-btn:hover, .ctrl-btn.active {
             background-color: #2563eb;
             color: #ffffff;
             border-color: #3b82f6;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
         .toggle-row {
@@ -255,9 +228,7 @@
             font-size: 13px;
         }
 
-        .slider-group {
-            margin-bottom: 12px;
-        }
+        .slider-group { margin-bottom: 12px; }
         .slider-group label {
             display: flex;
             justify-content: space-between;
@@ -297,7 +268,6 @@
             100% { height: 100%; }
         }
 
-        /* Butang Utama */
         .cta-button {
             display: block;
             width: 100%;
@@ -308,441 +278,95 @@
             border-radius: 12px;
             font-weight: 600;
             font-size: 14px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
             border: none;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         }
-
-        .cta-button:hover {
-            background-color: #1d4ed8;
-        }
+        .cta-button:hover { background-color: #1d4ed8; }
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <!-- HALAMAN 1: Pengenalan -->
+        <!-- HALAMAN 1: PENGENALAN -->
         <div id="page-1" class="page active">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Studio Rakaman" class="hero-image">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Studio" class="hero-image">
             <h1 class="main-heading">MASTERING BP AI MUSIC STUDIO</h1>
             <p class="description">
                 Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
             </p>
             <p class="sub-heading">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
-            <button type="button" class="cta-button" onclick="goToPage(2)">Mula Mastering Pro →</button>
+            <button type="button" class="cta-button" onclick="goToPage(2)">Mula Pilih Genre →</button>
         </div>
 
-        <!-- HALAMAN 2: PILIH GENRE & VIBE (Lengkap & Berasaskan Tab) -->
+        <!-- HALAMAN 2: PILIH GENRE & VIBE -->
         <div id="page-2" class="page">
             <div class="modal-header">
                 <span class="modal-title">PILIH GENRE & VIBE</span>
                 <button class="close-btn" onclick="goToPage(1)">✕</button>
             </div>
 
-            <input type="text" id="searchInput" class="search-box" placeholder="Cari genre (cth: Phonk, Ballad, Rock)..." onkeyup="filterGenres()">
+            <input type="text" id="searchInput" class="search-box" placeholder="Cari genre (cth: Pop, Rock, Phonk)..." onkeyup="filterGenres()">
 
-            <div class="category-tabs" id="categoryTabs">
+            <div class="category-tabs">
                 <button class="tab-btn active-tab" onclick="switchTab('all', this)">Semua</button>
                 <button class="tab-btn" onclick="switchTab('melayu', this)">🇲🇾 Melayu</button>
                 <button class="tab-btn" onclick="switchTab('pop', this)">🎤 Pop</button>
                 <button class="tab-btn" onclick="switchTab('rock', this)">🎸 Rock</button>
                 <button class="tab-btn" onclick="switchTab('hiphop', this)">🎤 Hip Hop</button>
                 <button class="tab-btn" onclick="switchTab('phonk', this)">🔥 Phonk</button>
-                <button class="tab-btn" onclick="switchTab('electronic', this)">⚡ Electronic</button>
-                <button class="tab-btn" onclick="switchTab('dark', this)">🌑 Dark/Cyber</button>
-                <button class="tab-btn" onclick="switchTab('rb', this)">🎷 R&B/Soul</button>
-                <button class="tab-btn" onclick="switchTab('jazz', this)">🎷 Jazz/Blues</button>
-                <button class="tab-btn" onclick="switchTab('acoustic', this)">🎸 Akustik</button>
-                <button class="tab-btn" onclick="switchTab('orchestral', this)">🎻 Orkestra</button>
-                <button class="tab-btn" onclick="switchTab('sad', this)">❤️ Emosi/Cinta</button>
-                <button class="tab-btn" onclick="switchTab('world', this)">🌎 Antarabangsa</button>
-                <button class="tab-btn" onclick="switchTab('metal', this)">🤘 Metal</button>
-                <button class="tab-btn" onclick="switchTab('cinematic', this)">🎬 Cinematic</button>
             </div>
 
             <div id="genreContainer">
-                <!-- 🇲🇾 Melayu / Nusantara -->
                 <div class="category-section active-section" data-cat="melayu">
                     <div class="category-title">🇲🇾 Melayu / Nusantara</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Malaya / Melayu</button>
                         <button class="genre-btn" type="button">Pop Melayu</button>
                         <button class="genre-btn" type="button">Rock Melayu</button>
                         <button class="genre-btn" type="button">Balada Melayu</button>
-                        <button class="genre-btn" type="button">Melayu Klasik</button>
-                        <button class="genre-btn" type="button">Irama Malaysia</button>
-                        <button class="genre-btn" type="button">Lagu Asli</button>
-                        <button class="genre-btn" type="button">Zapin</button>
-                        <button class="genre-btn" type="button">Joget</button>
-                        <button class="genre-btn" type="button">Ghazal</button>
-                        <button class="genre-btn" type="button">Keroncong</button>
                         <button class="genre-btn" type="button">Dangdut</button>
-                        <button class="genre-btn" type="button">Campursari</button>
-                        <button class="genre-btn" type="button">Pop Nusantara</button>
-                        <button class="genre-btn" type="button">Etnik Nusantara</button>
-                        <button class="genre-btn" type="button">Tradisional Melayu</button>
-                        <button class="genre-btn" type="button">Tradisional Sabah</button>
-                        <button class="genre-btn" type="button">Tradisional Sarawak</button>
-                        <button class="genre-btn" type="button">Minang</button>
-                        <button class="genre-btn" type="button">Jawa</button>
-                        <button class="genre-btn" type="button">Sunda</button>
-                        <button class="genre-btn" type="button">Bugis</button>
-                        <button class="genre-btn" type="button">Batak</button>
-                        <button class="genre-btn" type="button">Malay Bounce</button>
-                        <button class="genre-btn" type="button">Malay Trap</button>
-                        <button class="genre-btn" type="button">Malay Phonk</button>
-                        <button class="genre-btn" type="button">Malay Electronic</button>
-                        <button class="genre-btn" type="button">Nusantara Electronic</button>
                     </div>
                 </div>
 
-                <!-- 🎤 Pop -->
                 <div class="category-section active-section" data-cat="pop">
                     <div class="category-title">🎤 Pop</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Pop</button>
                         <button class="genre-btn" type="button">Pop Ballad</button>
-                        <button class="genre-btn" type="button">Electropop</button>
                         <button class="genre-btn" type="button">Synthpop</button>
-                        <button class="genre-btn" type="button">Dream Pop</button>
                         <button class="genre-btn" type="button">Indie Pop</button>
-                        <button class="genre-btn" type="button">Teen Pop</button>
-                        <button class="genre-btn" type="button">Adult Contemporary</button>
                         <button class="genre-btn" type="button">Dance Pop</button>
-                        <button class="genre-btn" type="button">Power Pop</button>
-                        <button class="genre-btn" type="button">Soft Pop</button>
-                        <button class="genre-btn" type="button">Retro Pop</button>
-                        <button class="genre-btn" type="button">City Pop</button>
-                        <button class="genre-btn" type="button">Dark Pop</button>
-                        <button class="genre-btn" type="button">Noir Pop</button>
-                        <button class="genre-btn" type="button">Future Pop</button>
-                        <button class="genre-btn" type="button">Neon Pop</button>
-                        <button class="genre-btn" type="button">Experimental Pop</button>
                     </div>
                 </div>
 
-                <!-- 🎸 Rock -->
                 <div class="category-section active-section" data-cat="rock">
                     <div class="category-title">🎸 Rock</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Rock</button>
-                        <button class="genre-btn" type="button">Soft Rock</button>
                         <button class="genre-btn" type="button">Classic Rock</button>
-                        <button class="genre-btn" type="button">Hard Rock</button>
                         <button class="genre-btn" type="button">Alternative Rock</button>
-                        <button class="genre-btn" type="button">Indie Rock</button>
-                        <button class="genre-btn" type="button">Pop Rock</button>
+                        <button class="genre-btn" type="button">Hard Rock</button>
                         <button class="genre-btn" type="button">Blues Rock</button>
-                        <button class="genre-btn" type="button">Progressive Rock</button>
-                        <button class="genre-btn" type="button">Psychedelic Rock</button>
-                        <button class="genre-btn" type="button">Punk Rock</button>
-                        <button class="genre-btn" type="button">Garage Rock</button>
-                        <button class="genre-btn" type="button">Grunge</button>
-                        <button class="genre-btn" type="button">Post-Rock</button>
-                        <button class="genre-btn" type="button">Folk Rock</button>
-                        <button class="genre-btn" type="button">Southern Rock</button>
-                        <button class="genre-btn" type="button">Glam Rock</button>
-                        <button class="genre-btn" type="button">Arena Rock</button>
-                        <button class="genre-btn" type="button">Metal Rock</button>
                     </div>
                 </div>
 
-                <!-- 🎤 Hip Hop / Rap -->
                 <div class="category-section active-section" data-cat="hiphop">
                     <div class="category-title">🎤 Hip Hop / Rap</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Hip Hop</button>
-                        <button class="genre-btn" type="button">Rap</button>
-                        <button class="genre-btn" type="button">Old School Hip Hop</button>
                         <button class="genre-btn" type="button">Trap</button>
                         <button class="genre-btn" type="button">Boom Bap</button>
-                        <button class="genre-btn" type="button">Lo-Fi Hip Hop</button>
-                        <button class="genre-btn" type="button">Gangsta Rap</button>
-                        <button class="genre-btn" type="button">Conscious Rap</button>
-                        <button class="genre-btn" type="button">Melodic Rap</button>
-                        <button class="genre-btn" type="button">Pop Rap</button>
-                        <button class="genre-btn" type="button">Alternative Hip Hop</button>
-                        <button class="genre-btn" type="button">R&B Rap</button>
                         <button class="genre-btn" type="button">Drill</button>
-                        <button class="genre-btn" type="button">West Coast Hip Hop</button>
-                        <button class="genre-btn" type="button">East Coast Hip Hop</button>
-                        <button class="genre-btn" type="button">UK Drill</button>
-                        <button class="genre-btn" type="button">Afro Drill</button>
-                        <button class="genre-btn" type="button">Cyberpunk Trap</button>
-                        <button class="genre-btn" type="button">Cinematic Trap</button>
-                        <button class="genre-btn" type="button">Hybrid Trap</button>
+                        <button class="genre-btn" type="button">Lo-Fi Hip Hop</button>
                     </div>
                 </div>
 
-                <!-- 🔥 Phonk -->
                 <div class="category-section active-section" data-cat="phonk">
-           <div class="category-title">🔥 Phonk</div>
+                    <div class="category-title">🔥 Phonk</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Phonk</button>
-                        <button class="genre-btn" type="button">Dark Phonk</button>
                         <button class="genre-btn" type="button">Drift Phonk</button>
+                        <button class="genre-btn" type="button">Dark Phonk</button>
                         <button class="genre-btn" type="button">Brazilian Phonk</button>
-                        <button class="genre-btn" type="button">Memphis Phonk</button>
-                        <button class="genre-btn" type="button">Aggressive Phonk</button>
-                        <button class="genre-btn" type="button">Atmospheric Phonk</button>
-                        <button class="genre-btn" type="button">Electro Phonk</button>
-                        <button class="genre-btn" type="button">Trap Phonk</button>
-                        <button class="genre-btn" type="button">Future Phonk</button>
                         <button class="genre-btn" type="button">Malay Phonk</button>
-                        <button class="genre-btn" type="button">Neon Noir Phonk</button>
-                        <button class="genre-btn" type="button">Neon Noir Phonk - Malay Bounce</button>
-                        <button class="genre-btn" type="button">Dark Techno / Neon Noir Phonk - Malay Bounce</button>
-                    </div>
-                </div>
-
-                <!-- ⚡ Techno / Electronic -->
-                <div class="category-section active-section" data-cat="electronic">
-                    <div class="category-title">⚡ Techno / Electronic</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">EDM</button>
-                        <button class="genre-btn" type="button">Techno</button>
-                        <button class="genre-btn" type="button">Dark Techno</button>
-                        <button class="genre-btn" type="button">Hard Techno</button>
-                        <button class="genre-btn" type="button">Industrial Techno</button>
-                        <button class="genre-btn" type="button">Acid Techno</button>
-                        <button class="genre-btn" type="button">Minimal Techno</button>
-                        <button class="genre-btn" type="button">Melodic Techno</button>
-                        <button class="genre-btn" type="button">Progressive Techno</button>
-                        <button class="genre-btn" type="button">Techno Noir</button>
-                        <button class="genre-btn" type="button">Cyber Techno</button>
-                        <button class="genre-btn" type="button">House</button>
-                        <button class="genre-btn" type="button">Deep House</button>
-                        <button class="genre-btn" type="button">Tropical House</button>
-                        <button class="genre-btn" type="button">Future House</button>
-                        <button class="genre-btn" type="button">Progressive House</button>
-                        <button class="genre-btn" type="button">Tech House</button>
-                        <button class="genre-btn" type="button">Electro House</button>
-                        <button class="genre-btn" type="button">Bass House</button>
-                        <button class="genre-btn" type="button">G-House</button>
-                        <button class="genre-btn" type="button">Slap House</button>
-                        <button class="genre-btn" type="button">Afro House</button>
-                        <button class="genre-btn" type="button">Trance</button>
-                        <button class="genre-btn" type="button">Dubstep</button>
-                        <button class="genre-btn" type="button">Drum & Bass</button>
-                        <button class="genre-btn" type="button">Future Bass</button>
-                        <button class="genre-btn" type="button">Breakbeat</button>
-                        <button class="genre-btn" type="button">UK Garage</button>
-                        <button class="genre-btn" type="button">Jersey Club</button>
-                        <button class="genre-btn" type="button">Amapiano</button>
-                        <button class="genre-btn" type="button">Industrial Bass</button>
-                        <button class="genre-btn" type="button">Dark Electro</button>
-                        <button class="genre-btn" type="button">Alternative Electronic</button>
-                        <button class="genre-btn" type="button">Cinematic Electronic</button>
-                    </div>
-                </div>
-
-                <!-- 🌑 Dark / Cyber / Experimental -->
-                <div class="category-section active-section" data-cat="dark">
-                    <div class="category-title">🌑 Dark / Cyber / Experimental</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Darkwave</button>
-                        <button class="genre-btn" type="button">Witch House</button>
-                        <button class="genre-btn" type="button">Dark Synthwave</button>
-                        <button class="genre-btn" type="button">Neon Synthwave</button>
-                        <button class="genre-btn" type="button">Synthwave</button>
-                        <button class="genre-btn" type="button">Vaporwave</button>
-                        <button class="genre-btn" type="button">Cyberpunk</button>
-                        <button class="genre-btn" type="button">Cyber Pop</button>
-                        <button class="genre-btn" type="button">Cyberpunk Trap</button>
-                        <button class="genre-btn" type="button">Noir Electronic</button>
-                        <button class="genre-btn" type="button">Dark Ambient</button>
-                        <button class="genre-btn" type="button">Ambient Dark</button>
-                        <button class="genre-btn" type="button">Horror Electronic</button>
-                        <button class="genre-btn" type="button">Atmospheric</button>
-                        <button class="genre-btn" type="button">Experimental Electronic</button>
-                        <button class="genre-btn" type="button">Experimental Pop</button>
-                        <button class="genre-btn" type="button">Future Bass</button>
-                        <button class="genre-btn" type="button">Future Garage</button>
-                        <button class="genre-btn" type="button">Industrial</button>
-                        <button class="genre-btn" type="button">Noise</button>
-                        <button class="genre-btn" type="button">Glitch</button>
-                        <button class="genre-btn" type="button">Glitch Hop</button>
-                    </div>
-                </div>
-
-                <!-- 🎷 R&B / Soul / Funk -->
-                <div class="category-section active-section" data-cat="rb">
-                    <div class="category-title">🎷 R&B / Soul / Funk</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">R&B</button>
-                        <button class="genre-btn" type="button">Contemporary R&B</button>
-                        <button class="genre-btn" type="button">Soul</button>
-                        <button class="genre-btn" type="button">Neo Soul</button>
-                        <button class="genre-btn" type="button">Motown</button>
-                        <button class="genre-btn" type="button">Funk</button>
-                        <button class="genre-btn" type="button">Smooth Soul</button>
-                        <button class="genre-btn" type="button">Gospel Soul</button>
-                        <button class="genre-btn" type="button">R&B Ballad</button>
-                        <button class="genre-btn" type="button">Funk Soul</button>
-                    </div>
-                </div>
-
-                <!-- 🎷 Jazz / Blues -->
-                <div class="category-section active-section" data-cat="jazz">
-                    <div class="category-title">🎷 Jazz / Blues</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Jazz</button>
-                        <button class="genre-btn" type="button">Smooth Jazz</button>
-                        <button class="genre-btn" type="button">Contemporary Jazz</button>
-                        <button class="genre-btn" type="button">Swing</button>
-                        <button class="genre-btn" type="button">Bebop</button>
-                        <button class="genre-btn" type="button">Fusion Jazz</button>
-                        <button class="genre-btn" type="button">Latin Jazz</button>
-                        <button class="genre-btn" type="button">Blues</button>
-                        <button class="genre-btn" type="button">Slow Blues</button>
-                        <button class="genre-btn" type="button">Blues Rock</button>
-                        <button class="genre-btn" type="button">Soul Blues</button>
-                    </div>
-                </div>
-
-                <!-- 🎸 Akustik / Folk -->
-                <div class="category-section active-section" data-cat="acoustic">
-                    <div class="category-title">🎸 Akustik / Folk</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Acoustic</button>
-                        <button class="genre-btn" type="button">Acoustic Pop</button>
-                        <button class="genre-btn" type="button">Acoustic Ballad</button>
-                        <button class="genre-btn" type="button">Folk</button>
-                        <button class="genre-btn" type="button">Indie Folk</button>
-                        <button class="genre-btn" type="button">Folk Pop</button>
-                        <button class="genre-btn" type="button">Singer-Songwriter</button>
-                        <button class="genre-btn" type="button">Coffeehouse</button>
-                        <button class="genre-btn" type="button">Chill</button>
-                        <button class="genre-btn" type="button">Lo-Fi</button>
-                        <button class="genre-btn" type="button">Lounge</button>
-                        <button class="genre-btn" type="button">Relaxing</button>
-                    </div>
-                </div>
-
-                <!-- 🎻 Orkestra / Klasik -->
-                <div class="category-section active-section" data-cat="orchestral">
-                    <div class="category-title">🎻 Orkestra / Klasik</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Classical</button>
-                        <button class="genre-btn" type="button">Piano Solo</button>
-                        <button class="genre-btn" type="button">Piano Ballad</button>
-                        <button class="genre-btn" type="button">String Orchestra</button>
-                        <button class="genre-btn" type="button">Symphony</button>
-                        <button class="genre-btn" type="button">Chamber Music</button>
-                        <button class="genre-btn" type="button">Cinematic</button>
-                        <button class="genre-btn" type="button">Epic Orchestra</button>
-                        <button class="genre-btn" type="button">Film Score</button>
-                        <button class="genre-btn" type="button">Dramatic</button>
-                        <button class="genre-btn" type="button">Emotional Orchestra</button>
-                        <button class="genre-btn" type="button">Fantasy</button>
-                        <button class="genre-btn" type="button">Medieval</button>
-                        <button class="genre-btn" type="button">Baroque</button>
-                    </div>
-                </div>
-
-                <!-- ❤️ Sedih / Emosi / Cinta -->
-                <div class="category-section active-section" data-cat="sad">
-                    <div class="category-title">❤️ Sedih / Emosi / Cinta</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Sad Song</button>
-                        <button class="genre-btn" type="button">Emotional</button>
-                        <button class="genre-btn" type="button">Heartbreak</button>
-                        <button class="genre-btn" type="button">Melancholic</button>
-                        <button class="genre-btn" type="button">Nostalgic</button>
-                        <button class="genre-btn" type="button">Romantic</button>
-                        <button class="genre-btn" type="button">Love Song</button>
-                        <button class="genre-btn" type="button">Deep Emotional</button>
-                        <button class="genre-btn" type="button">Tearjerker</button>
-                        <button class="genre-btn" type="button">Slow Ballad</button>
-                        <button class="genre-btn" type="button">Emotional Piano</button>
-                        <button class="genre-btn" type="button">Emotional Acoustic</button>
-                        <button class="genre-btn" type="button">Power Ballad</button>
-                    </div>
-                </div>
-
-                <!-- 🌎 Antarabangsa -->
-                <div class="category-section active-section" data-cat="world">
-                    <div class="category-title">🌎 Antarabangsa</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">K-Pop</button>
-                        <button class="genre-btn" type="button">J-Pop</button>
-                        <button class="genre-btn" type="button">C-Pop</button>
-                        <button class="genre-btn" type="button">Bollywood</button>
-                        <button class="genre-btn" type="button">Latin Pop</button>
-                        <button class="genre-btn" type="button">Reggaeton</button>
-                        <button class="genre-btn" type="button">Salsa</button>
-                        <button class="genre-btn" type="button">Bachata</button>
-                        <button class="genre-btn" type="button">Flamenco</button>
-                        <button class="genre-btn" type="button">Afrobeat</button>
-                        <button class="genre-btn" type="button">Afropop</button>
-                        <button class="genre-btn" type="button">Reggae</button>
-                        <button class="genre-btn" type="button">Dancehall</button>
-                        <button class="genre-btn" type="button">Ska</button>
-                        <button class="genre-btn" type="button">Country</button>
-                        <button class="genre-btn" type="button">Country Pop</button>
-                        <button class="genre-btn" type="button">Bluegrass</button>
-                        <button class="genre-btn" type="button">Gospel</button>
-                        <button class="genre-btn" type="button">Celtic</button>
-                        <button class="genre-btn" type="button">Arabic</button>
-                        <button class="genre-btn" type="button">Middle Eastern</button>
-                    </div>
-                </div>
-
-                <!-- 🤘 Metal -->
-                <div class="category-section active-section" data-cat="metal">
-                    <div class="category-title">🤘 Metal</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Heavy Metal</button>
-                        <button class="genre-btn" type="button">Metalcore</button>
-                        <button class="genre-btn" type="button">Death Metal</button>
-                        <button class="genre-btn" type="button">Black Metal</button>
-                        <button class="genre-btn" type="button">Symphonic Metal</button>
-                        <button class="genre-btn" type="button">Power Metal</button>
-                        <button class="genre-btn" type="button">Progressive Metal</button>
-                        <button class="genre-btn" type="button">Nu Metal</button>
-                        <button class="genre-btn" type="button">Alternative Metal</button>
-                        <button class="genre-btn" type="button">Doom Metal</button>
-                    </div>
-                </div>
-
-                <!-- 🎬 Cinematic / Mood / Khas -->
-                <div class="category-section active-section" data-cat="cinematic">
-                    <div class="category-title">🎬 Cinematic / Mood / Khas</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Cinematic</button>
-                        <button class="genre-btn" type="button">Epic</button>
-                        <button class="genre-btn" type="button">Dark</button>
-                        <button class="genre-btn" type="button">Mysterious</button>
-                        <button class="genre-btn" type="button">Horror</button>
-                        <button class="genre-btn" type="button">Thriller</button>
-                        <button class="genre-btn" type="button">Adventure</button>
-                        <button class="genre-btn" type="button">Fantasy</button>
-                        <button class="genre-btn" type="button">Heroic</button>
-                        <button class="genre-btn" type="button">Inspirational</button>
-                        <button class="genre-btn" type="button">Motivational</button>
-                        <button class="genre-btn" type="button">Spiritual</button>
-                        <button class="genre-btn" type="button">Religious</button>
-                        <button class="genre-btn" type="button">Peaceful</button>
-                        <button class="genre-btn" type="button">Meditation</button>
-                        <button class="genre-btn" type="button">Atmospheric</button>
-                        <button class="genre-btn" type="button">Dreamy</button>
-                        <button class="genre-btn" type="button">Powerful</button>
-                        <button class="genre-btn" type="button">Energetic</button>
-                        <button class="genre-btn" type="button">Romantic</button>
-                        <button class="genre-btn" type="button">Vintage</button>
-                        <button class="genre-btn" type="button">Retro</button>
-                        <button class="genre-btn" type="button">80s</button>
-                        <button class="genre-btn" type="button">90s</button>
-                        <button class="genre-btn" type="button">Nostalgic</button>
-                        <button class="genre-btn" type="button">Wedding</button>
-                        <button class="genre-btn" type="button">Festival</button>
-                        <button class="genre-btn" type="button">Party</button>
-                        <button class="genre-btn" type="button">Christmas</button>
-                        <button class="genre-btn" type="button">Raya / Aidilfitri</button>
                     </div>
                 </div>
             </div>
@@ -750,17 +374,16 @@
             <button type="button" class="cta-button" onclick="goToPage(3)">Seterusnya ke Kawalan Pro →</button>
         </div>
 
-        <!-- HALAMAN 3: Kawalan Pro Mastering & AI Co-Producer (Halaman Baru Anda) -->
+        <!-- HALAMAN 3: KAWALAN PRO & AI CO-PRODUCER -->
         <div id="page-3" class="page">
             <div class="modal-header">
                 <span class="modal-title">🎛️ PRO MASTERING & AI CO-PRODUCER</span>
                 <button class="close-btn" onclick="goToPage(2)">✕</button>
             </div>
 
-            <!-- AI Analysis & Format -->
             <div class="section-box">
                 <div class="section-title">📊 AI Analysis & Target Format</div>
-                 <button class="ctrl-btn" style="width: 100%; margin-bottom: 10px; background-color: #2563eb; color: #fff;" onclick="alert('AI sedang mendengar dan menganalisis spektrum track anda...')">🔍 Jalankan AI Track Analysis</button>
+                <button class="ctrl-btn" style="width: 100%; margin-bottom: 10px; background-color: #2563eb; color: #fff;" onclick="alert('AI sedang menganalisis spektrum track anda...')">🔍 Jalankan AI Track Analysis</button>
                 <div class="controls-grid">
                     <button class="ctrl-btn active" type="button">YouTube (-14 LUFS)</button>
                     <button class="ctrl-btn" type="button">Streaming / Spotify</button>
@@ -769,7 +392,6 @@
                 </div>
             </div>
 
-            <!-- Mastering Styles & Dynamics -->
             <div class="section-box">
                 <div class="section-title">✨ Mastering Styles & Dynamics</div>
                 <div class="controls-grid" style="margin-bottom: 12px;">
@@ -789,7 +411,6 @@
                 </div>
             </div>
 
-            <!-- Tone, Presence & Spatial Width -->
             <div class="section-box">
                 <div class="section-title">🎚️ Tone & Spatial Mastering</div>
                 <div class="controls-grid" style="margin-bottom: 12px;">
@@ -805,10 +426,9 @@
                 </div>
             </div>
 
-            <!-- AI Co-Producer (Instrument Layers) -->
             <div class="section-box" style="border-color: #3b82f6;">
                 <div class="section-title">🤖 AI Co-Producer (Instrument Generator)</div>
-                <p style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">Jana lapisan instrumen tambahan automatik berdasarkan trek anda:</p>
+                <p style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">Jana lapisan instrumen tambahan automatik:</p>
                 <div class="controls-grid">
                     <button class="ctrl-btn" type="button">🥁 Drum</button>
                     <button class="ctrl-btn" type="button">🎸 Bass</button>
@@ -819,7 +439,6 @@
                 </div>
             </div>
 
-            <!-- Spectrum & Meter -->
             <div class="section-box">
                 <div class="section-title">📈 Spectrum & Output Meter</div>
                 <div class="toggle-row">
@@ -840,31 +459,29 @@
                 </div>
             </div>
 
-            <button type="button" class="cta-button" onclick="alert('Mastering Pro & AI Co-Producer Selesai Diproses!')">Mula Proses Mastering Final 🚀</button>
+            <button type="button" class="cta-button" onclick="alert('Proses Render & Final Mastering Bermula!')">Mula Proses Mastering Final 🚀</button>
         </div>
 
     </div>
 
     <script>
-        // Fungsi tukar halaman
         function goToPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageNumber).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        // Fungsi Pilih Butang Genre & Kawalan
         const allButtons = document.querySelectorAll('.genre-btn, .ctrl-btn');
         allButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                if(!btn.style.backgroundColor || btn.classList.contains('genre-btn') || btn.classList.contains('ctrl-btn')) {
-                    btn.classList.toggle('selected');
-                    btn.classList.toggle('active');
+                if(!btn.classList.contains('active') && !btn.classList.contains('selected')) {
+                    btn.classList.add('active', 'selected');
+                } else {
+                    btn.classList.remove('active', 'selected');
                 }
             });
         });
 
-        // Fungsi Tab Kategori Halaman 2
         function switchTab(catName, tabElement) {
             document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active-tab'));
             tabElement.classList.add('active-tab');
@@ -880,15 +497,10 @@
             });
         }
 
-        // Fungsi Carian Pantas Halaman 2
         function filterGenres() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const sections = document.querySelectorAll('.category-section');
             
-            if (query.length > 0) {
-                document.querySelectorAll('.tab-btn').forEach(t => t.toggles = t.classList.remove('active-tab'));
-            }
-
             sections.forEach(sec => {
                 let hasVisible = false;
                 const buttons = sec.querySelectorAll('.genre-btn');
@@ -911,6 +523,5 @@
             });
         }
     </script>
-
 </body>
 </html>
