@@ -43,6 +43,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
 
         .view {
@@ -79,13 +80,11 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
-            margin-top: auto;
-            margin-bottom: auto;
         }
 
         .hero-image {
             width: 100%;
-            height: 210px;
+            height: 190px;
             object-fit: cover;
             border-bottom: 2px solid var(--accent-glow);
         }
@@ -96,27 +95,29 @@
 
         .hero-title {
             text-align: center;
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             color: #60a5fa;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: 800;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .hero-tagline {
             text-align: center;
             font-size: 0.85rem;
-            color: #cbd5e1;
-            font-style: italic;
+            color: #38bdf8;
+            font-weight: 600;
             margin-bottom: 16px;
+            letter-spacing: 0.5px;
         }
 
         .hero-desc {
-            font-size: 0.87rem;
+            font-size: 0.85rem;
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 14px;
+            text-align: left;
         }
 
         .card {
@@ -321,7 +322,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: background 0.2s;
-            margin-top: 6px;
+            margin-top: 10px;
             box-shadow: 0 4px 15px var(--accent-glow);
             text-align: center;
             display: block;
@@ -453,11 +454,17 @@
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
                 <div class="hero-content">
-                    <h1 class="hero-title">BP AI MUSIC STUDIO</h1>
-                    <div class="hero-tagline">Professional AI Audio Mastering Console</div>
+                    <h1 class="hero-title">MASTERING BP AI MUSIC STUDIO</h1>
+                    <div class="hero-tagline">“Memperkemas bunyi, menghidupkan karya.”</div>
+                    
                     <p class="hero-desc">
-                        Platform mastering audio berasaskan kecerdasan buatan (AI) untuk mengimbang ton, kompresi, dan loudness trek anda pada tahap profesional.
+                        Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
                     </p>
+                    
+                    <p class="hero-desc">
+                        Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
+                    </p>
+
                     <button class="btn-primary" onclick="switchView('view-mastering')">Mula Mastering Sekarang →</button>
                 </div>
             </div>
@@ -613,7 +620,7 @@
 
         function selectGenre(genreName, btnElement) {
             document.querySelectorAll('.genre-option-btn').forEach(b => b.classList.remove('selected'));
-           btnElement.classList.add('selected');
+            btnElement.classList.add('selected');
             document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
             closeGenreModal();
         }
@@ -656,3 +663,4 @@
     </script>
 </body>
 </html>
+         
