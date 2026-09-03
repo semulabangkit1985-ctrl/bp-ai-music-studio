@@ -44,12 +44,12 @@
         }
 
         .view {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
+            display: none !important;
         }
 
         .view.active {
-            display: block;
+            display: block !important;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -644,10 +644,7 @@
                         <span>Presence (High-Mid Clarity)</span>
                         <span id="val-presence">+1 dB</span>
                     </div>
-                        <input type="range" min="-5" max="5" step="0.5" value="1" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
-                </div>
-
-                <div class="slider-group">
+                      <div class="slider-group">
                     <div class="slider-header">
                         <span>De-Esser (Sibilance Control)</span>
                         <span id="val-deesser">25%</span>
@@ -785,4 +782,4 @@
         }
     </script>
 </body>
-                </html>
+</html>
