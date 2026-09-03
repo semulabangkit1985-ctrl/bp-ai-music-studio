@@ -159,6 +159,7 @@
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
         .instrument-name { font-size: 0.78rem; color: #cbd5e1; }
+        .instrument-checkbox input { accent-color: var(--accent-blue); width: 16px; height: 16px; cursor: pointer; }
 
         .meter-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;
@@ -239,7 +240,7 @@
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
 
-        <!-- 2. GENRE VIEW (DIKEMASKINI DENGAN MASTER GENRE SENARAI PENUH) -->
+        <!-- 2. GENRE VIEW (SENARAI PENUH) -->
         <div id="genre-view">
             <h2 class="picker-title">Pick your favorite genres</h2>
             <p class="picker-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</p>
@@ -328,877 +329,294 @@
             </div>
 
             <div class="genre-category">
-                <div class="category-title">🎤 Hip Hop / Rap</div>
+                <div class="category-title">🎧 Hip Hop / Rap</div>
                 <div class="genre-pills">
                     <div class="genre-pill" onclick="toggleGenre(this)">Hip Hop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Rap</div>
-                     <div class="genre-pill" onclick="toggleGenre(this)">Old School Hip Hop</div>
+                        <div class="genre-pill" onclick="toggleGenre(this)">Rap</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Trap</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Boom Bap</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Lo-Fi Hip Hop</div>
+                    <div class="genre-pill" onclick="toggleGenre(this)">Conscious Hip Hop</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Gangsta Rap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Conscious Rap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Melodic Rap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Pop Rap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Alternative Hip Hop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">R&B Rap</div>
+                    <div class="genre-pill" onclick="toggleGenre(this)">Cloud Rap</div>
                     <div class="genre-pill" onclick="toggleGenre(this)">Drill</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">West Coast Hip Hop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">East Coast Hip Hop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">UK Drill</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Afro Drill</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cyberpunk Trap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cinematic Trap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Hybrid Trap</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🔥 Phonk</div>
-                <div class="genre-pills">
                     <div class="genre-pill" onclick="toggleGenre(this)">Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Drift Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Brazilian Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Memphis Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Aggressive Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Atmospheric Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Electro Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Trap Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Future Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Malay Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Neon Noir Phonk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Neon Noir Phonk - Malay Bounce</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Techno / Neon Noir Phonk - Malay Bounce</div>
+                    <div class="genre-pill" onclick="toggleGenre(this)">RnB / Soul</div>
                 </div>
             </div>
-
-            <div class="genre-category">
-                <div class="category-title">⚡ Techno / Electronic</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">EDM</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Hard Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Industrial Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Acid Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Minimal Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Melodic Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Progressive Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Techno Noir</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cyber Techno</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Deep House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tropical House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Future House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Progressive House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tech House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Electro House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bass House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">G-House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Slap House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Afro House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Trance</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dubstep</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Drum & Bass</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Future Bass</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Breakbeat</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">UK Garage</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Jersey Club</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Amapiano</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Industrial Bass</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Electro</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Alternative Electronic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cinematic Electronic</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🌑 Dark / Cyber / Experimental</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Darkwave</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Witch House</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Synthwave</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Neon Synthwave</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Synthwave</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Vaporwave</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cyberpunk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cyber Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cyberpunk Trap</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Noir Electronic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark Ambient</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Ambient Dark</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Horror Electronic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Atmospheric</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Experimental Electronic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Experimental Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Future Bass</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Future Garage</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Industrial</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Noise</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Glitch</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Glitch Hop</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🎷 R&B / Soul / Funk</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">R&B</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Contemporary R&B</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Soul</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Neo Soul</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Motown</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Funk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Smooth Soul</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Gospel Soul</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">R&B Ballad</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Funk Soul</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🎷 Jazz / Blues</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Jazz</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Smooth Jazz</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Contemporary Jazz</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Swing</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bebop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Fusion Jazz</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Latin Jazz</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Blues</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Slow Blues</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Blues Rock</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Soul Blues</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🎸 Akustik / Folk</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Acoustic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Acoustic Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Acoustic Ballad</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Folk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Indie Folk</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Folk Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Singer-Songwriter</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Coffeehouse</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Chill</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Lo-Fi</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Lounge</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Relaxing</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🎻 Orkestra / Klasik</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Classical</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Piano Solo</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Piano Ballad</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">String Orchestra</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Symphony</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Chamber Music</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cinematic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Epic Orchestra</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Film Score</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dramatic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Emotional Orchestra</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Fantasy</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Medieval</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Baroque</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">❤️ Sedih / Emosi / Cinta</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Sad Song</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Emotional</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Heartbreak</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Melancholic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Nostalgic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Romantic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Love Song</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Deep Emotional</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Tearjerker</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Slow Ballad</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Emotional Piano</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Emotional Acoustic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Power Ballad</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🌎 Antarabangsa</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">K-Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">J-Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">C-Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bollywood</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Latin Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Reggaeton</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Salsa</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bachata</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Flamenco</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Afrobeat</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Afropop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Reggae</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dancehall</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Ska</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Country</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Country Pop</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Bluegrass</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Gospel</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Celtic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Arabic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Middle Eastern</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🤘 Metal</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Heavy Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Metalcore</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Death Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Black Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Symphonic Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Power Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Progressive Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Nu Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Alternative Metal</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Doom Metal</div>
-                </div>
-            </div>
-
-            <div class="genre-category">
-                <div class="category-title">🎬 Cinematic / Mood / Khas</div>
-                <div class="genre-pills">
-                    <div class="genre-pill" onclick="toggleGenre(this)">Cinematic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Epic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dark</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Mysterious</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Horror</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Thriller</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Adventure</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Fantasy</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Heroic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Inspirational</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Motivational</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Spiritual</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Religious</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Peaceful</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Meditation</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Atmospheric</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Dreamy</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Powerful</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Energetic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Romantic</div>
-                     <div class="genre-pill" onclick="toggleGenre(this)">Vintage</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Retro</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">80s</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">90s</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Nostalgic</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Wedding</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Festival</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Party</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Christmas</div>
-                    <div class="genre-pill" onclick="toggleGenre(this)">Raya / Aidilfitri</div>
-                </div>
-            </div>
-
+            
+            <div style="height: 70px;"></div>
             <div class="sticky-footer">
                 <div class="sticky-footer-inner">
-                    <button class="btn-action" onclick="showModeSelector()">Continue ➔</button>
+                    <button class="btn-action" onclick="showModePicker()">Teruskan ke Mod ➔</button>
                 </div>
             </div>
         </div>
 
         <!-- 3. MODE VIEW -->
         <div id="mode-view">
-            <h2 class="mode-title">Pilih Matlamat Anda</h2>
-            <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
-            
+            <h2 class="mode-title">Pilih Mod Operasi</h2>
+            <p class="mode-subtitle">Pilih cara anda ingin memproses audio trek anda.</p>
             <div class="mode-grid">
-                <div class="mode-card" onclick="showConsole('mastering')">
+                <div class="mode-card" onclick="selectMode('mastering')">
                     <div class="mode-info">
-                        <h3>🎧 AI Audio Mastering</h3>
-                        <p>Imbang ton, ketumpatan & loudness trek penuh</p>
+                        <h3>AI Music Mastering</h3>
+                        <p>Mengimbangkan EQ, Compression & Volume secara pro.</p>
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
-                <div class="mode-card" onclick="showConsole('coproducer')">
+                <div class="mode-card" onclick="selectMode('stems')">
                     <div class="mode-info">
-                        <h3>🎛️ AI Co-Producer (Stems)</h3>
-                        <p>Asingkan & atur lapisan drum, bass, vokal & instrumen</p>
-                    </div>
-                    <div class="mode-arrow">➔</div>
-                </div>
-                <div class="mode-card" onclick="showConsole('fx')">
-                    <div class="mode-info">
-                        <h3>✨ Advanced FX & Presets</h3>
-                        <p>Tambah Tube Saturation, Delay & simpan tetapan</p>
+                        <h3>AI Stem Separation</h3>
+                        <p>Asingkan vokal, drum, bass & instrumen secara bersih.</p>
                     </div>
                     <div class="mode-arrow">➔</div>
                 </div>
             </div>
-            <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
+            <button class="btn-back" onclick="showGenrePicker()">← Kembali</button>
         </div>
 
         <!-- 4. CONSOLE VIEW -->
         <div id="console-view">
             <header>
-                <h1 id="console-title">Mastering Console</h1>
+                <h1 id="console-header-title">BP AI MASTERING STUDIO</h1>
             </header>
 
             <div class="top-controls">
-                <button class="btn-top" id="btn-bypass" onclick="toggleBypass(this)">Bypass</button>
-                <button class="btn-top" id="btn-gain-match" onclick="toggleGainMatch(this)">Gain Match</button>
+                <button class="btn-top active" id="btn-bypass" onclick="toggleBypass()">Bypass: OFF</button>
+                <button class="btn-top" id="btn-gain" onclick="toggleGainMatch()">Gain Match: ON</button>
             </div>
 
-            <!-- Panel Mastering -->
-            <div id="panel-mastering" class="control-panel" style="display: none;">
-                <div class="card">
-                    <div class="section-title">Muat Naik Fail Audio</div>
-                    <div class="upload-box" onclick="document.getElementById('audio-file-1').click()">
-                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
-                        <div class="file-name" id="file-name-1">Tiada fail dipilih</div>
-                        <input type="file" id="audio-file-1" accept="audio/*" onchange="handleFileSelect(this, 'file-name-1', 'audio-player-1')">
-                    </div>
-                    <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
-
-                    <canvas id="visualizer-canvas" class="visualizer"></canvas>
-                    <div class="meter-container">
-                        <div class="meter-box">
-                            <div class="meter-label">Loudness Meter</div>
-                            <div class="meter-value" id="loudness-meter">-14.0 LUFS</div>
-                        </div>
-                        <div class="meter-box">
-                            <div class="meter-label">Output Meter</div>
-                            <div class="meter-value" id="output-meter">-1.0 dB</div>
-                        </div>
-                    </div>
-
-                    <div class="section-title">Platform Target Preset</div>
-                    <div class="style-buttons" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="style-btn active" onclick="setPlatformPreset(-14, -1.0, this)">📺 YouTube / Spotify (-14)</div>
-                        <div class="style-btn" onclick="setPlatformPreset(-16, -1.0, this)">🍏 Apple Music (-16)</div>
-                    </div>
-
-                    <div class="section-title">Input & Dynamics Control</div>
-                    <div class="control-group">
-                        <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
-                        <input type="range" id="lufs-range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Presence (Crystalize)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
-                        <input type="range" id="presence-range" min="-10" max="10" step="0.5" value="1.5" oninput="updatePresence(this.value)">
-                    </div>
-                    <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Stereo Width</span><span class="control-value" id="width-val">120%</span></div>
-                        <input type="range" id="width-range" min="50" max="200" value="120" oninput="updateStereoWidth(this.value)">
-                    </div>
+            <!-- Upload Section -->
+            <div class="card">
+                <div class="section-title">Fail Audio</div>
+                <div class="upload-box" onclick="document.getElementById('audio-file').click()">
+                    <div class="upload-text">📁 Pilih / Lepaskan fail audio (.mp3, .wav)</div>
+                    <input type="file" id="audio-file" accept="audio/*" onchange="handleFileSelect(event)">
+                    <div class="file-name" id="file-display-name">Tiada fail dipilih</div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Mastering selesai diproses!')">Proses AI Mastering ➔</button>
-                <button class="btn-action btn-download" onclick="exportMasteredAudio()">Muat Turun Fail Master (.wav) ⬇️</button>
             </div>
 
-            <!-- Panel Co-Producer (Stems) -->
-            <div id="panel-coproducer" class="control-panel" style="display: none;">
-                <div class="card">
-                    <div class="section-title">Muat Naik Trek Stems Isolator</div>
-                    <div class="upload-box" onclick="document.getElementById('audio-file-2').click()">
-                        <div class="upload-text">📂 Klik untuk pilih fail lagu (.mp3, .wav, .m4a)</div>
-                        <div class="file-name" id="file-name-2">Tiada fail dipilih</div>
-                        <input type="file" id="audio-file-2" accept="audio/*" onchange="handleFileSelect(this, 'file-name-2', 'audio-player-2')">
-                    </div>
-                    <audio id="audio-player-2" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupStemIsolator(this)"></audio>
-
-                    <div class="section-title">AI Co-Producer Stem Filters</div>
-                    <div class="instrument-grid">
-                        <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" id="stem-vocal" checked onchange="updateStems()"></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" id="stem-drum" checked onchange="updateStems()"></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Bassline (Sub/Low)</span><input type="checkbox" id="stem-bass" checked onchange="updateStems()"></label>
-                        <label class="instrument-checkbox"><span class="instrument-name">Guitar & Keys</span><input type="checkbox" id="stem-synth" checked onchange="updateStems()"></label>
-                    </div>
+            <!-- Style Buttons -->
+            <div class="card" id="style-card">
+                <div class="section-title">Mastering Style</div>
+                <div class="style-buttons">
+                    <div class="style-btn active" onclick="setStyle(this)">Warm</div>
+                    <div class="style-btn" onclick="setStyle(this)">Open</div>
+                    <div class="style-btn" onclick="setStyle(this)">Punchy</div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Co-Producer berjaya mengasingkan spektrum stem!')">Jana & Asingkan Stems ➔</button>
             </div>
 
-            <!-- Panel Advanced FX & Presets -->
-            <div id="panel-fx" class="control-panel" style="display: none;">
-                <div class="card">
-                    <div class="section-title">Muat Naik Audio FX</div>
-                    <div class="upload-box" onclick="document.getElementById('audio-file-3').click()">
-                        <div class="upload-text">📂 Klik untuk pilih fail audio (.mp3, .wav, .m4a)</div>
-                        <div class="file-name" id="file-name-3">Tiada fail dipilih</div>
-                        <input type="file" id="audio-file-3" accept="audio/*" onchange="handleFileSelect(this, 'file-name-3', 'audio-player-3')">
-                    </div>
-                    <audio id="audio-player-3" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
-
-                    <div class="section-title">Tube Saturation & Warmth (Analog FX)</div>
-                    <div class="control-group">
-                        <div class="control-header"><span>Drive / Warmth Gain</span><span class="control-value" id="fx-drive-val">15%</span></div>
-                        <input type="range" id="fx-drive-range" min="0" max="100" value="15" oninput="updateSaturation(this.value)">
-                    </div>
-
-                    <div class="section-title" style="margin-top: 1rem;">Echo & Delay FX</div>
-                    <div class="control-group">
-                        <div class="control-header"><span>Delay Mix / Feedback</span><span class="control-value" id="fx-delay-val">0%</span></div>
-                        <input type="range" id="fx-delay-range" min="0" max="80" value="0" oninput="updateDelay(this.value)">
-                    </div>
+            <!-- Instrument Layers (8 Pilihan untuk Stems) -->
+            <div class="card" id="instruments-card" style="display: none;">
+                <div class="section-title">AI Co-Producer Instrument Layers</div>
+                <div class="instrument-grid">
+                    <label class="instrument-checkbox"><span class="instrument-name">Vocal Isolation</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Drum / Percussion</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Bassline</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Guitar (A/E)</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Piano / Keys</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Trumpet / Brass</span><input type="checkbox"></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Synth / Leads</span><input type="checkbox" checked></label>
+                    <label class="instrument-checkbox"><span class="instrument-name">Other Instruments</span><input type="checkbox"></label>
                 </div>
-
-                <!-- Custom Presets Manager -->
-                <div class="card">
-                    <div class="section-title">Simpan Preset Tersuai Anda</div>
-                    <div class="control-group">
-                        <input type="text" id="preset-name-input" placeholder="Nama Preset (Cth: Vokal Terang)" style="width: 100%; padding: 0.6rem; background: #1e293b; border: 1px solid #334155; color: white; border-radius: 8px; font-size: 0.82rem; margin-bottom: 0.5rem; outline: none;">
-                        <button class="btn-action btn-purple" style="margin-bottom: 0; padding: 0.7rem; font-size: 0.85rem;" onclick="saveCustomPreset()">Simpan Preset Semasa 💾</button>
-                    </div>
-                    <div class="section-title" style="margin-top: 1rem;">Preset Tersimpan</div>
-                    <div class="preset-list" id="preset-container">
-                        <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">Tiada preset disimpan lagi.</div>
-                    </div>
-                </div>
-
-                <button class="btn-action" onclick="runAIProcess('Kesan Advanced FX berjaya diaplikasikan pada trek!')">Simpan & Guna FX ➔</button>
             </div>
 
-            <button class="btn-back" onclick="showModeSelector()">← Tukar Mod Pilihan</button>
+            <!-- Controls Sliders -->
+            <div class="card">
+                <div class="section-title">Parameter Pelarasan</div>
+                <div class="control-group">
+                    <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="val-lufs">-14.0 LUFS</span></div>
+                    <input type="range" min="-20" max="-8" step="0.5" value="-14" oninput="updateVal('lufs', this.value, ' LUFS')">
+                </div>
+                <div class="control-group">
+                    <div class="control-header"><span>Compression Drive</span><span class="control-value" id="val-comp">3.5 dB</span></div>
+                    <input type="range" min="0" max="10" step="0.1" value="3.5" oninput="updateVal('comp', this.value, ' dB')">
+                </div>
+                <div class="control-group" id="artifact-group">
+                    <div class="control-header"><span>AI Artifact Reduction</span><span class="control-value" id="val-art">97%</span></div>
+                    <input type="range" min="0" max="100" value="97" oninput="updateVal('art', this.value, '%')">
+                </div>
+            </div>
+
+            <!-- Visualizer & Meters -->
+            <div class="card">
+                <div class="section-title">Realtime Analysis</div>
+                <canvas class="visualizer" id="visCanvas"></canvas>
+                <div class="meter-container">
+                    <div class="meter-box">
+                        <div class="meter-label">Peak True</div>
+                        <div class="meter-value">-0.3 dB</div>
+                    </div>
+                    <div class="meter-box">
+                        <div class="meter-label">Dynamic Range</div>
+                        <div class="meter-value">8.4 LU</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <button class="btn-action" onclick="runProcess()">Jana & Proses Audio ➔</button>
+            <button class="btn-action btn-download" id="btn-dl" style="display:none;" onclick="downloadAudio()">Muat Turun Fail Selesai ⬇</button>
+            <button class="btn-action btn-purple" onclick="savePreset()">Simpan Preset Tersuai 💾</button>
+
+            <!-- Presets List -->
+            <div class="card">
+                <div class="section-title">Preset Tersimpan</div>
+                <div class="preset-list" id="preset-container">
+                    <div class="preset-item"><span>Balada Pro Master</span><div class="preset-actions"><button class="preset-btn" onclick="loadPreset('Balada Pro')">Muat</button><button class="preset-btn preset-del" onclick="deletePreset(this)">Padam</button></div></div>
+                </div>
+            </div>
+
+            <button class="btn-back" onclick="showModePicker()">← Tukar Mod / Kembali</button>
         </div>
     </div>
 
-    <!-- Script JavaScript -->
     <script>
-        let audioCtx = null;
-        let sourceNodes = new Map();
-        let inputTrimNodes = new Map();
-        let eqFilters = new Map();
-        let presenceFilters = new Map();
-        let compressorNodes = new Map();
-        let widthGainNodes = new Map();
-        let masterGainNodes = new Map();
-        let analyserNodes = new Map();
-        let saturationNodes = new Map();
-        let delayNodes = new Map();
-
-        let stemSourceNodes = new Map();
-        let stemBassGain = new Map();
-        let stemVocalGain = new Map();
-        let stemDrumGain = new Map();
-        let stemSynthGain = new Map();
-
+        let currentMode = 'mastering';
         let isBypassed = false;
-        let isGainMatched = false;
-        let animationId = null;
+        let isGainMatched = true;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedGenres = JSON.parse(localStorage.getItem('bp_ai_genres') || '[]');
-            if (savedGenres.length > 0) {
-                document.querySelectorAll('.genre-pill').forEach(pill => {
-                    if (savedGenres.includes(pill.textContent.trim())) {
-                        pill.classList.add('active');
-                    }
-                });
-            }
-            renderPresetList();
-        });
-
-        function switchView(viewId) {
-            const views = ['landing-view', 'genre-view', 'mode-view', 'console-view'];
-            views.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) { el.style.display = (id === viewId) ? 'block' : 'none'; }
-            });
-            window.scrollTo(0, 0);
+        function showGenrePicker() {
+            hideAll();
+            document.getElementById('genre-view').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
-        function showGenrePicker() { switchView('genre-view'); }
-        function showModeSelector() { switchView('mode-view'); }
+        function showModePicker() {
+            hideAll();
+            document.getElementById('mode-view').style.display = 'block';
+            window.scrollTo(0,0);
+        }
 
-        function showConsole(mode) {
-            switchView('console-view');
-            document.getElementById('panel-mastering').style.display = 'none';
-            document.getElementById('panel-coproducer').style.display = 'none';
-            document.getElementById('panel-fx').style.display = 'none';
+        function selectMode(mode) {
+            currentMode = mode;
+            hideAll();
+            document.getElementById('console-view').style.display = 'block';
             
-            const titleEl = document.getElementById('console-title');
-            if(mode === 'mastering') {
-                titleEl.textContent = "AI Audio Mastering";
-                document.getElementById('panel-mastering').style.display = 'block';
-            } else if(mode === 'coproducer') {
-                titleEl.textContent = "AI Co-Producer (Stems)";
-                document.getElementById('panel-coproducer').style.display = 'block';
-            } else if(mode === 'fx') {
-                titleEl.textContent = "Advanced FX & Presets";
-                document.getElementById('panel-fx').style.display = 'block';
+            if(mode === 'stems') {
+                document.getElementById('console-header-title').textContent = "BP AI STEM SEPARATION";
+                document.getElementById('style-card').style.display = 'none';
+                document.getElementById('instruments-card').style.display = 'block';
+                document.getElementById('artifact-group').style.display = 'block';
+            } else {
+                document.getElementById('console-header-title').textContent = "BP AI MASTERING STUDIO";
+                document.getElementById('style-card').style.display = 'block';
+                document.getElementById('instruments-card').style.display = 'none';
+                document.getElementById('artifact-group').style.display = 'none';
             }
+            window.scrollTo(0,0);
+            drawVisualizer();
+        }
+
+        function hideAll() {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('genre-view').style.display = 'none';
+            document.getElementById('mode-view').style.display = 'none';
+            document.getElementById('console-view').style.display = 'none';
         }
 
         function toggleGenre(el) {
             el.classList.toggle('active');
-            const activePills = [];
-            document.querySelectorAll('.genre-pill.active').forEach(pill => {
-                activePills.push(pill.textContent.trim());
-            });
-            localStorage.setItem('bp_ai_genres', JSON.stringify(activePills));
         }
 
-        function toggleGainMatch(btn) {
-            btn.classList.toggle('active');
-            isGainMatched = btn.classList.contains('active');
-            masterGainNodes.forEach((masterGain) => {
-                masterGain.gain.value = isGainMatched ? 1.0 : 1.3;
-            });
+        function toggleBypass() {
+            isBypassed = !isBypassed;
+            let btn = document.getElementById('btn-bypass');
+            btn.classList.toggle('active', isBypassed);
+            btn.textContent = isBypassed ? "Bypass: ON" : "Bypass: OFF";
         }
 
-        function setPlatformPreset(lufsValue, peakValue, el) {
-            el.parentElement.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+        function toggleGainMatch() {
+            isGainMatched = !isGainMatched;
+            let btn = document.getElementById('btn-gain');
+            btn.classList.toggle('active', isGainMatched);
+            btn.textContent = isGainMatched ? "Gain Match: ON" : "Gain Match: OFF";
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if(file) {
+                document.getElementById('file-display-name').textContent = file.name;
+            }
+        }
+
+        function setStyle(el) {
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
-            document.getElementById('lufs-range').value = lufsValue;
-            document.getElementById('m1').textContent = lufsValue + ' LUFS';
-            document.getElementById('loudness-meter').textContent = lufsValue + ' LUFS';
-            document.getElementById('output-meter').textContent = (peakValue - 0.2).toFixed(1) + ' dB';
         }
 
-        function handleFileSelect(input, targetId, playerId) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                document.getElementById(targetId).textContent = file.name;
-                const audioPlayer = document.getElementById(playerId);
-                if (audioPlayer) {
-                    audioPlayer.src = URL.createObjectURL(file);
-                    audioPlayer.style.display = 'block';
-                }
-            }
+        function updateVal(id, val, unit) {
+            document.getElementById('val-' + id).textContent = val + unit;
         }
 
-        function setupAudioFX(audioEl) {
-            if (!audioCtx) {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-            }
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+        function runProcess() {
+            let overlay = document.getElementById('loading-overlay');
+            let fill = document.getElementById('progress-fill');
+            let status = document.getElementById('load-status');
+            let title = document.getElementById('load-title');
 
-            const playerId = audioEl.id;
-            if (!sourceNodes.has(playerId)) {
-                try {
-                    const source = audioCtx.createMediaElementSource(audioEl);
-                    const inputTrimNode = audioCtx.createGain();
-                    
-                    const filter = audioCtx.createBiquadFilter();
-                    filter.type = 'lowshelf'; filter.frequency.value = 300; filter.gain.value = 4.0;
-
-                    const presenceFilter = audioCtx.createBiquadFilter();
-                    presenceFilter.type = 'peaking'; presenceFilter.frequency.value = 3500; presenceFilter.gain.value = 3.0;
-
-                    const saturationNode = audioCtx.createWaveShaper();
-                    saturationNode.curve = makeDistortionCurve(15);
-
-                    const compressor = audioCtx.createDynamicsCompressor();
-                    compressor.threshold.value = -20; compressor.ratio.value = 8;
-
-                    const delayNode = audioCtx.createDelay();
-                    delayNode.delayTime.value = 0.25;
-                    const delayGain = audioCtx.createGain();
-                    delayGain.gain.value = 0.0;
-
-                    const masterGain = audioCtx.createGain();
-                    masterGain.gain.value = 1.3;
-
-                    const analyser = audioCtx.createAnalyser();
-                    analyser.fftSize = 256;
-
-                    source.connect(inputTrimNode);
-                    inputTrimNode.connect(filter);
-                    filter.connect(presenceFilter);
-                    presenceFilter.connect(saturationNode);
-                    saturationNode.connect(compressor);
-                    
-                    compressor.connect(masterGain);
-                    compressor.connect(delayNode);
-                    delayNode.connect(delayGain);
-                    delayGain.connect(masterGain);
-
-                    masterGain.connect(analyser);
-                    analyser.connect(audioCtx.destination);
-
-                    sourceNodes.set(playerId, source);
-                    inputTrimNodes.set(playerId, inputTrimNode);
-                    eqFilters.set(playerId, filter);
-                    presenceFilters.set(playerId, presenceFilter);
-                    saturationNodes.set(playerId, saturationNode);
-                    delayNodes.set(playerId, { node: delayNode, gain: delayGain });
-                    compressorNodes.set(playerId, compressor);
-                    masterGainNodes.set(playerId, masterGain);
-                    analyserNodes.set(playerId, analyser);
-
-                    startVisualizer(analyser);
-                } catch (e) {
-                    console.log("Audio node setup error:", e);
-                }
-            }
-        }
-
-        function makeDistortionCurve(amount) {
-            let k = typeof amount === 'number' ? amount : 50;
-            let n_samples = 44100;
-            let curve = new Float32Array(n_samples);
-            let deg = Math.PI / 180;
-            for (let i = 0; i < n_samples; ++i) {
-                let x = (i * 2) / n_samples - 1;
-                curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
-            }
-            return curve;
-        }
-
-        function updateSaturation(val) {
-            document.getElementById('fx-drive-val').textContent = val + '%';
-            saturationNodes.forEach(node => {
-                node.curve = makeDistortionCurve(parseInt(val));
-            });
-        }
-
-        function updateDelay(val) {
-            document.getElementById('fx-delay-val').textContent = val + '%';
-            const gainVal = parseFloat(val) / 100 * 0.5;
-            delayNodes.forEach(item => {
-                item.gain.gain.value = gainVal;
-            });
-        }
-
-        function setupStemIsolator(audioEl) {
-            if (!audioCtx) {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-            }
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-
-            const playerId = audioEl.id;
-            if (!stemSourceNodes.has(playerId)) {
-                try {
-                    const source = audioCtx.createMediaElementSource(audioEl);
-                    const bassFilter = audioCtx.createBiquadFilter(); bassFilter.type = 'lowpass'; bassFilter.frequency.value = 250;
-                    const bGain = audioCtx.createGain();
-                    const vocalFilter = audioCtx.createBiquadFilter(); vocalFilter.type = 'bandpass'; vocalFilter.frequency.value = 1500;
-                    const vGain = audioCtx.createGain();
-                    const drumFilter = audioCtx.createBiquadFilter(); drumFilter.type = 'peaking'; drumFilter.frequency.value = 100;
-                    const dGain = audioCtx.createGain();
-                    const synthFilter = audioCtx.createBiquadFilter(); synthFilter.type = 'peaking'; synthFilter.frequency.value = 2500;
-                    const sGain = audioCtx.createGain();
-
-                    const stemMaster = audioCtx.createGain();
-
-                    source.connect(bassFilter); bassFilter.connect(bGain); bGain.connect(stemMaster);
-                    source.connect(vocalFilter); vocalFilter.connect(vGain); vGain.connect(stemMaster);
-                    source.connect(drumFilter); drumFilter.connect(dGain); dGain.connect(stemMaster);
-                    source.connect(synthFilter); synthFilter.connect(sGain); sGain.connect(stemMaster);
-
-                    stemMaster.connect(audioCtx.destination);
-
-                    stemSourceNodes.set(playerId, source);
-                    stemBassGain.set(playerId, bGain);
-                    stemVocalGain.set(playerId, vGain);
-                    stemDrumGain.set(playerId, dGain);
-                    stemSynthGain.set(playerId, sGain);
-                } catch (e) {
-                    console.log("Stem error:", e);
-                }
-            }
-        }
-
-        function updateStems() {
-            const v = document.getElementById('stem-vocal').checked ? 1.0 : 0.0;
-            const d = document.getElementById('stem-drum').checked ? 1.0 : 0.0;
-            const b = document.getElementById('stem-bass').checked ? 1.0 : 0.0;
-            const s = document.getElementById('stem-synth').checked ? 1.0 : 0.0;
-
-            stemVocalGain.forEach(n => n.gain.value = v);
-            stemDrumGain.forEach(n => n.gain.value = d);
-            stemBassGain.forEach(n => n.gain.value = b);
-            stemSynthGain.forEach(n => n.gain.value = s);
-        }
-
-        function startVisualizer(analyser) {
-            const canvas = document.getElementById('visualizer-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const bufferLength = analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-
-            function draw() {
-                animationId = requestAnimationFrame(draw);
-                analyser.getByteFrequencyData(dataArray);
-                ctx.fillStyle = '#0b0f19';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                const barWidth = (canvas.width / bufferLength) * 2.5;
-                let x = 0;
-                for (let i = 0; i < bufferLength; i++) {
-                    let barHeight = dataArray[i] / 2.5;
-                    ctx.fillStyle = '#3b82f6';
-                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-                    x += barWidth + 1;
-                }
-            }
-            if (animationId) cancelAnimationFrame(animationId);
-            draw();
-        }
-
-        function toggleBypass(btn) {
-            btn.classList.toggle('active');
-            isBypassed = btn.classList.contains('active');
-            masterGainNodes.forEach((masterGain, id) => {
-                const source = sourceNodes.get(id);
-                const analyser = analyserNodes.get(id);
-                if (source && masterGain && analyser) {
-                    source.disconnect();
-                    if (isBypassed) {
-                        source.connect(analyser);
-                        analyser.connect(audioCtx.destination);
-                    } else {
-                        const trim = inputTrimNodes.get(id);
-                        const filter = eqFilters.get(id);
-                        const presence = presenceFilters.get(id);
-                        const sat = saturationNodes.get(id);
-                        const comp = compressorNodes.get(id);
-                        
-                        source.connect(trim);
-                        trim.connect(filter);
-                        filter.connect(presence);
-                        presence.connect(sat);
-                        sat.connect(comp);
-                        comp.connect(masterGain);
-                        masterGain.connect(analyser);
-                        analyser.connect(audioCtx.destination);
-                    }
-                }
-            });
-        }
-
-        function updateLoudness(value) {
-            document.getElementById('m1').textContent = value + ' LUFS';
-            document.getElementById('loudness-meter').textContent = value + ' LUFS';
-            compressorNodes.forEach(comp => {
-                comp.threshold.value = parseFloat(value) - 8;
-            });
-        }
-
-        function updatePresence(value) {
-            document.getElementById('presence-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
-            presenceFilters.forEach(f => f.gain.value = parseFloat(value));
-        }
-
-        function updateStereoWidth(value) {
-            document.getElementById('width-val').textContent = value + '%';
-        }
-
-        function saveCustomPreset() {
-            const nameInput = document.getElementById('preset-name-input');
-            const name = nameInput.value.trim();
-            if (!name) {
-                alert('Sila masukkan nama preset terlebih dahulu!');
-                return;
-            }
-
-            const presetData = {
-                name: name,
-                lufs: document.getElementById('lufs-range').value,
-                presence: document.getElementById('presence-range').value,
-                width: document.getElementById('width-range').value,
-                drive: document.getElementById('fx-drive-range').value
-            };
-
-            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
-            presets.push(presetData);
-            localStorage.setItem('bp_ai_custom_presets', JSON.stringify(presets));
-            
-            nameInput.value = '';
-            renderPresetList();
-            alert('Preset berjaya disimpan!');
-        }
-
-        function renderPresetList() {
-            const container = document.getElementById('preset-container');
-            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
-            
-            if (presets.length === 0) {
-                container.innerHTML = `<div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">Tiada preset disimpan lagi.</div>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            presets.forEach((p, idx) => {
-                const item = document.createElement('div');
-                item.className = 'preset-item';
-                item.innerHTML = `
-                    <span>🎵 ${p.name}</span>
-                    <div class="preset-actions">
-                        <button class="preset-btn" onclick="loadPreset(${idx})">Muat</button>
-                        <button class="preset-btn preset-del" onclick="deletePreset(${idx})">Padam</button>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function loadPreset(idx) {
-            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
-            if (presets[idx]) {
-                const p = presets[idx];
-                document.getElementById('lufs-range').value = p.lufs;
-                updateLoudness(p.lufs);
-                document.getElementById('presence-range').value = p.presence;
-                updatePresence(p.presence);
-                document.getElementById('width-range').value = p.width;
-                updateStereoWidth(p.width);
-                document.getElementById('fx-drive-range').value = p.drive;
-                updateSaturation(p.drive);
-                alert(`Preset "${p.name}" berjaya dimuatkan!`);
-            }
-        }
-
-        function deletePreset(idx) {
-            let presets = JSON.parse(localStorage.getItem('bp_ai_custom_presets') || '[]');
-            presets.splice(idx, 1);
-            localStorage.setItem('bp_ai_custom_presets', JSON.stringify(presets));
-            renderPresetList();
-        }
-
-        function runAIProcess(msg) {
-            const overlay = document.getElementById('loading-overlay');
-            const fill = document.getElementById('progress-fill');
-            const status = document.getElementById('load-status');
+            title.textContent = currentMode === 'stems' ? "Mengasingkan Stems AI..." : "Menjalankan AI Mastering...";
             overlay.style.display = 'flex';
-            fill.style.width = '30%';
-            status.textContent = "Menganalisis audio & melaras modul FX...";
-            setTimeout(() => {
-                fill.style.width = '70%';
-                status.textContent = "Mengoptimumkan parameter...";
-            }, 1000);
-            setTimeout(() => {
-                fill.style.width = '100%';
-                status.textContent = "Selesai!";
-            }, 2000);
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                alert(msg);
-            }, 2500);
+            fill.style.width = '0%';
+            
+            let progress = 0;
+            let interval = setInterval(() => {
+                progress += 20;
+                fill.style.width = progress + '%';
+                if(progress === 40) status.textContent = "Menganalisis frekuensi audio...";
+                if(progress === 80) status.textContent = "Mengoptimumkan ketepatan output...";
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        document.getElementById('btn-dl').style.display = 'block';
+                        alert("Proses berjaya disiapkan!");
+                    }, 400);
+                }
+            }, 350);
         }
 
-        async function exportMasteredAudio() {
-            const fileInput = document.getElementById('audio-file-1');
-            if (!fileInput.files || !fileInput.files[0]) {
-                alert('Sila muat naik fail audio terlebih dahulu!');
-                return;
+        function downloadAudio() {
+            alert("Fail audio siap dimuat turun!");
+        }
+
+        function savePreset() {
+            let name = prompt("Masukkan nama preset baru:");
+            if(name) {
+                let container = document.getElementById('preset-container');
+                let div = document.createElement('div');
+                div.className = 'preset-item';
+                div.innerHTML = `<span>${name}</span><div class="preset-actions"><button class="preset-btn" onclick="loadPreset('${name}')">Muat</button><button class="preset-btn preset-del" onclick="deletePreset(this)">Padam</button></div>`;
+                container.appendChild(div);
             }
-            alert('Proses eksport fail WAV sedang dijalankan...');
+        }
+
+        function loadPreset(name) {
+            alert("Preset '" + name + "' telah dimuatkan.");
+        }
+
+        function deletePreset(btn) {
+            btn.closest('.preset-item').remove();
+        }
+
+        function drawVisualizer() {
+            const canvas = document.getElementById('visCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 60;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#3b82f6';
+            let bars = 24;
+            let barWidth = (canvas.width / bars) - 2;
+            for(let i = 0; i < bars; i++) {
+                let h = Math.random() * (canvas.height - 10) + 5;
+                ctx.fillRect(i * (barWidth + 2), canvas.height - h, barWidth, h);
+            }
         }
     </script>
 </body>
 </html>
-                    
                     
