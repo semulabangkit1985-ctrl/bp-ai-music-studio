@@ -221,6 +221,15 @@
             color: #4da6ff;
         }
 
+        audio::-webkit-media-controls-panel {
+            background-color: var(--bg-main);
+        }
+
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: var(--text-main);
+        }
+
         .waveform-box {
             background: #04060d;
             border-radius: 10px;
@@ -576,14 +585,14 @@
             </div>
 
             <div class="card">
-                <div class="card-title">Muat Naik Fail Audio</div>
+                <div class="card-title">Muat Naik & Dengar Audio</div>
                 <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
                     <div>📁</div>
                     <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
                     <span id="fileNameDisplay">Belum ada fail dipilih</span>
                     <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
                 </div>
-                <audio id="audioPlayer" controls style="width: 100%; margin-top: 12px; display: none;"></audio>
+                <audio id="audioPlayer" controls style="width: 100%; margin-top: 12px; display: none; border-radius: 8px;"></audio>
             </div>
 
             <div class="card">
@@ -639,6 +648,8 @@
                     </div>
                     <input type="range" min="-6" max="0" step="0.1" value="-2" oninput="updateVal('val-peak', this.value + ' dB')">
                 </div>
+                  <input type="range" min="-6" max="0" step="0.1" value="-2" oninput="updateVal('val-peak', this.value + ' dB')">
+                </div>
 
                 <div class="slider-group">
                     <div class="slider-header">
@@ -665,7 +676,7 @@
                 </div>
             </div>
 
-            <button class="btn-primary">Proses AI Mastering →</button>
+            <button class="btn-primary" onclick="alert('Fail audio sedang diproses oleh AI Mastering...')">Proses AI Mastering →</button>
             <div class="footer-link" onclick="switchView('view-mode')">← Tukar Mod Pilihan</div>
         </div>
 
@@ -786,5 +797,5 @@
     </script>
 </body>
 </html>
-                    
-                        
+
+                
