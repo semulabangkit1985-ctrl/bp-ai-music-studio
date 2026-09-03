@@ -233,56 +233,35 @@
             background: rgba(37, 99, 235, 0.12);
         }
 
-        .preset-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* STACKED OPTIONS (DI PISAHKAN SATU PERSATU KE BAWAH) */
+        .option-stack {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
-        .preset-btn {
+        .option-btn {
             background: var(--bg-main);
             border: 1px solid var(--border-color);
             color: var(--text-sub);
-            padding: 10px 8px;
-            border-radius: 9px;
-            font-size: 0.75rem;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
+            text-align: left;
             transition: all 0.2s;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .preset-btn.active {
+        .option-btn.active {
             background: var(--accent);
             color: white;
             border-color: var(--accent);
-            box-shadow: 0 2px 8px var(--accent-glow);
-        }
-
-        .style-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-        }
-
-        .style-btn {
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            color: var(--text-sub);
-            padding: 10px;
-            border-radius: 9px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .style-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 2px 8px var(--accent-glow);
+            box-shadow: 0 2px 10px var(--accent-glow);
         }
 
         .slider-group {
@@ -448,20 +427,20 @@
 
             <div class="card">
                 <div class="card-title">Platform Target Preset</div>
-                <div class="preset-grid">
-                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Spotify / YT (-14 LUFS)</div>
-                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">Apple Music (-16 LUFS)</div>
-                    <div class="preset-btn active" onclick="selectOption(this, '.preset-grid')">Radio / Club (-11 LUFS)</div>
-                    <div class="preset-btn" onclick="selectOption(this, '.preset-grid')">TikTok / SC (-12 LUFS)</div>
+                <div class="option-stack" id="presetStack">
+                    <div class="option-btn" onclick="selectOption(this, 'presetStack')"><span>Spotify / YouTube</span> <span style="font-size: 0.75rem; opacity: 0.7;">-14 LUFS</span></div>
+                    <div class="option-btn" onclick="selectOption(this, 'presetStack')"><span>Apple Music</span> <span style="font-size: 0.75rem; opacity: 0.7;">-16 LUFS</span></div>
+                    <div class="option-btn active" onclick="selectOption(this, 'presetStack')"><span>Radio / Club</span> <span style="font-size: 0.75rem; opacity: 0.7;">-11 LUFS</span></div>
+                    <div class="option-btn" onclick="selectOption(this, 'presetStack')"><span>TikTok / SoundCloud</span> <span style="font-size: 0.75rem; opacity: 0.7;">-12 LUFS</span></div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-title">Mastering Character</div>
-                <div class="style-grid">
-                    <div class="style-btn active" onclick="selectOption(this, '.style-grid')">Warm</div>
-                    <div class="style-btn" onclick="selectOption(this, '.style-grid')">Open</div>
-                    <div class="style-btn" onclick="selectOption(this, '.style-grid')">Punchy</div>
+                <div class="option-stack" id="characterStack">
+                    <div class="option-btn active" onclick="selectOption(this, 'characterStack')"><span>Warm</span> <span style="font-size: 0.75rem; opacity: 0.7;">Smooth & Analog</span></div>
+                    <div class="option-btn" onclick="selectOption(this, 'characterStack')"><span>Open</span> <span style="font-size: 0.75rem; opacity: 0.7;">Clear & Transparent</span></div>
+                    <div class="option-btn" onclick="selectOption(this, 'characterStack')"><span>Punchy</span> <span style="font-size: 0.75rem; opacity: 0.7;">Aggressive & Hard</span></div>
                 </div>
             </div>
 
@@ -564,8 +543,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function selectOption(btn, selector) {
-            btn.closest(selector).querySelectorAll('div').forEach(b => b.classList.remove('active'));
+        function selectOption(btn, containerId) {
+            document.getElementById(containerId).querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
 
