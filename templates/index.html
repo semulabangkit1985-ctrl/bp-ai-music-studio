@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP AI Music Studio - Full Suite</title>
+    <title>BP AI Music Studio - Full Suite (Extended Genres)</title>
     <style>
         * {
             box-sizing: border-box;
@@ -142,21 +142,20 @@
             border-color: #3b82f6;
         }
 
-        .category-section { display: none; }
+        .category-section { display: none; margin-bottom: 14px; }
         .category-section.active-section { display: block; }
 
         .category-title {
             font-size: 13px;
             font-weight: 700;
             color: #60a5fa;
-            margin: 10px 0;
+            margin: 10px 0 8px 0;
         }
 
         .genres-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
-            margin-bottom: 12px;
         }
 
         .genre-btn {
@@ -164,10 +163,11 @@
             color: #cbd5e1;
             border: 1px solid #334155;
             padding: 10px 12px;
-            border-radius: 20px;
+            border-radius: 16px;
             font-size: 12px;
             cursor: pointer;
             text-align: center;
+            transition: all 0.2s ease;
         }
         .genre-btn:hover, .genre-btn.selected {
             background-color: #2563eb;
@@ -175,7 +175,7 @@
             border-color: #3b82f6;
         }
 
-        /* Halaman 3 Styles (Kawalan Pro & AI Co-Producer) */
+        /* Halaman 3 Styles */
         .section-box {
             background-color: #161e31;
             border: 1px solid #222d44;
@@ -301,72 +301,85 @@
             <button type="button" class="cta-button" onclick="goToPage(2)">Mula Pilih Genre →</button>
         </div>
 
-        <!-- HALAMAN 2: PILIH GENRE & VIBE -->
+        <!-- HALAMAN 2: PILIH GENRE & VIBE (DIKEMASKINI DENGAN BANYAK PILIHAN) -->
         <div id="page-2" class="page">
             <div class="modal-header">
                 <span class="modal-title">PILIH GENRE & VIBE</span>
                 <button class="close-btn" onclick="goToPage(1)">✕</button>
             </div>
 
-            <input type="text" id="searchInput" class="search-box" placeholder="Cari genre (cth: Pop, Rock, Phonk)..." onkeyup="filterGenres()">
+            <input type="text" id="searchInput" class="search-box" placeholder="Cari genre (cth: Rock Kapak, Blues, R&B)..." onkeyup="filterGenres()">
 
             <div class="category-tabs">
                 <button class="tab-btn active-tab" onclick="switchTab('all', this)">Semua</button>
-                <button class="tab-btn" onclick="switchTab('melayu', this)">🇲🇾 Melayu</button>
-                <button class="tab-btn" onclick="switchTab('pop', this)">🎤 Pop</button>
-                <button class="tab-btn" onclick="switchTab('rock', this)">🎸 Rock</button>
-                <button class="tab-btn" onclick="switchTab('hiphop', this)">🎤 Hip Hop</button>
-                <button class="tab-btn" onclick="switchTab('phonk', this)">🔥 Phonk</button>
+                <button class="tab-btn" onclick="switchTab('melayu', this)">🇲🇾 Melayu / Nusantara</button>
+                <button class="tab-btn" onclick="switchTab('rock', this)">🎸 Rock & Blues</button>
+                <button class="tab-btn" onclick="switchTab('pop', this)">🎤 Pop & R&B</button>
+                <button class="tab-btn" onclick="switchTab('dangdut', this)">💃 Dangdut & Koplo</button>
+                <button class="tab-btn" onclick="switchTab('electronic', this)">⚡ Electronic / Phonk</button>
             </div>
 
             <div id="genreContainer">
+                <!-- Kategori Melayu -->
                 <div class="category-section active-section" data-cat="melayu">
                     <div class="category-title">🇲🇾 Melayu / Nusantara</div>
                     <div class="genres-grid">
                         <button class="genre-btn" type="button">Pop Melayu</button>
-                        <button class="genre-btn" type="button">Rock Melayu</button>
+                        <button class="genre-btn" type="button">Rock Kapak 80an</button>
                         <button class="genre-btn" type="button">Balada Melayu</button>
-                        <button class="genre-btn" type="button">Dangdut</button>
+                        <button class="genre-btn" type="button">Irama Malaysia / Asli</button>
+                        <button class="genre-btn" type="button">Nasyid / Qasidah</button>
+                        <button class="genre-btn" type="button">Indie Melayu</button>
                     </div>
                 </div>
 
-                <div class="category-section active-section" data-cat="pop">
-                    <div class="category-title">🎤 Pop</div>
-                    <div class="genres-grid">
-                        <button class="genre-btn" type="button">Pop Ballad</button>
-                        <button class="genre-btn" type="button">Synthpop</button>
-                        <button class="genre-btn" type="button">Indie Pop</button>
-                        <button class="genre-btn" type="button">Dance Pop</button>
-                    </div>
-                </div>
-
+                <!-- Kategori Rock & Blues -->
                 <div class="category-section active-section" data-cat="rock">
-                    <div class="category-title">🎸 Rock</div>
+                    <div class="category-title">🎸 Rock & Blues</div>
                     <div class="genres-grid">
                         <button class="genre-btn" type="button">Classic Rock</button>
+                        <button class="genre-btn" type="button">Blues & Soul</button>
                         <button class="genre-btn" type="button">Alternative Rock</button>
-                        <button class="genre-btn" type="button">Hard Rock</button>
-                        <button class="genre-btn" type="button">Blues Rock</button>
+                        <button class="genre-btn" type="button">Hard Rock / Heavy</button>
+                        <button class="genre-btn" type="button">Slow Rock Melayu</button>
+                        <button class="genre-btn" type="button">Acoustic Unplugged</button>
                     </div>
                 </div>
 
-                <div class="category-section active-section" data-cat="hiphop">
-                    <div class="category-title">🎤 Hip Hop / Rap</div>
+                <!-- Kategori Pop & R&B -->
+                <div class="category-section active-section" data-cat="pop">
+                    <div class="category-title">🎤 Pop & R&B</div>
                     <div class="genres-grid">
-                        <button class="genre-btn" type="button">Trap</button>
-                        <button class="genre-btn" type="button">Boom Bap</button>
-                        <button class="genre-btn" type="button">Drill</button>
-                        <button class="genre-btn" type="button">Lo-Fi Hip Hop</button>
+                        <button class="genre-btn" type="button">Modern Pop Ballad</button>
+                        <button class="genre-btn" type="button">Smooth R&B</button>
+                        <button class="genre-btn" type="button">Synthpop 80s</button>
+                        <button class="genre-btn" type="button">Neo Soul</button>
+                        <button class="genre-btn" type="button">Dance Pop</button>
+                        <button class="genre-btn" type="button">Acoustic Pop</button>
                     </div>
                 </div>
 
-                <div class="category-section active-section" data-cat="phonk">
-                    <div class="category-title">🔥 Phonk</div>
+                <!-- Kategori Dangdut & Koplo -->
+                <div class="category-section active-section" data-cat="dangdut">
+                    <div class="category-title">💃 Dangdut & Koplo</div>
+                    <div class="genres-grid">
+                        <button class="genre-btn" type="button">Dangdut Klasik</button>
+                        <button class="genre-btn" type="button">Dangdut Koplo</button>
+                        <button class="genre-btn" type="button">Remix Dangdut</button>
+                        <button class="genre-btn" type="button">House Dangdut</button>
+                    </div>
+                </div>
+
+                <!-- Kategori Electronic & Phonk -->
+                <div class="category-section active-section" data-cat="electronic">
+                    <div class="category-title">⚡ Electronic, Trap & Phonk</div>
                     <div class="genres-grid">
                         <button class="genre-btn" type="button">Drift Phonk</button>
                         <button class="genre-btn" type="button">Dark Phonk</button>
-                        <button class="genre-btn" type="button">Brazilian Phonk</button>
-                        <button class="genre-btn" type="button">Malay Phonk</button>
+                        <button class="genre-btn" type="button">EDM / House</button>
+                        <button class="genre-btn" type="button">Trap / Hip Hop</button>
+                        <button class="genre-btn" type="button">Lo-Fi Chillbeats</button>
+                        <button class="genre-btn" type="button">Synthwave</button>
                     </div>
                 </div>
             </div>
@@ -492,7 +505,8 @@
                 if (catName === 'all' || sec.getAttribute('data-cat') === catName) {
                     sec.classList.add('active-section');
                 } else {
-                    sec.classList.remove('active-section');
+                
+                       sec.classList.remove('active-section');
                 }
             });
         }
@@ -524,4 +538,4 @@
         }
     </script>
 </body>
-</html>
+</html>                  
