@@ -32,53 +32,67 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* Card Content */
         .card-content {
             background-color: #161e31;
             margin: 12px;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid #222d44;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .text-section {
             padding: 24px 20px;
-            text-align: center;
+        }
+
+        .step-indicator {
+            font-size: 13px;
+            color: #60a5fa;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .main-heading {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
-            color: #60a5fa;
-            margin-bottom: 12px;
+            color: #ffffff;
+            margin-bottom: 8px;
             letter-spacing: 0.5px;
             line-height: 1.3;
         }
 
-        .description {
+        .section-desc {
             font-size: 13px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .sub-heading {
-            font-size: 13px;
-            font-style: italic;
             color: #94a3b8;
-            margin-bottom: 24px;
-            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        /* Button */
+        /* Role Selection Grid */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .role-btn {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .role-btn:hover, .role-btn.selected {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Next Button */
         .cta-button {
             display: block;
             width: 100%;
@@ -92,6 +106,8 @@
             text-decoration: none;
             transition: background-color 0.2s;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -102,27 +118,41 @@
 <body>
 
     <div class="container">
-        <!-- Kad Kandungan Utama (Header AI Music Studio telah dibuang) -->
         <div class="card-content">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80" alt="Studio Rakaman" class="hero-image">
+            <div class="step-indicator">← 4/5</div>
+            <h1 class="main-heading">What best represents you?</h1>
+            <p class="section-desc">Display the best of yourself and link up with like-minded creators.</p>
             
-            <div class="text-section">
-                <h1 class="main-heading">MASTERING BP AI MUSIC STUDIO</h1>
-                
-                <p class="description">
-                    Mastering BP AI MUSIC STUDIO adalah langkah terakhir dalam menghasilkan muzik yang lebih kemas, seimbang dan berkualiti. Setiap lagu diproses dengan teliti bagi memastikan vokal, muzik, bass dan keseluruhan bunyi kedengaran lebih jelas serta selesa didengar.
-                </p>
-                
-                <p class="description">
-                    Dengan sentuhan mastering yang tepat, karya muzik anda dapat tampil lebih profesional dan mempunyai karakter bunyi yang lebih mantap sama ada untuk YouTube, platform digital, video atau koleksi peribadi.
-                </p>
+            <p class="section-desc" style="margin-bottom: 12px; color: #cbd5e1; font-weight: 500;">How would you best describe yourself to others?</p>
 
-                <p class="sub-heading">BP AI MUSIC STUDIO — Memperkemas bunyi, menghidupkan karya.</p>
-
-                <a href="#" class="cta-button">Mula Mastering Pro →</a>
+            <!-- Senarai Pilihan Peranan -->
+            <div class="roles-grid">
+                <button class="role-btn selected">Producer</button>
+                <button class="role-btn">Musician</button>
+                <button class="role-btn">Engineer</button>
+                <button class="role-btn">Label</button>
+                <button class="role-btn">Podcaster</button>
+                <button class="role-btn">Educator</button>
+                <button class="role-btn">Beatmaker</button>
+                <button class="role-btn">Composer</button>
+                <button class="role-btn">Vocalist</button>
+                <button class="role-btn">Other</button>
             </div>
+
+            <button class="cta-button">Next →</button>
         </div>
     </div>
+
+    <script>
+        // Skrip interaktif ringkas untuk pilih butang peranan
+        const buttons = document.querySelectorAll('.role-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+    </script>
 
 </body>
 </html>
