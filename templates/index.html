@@ -135,7 +135,7 @@
         .style-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
         .style-btn {
             background-color: #1e293b; border: 1px solid #334155; color: var(--text-muted);
-            padding: 0.55rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center;
+            padding: 0.55rem; border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-align: center;
         }
         .style-btn.active { background-color: var(--accent-blue); border-color: var(--accent-blue); color: white; }
 
@@ -203,7 +203,6 @@
             </div>
         </div>
 
-        <!-- 1. LANDING VIEW -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -215,7 +214,6 @@
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
 
-        <!-- 2. GENRE VIEW -->
         <div id="genre-view">
             <h2 class="picker-title">Pick your favorite genres</h2>
             <p class="picker-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</p>
@@ -273,7 +271,6 @@
             </div>
         </div>
 
-        <!-- 3. MODE VIEW -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -304,7 +301,6 @@
             <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
         </div>
 
-        <!-- 4. CONSOLE VIEW -->
         <div id="console-view">
             <header>
                 <h1 id="console-title">Mastering Console</h1>
@@ -315,7 +311,6 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
-            <!-- Panel Mastering -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Fail Audio</div>
@@ -326,7 +321,6 @@
                     </div>
                     <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
-                    <!-- Visualizer & Meters -->
                     <canvas id="visualizer-canvas" class="visualizer"></canvas>
                     <div class="meter-container">
                         <div class="meter-box">
@@ -339,28 +333,36 @@
                         </div>
                     </div>
 
+                    <div class="section-title">Platform Target Preset</div>
+                    <div class="style-buttons" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="style-btn active" onclick="setPlatformPreset(-14, -1.0, this)">📺 YouTube / Spotify (-14 LUFS)</div>
+                        <div class="style-btn" onclick="setPlatformPreset(-16, -1.0, this)">🍏 Apple Music (-16 LUFS)</div>
+                        <div class="style-btn" onclick="setPlatformPreset(-11, -2.0, this)">📻 Radio / Broadcast (-11 LUFS)</div>
+                        <div class="style-btn" onclick="setPlatformPreset(-12, -1.0, this)">🎵 SoundCloud / TikTok (-12 LUFS)</div>
+                    </div>
+
                     <div class="section-title">Mastering Styles</div>
                     <div class="style-buttons">
                         <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
                         <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
-                        <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
+                             <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
                     </div>
 
                     <div class="section-title">Input & Dynamics Control</div>
                     <div class="control-group">
                         <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">0.0 dB</span></div>
                         <input type="range" min="-6" max="6" step="0.1" value="0" oninput="updateInputTrim(this.value)">
-                    </div
-                        <div class="control-group" style="margin-top: 0.75rem;">
+                    </div>
+                    <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
-                        <input type="range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
+                        <input type="range" id="lufs-range" min="-18" max="-8" step="0.5" value="-14" oninput="updateLoudness(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>True Peak Ceiling</span><span class="control-value" id="m2">-1.0 dB</span></div>
-                        <input type="range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
+                        <input type="range" id="peak-range" min="-3" max="0" step="0.1" value="-1.0" oninput="updatePeak(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Presence (High-Mid Clarity)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
+                        <div class="control-header"><span>Presence (High-Mid Clarity / Crystalize)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
                         <input type="range" min="-5" max="5" step="0.1" value="1.5" oninput="updatePresence(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
@@ -368,14 +370,13 @@
                         <input type="range" min="0" max="100" value="30" oninput="updateDeEsser(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
-                        <div class="control-header"><span>Stereo Width</span><span class="control-value" id="width-val">120%</span></div>
+                        <div class="control-header"><span>Stereo Width (Widening)</span><span class="control-value" id="width-val">120%</span></div>
                         <input type="range" min="50" max="200" value="120" oninput="updateStereoWidth(this.value)">
                     </div>
                 </div>
-                <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis AI selesai diproses mengikut genre pilihan!')">Proses AI Mastering ➔</button>
+                <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis spektrum selesai diproses mengikut platform pilihan!')">Proses AI Mastering ➔</button>
             </div>
 
-            <!-- Panel Co-Producer -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Trek Stems & Analisis AI</div>
@@ -407,7 +408,6 @@
                 <button class="btn-action" onclick="runAIProcess('AI Co-Producer sedang mendengar track dan menjana stem instrumen terperinci!')">Jana & Asingkan Stems ➔</button>
             </div>
 
-            <!-- Panel EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Audio EQ</div>
@@ -439,7 +439,6 @@
         </div>
     </div>
 
-    <!-- Script JavaScript Terus Di Dalam Fail -->
     <script>
         let audioCtx = null;
         let sourceNodes = new Map();
@@ -507,8 +506,28 @@
             localStorage.setItem('bp_ai_genres', JSON.stringify(activePills));
         }
 
+        function setPlatformPreset(lufsValue, peakValue, el) {
+            // Buang active dari butang platform lain
+            const parent = el.parentElement;
+            parent.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+
+            // Kemas kini nilai slider dan paparan
+            const lufsRange = document.getElementById('lufs-range');
+            if (lufsRange) {
+                lufsRange.value = lufsValue;
+                updateLoudness(lufsValue);
+            }
+
+            const peakRange = document.getElementById('peak-range');
+            if (peakRange) {
+                peakRange.value = peakValue;
+                updatePeak(peakValue);
+            }
+        }
+
         function setMasteringStyle(styleName, el) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#panel-mastering .style-buttons')[1].querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
 
             eqFilters.forEach((filter) => {
@@ -711,7 +730,7 @@
             const status = document.getElementById('load-status');
             
             overlay.style.display = 'flex';
-            fill.style.width = '0%';
+             fill.style.width = '0%';
             status.textContent = "AI sedang menganalisis trek & spektrum audio...";
             
             setTimeout(() => {
@@ -736,4 +755,5 @@
         }
     </script>
 </body>
-</html>                                                  </html>
+</html>
+            
