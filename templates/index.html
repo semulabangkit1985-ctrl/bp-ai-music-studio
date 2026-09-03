@@ -32,13 +32,15 @@
             flex-direction: column;
         }
 
-        /* Main Container */
         .main-container {
             width: 100%;
             max-width: 520px;
             margin: 0 auto;
             padding: 20px 16px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .view {
@@ -55,7 +57,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Section Titles */
         .section-header {
             margin-bottom: 20px;
             text-align: center;
@@ -77,7 +78,6 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            margin-top: 10px;
         }
 
         .hero-image {
@@ -112,6 +112,46 @@
             color: #cbd5e1;
             line-height: 1.6;
             margin-bottom: 14px;
+        }
+
+        /* Mode Selection Cards */
+        .mode-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .mode-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .mode-info h3 {
+            font-size: 1rem;
+            color: #4da6ff;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .mode-info p {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        .mode-arrow {
+            color: #4da6ff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding-left: 10px;
         }
 
         /* Studio Components & Cards */
@@ -181,7 +221,6 @@
             color: #4da6ff;
         }
 
-        /* Waveform Visualizer & Meters */
         .waveform-box {
             background: #04060d;
             border-radius: 10px;
@@ -231,7 +270,6 @@
             color: #4da6ff;
         }
 
-        /* Genre Selector Button */
         .genre-trigger {
             background: var(--bg-main);
             border: 1px solid var(--accent);
@@ -252,7 +290,6 @@
             background: rgba(43, 112, 230, 0.1);
         }
 
-        /* Preset & Style Grids */
         .preset-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -304,7 +341,6 @@
             border-color: var(--accent);
         }
 
-        /* Sliders */
         .slider-group {
             margin-bottom: 12px;
         }
@@ -478,9 +514,42 @@
                     <p class="hero-desc">
                         Selamat datang ke era baharu penerbitan muzik! Manfaatkan teknologi kecerdasan buatan (AI) termaju untuk mengadun, mengimbang ton, dan menyempurnakan kualiti audio trek anda seperti jurutera profesional.
                     </p>
-                    <button class="btn-primary" onclick="switchView('view-mastering')">Mula Mastering Pro →</button>
+                    <button class="btn-primary" onclick="switchView('view-mode')">Mula Sekarang →</button>
                 </div>
             </div>
+        </div>
+
+        <div id="view-mode" class="view">
+            <div class="section-header">
+                <h2 class="title">Pilih Mod Operasi</h2>
+                <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Pilih cara anda ingin memproses audio trek anda.</p>
+            </div>
+
+            <div class="mode-card" onclick="switchView('view-mastering')">
+                <div class="mode-info">
+                    <h3>AI Music Mastering</h3>
+                    <p>Mengimbangkan EQ, Compression & Volume secara pro.</p>
+                </div>
+                <div class="mode-arrow">→</div>
+            </div>
+
+            <div class="mode-card" onclick="alert('Mod AI Stem Separation akan datang!')">
+                <div class="mode-info">
+                    <h3>AI Stem Separation</h3>
+                    <p>Asingkan vokal, drum, bass & instrumen secara bersih.</p>
+                </div>
+                <div class="mode-arrow">→</div>
+            </div>
+
+            <div class="mode-card" onclick="alert('Mod AI Co-Producer akan datang!')">
+                <div class="mode-info">
+                    <h3>AI Co-Producer (Stems)</h3>
+                    <p>Jana susunan trek, pilih genre & lapisan instrumen AI.</p>
+                </div>
+                <div class="mode-arrow">→</div>
+            </div>
+
+            <div class="footer-link" onclick="switchView('view-intro')">← Kembali</div>
         </div>
 
         <div id="view-mastering" class="view">
@@ -508,11 +577,13 @@
 
             <div class="card">
                 <div class="card-title">Muat Naik Fail Audio</div>
-                <div class="upload-box">
+                <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
                     <div>📁</div>
                     <p>Klik untuk pilih fail audio (.mp3, .wav)</p>
-                    <span>Bangkit Semula - bandlab gegar rpm...</span>
+                    <span id="fileNameDisplay">Belum ada fail dipilih</span>
+                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="loadAudio(event)">
                 </div>
+                <audio id="audioPlayer" controls style="width: 100%; margin-top: 12px; display: none;"></audio>
             </div>
 
             <div class="card">
@@ -595,7 +666,7 @@
             </div>
 
             <button class="btn-primary">Proses AI Mastering →</button>
-            <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Utama</div>
+            <div class="footer-link" onclick="switchView('view-mode')">← Tukar Mod Pilihan</div>
         </div>
 
     </div>
@@ -606,18 +677,16 @@
                 <h3>Pilih Genre & Vibe Lagu</h3>
                 <button class="close-modal" onclick="closeGenreModal()">✕</button>
             </div>
-            <div class="modal-body" id="modalGenreBody">
-                </div>
+            <div class="modal-body" id="modalGenreBody"></div>
         </div>
     </div>
 
     <script>
-        // Full Genre Catalog Data
         const genreCatalog = [
             { category: "🇲🇾 Melayu / Nusantara", list: ["Malaya / Melayu", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Melayu Klasik", "Irama Malaysia", "Lagu Asli", "Zapin", "Joget", "Ghazal", "Keroncong", "Dangdut", "Campursari", "Pop Nusantara", "Etnik Nusantara", "Tradisional Melayu", "Tradisional Sabah", "Tradisional Sarawak", "Minang", "Jawa", "Sunda", "Bugis", "Batak", "Malay Bounce", "Malay Trap", "Malay Phonk", "Malay Electronic", "Nusantara Electronic"] },
             { category: "🎤 Pop", list: ["Pop", "Pop Ballad", "Electropop", "Synthpop", "Dream Pop", "Indie Pop", "Teen Pop", "Adult Contemporary", "Dance Pop", "Power Pop", "Soft Pop", "Retro Pop", "City Pop", "Dark Pop", "Noir Pop", "Future Pop", "Neon Pop", "Experimental Pop"] },
             { category: "🎸 Rock", list: ["Rock", "Soft Rock", "Classic Rock", "Hard Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Blues Rock", "Progressive Rock", "Psychedelic Rock", "Punk Rock", "Garage Rock", "Grunge", "Post-Rock", "Folk Rock", "Southern Rock", "Glam Rock", "Arena Rock", "Metal Rock"] },
-    { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
+            { category: "🎤 Hip Hop / Rap", list: ["Hip Hop", "Rap", "Old School Hip Hop", "Trap", "Boom Bap", "Lo-Fi Hip Hop", "Gangsta Rap", "Conscious Rap", "Melodic Rap", "Pop Rap", "Alternative Hip Hop", "R&B Rap", "Drill", "West Coast Hip Hop", "East Coast Hip Hop", "UK Drill", "Afro Drill", "Cyberpunk Trap", "Cinematic Trap", "Hybrid Trap"] },
             { category: "🔥 Phonk", list: ["Phonk", "Dark Phonk", "Drift Phonk", "Brazilian Phonk", "Memphis Phonk", "Aggressive Phonk", "Atmospheric Phonk", "Electro Phonk", "Trap Phonk", "Future Phonk", "Malay Phonk", "Neon Noir Phonk", "Neon Noir Phonk - Malay Bounce", "Dark Techno / Neon Noir Phonk - Malay Bounce"] },
             { category: "⚡ Techno / Electronic", list: ["EDM", "Techno", "Dark Techno", "Hard Techno", "Industrial Techno", "Acid Techno", "Minimal Techno", "Melodic Techno", "Progressive Techno", "Techno Noir", "Cyber Techno", "House", "Deep House", "Tropical House", "Future House", "Progressive House", "Tech House", "Electro House", "Bass House", "G-House", "Slap House", "Afro House", "Trance", "Dubstep", "Drum & Bass", "Future Bass", "Breakbeat", "UK Garage", "Jersey Club", "Amapiano", "Industrial Bass", "Dark Electro", "Alternative Electronic", "Cinematic Electronic"] },
             { category: "🌑 Dark / Cyber / Experimental", list: ["Darkwave", "Witch House", "Dark Synthwave", "Neon Synthwave", "Synthwave", "Vaporwave", "Cyberpunk", "Cyber Pop", "Cyberpunk Trap", "Noir Electronic", "Dark Ambient", "Ambient Dark", "Horror Electronic", "Atmospheric", "Experimental Electronic", "Experimental Pop", "Future Bass", "Future Garage", "Industrial", "Noise", "Glitch", "Glitch Hop"] },
@@ -631,7 +700,6 @@
             { category: "🎬 Cinematic / Mood / Khas", list: ["Cinematic", "Epic", "Dark", "Mysterious", "Horror", "Thriller", "Adventure", "Fantasy", "Heroic", "Inspirational", "Motivational", "Spiritual", "Religious", "Peaceful", "Meditation", "Atmospheric", "Dreamy", "Powerful", "Energetic", "Romantic", "Vintage", "Retro", "80s", "90s", "Nostalgic", "Wedding", "Festival", "Party", "Christmas", "Raya / Aidilfitri"] }
         ];
 
-        // Populate Modal Content Correctly
         const modalBody = document.getElementById('modalGenreBody');
         genreCatalog.forEach(group => {
             const catTitle = document.createElement('div');
@@ -694,7 +762,17 @@
             document.getElementById(id).textContent = text;
         }
 
-        // Generate dynamic visualizer waveform bars
+        function loadAudio(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileNameDisplay').textContent = file.name;
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = URL.createObjectURL(file);
+                audioPlayer.style.display = 'block';
+                audioPlayer.play();
+            }
+        }
+
         const waveContainer = document.getElementById('waveformContainer');
         if (waveContainer) {
             for (let i = 0; i < 40; i++) {
@@ -708,3 +786,5 @@
     </script>
 </body>
 </html>
+                    
+                        
