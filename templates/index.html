@@ -203,6 +203,7 @@
             </div>
         </div>
 
+        <!-- 1. LANDING VIEW -->
         <div id="landing-view">
             <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Banner" class="hero-image">
@@ -214,6 +215,7 @@
             <button class="btn-action" onclick="showGenrePicker()">Mula Mastering ➔</button>
         </div>
 
+        <!-- 2. GENRE VIEW -->
         <div id="genre-view">
             <h2 class="picker-title">Pick your favorite genres</h2>
             <p class="picker-subtitle">Tell us what types of music you're into and we'll make sure that you get to see (and hear) more stuff that you like.</p>
@@ -271,6 +273,7 @@
             </div>
         </div>
 
+        <!-- 3. MODE VIEW -->
         <div id="mode-view">
             <h2 class="mode-title">Pilih Matlamat Anda</h2>
             <p class="mode-subtitle">Apakah fokus utama untuk projek audio anda hari ini?</p>
@@ -301,6 +304,7 @@
             <button class="btn-back" onclick="showGenrePicker()">← Kembali Pilih Genre</button>
         </div>
 
+        <!-- 4. CONSOLE VIEW -->
         <div id="console-view">
             <header>
                 <h1 id="console-title">Mastering Console</h1>
@@ -311,6 +315,7 @@
                 <button class="btn-top" onclick="this.classList.toggle('active')">Gain Match</button>
             </div>
 
+            <!-- Panel Mastering -->
             <div id="panel-mastering" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Fail Audio</div>
@@ -321,6 +326,7 @@
                     </div>
                     <audio id="audio-player-1" controls style="width: 100%; margin-top: 0.5rem; display: none; margin-bottom: 0.5rem;" onplay="setupAudioFX(this)"></audio>
 
+                    <!-- Visualizer & Meters -->
                     <canvas id="visualizer-canvas" class="visualizer"></canvas>
                     <div class="meter-container">
                         <div class="meter-box">
@@ -333,6 +339,7 @@
                         </div>
                     </div>
 
+                    <!-- Platform Target Presets -->
                     <div class="section-title">Platform Target Preset</div>
                     <div class="style-buttons" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="style-btn active" onclick="setPlatformPreset(-14, -1.0, this)">📺 YouTube / Spotify (-14 LUFS)</div>
@@ -342,16 +349,16 @@
                     </div>
 
                     <div class="section-title">Mastering Styles</div>
-                    <div class="style-buttons">
+                      <div class="style-buttons">
                         <div class="style-btn active" onclick="setMasteringStyle('Warm', this)">Warm</div>
                         <div class="style-btn" onclick="setMasteringStyle('Open', this)">Open</div>
-                             <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
+                        <div class="style-btn" onclick="setMasteringStyle('Punchy', this)">Punchy</div>
                     </div>
 
                     <div class="section-title">Input & Dynamics Control</div>
                     <div class="control-group">
-                        <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">0.0 dB</span></div>
-                        <input type="range" min="-6" max="6" step="0.1" value="0" oninput="updateInputTrim(this.value)">
+                        <div class="control-header"><span>Input Trim</span><span class="control-value" id="input-trim-val">+0.0 dB</span></div>
+                        <input type="range" id="input-trim-range" min="-6" max="12" step="0.1" value="0" oninput="updateInputTrim(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>Target Loudness (LUFS)</span><span class="control-value" id="m1">-14.0 LUFS</span></div>
@@ -363,7 +370,7 @@
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>Presence (High-Mid Clarity / Crystalize)</span><span class="control-value" id="presence-val">+1.5 dB</span></div>
-                        <input type="range" min="-5" max="5" step="0.1" value="1.5" oninput="updatePresence(this.value)">
+                        <input type="range" id="presence-range" min="-10" max="10" step="0.5" value="1.5" oninput="updatePresence(this.value)">
                     </div>
                     <div class="control-group" style="margin-top: 0.75rem;">
                         <div class="control-header"><span>De-Esser (Sibilance Control)</span><span class="control-value" id="deesser-val">30%</span></div>
@@ -377,6 +384,7 @@
                 <button class="btn-action" onclick="runAIProcess('AI Mastering & Analisis spektrum selesai diproses mengikut platform pilihan!')">Proses AI Mastering ➔</button>
             </div>
 
+            <!-- Panel Co-Producer -->
             <div id="panel-coproducer" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Trek Stems & Analisis AI</div>
@@ -408,6 +416,7 @@
                 <button class="btn-action" onclick="runAIProcess('AI Co-Producer sedang mendengar track dan menjana stem instrumen terperinci!')">Jana & Asingkan Stems ➔</button>
             </div>
 
+            <!-- Panel EQ -->
             <div id="panel-eq" class="control-panel" style="display: none;">
                 <div class="card">
                     <div class="section-title">Muat Naik Audio EQ</div>
@@ -439,6 +448,7 @@
         </div>
     </div>
 
+    <!-- Script JavaScript -->
     <script>
         let audioCtx = null;
         let sourceNodes = new Map();
@@ -446,6 +456,7 @@
         let eqFilters = new Map();
         let presenceFilters = new Map();
         let compressorNodes = new Map();
+        let masterGainNodes = new Map();
         let analyserNodes = new Map();
         let isBypassed = false;
         let animationId = null;
@@ -507,23 +518,51 @@
         }
 
         function setPlatformPreset(lufsValue, peakValue, el) {
-            // Buang active dari butang platform lain
             const parent = el.parentElement;
             parent.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
 
-            // Kemas kini nilai slider dan paparan
             const lufsRange = document.getElementById('lufs-range');
             if (lufsRange) {
                 lufsRange.value = lufsValue;
-                updateLoudness(lufsValue);
+                document.getElementById('m1').textContent = lufsValue + ' LUFS';
+                document.getElementById('loudness-meter').textContent = lufsValue + ' LUFS';
             }
 
             const peakRange = document.getElementById('peak-range');
             if (peakRange) {
                 peakRange.value = peakValue;
-                updatePeak(peakValue);
+                document.getElementById('m2').textContent = peakValue + ' dB';
+                document.getElementById('output-meter').textContent = (parseFloat(peakValue) - 0.2).toFixed(1) + ' dB';
             }
+
+            // PERUBAHAN DRASTIK MENGIKUT PLATFORM PRESET
+            masterGainNodes.forEach((masterGain, id) => {
+                const comp = compressorNodes.get(id);
+                const presence = presenceFilters.get(id);
+
+                if (lufsValue === -14) { 
+                    // 📺 YouTube / Spotify (Seimbang & Standard)
+                    masterGain.gain.value = 1.3;
+                    if(comp) { comp.threshold.value = -18; comp.ratio.value = 4; }
+                    if(presence) presence.gain.value = 2.0;
+                } else if (lufsValue === -16) { 
+                    // 🍏 Apple Music (Lebih dinamik, santai & lembut)
+                    masterGain.gain.value = 1.0;
+                    if(comp) { comp.threshold.value = -14; comp.ratio.value = 2.5; }
+                    if(presence) presence.gain.value = 1.0;
+                } else if (lufsValue === -11) { 
+                    // 📻 Radio / Broadcast (Sangat kuat, padat & agresif)
+                    masterGain.gain.value = 2.1;
+                    if(comp) { comp.threshold.value = -24; comp.ratio.value = 12; }
+                    if(presence) presence.gain.value = 6.0;
+                } else if (lufsValue === -12) { 
+                    // 🎵 SoundCloud / TikTok (Punchy, vokal depan & terkeluar)
+                    masterGain.gain.value = 1.8;
+                    if(comp) { comp.threshold.value = -21; comp.ratio.value = 8; }
+                    if(presence) presence.gain.value = 4.5;
+                }
+            });
         }
 
         function setMasteringStyle(styleName, el) {
@@ -533,16 +572,16 @@
             eqFilters.forEach((filter) => {
                 if (styleName === 'Warm') {
                     filter.type = 'lowshelf';
-                    filter.frequency.value = 250;
-                    filter.gain.value = 3.0;
+                    filter.frequency.value = 300;
+                    filter.gain.value = 6.0;
                 } else if (styleName === 'Open') {
                     filter.type = 'highshelf';
-                    filter.frequency.value = 4000;
-                    filter.gain.value = 3.5;
+                    filter.frequency.value = 3000;
+                    filter.gain.value = 7.0;
                 } else if (styleName === 'Punchy') {
                     filter.type = 'peaking';
                     filter.frequency.value = 1000;
-                    filter.gain.value = 2.0;
+                    filter.gain.value = 5.0;
                 }
             });
         }
@@ -579,20 +618,23 @@
 
                     const filter = audioCtx.createBiquadFilter();
                     filter.type = 'lowshelf';
-                    filter.frequency.value = 250;
-                    filter.gain.value = 2.0;
+                    filter.frequency.value = 300;
+                    filter.gain.value = 4.0;
 
                     const presenceFilter = audioCtx.createBiquadFilter();
                     presenceFilter.type = 'peaking';
                     presenceFilter.frequency.value = 3500;
-                    presenceFilter.gain.value = 1.5;
+                    presenceFilter.gain.value = 3.0;
 
                     const compressor = audioCtx.createDynamicsCompressor();
-                    compressor.threshold.value = -24;
-                    compressor.knee.value = 30;
-                    compressor.ratio.value = 4;
-                    compressor.attack.value = 0.003;
-                    compressor.release.value = 0.250;
+                    compressor.threshold.value = -20;
+                    compressor.knee.value = 10;
+                    compressor.ratio.value = 8;
+                    compressor.attack.value = 0.002;
+                    compressor.release.value = 0.150;
+
+                    const masterGain = audioCtx.createGain();
+                    masterGain.gain.value = 1.4;
 
                     const analyser = audioCtx.createAnalyser();
                     analyser.fftSize = 256;
@@ -601,7 +643,8 @@
                     inputTrimNode.connect(filter);
                     filter.connect(presenceFilter);
                     presenceFilter.connect(compressor);
-                    compressor.connect(analyser);
+                    compressor.connect(masterGain);
+                    masterGain.connect(analyser);
                     analyser.connect(audioCtx.destination);
 
                     sourceNodes.set(playerId, source);
@@ -609,6 +652,7 @@
                     eqFilters.set(playerId, filter);
                     presenceFilters.set(playerId, presenceFilter);
                     compressorNodes.set(playerId, compressor);
+                    masterGainNodes.set(playerId, masterGain);
                     analyserNodes.set(playerId, analyser);
 
                     startVisualizer(analyser);
@@ -636,7 +680,7 @@
                 let x = 0;
 
                 for (let i = 0; i < bufferLength; i++) {
-                    let barHeight = dataArray[i] / 3;
+                    let barHeight = dataArray[i] / 2.5;
                     ctx.fillStyle = '#3b82f6';
                     ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
                     x += barWidth + 1;
@@ -650,10 +694,10 @@
             btn.classList.toggle('active');
             isBypassed = btn.classList.contains('active');
             
-            compressorNodes.forEach((comp, id) => {
+            masterGainNodes.forEach((masterGain, id) => {
                 const source = sourceNodes.get(id);
                 const analyser = analyserNodes.get(id);
-                if (source && comp && analyser) {
+                if (source && masterGain && analyser) {
                     source.disconnect();
                     if (isBypassed) {
                         source.connect(analyser);
@@ -662,12 +706,14 @@
                         const trim = inputTrimNodes.get(id);
                         const filter = eqFilters.get(id);
                         const presence = presenceFilters.get(id);
+                        const comp = compressorNodes.get(id);
                         
                         source.connect(trim);
                         trim.connect(filter);
                         filter.connect(presence);
                         presence.connect(comp);
-                        comp.connect(analyser);
+                        comp.connect(masterGain);
+                        masterGain.connect(analyser);
                         analyser.connect(audioCtx.destination);
                     }
                 }
@@ -683,10 +729,18 @@
         function updateLoudness(value) {
             document.getElementById('m1').textContent = value + ' LUFS';
             document.getElementById('loudness-meter').textContent = value + ' LUFS';
-            const ratioVal = Math.abs(parseFloat(value)) / 2;
+            
+            let boostFactor = 1.0;
+            if (value <= -11) boostFactor = 1.8;
+            else if (value <= -12) boostFactor = 1.5;
+            else if (value <= -14) boostFactor = 1.3;
+            else boostFactor = 1.1;
+
+            masterGainNodes.forEach(node => { node.gain.value = boostFactor; });
+
             compressorNodes.forEach(comp => {
-                comp.ratio.value = ratioVal;
-                comp.threshold.value = parseFloat(value) - 10;
+                comp.threshold.value = parseFloat(value) - 8;
+                comp.ratio.value = Math.abs(parseFloat(value));
             });
         }
 
@@ -697,7 +751,7 @@
 
         function updatePresence(value) {
             document.getElementById('presence-val').textContent = (value > 0 ? '+' : '') + value + ' dB';
-            presenceFilters.forEach(filter => { filter.gain.value = parseFloat(value); });
+            presenceFilters.forEach(filter => { filter.gain.value = parseFloat(value) * 1.5; });
         }
 
         function updateDeEsser(value) {
@@ -713,13 +767,13 @@
             eqFilters.forEach(filter => {
                 if (band === 'low') {
                     filter.frequency.value = 150;
-                    filter.gain.value = parseFloat(value);
+                    filter.gain.value = parseFloat(value) * 1.5;
                 } else if (band === 'mid') {
                     filter.frequency.value = 1000;
-                    filter.gain.value = parseFloat(value);
+                    filter.gain.value = parseFloat(value) * 1.5;
                 } else if (band === 'high') {
                     filter.frequency.value = 6000;
-                    filter.gain.value = parseFloat(value);
+                    filter.gain.value = parseFloat(value) * 1.5;
                 }
             });
         }
@@ -730,7 +784,7 @@
             const status = document.getElementById('load-status');
             
             overlay.style.display = 'flex';
-             fill.style.width = '0%';
+            fill.style.width = '0%';
             status.textContent = "AI sedang menganalisis trek & spektrum audio...";
             
             setTimeout(() => {
