@@ -346,68 +346,6 @@
             color: #ffffff;
         }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 4, 8, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .modal-overlay.open {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 460px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-        }
-
-        .modal-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(13, 18, 33, 0.98);
-        }
-
-        .modal-header h3 {
-            font-size: 0.95rem;
-            color: #60a5fa;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            padding: 16px 20px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
         .genre-category-title {
             font-size: 0.75rem;
             color: #60a5fa;
@@ -426,12 +364,12 @@
         }
 
         .genre-option-btn {
-            background: var(--bg-main);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-sub);
-            padding: 8px 10px;
+            padding: 10px 12px;
             border-radius: 8px;
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             text-align: left;
@@ -502,7 +440,7 @@
 
             <div class="card">
                 <div class="card-title">Genre & Vibe Trek</div>
-                <button class="genre-trigger" onclick="openGenreModal()">
+                <button class="genre-trigger" onclick="switchView('view-genre')">
                     <span id="selectedGenreText">🎵 Malay Phonk</span>
                     <span>▼</span>
                 </button>
@@ -567,17 +505,20 @@
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Utama</div>
         </div>
 
-    </div>
-
-    <!-- GENRE MODAL -->
-    <div class="modal-overlay" id="genreModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Pilih Genre & Vibe</h3>
-                <button class="close-modal" onclick="closeGenreModal()">✕</button>
+        <!-- VIEW 3: PILIH GENRE (HALAMAN KHAS) -->
+        <div id="view-genre" class="view">
+            <div class="section-header">
+                <h2 class="title">Pilih Genre & Vibe</h2>
+                <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Pilih kategori muzik untuk tetapan mastering anda.</p>
             </div>
-            <div class="modal-body" id="modalGenreBody"></div>
+
+            <div class="card" style="padding: 12px 16px;">
+                <div id="genreContainerView"></div>
+            </div>
+
+            <div class="footer-link" onclick="switchView('view-mastering')">← Kembali ke Konsol Mastering</div>
         </div>
+
     </div>
 
     <script>
@@ -589,12 +530,12 @@
             { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
         ];
 
-        const modalBody = document.getElementById('modalGenreBody');
+        const genreContainer = document.getElementById('genreContainerView');
         genreCatalog.forEach(group => {
             const catTitle = document.createElement('div');
             catTitle.className = 'genre-category-title';
             catTitle.textContent = group.category;
-            modalBody.appendChild(catTitle);
+            genreContainer.appendChild(catTitle);
 
             const grid = document.createElement('div');
             grid.className = 'genre-list-grid';
@@ -607,22 +548,14 @@
                 btn.onclick = () => selectGenre(genre, btn);
                 grid.appendChild(btn);
             });
-            modalBody.appendChild(grid);
+            genreContainer.appendChild(grid);
         });
-
-        function openGenreModal() {
-            document.getElementById('genreModal').classList.add('open');
-        }
-
-        function closeGenreModal() {
-            document.getElementById('genreModal').classList.remove('open');
-        }
 
         function selectGenre(genreName, btnElement) {
             document.querySelectorAll('.genre-option-btn').forEach(b => b.classList.remove('selected'));
             btnElement.classList.add('selected');
             document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
-            closeGenreModal();
+            switchView('view-mastering');
         }
 
         function switchView(viewId) {
@@ -663,4 +596,4 @@
     </script>
 </body>
 </html>
-         
+                
