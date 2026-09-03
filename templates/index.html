@@ -396,7 +396,7 @@
 
         .footer-link {
             text-align: center;
-            margin-top: 16px;
+            margin-top: 14px;
             font-size: 0.82rem;
             color: var(--text-sub);
             cursor: pointer;
@@ -450,6 +450,7 @@
 
     <div class="studio-container">
 
+        <!-- VIEW 1: HERO INTRO -->
         <div id="view-intro" class="view active">
             <div class="hero-card">
                 <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop" alt="Studio Mastering" class="hero-image">
@@ -469,17 +470,16 @@
                 </div>
             </div>
             
-            <div style="margin-top: 14px;">
-                <button class="btn-primary" style="background: #1e293b; border: 1px solid var(--border-color); box-shadow: none;" onclick="switchView('view-mastering')">Proses AI Mastering →</button>
-                <div class="footer-link" onclick="alert('Mod Pilihan Aktif')">← Tukar Mod Pilihan</div>
-            </div>
+            <div class="footer-link" onclick="alert('Mod Pilihan Aktif')">← Tukar Mod Pilihan</div>
         </div>
 
+        <!-- VIEW 2: MASTERING CONSOLE & CO-PRODUCER -->
         <div id="view-mastering" class="view">
             <div style="text-align: center; margin-bottom: 14px;">
                 <h2 style="font-size: 1.1rem; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px;">Pro Mastering & AI Console</h2>
             </div>
 
+            <!-- VISUALIZER & METERS -->
             <div class="card">
                 <div class="card-title">
                     <span>Visualizer & Meters</span>
@@ -513,6 +513,7 @@
                 </div>
             </div>
 
+            <!-- AI CO-PRODUCER MODULE -->
             <div class="card coproducer-box">
                 <div class="card-title">
                     <span>🤖 AI Co-Producer Engine</span>
@@ -530,6 +531,7 @@
                 </div>
             </div>
 
+            <!-- UPLOAD FAIL AUDIO -->
             <div class="card">
                 <div class="card-title">Muat Naik Fail Audio</div>
                 <div class="upload-box" onclick="document.getElementById('audioFileInput').click()">
@@ -541,6 +543,7 @@
                 <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px; display: none; border-radius: 8px;"></audio>
             </div>
 
+            <!-- GENRE TRIGGER -->
             <div class="card">
                 <div class="card-title">Genre & Vibe Trek</div>
                 <button class="genre-trigger" onclick="switchView('view-genre')">
@@ -549,6 +552,7 @@
                 </button>
             </div>
 
+            <!-- PLATFORM TARGET PRESET -->
             <div class="card">
                 <div class="card-title">Platform Target Preset</div>
                 <div class="preset-grid">
@@ -559,6 +563,7 @@
                 </div>
             </div>
 
+            <!-- MASTERING CHARACTER -->
             <div class="card">
                 <div class="card-title">Mastering Character</div>
                 <div class="style-grid">
@@ -568,6 +573,7 @@
                 </div>
             </div>
 
+            <!-- DYNAMICS & TONE CUSTOMIZATION -->
             <div class="card">
                 <div class="card-title">Dynamics & Tone Customization</div>
                 
@@ -592,7 +598,7 @@
                         <span>Presence Boost</span>
                         <span id="val-presence">+1.5 dB</span>
                     </div>
-                    <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
+                      <input type="range" min="-5" max="5" step="0.5" value="1.5" oninput="updateVal('val-presence', '+' + this.value + ' dB')">
                 </div>
 
                 <div class="slider-group">
@@ -624,10 +630,108 @@
             <div class="footer-link" onclick="switchView('view-intro')">← Kembali ke Halaman Utama</div>
         </div>
 
+        <!-- VIEW 3: PILIH GENRE (HALAMAN KHAS) -->
         <div id="view-genre" class="view">
             <div class="card">
                 <div class="card-title">
                     <span>Pilih Genre & Vibe</span>
                     <span style="cursor: pointer; font-size: 1rem;" onclick="switchView('view-mastering')">✕</span>
                 </div>
-                <p style="font-size: 0.78rem; color: var(--text-sub); margin-bottom: 8px;">Pilih k
+                <p style="font-size: 0.78rem; color: var(--text-sub); margin-bottom: 8px;">Pilih kategori muzik untuk tetapan mastering anda.</p>
+                <div id="genreContainerView"></div>
+            </div>
+
+            <div class="footer-link" onclick="switchView('view-mastering')">← Kembali ke Konsol Mastering</div>
+        </div>
+
+    </div>
+
+    <script>
+        const genreCatalog = [
+            { category: "🇲🇾 Nusantara / Melayu", list: ["Malay Phonk", "Malay Bounce", "Malay Trap", "Pop Melayu", "Rock Melayu", "Balada Melayu", "Irama Malaysia", "Dangdut Nusantara", "Etnik Nusantara"] },
+            { category: "🎤 Pop & Rock", list: ["Pop", "Synthpop", "Indie Pop", "Dance Pop", "Rock", "Alternative Rock", "Indie Rock", "Pop Rock", "Metal"] },
+            { category: "🔥 Phonk & Hip Hop", list: ["Phonk", "Drift Phonk", "Brazilian Phonk", "Dark Phonk", "Memphis Phonk", "Hip Hop", "Trap", "Boom Bap", "Drill", "Lo-Fi Hip Hop"] },
+            { category: "⚡ Electronic & Techno", list: ["EDM", "Techno", "Dark Techno", "House", "Deep House", "Trance", "Dubstep", "Drum & Bass", "Synthwave", "Cyberpunk"] },
+            { category: "🎬 Cinematic & Mood", list: ["Cinematic", "Epic Orchestra", "Dark Ambient", "Emotional", "Sad Song", "Romantic", "Lounge", "Meditation"] }
+        ];
+
+        const genreContainer = document.getElementById('genreContainerView');
+        genreCatalog.forEach(group => {
+            const catTitle = document.createElement('div');
+            catTitle.className = 'genre-category-title';
+            catTitle.textContent = group.category;
+            genreContainer.appendChild(catTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'genre-list-grid';
+
+            group.list.forEach(genre => {
+                const btn = document.createElement('button');
+                btn.className = 'genre-option-btn';
+                if(genre === "Malay Phonk") btn.classList.add('selected');
+                btn.textContent = genre;
+                btn.onclick = () => selectGenre(genre, btn);
+                grid.appendChild(btn);
+            });
+            genreContainer.appendChild(grid);
+        });
+
+        function selectGenre(genreName, btnElement) {
+            document.querySelectorAll('.genre-option-btn').forEach(b => b.classList.remove('selected'));
+            btnElement.classList.add('selected');
+            document.getElementById('selectedGenreText').textContent = '🎵 ' + genreName;
+            switchView('view-mastering');
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleState(btn) {
+            btn.classList.toggle('active');
+        }
+
+        function selectOption(btn, selector) {
+            btn.closest(selector).querySelectorAll('div').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function selectStyle(btn) {
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function updateVal(id, text) {
+            document.getElementById(id).textContent = text;
+        }
+
+        function updateDyn(val) {
+            const levels = ['Light', 'Soft', 'Medium', 'Heavy', 'Aggressive'];
+            document.getElementById('val-dyn').textContent = levels[val - 1];
+        }
+
+        function loadAudio(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileNameDisplay').textContent = file.name;
+                const player = document.getElementById('audioPlayer');
+                player.src = URL.createObjectURL(file);
+                player.style.display = 'block';
+                player.play();
+            }
+        }
+
+        const waveContainer = document.getElementById('waveformContainer');
+        if (waveContainer) {
+            for (let i = 0; i < 42; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wave-bar';
+                bar.style.height = (Math.floor(Math.random() * 60) + 15) + '%';
+                waveContainer.appendChild(bar);
+            }
+        }
+    </script>
+</body>
+</html>
