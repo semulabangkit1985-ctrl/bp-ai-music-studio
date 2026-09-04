@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BP AI MUSIC STUDIO - V11 Centered</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Space Grotesk',sans-serif;background:#050508;margin:0}
+.mono{font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body class="bg-[#0a0a12] min-h-screen flex justify-center">
+<!-- MAIN BLUE CONTAINER - CENTERED -->
+<div class="w-full max-w-[480px] min-h-screen bg-gradient-to-b from-[#7eb8ff] via-[#6ba8f0] to-[#5a4fcf] relative overflow-hidden">
+
+<!-- FIXED NAV - NOW CENTERED INSIDE BLUE -->
+<div class="sticky top-0 z-20 px-4 pt-4">
+<div class="mx-auto max-w-[440px] bg-[#111111]/90 backdrop-blur-xl rounded-full p-1.5 flex justify-between items-center border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<button class="flex-1 py-2 px-3 rounded-full bg-white text-black font-bold text-[11px] md:text-xs tracking-wider">HOME</button>
+<button class="flex-1 py-2 px-2 rounded-full text-white/60 font-bold text-[11px] md:text-xs tracking-wider hover:text-white">MASTER</button>
+<button class="flex-1 py-2 px-2 rounded-full text-white/60 font-bold text-[11px] md:text-xs tracking-wider hover:text-white">ANALYSIS</button>
+<button class="flex-1 py-2 px-2 rounded-full text-white/60 font-bold text-[11px] md:text-xs tracking-wider hover:text-white">RESULT</button>
+</div>
+</div>
+
+<!-- AUDIO ENGINE BADGE - CENTERED -->
+<div class="px-6 pt-8">
+<div class="mx-auto max-w-[440px] bg-[#1a2a4a]/40 backdrop-blur border border-white/10 rounded-full px-4 py-2 flex justify-center">
+<span class="mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.15em]">AUDIO ENGINE • 44.1kHz • READY • PROG DOWNLOAD</span>
+</div>
+</div>
+
+<!-- TITLE - CENTERED, NOT LEFT -->
+<div class="px-6 pt-6 text-center">
+<h1 class="font-bold leading-[0.9] tracking-tighter text-white text-[42px] md:text-[48px]">
+SONIC<br>MASTER<br>BP AI<br>MUSIC<br>STUDIO
+</h1>
+</div>
+
+<!-- DESCRIPTION - CENTERED BALANCED -->
+<div class="px-6 pt-5 text-center">
+<p class="mono text-[11px] md:text-[12px] leading-[1.7] text-white/90 max-w-[360px] mx-auto">
+Phonic track synthesis: 120 BPM,<br>
+Duration: 30 sec. Kick 60Hz, snare white<br>
+noise burst at 8kHz, bass saw, lead sine +<br>
+square. Original -14.2 LUFS, Mastered -9.2<br>
+LUFS. Compressor, limiter -0.8dB TP,<br>
+presence boost.
+</p>
+</div>
+
+<!-- BUTTONS - CENTERED -->
+<div class="px-6 pt-7 flex flex-col items-center gap-3">
+<button id="masterBtn" class="w-full max-w-[320px] py-3.5 rounded-full bg-[#0a0a0a] text-white font-bold text-[13px] tracking-wide shadow-[0_4px_15px_rgba(0,0,0,0.3)]">START MASTERING →</button>
+<button class="w-full max-w-[320px] py-3 rounded-full bg-white/10 border border-white/20 text-white/80 font-bold text-[12px] backdrop-blur">PLAY DEMO TRACK</button>
+</div>
+
+<!-- STATS - CENTERED BALANCED 2 COLS -->
+<div class="px-6 pt-8 pb-10 grid grid-cols-2 gap-3 max-w-[360px] mx-auto">
+<div class="bg-[#0f1424]/60 backdrop-blur border border-white/10 rounded-[16px] p-4 text-center">
+<div class="mono text-[10px] text-white/50 tracking-wider">BPM</div>
+<div class="font-bold text-[24px] text-white mt-1">120</div>
+</div>
+<div class="bg-[#0f1424]/60 backdrop-blur border border-white/10 rounded-[16px] p-4 text-center">
+<div class="mono text-[10px] text-white/50 tracking-wider">FORMAT</div>
+<div class="font-bold text-[18px] text-white mt-1 mono">WAV/MP3</div>
+</div>
+<div class="bg-[#0f1424]/60 backdrop-blur border border-white/10 rounded-[16px] p-4 text-center">
+<div class="mono text-[10px] text-white/50 tracking-wider">LUFS</div>
+<div class="font-bold text-[18px] text-white mt-1 mono">-9.2 / -14.2</div>
+</div>
+<div class="bg-[#0f1424]/60 backdrop-blur border border-white/10 rounded-[16px] p-4 text-center">
+<div class="mono text-[10px] text-white/50 tracking-wider">ENGINE</div>
+<div class="font-bold text-[12px] text-white mt-1 leading-tight">NUSANTARA<br>AI PRO</div>
+</div>
+</div>
+
+<!-- 4 CARDS CLICKABLE - INSIDE BLUE, CENTERED -->
+<div class="px-4 pb-8 grid grid-cols-2 gap-3 max-w-[440px] mx-auto">
+<div class="bg-white/90 backdrop-blur rounded-[16px] p-3 text-center cursor-pointer hover:bg-white transition"><div class="text-[10px] font-bold mono text-black/50">EQ • DE-ESSER</div><div class="font-bold text-[11px] text-black mt-1">Unlimited Mastering</div></div>
+<div class="bg-white/90 backdrop-blur rounded-[16px] p-3 text-center cursor-pointer hover:bg-white transition"><div class="text-[10px] font-bold mono text-black/50">150+ PLATFORM</div><div class="font-bold text-[11px] text-black mt-1">Distribusi</div></div>
+</div>
+
+</div>
+<script>
+document.getElementById('masterBtn').onclick=()=>{alert('✓ Nav dah center dalam biru muda! Upload MP3 untuk testimoni. Ganti file ini sebagai index.html di GitHub.');};
+</script>
+</body>
+</html>
