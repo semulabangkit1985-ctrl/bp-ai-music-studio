@@ -1,9 +1,9 @@
 """
 SONIQ MASTER AI
-Loudness processing module.
+Loudness control module.
 
-Controls final loudness targets while preserving
-vocal clarity, dynamics and true-peak safety.
+Controls mastering loudness while protecting
+the natural dynamics and vocal clarity.
 """
 
 from dataclasses import dataclass
@@ -12,67 +12,91 @@ from dataclasses import dataclass
 @dataclass
 class LoudnessSettings:
     """
-    Loudness parameters.
+    Loudness target parameters.
     """
 
     target_lufs: float
-    max_true_peak_db: float
-    tolerance_lufs: float
-    enabled: bool
+    true_peak_db: float
+    max_gain_db: float
+    max_loudness_boost_db: float
+    preserve_dynamics: bool
 
 
 class LoudnessProcessor:
     """
-    Creates conservative loudness settings
-    for the mastering chain.
+    Creates safe loudness targets for mastering.
     """
 
     def create_settings(
         self,
-        preset: str = "universal",
+        target_lufs: float = -14.0,
+        true_peak_db: float = -1.0,
         vocal_safe: bool = True,
     ) -> LoudnessSettings:
         """
-        Generate loudness settings for the mastering chain.
+        Generate loudness processing settings.
         """
 
-        # Conservative universal mastering target.
-        target_lufs = -14.0
-        max_true_peak_db = -1.0
-        tolerance_lufs = 0.5
+        target = max(
+            -24.0,
+            min(target_lufs, -5.0),
+        )
 
-        if preset == "fire":
-            target_lufs = -9.0
-            max_true_peak_db = -1.0
-            tolerance_lufs = 0.5
+        ceiling = max(
+            -3.0,
+            min(true_peak_db, -0.1),
+        )
 
-        elif preset == "tape":
-            target_lufs = -12.0
-            max_true_peak_db = -1.0
-            tolerance_lufs = 0.5
-
-        elif preset == "natural":
-            target_lufs = -14.0
-            max_true_peak_db = -1.0
-            tolerance_lufs = 0.5
-
-        elif preset == "cinematic":
-            target_lufs = -16.0
-            max_true_peak_db = -1.0
-            tolerance_lufs = 0.5
-
-        # Protect vocals and preserve reasonable dynamics.
         if vocal_safe:
-            target_lufs = max(target_lufs, -14.0)
-            max_true_peak_db = min(max_true_peak_db, -1.0)
-            tolerance_lufs = max(tolerance_lufs, 0.5)
+            max_gain = 6.0
+            max_boost = 4.0
+        else:
+            max_gain = 8.0
+            max_boost = 6.0
 
         return LoudnessSettings(
-            target_lufs=target_lufs,
-            max_true_peak_db=max_true_peak_db,
-            tolerance_lufs=tolerance_lufs,
-            enabled=True,
+            target_lufs=target,
+            true_peak_db=ceiling,
+            max_gain_db=max_gain,
+            max_loudness_boost_db=max_boost,
+            preserve_dynamics=True,
         )
+
+    def calculate_gain(
+        self,
+        current_lufs: float,
+        settings: LoudnessSettings,
+    ) -> float:
+        """
+        Calculate the required loudness gain.
+
+        The result is limited to avoid excessive processing.
+        """
+
+        if current_lufs is None:
+            return 0.0
+
+        gain = (
+            settings.target_lufs - current_lufs
+        )
+
+        gain = max(
+            -settings.max_gain_db,
+            min(
+                gain,
+                settings.max_gain_db,
+            ),
+        )
+
+        gain = max(
+            -settings.max_loudness_boost_db,
+            min(
+                gain,
+                settings.max_loudness_boost_db,
+            ),
+        )
+
+        return round(gain, 2)
 
     def to_dict(
         self,
@@ -84,9 +108,14 @@ class LoudnessProcessor:
 
         return {
             "target_lufs": settings.target_lufs,
-            "max_true_peak_db": settings.max_true_peak_db,
-            "tolerance_lufs": settings.tolerance_lufs,
-            "enabled": settings.enabled,
+            "true_peak_db": settings.true_peak_db,
+            "max_gain_db": settings.max_gain_db,
+            "max_loudness_boost_db": (
+                settings.max_loudness_boost_db
+            ),
+            "preserve_dynamics": (
+                settings.preserve_dynamics
+            ),
         }
 
 
