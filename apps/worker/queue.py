@@ -1,9 +1,8 @@
 """
 SONIQ MASTER AI
-Background job queue.
+Background worker queue.
 
-Provides Redis/RQ queue configuration for
-asynchronous mastering jobs.
+Provides a simple Redis/RQ queue for audio mastering jobs.
 """
 
 import os
@@ -19,28 +18,27 @@ def get_redis_connection() -> Redis:
 
     redis_url = os.getenv(
         "REDIS_URL",
-        "redis://redis:6379/0",
+        "redis://localhost:6379/0",
     )
 
     return Redis.from_url(
         redis_url,
-        decode_responses=True,
+        decode_responses=False,
     )
 
 
-def get_queue(
-    name: str = "soniq-mastering",
-) -> Queue:
+def get_mastering_queue() -> Queue:
     """
-    Return the mastering job queue.
+    Return the queue used for mastering jobs.
     """
 
     connection = get_redis_connection()
 
     return Queue(
-        name=name,
+        name="soniq-mastering",
         connection=connection,
+        default_timeout=3600,
     )
 
 
-mastering_queue = get_queue()
+mastering_queue = get_mastering_queue()
